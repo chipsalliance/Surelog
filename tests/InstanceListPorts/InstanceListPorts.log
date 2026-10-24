@@ -1,0 +1,1356 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/InstanceListPorts/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InstanceListPorts/dut.sv:5:1: No timescale set for "child".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InstanceListPorts/dut.sv:8:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/InstanceListPorts/dut.sv:5:1: Compile module "work@child".
+[INF:CP0303] ${SURELOG_DIR}/tests/InstanceListPorts/dut.sv:8:1: Compile module "work@top".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/InstanceListPorts/dut.sv:8:1: Top level module "work@top".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 2.
+[NTE:EL0510] Nb instances: 3.
+[NTE:EL0511] Nb leaf instances: 2.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+constant                                              89
+cont_assign                                            3
+design                                                 1
+int_typespec                                           3
+logic_net                                             14
+logic_typespec                                        22
+module_inst                                           10
+operation                                             17
+param_assign                                           3
+parameter                                              3
+port                                                  18
+range                                                 30
+ref_module                                             2
+ref_obj                                               30
+ref_typespec                                          28
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+constant                                              89
+cont_assign                                            5
+design                                                 1
+int_typespec                                           3
+logic_net                                             14
+logic_typespec                                        22
+module_inst                                           10
+operation                                             19
+param_assign                                           3
+parameter                                              3
+port                                                  26
+range                                                 30
+ref_module                                             2
+ref_obj                                               46
+ref_typespec                                          36
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InstanceListPorts/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InstanceListPorts/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/InstanceListPorts/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@top)
+|vpiElaborated:1
+|vpiName:work@top
+|uhdmallModules:
+\_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:5:1, endln:7:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@child
+  |vpiParameter:
+  \_parameter: (work@child.W), line:5:26, endln:5:27
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:5:1, endln:7:10
+    |UINT:4
+    |vpiTypespec:
+    \_ref_typespec: (work@child.W)
+      |vpiParent:
+      \_parameter: (work@child.W), line:5:26, endln:5:27
+      |vpiFullName:work@child.W
+      |vpiActual:
+      \_int_typespec: , line:5:16, endln:5:31
+    |vpiName:W
+    |vpiFullName:work@child.W
+  |vpiParamAssign:
+  \_param_assign: , line:5:26, endln:5:31
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:5:1, endln:7:10
+    |vpiRhs:
+    \_constant: , line:5:30, endln:5:31
+      |vpiParent:
+      \_param_assign: , line:5:26, endln:5:31
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiTypespec:
+      \_ref_typespec: (work@child)
+        |vpiParent:
+        \_constant: , line:5:30, endln:5:31
+        |vpiFullName:work@child
+        |vpiActual:
+        \_int_typespec: , line:5:16, endln:5:31
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@child.W), line:5:26, endln:5:27
+  |vpiDefName:work@child
+  |vpiNet:
+  \_logic_net: (work@child.a), line:5:54, endln:5:55
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:5:1, endln:7:10
+    |vpiName:a
+    |vpiFullName:work@child.a
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@child.y), line:5:78, endln:5:79
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:5:1, endln:7:10
+    |vpiName:y
+    |vpiFullName:work@child.y
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (a), line:5:54, endln:5:55
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:5:1, endln:7:10
+    |vpiName:a
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@child.a.a), line:5:54, endln:5:55
+      |vpiParent:
+      \_port: (a), line:5:54, endln:5:55
+      |vpiName:a
+      |vpiFullName:work@child.a.a
+      |vpiActual:
+      \_logic_net: (work@child.a), line:5:54, endln:5:55
+    |vpiTypedef:
+    \_ref_typespec: (work@child.a)
+      |vpiParent:
+      \_port: (a), line:5:54, endln:5:55
+      |vpiFullName:work@child.a
+      |vpiActual:
+      \_logic_typespec: , line:5:40, endln:5:53
+  |vpiPort:
+  \_port: (y), line:5:78, endln:5:79
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:5:1, endln:7:10
+    |vpiName:y
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@child.y.y), line:5:78, endln:5:79
+      |vpiParent:
+      \_port: (y), line:5:78, endln:5:79
+      |vpiName:y
+      |vpiFullName:work@child.y.y
+      |vpiActual:
+      \_logic_net: (work@child.y), line:5:78, endln:5:79
+    |vpiTypedef:
+    \_ref_typespec: (work@child.y)
+      |vpiParent:
+      \_port: (y), line:5:78, endln:5:79
+      |vpiFullName:work@child.y
+      |vpiActual:
+      \_logic_typespec: , line:5:64, endln:5:77
+  |vpiContAssign:
+  \_cont_assign: , line:6:11, endln:6:17
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:5:1, endln:7:10
+    |vpiRhs:
+    \_operation: , line:6:15, endln:6:17
+      |vpiParent:
+      \_cont_assign: , line:6:11, endln:6:17
+      |vpiOpType:4
+      |vpiOperand:
+      \_ref_obj: (work@child.a), line:6:16, endln:6:17
+        |vpiParent:
+        \_operation: , line:6:15, endln:6:17
+        |vpiName:a
+        |vpiFullName:work@child.a
+        |vpiActual:
+        \_logic_net: (work@child.a), line:5:54, endln:5:55
+    |vpiLhs:
+    \_ref_obj: (work@child.y), line:6:11, endln:6:12
+      |vpiParent:
+      \_cont_assign: , line:6:11, endln:6:17
+      |vpiName:y
+      |vpiFullName:work@child.y
+      |vpiActual:
+      \_logic_net: (work@child.y), line:5:78, endln:5:79
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.x1), line:8:31, endln:8:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:x1
+    |vpiFullName:work@top.x1
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.x2), line:8:53, endln:8:55
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:x2
+    |vpiFullName:work@top.x2
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.y1), line:8:76, endln:8:78
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:y1
+    |vpiFullName:work@top.y1
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.y2), line:8:99, endln:8:101
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:y2
+    |vpiFullName:work@top.y2
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (x1), line:8:31, endln:8:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:x1
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.x1.x1), line:8:31, endln:8:33
+      |vpiParent:
+      \_port: (x1), line:8:31, endln:8:33
+      |vpiName:x1
+      |vpiFullName:work@top.x1.x1
+      |vpiActual:
+      \_logic_net: (work@top.x1), line:8:31, endln:8:33
+    |vpiTypedef:
+    \_ref_typespec: (work@top.x1)
+      |vpiParent:
+      \_port: (x1), line:8:31, endln:8:33
+      |vpiFullName:work@top.x1
+      |vpiActual:
+      \_logic_typespec: , line:8:19, endln:8:30
+  |vpiPort:
+  \_port: (x2), line:8:53, endln:8:55
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:x2
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.x2.x2), line:8:53, endln:8:55
+      |vpiParent:
+      \_port: (x2), line:8:53, endln:8:55
+      |vpiName:x2
+      |vpiFullName:work@top.x2.x2
+      |vpiActual:
+      \_logic_net: (work@top.x2), line:8:53, endln:8:55
+    |vpiTypedef:
+    \_ref_typespec: (work@top.x2)
+      |vpiParent:
+      \_port: (x2), line:8:53, endln:8:55
+      |vpiFullName:work@top.x2
+      |vpiActual:
+      \_logic_typespec: , line:8:41, endln:8:52
+  |vpiPort:
+  \_port: (y1), line:8:76, endln:8:78
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:y1
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.y1.y1), line:8:76, endln:8:78
+      |vpiParent:
+      \_port: (y1), line:8:76, endln:8:78
+      |vpiName:y1
+      |vpiFullName:work@top.y1.y1
+      |vpiActual:
+      \_logic_net: (work@top.y1), line:8:76, endln:8:78
+    |vpiTypedef:
+    \_ref_typespec: (work@top.y1)
+      |vpiParent:
+      \_port: (y1), line:8:76, endln:8:78
+      |vpiFullName:work@top.y1
+      |vpiActual:
+      \_logic_typespec: , line:8:64, endln:8:75
+  |vpiPort:
+  \_port: (y2), line:8:99, endln:8:101
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:y2
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.y2.y2), line:8:99, endln:8:101
+      |vpiParent:
+      \_port: (y2), line:8:99, endln:8:101
+      |vpiName:y2
+      |vpiFullName:work@top.y2.y2
+      |vpiActual:
+      \_logic_net: (work@top.y2), line:8:99, endln:8:101
+    |vpiTypedef:
+    \_ref_typespec: (work@top.y2)
+      |vpiParent:
+      \_port: (y2), line:8:99, endln:8:101
+      |vpiFullName:work@top.y2
+      |vpiActual:
+      \_logic_typespec: , line:8:87, endln:8:98
+  |vpiRefModule:
+  \_ref_module: work@child (u1), line:9:15, endln:9:17
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:u1
+    |vpiDefName:work@child
+    |vpiActual:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:5:1, endln:7:10
+    |vpiPort:
+    \_port: (a), line:9:19, endln:9:25
+      |vpiParent:
+      \_ref_module: work@child (u1), line:9:15, endln:9:17
+      |vpiName:a
+      |vpiHighConn:
+      \_ref_obj: (work@top.u1.a.x1), line:9:22, endln:9:24
+        |vpiParent:
+        \_port: (a), line:9:19, endln:9:25
+        |vpiName:x1
+        |vpiFullName:work@top.u1.a.x1
+        |vpiActual:
+        \_logic_net: (work@top.x1), line:8:31, endln:8:33
+    |vpiPort:
+    \_port: (y), line:9:27, endln:9:33
+      |vpiParent:
+      \_ref_module: work@child (u1), line:9:15, endln:9:17
+      |vpiName:y
+      |vpiHighConn:
+      \_ref_obj: (work@top.u1.y.y1), line:9:30, endln:9:32
+        |vpiParent:
+        \_port: (y), line:9:27, endln:9:33
+        |vpiName:y1
+        |vpiFullName:work@top.u1.y.y1
+        |vpiActual:
+        \_logic_net: (work@top.y1), line:8:76, endln:8:78
+  |vpiRefModule:
+  \_ref_module: work@child (u2), line:9:36, endln:9:38
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:u2
+    |vpiDefName:work@child
+    |vpiActual:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:5:1, endln:7:10
+    |vpiPort:
+    \_port: (a), line:9:40, endln:9:46
+      |vpiParent:
+      \_ref_module: work@child (u2), line:9:36, endln:9:38
+      |vpiName:a
+      |vpiHighConn:
+      \_ref_obj: (work@top.u2.a.x2), line:9:43, endln:9:45
+        |vpiParent:
+        \_port: (a), line:9:40, endln:9:46
+        |vpiName:x2
+        |vpiFullName:work@top.u2.a.x2
+        |vpiActual:
+        \_logic_net: (work@top.x2), line:8:53, endln:8:55
+    |vpiPort:
+    \_port: (y), line:9:48, endln:9:54
+      |vpiParent:
+      \_ref_module: work@child (u2), line:9:36, endln:9:38
+      |vpiName:y
+      |vpiHighConn:
+      \_ref_obj: (work@top.u2.y.y2), line:9:51, endln:9:53
+        |vpiParent:
+        \_port: (y), line:9:48, endln:9:54
+        |vpiName:y2
+        |vpiFullName:work@top.u2.y.y2
+        |vpiActual:
+        \_logic_net: (work@top.y2), line:8:99, endln:8:101
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.x1), line:8:31, endln:8:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.x1)
+      |vpiParent:
+      \_logic_net: (work@top.x1), line:8:31, endln:8:33
+      |vpiFullName:work@top.x1
+      |vpiActual:
+      \_logic_typespec: , line:8:19, endln:8:30
+    |vpiName:x1
+    |vpiFullName:work@top.x1
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.x2), line:8:53, endln:8:55
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.x2)
+      |vpiParent:
+      \_logic_net: (work@top.x2), line:8:53, endln:8:55
+      |vpiFullName:work@top.x2
+      |vpiActual:
+      \_logic_typespec: , line:8:41, endln:8:52
+    |vpiName:x2
+    |vpiFullName:work@top.x2
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.y1), line:8:76, endln:8:78
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.y1)
+      |vpiParent:
+      \_logic_net: (work@top.y1), line:8:76, endln:8:78
+      |vpiFullName:work@top.y1
+      |vpiActual:
+      \_logic_typespec: , line:8:64, endln:8:75
+    |vpiName:y1
+    |vpiFullName:work@top.y1
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.y2), line:8:99, endln:8:101
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.y2)
+      |vpiParent:
+      \_logic_net: (work@top.y2), line:8:99, endln:8:101
+      |vpiFullName:work@top.y2
+      |vpiActual:
+      \_logic_typespec: , line:8:87, endln:8:98
+    |vpiName:y2
+    |vpiFullName:work@top.y2
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (x1), line:8:31, endln:8:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:x1
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.x1), line:8:31, endln:8:33
+      |vpiParent:
+      \_port: (x1), line:8:31, endln:8:33
+      |vpiName:x1
+      |vpiFullName:work@top.x1
+      |vpiActual:
+      \_logic_net: (work@top.x1), line:8:31, endln:8:33
+    |vpiTypedef:
+    \_ref_typespec: (work@top.x1)
+      |vpiParent:
+      \_port: (x1), line:8:31, endln:8:33
+      |vpiFullName:work@top.x1
+      |vpiActual:
+      \_logic_typespec: , line:8:19, endln:8:30
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+  |vpiPort:
+  \_port: (x2), line:8:53, endln:8:55
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:x2
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.x2), line:8:53, endln:8:55
+      |vpiParent:
+      \_port: (x2), line:8:53, endln:8:55
+      |vpiName:x2
+      |vpiFullName:work@top.x2
+      |vpiActual:
+      \_logic_net: (work@top.x2), line:8:53, endln:8:55
+    |vpiTypedef:
+    \_ref_typespec: (work@top.x2)
+      |vpiParent:
+      \_port: (x2), line:8:53, endln:8:55
+      |vpiFullName:work@top.x2
+      |vpiActual:
+      \_logic_typespec: , line:8:41, endln:8:52
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+  |vpiPort:
+  \_port: (y1), line:8:76, endln:8:78
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:y1
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.y1), line:8:76, endln:8:78
+      |vpiParent:
+      \_port: (y1), line:8:76, endln:8:78
+      |vpiName:y1
+      |vpiFullName:work@top.y1
+      |vpiActual:
+      \_logic_net: (work@top.y1), line:8:76, endln:8:78
+    |vpiTypedef:
+    \_ref_typespec: (work@top.y1)
+      |vpiParent:
+      \_port: (y1), line:8:76, endln:8:78
+      |vpiFullName:work@top.y1
+      |vpiActual:
+      \_logic_typespec: , line:8:64, endln:8:75
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+  |vpiPort:
+  \_port: (y2), line:8:99, endln:8:101
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:y2
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.y2), line:8:99, endln:8:101
+      |vpiParent:
+      \_port: (y2), line:8:99, endln:8:101
+      |vpiName:y2
+      |vpiFullName:work@top.y2
+      |vpiActual:
+      \_logic_net: (work@top.y2), line:8:99, endln:8:101
+    |vpiTypedef:
+    \_ref_typespec: (work@top.y2)
+      |vpiParent:
+      \_port: (y2), line:8:99, endln:8:101
+      |vpiFullName:work@top.y2
+      |vpiActual:
+      \_logic_typespec: , line:8:87, endln:8:98
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+  |vpiModule:
+  \_module_inst: work@child (work@top.u1), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:u1
+    |vpiFullName:work@top.u1
+    |vpiParameter:
+    \_parameter: (work@top.u1.W), line:5:26, endln:5:27
+      |vpiParent:
+      \_module_inst: work@child (work@top.u1), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |UINT:4
+      |vpiTypespec:
+      \_ref_typespec: (work@top.u1.W)
+        |vpiParent:
+        \_parameter: (work@top.u1.W), line:5:26, endln:5:27
+        |vpiFullName:work@top.u1.W
+        |vpiActual:
+        \_int_typespec: , line:5:16, endln:5:31
+      |vpiName:W
+      |vpiFullName:work@top.u1.W
+    |vpiParamAssign:
+    \_param_assign: , line:5:26, endln:5:31
+      |vpiParent:
+      \_module_inst: work@child (work@top.u1), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:5:30, endln:5:31
+        |vpiParent:
+        \_param_assign: , line:5:26, endln:5:31
+        |vpiDecompile:4
+        |vpiSize:32
+        |UINT:4
+        |vpiTypespec:
+        \_ref_typespec: (work@top.u1)
+          |vpiParent:
+          \_constant: , line:5:30, endln:5:31
+          |vpiFullName:work@top.u1
+          |vpiActual:
+          \_int_typespec: , line:5:16, endln:5:31
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.u1.W), line:5:26, endln:5:27
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv
+    |vpiDefLineNo:5
+    |vpiNet:
+    \_logic_net: (work@top.u1.a), line:5:54, endln:5:55
+      |vpiParent:
+      \_module_inst: work@child (work@top.u1), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiTypespec:
+      \_ref_typespec: (work@top.u1.a)
+        |vpiParent:
+        \_logic_net: (work@top.u1.a), line:5:54, endln:5:55
+        |vpiFullName:work@top.u1.a
+        |vpiActual:
+        \_logic_typespec: , line:5:40, endln:5:53
+      |vpiName:a
+      |vpiFullName:work@top.u1.a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@top.u1.y), line:5:78, endln:5:79
+      |vpiParent:
+      \_module_inst: work@child (work@top.u1), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiTypespec:
+      \_ref_typespec: (work@top.u1.y)
+        |vpiParent:
+        \_logic_net: (work@top.u1.y), line:5:78, endln:5:79
+        |vpiFullName:work@top.u1.y
+        |vpiActual:
+        \_logic_typespec: , line:5:64, endln:5:77
+      |vpiName:y
+      |vpiFullName:work@top.u1.y
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiPort:
+    \_port: (a), line:5:54, endln:5:55
+      |vpiParent:
+      \_module_inst: work@child (work@top.u1), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@top.x1), line:9:22, endln:9:24
+        |vpiParent:
+        \_port: (a), line:5:54, endln:5:55
+        |vpiName:x1
+        |vpiFullName:work@top.x1
+        |vpiActual:
+        \_logic_net: (work@top.x1), line:8:31, endln:8:33
+      |vpiLowConn:
+      \_ref_obj: (work@top.u1.a), line:9:20, endln:9:21
+        |vpiParent:
+        \_port: (a), line:5:54, endln:5:55
+        |vpiName:a
+        |vpiFullName:work@top.u1.a
+        |vpiActual:
+        \_logic_net: (work@top.u1.a), line:5:54, endln:5:55
+      |vpiTypedef:
+      \_ref_typespec: (work@top.u1.a)
+        |vpiParent:
+        \_port: (a), line:5:54, endln:5:55
+        |vpiFullName:work@top.u1.a
+        |vpiActual:
+        \_logic_typespec: , line:5:40, endln:5:53
+      |vpiInstance:
+      \_module_inst: work@child (work@top.u1), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+    |vpiPort:
+    \_port: (y), line:5:78, endln:5:79
+      |vpiParent:
+      \_module_inst: work@child (work@top.u1), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiName:y
+      |vpiDirection:2
+      |vpiHighConn:
+      \_ref_obj: (work@top.y1), line:9:30, endln:9:32
+        |vpiParent:
+        \_port: (y), line:5:78, endln:5:79
+        |vpiName:y1
+        |vpiFullName:work@top.y1
+        |vpiActual:
+        \_logic_net: (work@top.y1), line:8:76, endln:8:78
+      |vpiLowConn:
+      \_ref_obj: (work@top.u1.y), line:9:28, endln:9:29
+        |vpiParent:
+        \_port: (y), line:5:78, endln:5:79
+        |vpiName:y
+        |vpiFullName:work@top.u1.y
+        |vpiActual:
+        \_logic_net: (work@top.u1.y), line:5:78, endln:5:79
+      |vpiTypedef:
+      \_ref_typespec: (work@top.u1.y)
+        |vpiParent:
+        \_port: (y), line:5:78, endln:5:79
+        |vpiFullName:work@top.u1.y
+        |vpiActual:
+        \_logic_typespec: , line:5:64, endln:5:77
+      |vpiInstance:
+      \_module_inst: work@child (work@top.u1), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+    |vpiContAssign:
+    \_cont_assign: , line:6:11, endln:6:17
+      |vpiParent:
+      \_module_inst: work@child (work@top.u1), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiRhs:
+      \_operation: , line:6:15, endln:6:17
+        |vpiParent:
+        \_cont_assign: , line:6:11, endln:6:17
+        |vpiOpType:4
+        |vpiOperand:
+        \_ref_obj: (work@top.u1.a), line:6:16, endln:6:17
+          |vpiParent:
+          \_operation: , line:6:15, endln:6:17
+          |vpiName:a
+          |vpiFullName:work@top.u1.a
+          |vpiActual:
+          \_logic_net: (work@top.u1.a), line:5:54, endln:5:55
+      |vpiLhs:
+      \_ref_obj: (work@top.u1.y), line:6:11, endln:6:12
+        |vpiParent:
+        \_cont_assign: , line:6:11, endln:6:17
+        |vpiName:y
+        |vpiFullName:work@top.u1.y
+        |vpiActual:
+        \_logic_net: (work@top.u1.y), line:5:78, endln:5:79
+  |vpiModule:
+  \_module_inst: work@child (work@top.u2), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiName:u2
+    |vpiFullName:work@top.u2
+    |vpiParameter:
+    \_parameter: (work@top.u2.W), line:5:26, endln:5:27
+      |vpiParent:
+      \_module_inst: work@child (work@top.u2), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |UINT:4
+      |vpiTypespec:
+      \_ref_typespec: (work@top.u2.W)
+        |vpiParent:
+        \_parameter: (work@top.u2.W), line:5:26, endln:5:27
+        |vpiFullName:work@top.u2.W
+        |vpiActual:
+        \_int_typespec: , line:5:16, endln:5:31
+      |vpiName:W
+      |vpiFullName:work@top.u2.W
+    |vpiParamAssign:
+    \_param_assign: , line:5:26, endln:5:31
+      |vpiParent:
+      \_module_inst: work@child (work@top.u2), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:5:30, endln:5:31
+        |vpiParent:
+        \_param_assign: , line:5:26, endln:5:31
+        |vpiDecompile:4
+        |vpiSize:32
+        |UINT:4
+        |vpiTypespec:
+        \_ref_typespec: (work@top.u2)
+          |vpiParent:
+          \_constant: , line:5:30, endln:5:31
+          |vpiFullName:work@top.u2
+          |vpiActual:
+          \_int_typespec: , line:5:16, endln:5:31
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.u2.W), line:5:26, endln:5:27
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv
+    |vpiDefLineNo:5
+    |vpiNet:
+    \_logic_net: (work@top.u2.a), line:5:54, endln:5:55
+      |vpiParent:
+      \_module_inst: work@child (work@top.u2), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiTypespec:
+      \_ref_typespec: (work@top.u2.a)
+        |vpiParent:
+        \_logic_net: (work@top.u2.a), line:5:54, endln:5:55
+        |vpiFullName:work@top.u2.a
+        |vpiActual:
+        \_logic_typespec: , line:5:40, endln:5:53
+      |vpiName:a
+      |vpiFullName:work@top.u2.a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@top.u2.y), line:5:78, endln:5:79
+      |vpiParent:
+      \_module_inst: work@child (work@top.u2), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiTypespec:
+      \_ref_typespec: (work@top.u2.y)
+        |vpiParent:
+        \_logic_net: (work@top.u2.y), line:5:78, endln:5:79
+        |vpiFullName:work@top.u2.y
+        |vpiActual:
+        \_logic_typespec: , line:5:64, endln:5:77
+      |vpiName:y
+      |vpiFullName:work@top.u2.y
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:8:1, endln:10:10
+    |vpiPort:
+    \_port: (a), line:5:54, endln:5:55
+      |vpiParent:
+      \_module_inst: work@child (work@top.u2), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@top.x2), line:9:43, endln:9:45
+        |vpiParent:
+        \_port: (a), line:5:54, endln:5:55
+        |vpiName:x2
+        |vpiFullName:work@top.x2
+        |vpiActual:
+        \_logic_net: (work@top.x2), line:8:53, endln:8:55
+      |vpiLowConn:
+      \_ref_obj: (work@top.u2.a), line:9:41, endln:9:42
+        |vpiParent:
+        \_port: (a), line:5:54, endln:5:55
+        |vpiName:a
+        |vpiFullName:work@top.u2.a
+        |vpiActual:
+        \_logic_net: (work@top.u2.a), line:5:54, endln:5:55
+      |vpiTypedef:
+      \_ref_typespec: (work@top.u2.a)
+        |vpiParent:
+        \_port: (a), line:5:54, endln:5:55
+        |vpiFullName:work@top.u2.a
+        |vpiActual:
+        \_logic_typespec: , line:5:40, endln:5:53
+      |vpiInstance:
+      \_module_inst: work@child (work@top.u2), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+    |vpiPort:
+    \_port: (y), line:5:78, endln:5:79
+      |vpiParent:
+      \_module_inst: work@child (work@top.u2), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiName:y
+      |vpiDirection:2
+      |vpiHighConn:
+      \_ref_obj: (work@top.y2), line:9:51, endln:9:53
+        |vpiParent:
+        \_port: (y), line:5:78, endln:5:79
+        |vpiName:y2
+        |vpiFullName:work@top.y2
+        |vpiActual:
+        \_logic_net: (work@top.y2), line:8:99, endln:8:101
+      |vpiLowConn:
+      \_ref_obj: (work@top.u2.y), line:9:49, endln:9:50
+        |vpiParent:
+        \_port: (y), line:5:78, endln:5:79
+        |vpiName:y
+        |vpiFullName:work@top.u2.y
+        |vpiActual:
+        \_logic_net: (work@top.u2.y), line:5:78, endln:5:79
+      |vpiTypedef:
+      \_ref_typespec: (work@top.u2.y)
+        |vpiParent:
+        \_port: (y), line:5:78, endln:5:79
+        |vpiFullName:work@top.u2.y
+        |vpiActual:
+        \_logic_typespec: , line:5:64, endln:5:77
+      |vpiInstance:
+      \_module_inst: work@child (work@top.u2), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+    |vpiContAssign:
+    \_cont_assign: , line:6:11, endln:6:17
+      |vpiParent:
+      \_module_inst: work@child (work@top.u2), file:${SURELOG_DIR}/tests/InstanceListPorts/dut.sv, line:9:4, endln:9:56
+      |vpiRhs:
+      \_operation: , line:6:15, endln:6:17
+        |vpiParent:
+        \_cont_assign: , line:6:11, endln:6:17
+        |vpiOpType:4
+        |vpiOperand:
+        \_ref_obj: (work@top.u2.a), line:6:16, endln:6:17
+          |vpiParent:
+          \_operation: , line:6:15, endln:6:17
+          |vpiName:a
+          |vpiFullName:work@top.u2.a
+          |vpiActual:
+          \_logic_net: (work@top.u2.a), line:5:54, endln:5:55
+      |vpiLhs:
+      \_ref_obj: (work@top.u2.y), line:6:11, endln:6:12
+        |vpiParent:
+        \_cont_assign: , line:6:11, endln:6:17
+        |vpiName:y
+        |vpiFullName:work@top.u2.y
+        |vpiActual:
+        \_logic_net: (work@top.u2.y), line:5:78, endln:5:79
+\_weaklyReferenced:
+\_int_typespec: , line:5:16, endln:5:31
+\_logic_typespec: , line:8:19, endln:8:30
+  |vpiRange:
+  \_range: , line:8:25, endln:8:30
+    |vpiParent:
+    \_logic_typespec: , line:8:19, endln:8:30
+    |vpiLeftRange:
+    \_constant: , line:8:26, endln:8:27
+      |vpiParent:
+      \_range: , line:8:25, endln:8:30
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:28, endln:8:29
+      |vpiParent:
+      \_range: , line:8:25, endln:8:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:41, endln:8:52
+  |vpiRange:
+  \_range: , line:8:47, endln:8:52
+    |vpiParent:
+    \_logic_typespec: , line:8:41, endln:8:52
+    |vpiLeftRange:
+    \_constant: , line:8:48, endln:8:49
+      |vpiParent:
+      \_range: , line:8:47, endln:8:52
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:50, endln:8:51
+      |vpiParent:
+      \_range: , line:8:47, endln:8:52
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:64, endln:8:75
+  |vpiRange:
+  \_range: , line:8:70, endln:8:75
+    |vpiParent:
+    \_logic_typespec: , line:8:64, endln:8:75
+    |vpiLeftRange:
+    \_constant: , line:8:71, endln:8:72
+      |vpiParent:
+      \_range: , line:8:70, endln:8:75
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:73, endln:8:74
+      |vpiParent:
+      \_range: , line:8:70, endln:8:75
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:87, endln:8:98
+  |vpiRange:
+  \_range: , line:8:93, endln:8:98
+    |vpiParent:
+    \_logic_typespec: , line:8:87, endln:8:98
+    |vpiLeftRange:
+    \_constant: , line:8:94, endln:8:95
+      |vpiParent:
+      \_range: , line:8:93, endln:8:98
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:96, endln:8:97
+      |vpiParent:
+      \_range: , line:8:93, endln:8:98
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:19, endln:8:30
+  |vpiParent:
+  \_logic_net: (work@top.x1), line:8:31, endln:8:33
+  |vpiRange:
+  \_range: , line:8:25, endln:8:30
+    |vpiParent:
+    \_logic_typespec: , line:8:19, endln:8:30
+    |vpiLeftRange:
+    \_constant: , line:8:26, endln:8:27
+      |vpiParent:
+      \_range: , line:8:25, endln:8:30
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:28, endln:8:29
+      |vpiParent:
+      \_range: , line:8:25, endln:8:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:41, endln:8:52
+  |vpiParent:
+  \_logic_net: (work@top.x2), line:8:53, endln:8:55
+  |vpiRange:
+  \_range: , line:8:47, endln:8:52
+    |vpiParent:
+    \_logic_typespec: , line:8:41, endln:8:52
+    |vpiLeftRange:
+    \_constant: , line:8:48, endln:8:49
+      |vpiParent:
+      \_range: , line:8:47, endln:8:52
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:50, endln:8:51
+      |vpiParent:
+      \_range: , line:8:47, endln:8:52
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:64, endln:8:75
+  |vpiParent:
+  \_logic_net: (work@top.y1), line:8:76, endln:8:78
+  |vpiRange:
+  \_range: , line:8:70, endln:8:75
+    |vpiParent:
+    \_logic_typespec: , line:8:64, endln:8:75
+    |vpiLeftRange:
+    \_constant: , line:8:71, endln:8:72
+      |vpiParent:
+      \_range: , line:8:70, endln:8:75
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:73, endln:8:74
+      |vpiParent:
+      \_range: , line:8:70, endln:8:75
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:87, endln:8:98
+  |vpiParent:
+  \_logic_net: (work@top.y2), line:8:99, endln:8:101
+  |vpiRange:
+  \_range: , line:8:93, endln:8:98
+    |vpiParent:
+    \_logic_typespec: , line:8:87, endln:8:98
+    |vpiLeftRange:
+    \_constant: , line:8:94, endln:8:95
+      |vpiParent:
+      \_range: , line:8:93, endln:8:98
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:96, endln:8:97
+      |vpiParent:
+      \_range: , line:8:93, endln:8:98
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:40, endln:5:53
+  |vpiRange:
+  \_range: , line:5:46, endln:5:53
+    |vpiParent:
+    \_logic_typespec: , line:5:40, endln:5:53
+    |vpiLeftRange:
+    \_constant: , line:5:47, endln:5:48
+      |vpiParent:
+      \_range: , line:5:46, endln:5:53
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:51, endln:5:52
+      |vpiParent:
+      \_range: , line:5:46, endln:5:53
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:64, endln:5:77
+  |vpiRange:
+  \_range: , line:5:70, endln:5:77
+    |vpiParent:
+    \_logic_typespec: , line:5:64, endln:5:77
+    |vpiLeftRange:
+    \_constant: , line:5:71, endln:5:72
+      |vpiParent:
+      \_range: , line:5:70, endln:5:77
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:75, endln:5:76
+      |vpiParent:
+      \_range: , line:5:70, endln:5:77
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:40, endln:5:53
+  |vpiParent:
+  \_logic_net: (work@top.u1.a), line:5:54, endln:5:55
+  |vpiRange:
+  \_range: , line:5:46, endln:5:53
+    |vpiParent:
+    \_logic_typespec: , line:5:40, endln:5:53
+    |vpiLeftRange:
+    \_constant: , line:5:47, endln:5:48
+      |vpiParent:
+      \_range: , line:5:46, endln:5:53
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:51, endln:5:52
+      |vpiParent:
+      \_range: , line:5:46, endln:5:53
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:64, endln:5:77
+  |vpiRange:
+  \_range: , line:5:70, endln:5:77
+    |vpiParent:
+    \_logic_typespec: , line:5:64, endln:5:77
+    |vpiLeftRange:
+    \_constant: , line:5:71, endln:5:72
+      |vpiParent:
+      \_range: , line:5:70, endln:5:77
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:75, endln:5:76
+      |vpiParent:
+      \_range: , line:5:70, endln:5:77
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:40, endln:5:53
+  |vpiRange:
+  \_range: , line:5:46, endln:5:53
+    |vpiParent:
+    \_logic_typespec: , line:5:40, endln:5:53
+    |vpiLeftRange:
+    \_constant: , line:5:47, endln:5:48
+      |vpiParent:
+      \_range: , line:5:46, endln:5:53
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:51, endln:5:52
+      |vpiParent:
+      \_range: , line:5:46, endln:5:53
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:64, endln:5:77
+  |vpiRange:
+  \_range: , line:5:70, endln:5:77
+    |vpiParent:
+    \_logic_typespec: , line:5:64, endln:5:77
+    |vpiLeftRange:
+    \_constant: , line:5:71, endln:5:72
+      |vpiParent:
+      \_range: , line:5:70, endln:5:77
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:75, endln:5:76
+      |vpiParent:
+      \_range: , line:5:70, endln:5:77
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:40, endln:5:53
+  |vpiParent:
+  \_logic_net: (work@top.u2.a), line:5:54, endln:5:55
+  |vpiRange:
+  \_range: , line:5:46, endln:5:53
+    |vpiParent:
+    \_logic_typespec: , line:5:40, endln:5:53
+    |vpiLeftRange:
+    \_constant: , line:5:47, endln:5:48
+      |vpiParent:
+      \_range: , line:5:46, endln:5:53
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:51, endln:5:52
+      |vpiParent:
+      \_range: , line:5:46, endln:5:53
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:64, endln:5:77
+  |vpiRange:
+  \_range: , line:5:70, endln:5:77
+    |vpiParent:
+    \_logic_typespec: , line:5:64, endln:5:77
+    |vpiLeftRange:
+    \_constant: , line:5:71, endln:5:72
+      |vpiParent:
+      \_range: , line:5:70, endln:5:77
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:75, endln:5:76
+      |vpiParent:
+      \_range: , line:5:70, endln:5:77
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:40, endln:5:53
+  |vpiRange:
+  \_range: , line:5:46, endln:5:53
+    |vpiParent:
+    \_logic_typespec: , line:5:40, endln:5:53
+    |vpiLeftRange:
+    \_operation: , line:5:47, endln:5:50
+      |vpiParent:
+      \_range: , line:5:46, endln:5:53
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (W), line:5:47, endln:5:48
+        |vpiParent:
+        \_operation: , line:5:47, endln:5:50
+        |vpiName:W
+      |vpiOperand:
+      \_constant: , line:5:49, endln:5:50
+        |vpiParent:
+        \_operation: , line:5:47, endln:5:50
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:51, endln:5:52
+      |vpiParent:
+      \_range: , line:5:46, endln:5:53
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:64, endln:5:77
+  |vpiRange:
+  \_range: , line:5:70, endln:5:77
+    |vpiParent:
+    \_logic_typespec: , line:5:64, endln:5:77
+    |vpiLeftRange:
+    \_operation: , line:5:71, endln:5:74
+      |vpiParent:
+      \_range: , line:5:70, endln:5:77
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (W), line:5:71, endln:5:72
+        |vpiParent:
+        \_operation: , line:5:71, endln:5:74
+        |vpiName:W
+      |vpiOperand:
+      \_constant: , line:5:73, endln:5:74
+        |vpiParent:
+        \_operation: , line:5:71, endln:5:74
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:75, endln:5:76
+      |vpiParent:
+      \_range: , line:5:70, endln:5:77
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:19, endln:8:30
+  |vpiRange:
+  \_range: , line:8:25, endln:8:30
+    |vpiParent:
+    \_logic_typespec: , line:8:19, endln:8:30
+    |vpiLeftRange:
+    \_constant: , line:8:26, endln:8:27
+      |vpiParent:
+      \_range: , line:8:25, endln:8:30
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:28, endln:8:29
+      |vpiParent:
+      \_range: , line:8:25, endln:8:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:41, endln:8:52
+  |vpiRange:
+  \_range: , line:8:47, endln:8:52
+    |vpiParent:
+    \_logic_typespec: , line:8:41, endln:8:52
+    |vpiLeftRange:
+    \_constant: , line:8:48, endln:8:49
+      |vpiParent:
+      \_range: , line:8:47, endln:8:52
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:50, endln:8:51
+      |vpiParent:
+      \_range: , line:8:47, endln:8:52
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:64, endln:8:75
+  |vpiRange:
+  \_range: , line:8:70, endln:8:75
+    |vpiParent:
+    \_logic_typespec: , line:8:64, endln:8:75
+    |vpiLeftRange:
+    \_constant: , line:8:71, endln:8:72
+      |vpiParent:
+      \_range: , line:8:70, endln:8:75
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:73, endln:8:74
+      |vpiParent:
+      \_range: , line:8:70, endln:8:75
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:87, endln:8:98
+  |vpiRange:
+  \_range: , line:8:93, endln:8:98
+    |vpiParent:
+    \_logic_typespec: , line:8:87, endln:8:98
+    |vpiLeftRange:
+    \_constant: , line:8:94, endln:8:95
+      |vpiParent:
+      \_range: , line:8:93, endln:8:98
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:96, endln:8:97
+      |vpiParent:
+      \_range: , line:8:93, endln:8:98
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:5:16, endln:5:31
+  |vpiParent:
+  \_ref_typespec: (work@top.u1.W)
+\_int_typespec: , line:5:16, endln:5:31
+  |vpiParent:
+  \_ref_typespec: (work@top.u2.W)
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 2
+[   NOTE] : 5
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/InstanceListPorts/dut.sv | ${SURELOG_DIR}/build/regression/InstanceListPorts/roundtrip/dut_000.sv | 3 | 10 |
+============================== End RoundTrip Results ==============================
