@@ -890,6 +890,28 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
         Udp_instance = fC->Child(Udp_instance);
       }
     }
+    // A comma-separated instance list -- `fifo4 #(8) rfifo(...), wfifo(...);`
+    // -- is ONE instantiation node with several hierarchical_instance
+    // children, and the walk above lands on the FIRST of them for every
+    // instance of the list.  wfifo then took rfifo's port actuals (its own
+    // were never read): opencores' simple_spi drove rfdout / rffull /
+    // rfempty from both FIFOs and the write FIFO had no data path at all.
+    // Pick the hierarchical_instance whose name is THIS instance's.
+    if (fC->Type(Udp_instance) == VObjectType::paHierarchical_instance) {
+      std::string want = instance->getInstanceName();
+      if (const size_t br = want.find('['); br != std::string::npos)
+        want.resize(br);
+      for (NodeId cand = Udp_instance;
+           cand && fC->Type(cand) == VObjectType::paHierarchical_instance;
+           cand = fC->Sibling(cand)) {
+        const NodeId noi = fC->Child(cand);
+        if (fC->Type(noi) != VObjectType::paName_of_instance) continue;
+        if (fC->SymName(fC->Child(noi)) == want) {
+          Udp_instance = cand;
+          break;
+        }
+      }
+    }
     NodeId Net_lvalue;
     if (const NodeId Name_of_instance = fC->Child(Udp_instance);
         fC->Type(Name_of_instance) == VObjectType::paName_of_instance) {
@@ -1127,6 +1149,28 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       netlist->delays(delays);
       delays->push_back(delay_expr);
       Udp_instance = fC->Sibling(Udp_instance);
+    }
+    // A comma-separated instance list -- `fifo4 #(8) rfifo(...), wfifo(...);`
+    // -- is ONE instantiation node with several hierarchical_instance
+    // children, and the walk above lands on the FIRST of them for every
+    // instance of the list.  wfifo then took rfifo's port actuals (its own
+    // were never read): opencores' simple_spi drove rfdout / rffull /
+    // rfempty from both FIFOs and the write FIFO had no data path at all.
+    // Pick the hierarchical_instance whose name is THIS instance's.
+    if (fC->Type(Udp_instance) == VObjectType::paHierarchical_instance) {
+      std::string want = instance->getInstanceName();
+      if (const size_t br = want.find('['); br != std::string::npos)
+        want.resize(br);
+      for (NodeId cand = Udp_instance;
+           cand && fC->Type(cand) == VObjectType::paHierarchical_instance;
+           cand = fC->Sibling(cand)) {
+        const NodeId noi = fC->Child(cand);
+        if (fC->Type(noi) != VObjectType::paName_of_instance) continue;
+        if (fC->SymName(fC->Child(noi)) == want) {
+          Udp_instance = cand;
+          break;
+        }
+      }
     }
     NodeId Net_lvalue;
     if (const NodeId Name_of_instance = fC->Child(Udp_instance);
