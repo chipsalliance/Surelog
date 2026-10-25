@@ -1,0 +1,1583 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/SizeCastParamWildcard/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv:6:1: No timescale set for "pk".
+[WRN:PA0205] ${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv:12:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0301] ${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv:6:1: Compile package "pk".
+[INF:CP0303] ${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv:12:1: Compile module "work@top".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv:12:1: Top level module "work@top".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 1.
+[NTE:EL0510] Nb instances: 1.
+[NTE:EL0511] Nb leaf instances: 1.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+bit_select                                             3
+constant                                             121
+cont_assign                                            3
+design                                                 1
+import_typespec                                        1
+int_typespec                                          26
+integer_typespec                                       8
+logic_net                                              4
+logic_typespec                                        12
+module_inst                                            5
+operation                                             27
+package                                                2
+param_assign                                          24
+parameter                                             28
+port                                                   4
+range                                                 32
+ref_obj                                               21
+ref_typespec                                          64
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+bit_select                                             6
+constant                                             121
+cont_assign                                            6
+design                                                 1
+import_typespec                                        1
+int_typespec                                          26
+integer_typespec                                       8
+logic_net                                              4
+logic_typespec                                        12
+module_inst                                            5
+operation                                             30
+package                                                2
+param_assign                                          24
+parameter                                             28
+port                                                   6
+range                                                 32
+ref_obj                                               26
+ref_typespec                                          66
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SizeCastParamWildcard/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/SizeCastParamWildcard/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/SizeCastParamWildcard/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@top)
+|vpiElaborated:1
+|vpiName:work@top
+|uhdmallPackages:
+\_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:pk
+  |vpiFullName:pk::
+  |vpiParameter:
+  \_parameter: (pk::W), line:7:14, endln:7:15
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |UINT:20
+    |vpiTypespec:
+    \_ref_typespec: (pk::W)
+      |vpiParent:
+      \_parameter: (pk::W), line:7:14, endln:7:15
+      |vpiFullName:pk::W
+      |vpiActual:
+      \_int_typespec: , line:7:3, endln:7:20
+    |vpiLocalParam:1
+    |vpiName:W
+    |vpiFullName:pk::W
+  |vpiParameter:
+  \_parameter: (pk::a_gp), line:8:14, endln:8:18
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiLocalParam:1
+    |vpiName:a_gp
+    |vpiFullName:pk::a_gp
+  |vpiParameter:
+  \_parameter: (pk::b_gp), line:9:14, endln:9:18
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiLocalParam:1
+    |vpiName:b_gp
+    |vpiFullName:pk::b_gp
+  |vpiParameter:
+  \_parameter: (pk::c_gp), line:10:14, endln:10:18
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiLocalParam:1
+    |vpiName:c_gp
+    |vpiFullName:pk::c_gp
+  |vpiParamAssign:
+  \_param_assign: , line:7:14, endln:7:20
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiRhs:
+    \_constant: , line:7:18, endln:7:20
+      |vpiParent:
+      \_param_assign: , line:7:14, endln:7:20
+      |vpiDecompile:20
+      |vpiSize:64
+      |UINT:20
+      |vpiTypespec:
+      \_ref_typespec: (pk)
+        |vpiParent:
+        \_constant: , line:7:18, endln:7:20
+        |vpiFullName:pk
+        |vpiActual:
+        \_int_typespec: , line:7:3, endln:7:20
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (pk::W), line:7:14, endln:7:15
+  |vpiParamAssign:
+  \_param_assign: , line:8:14, endln:8:33
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiRhs:
+    \_operation: , line:8:21, endln:8:33
+      |vpiParent:
+      \_param_assign: , line:8:14, endln:8:33
+      |vpiTypespec:
+      \_ref_typespec: (pk)
+        |vpiParent:
+        \_operation: , line:8:21, endln:8:33
+        |vpiFullName:pk
+        |vpiActual:
+        \_logic_typespec: , line:8:21, endln:8:22
+      |vpiOpType:67
+      |vpiOperand:
+      \_constant: , line:8:24, endln:8:32
+        |vpiParent:
+        \_operation: , line:8:21, endln:8:33
+        |vpiDecompile:'h0b00?
+        |vpiSize:-1
+        |HEX:0b00?
+        |vpiConstType:5
+    |vpiLhs:
+    \_parameter: (pk::a_gp), line:8:14, endln:8:18
+  |vpiParamAssign:
+  \_param_assign: , line:9:14, endln:9:34
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiRhs:
+    \_operation: , line:9:21, endln:9:34
+      |vpiParent:
+      \_param_assign: , line:9:14, endln:9:34
+      |vpiTypespec:
+      \_ref_typespec: (pk)
+        |vpiParent:
+        \_operation: , line:9:21, endln:9:34
+        |vpiFullName:pk
+        |vpiActual:
+        \_integer_typespec: , line:9:21, endln:9:23
+      |vpiOpType:67
+      |vpiOperand:
+      \_constant: , line:9:25, endln:9:33
+        |vpiParent:
+        \_operation: , line:9:21, endln:9:34
+        |vpiDecompile:'h0b00?
+        |vpiSize:-1
+        |HEX:0b00?
+        |vpiConstType:5
+    |vpiLhs:
+    \_parameter: (pk::b_gp), line:9:14, endln:9:18
+  |vpiParamAssign:
+  \_param_assign: , line:10:14, endln:10:35
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiRhs:
+    \_operation: , line:10:21, endln:10:35
+      |vpiParent:
+      \_param_assign: , line:10:14, endln:10:35
+      |vpiTypespec:
+      \_ref_typespec: (pk)
+        |vpiParent:
+        \_operation: , line:10:21, endln:10:35
+        |vpiFullName:pk
+        |vpiActual:
+        \_int_typespec: , line:7:3, endln:7:20
+      |vpiOpType:67
+      |vpiOperand:
+      \_constant: , line:10:26, endln:10:34
+        |vpiParent:
+        \_operation: , line:10:21, endln:10:35
+        |vpiDecompile:'h0b00?
+        |vpiSize:-1
+        |HEX:0b00?
+        |vpiConstType:5
+    |vpiLhs:
+    \_parameter: (pk::c_gp), line:10:14, endln:10:18
+  |vpiDefName:pk
+|uhdmtopPackages:
+\_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:pk
+  |vpiFullName:pk::
+  |vpiParameter:
+  \_parameter: (pk::W), line:7:14, endln:7:15
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |UINT:20
+    |vpiTypespec:
+    \_ref_typespec: (pk::W)
+      |vpiParent:
+      \_parameter: (pk::W), line:7:14, endln:7:15
+      |vpiFullName:pk::W
+      |vpiActual:
+      \_int_typespec: , line:7:3, endln:7:20
+    |vpiLocalParam:1
+    |vpiName:W
+    |vpiFullName:pk::W
+  |vpiParameter:
+  \_parameter: (pk::a_gp), line:8:14, endln:8:18
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |BIN:0000101100000000????
+    |vpiTypespec:
+    \_ref_typespec: (pk::a_gp)
+      |vpiParent:
+      \_parameter: (pk::a_gp), line:8:14, endln:8:18
+      |vpiFullName:pk::a_gp
+      |vpiActual:
+      \_int_typespec: , line:8:3, endln:8:33
+    |vpiLocalParam:1
+    |vpiName:a_gp
+    |vpiFullName:pk::a_gp
+  |vpiParameter:
+  \_parameter: (pk::b_gp), line:9:14, endln:9:18
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |BIN:0000101100000000????
+    |vpiTypespec:
+    \_ref_typespec: (pk::b_gp)
+      |vpiParent:
+      \_parameter: (pk::b_gp), line:9:14, endln:9:18
+      |vpiFullName:pk::b_gp
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:9:34
+    |vpiLocalParam:1
+    |vpiName:b_gp
+    |vpiFullName:pk::b_gp
+  |vpiParameter:
+  \_parameter: (pk::c_gp), line:10:14, endln:10:18
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |BIN:0000101100000000????
+    |vpiTypespec:
+    \_ref_typespec: (pk::c_gp)
+      |vpiParent:
+      \_parameter: (pk::c_gp), line:10:14, endln:10:18
+      |vpiFullName:pk::c_gp
+      |vpiActual:
+      \_int_typespec: , line:10:3, endln:10:35
+    |vpiLocalParam:1
+    |vpiName:c_gp
+    |vpiFullName:pk::c_gp
+  |vpiParamAssign:
+  \_param_assign: , line:7:14, endln:7:20
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiRhs:
+    \_constant: , line:7:18, endln:7:20
+      |vpiParent:
+      \_param_assign: , line:7:14, endln:7:20
+      |vpiDecompile:20
+      |vpiSize:32
+      |UINT:20
+      |vpiTypespec:
+      \_ref_typespec: (pk)
+        |vpiParent:
+        \_constant: , line:7:18, endln:7:20
+        |vpiFullName:pk
+        |vpiActual:
+        \_int_typespec: , line:7:3, endln:7:20
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (pk::W), line:7:14, endln:7:15
+  |vpiParamAssign:
+  \_param_assign: , line:8:14, endln:8:33
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiRhs:
+    \_constant: , line:8:21, endln:8:33
+      |vpiParent:
+      \_param_assign: , line:8:14, endln:8:33
+      |vpiDecompile:0000101100000000????
+      |vpiSize:20
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (pk)
+        |vpiParent:
+        \_constant: , line:8:21, endln:8:33
+        |vpiFullName:pk
+        |vpiActual:
+        \_int_typespec: , line:8:3, endln:8:33
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (pk::a_gp), line:8:14, endln:8:18
+  |vpiParamAssign:
+  \_param_assign: , line:9:14, endln:9:34
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiRhs:
+    \_constant: , line:9:21, endln:9:34
+      |vpiParent:
+      \_param_assign: , line:9:14, endln:9:34
+      |vpiSize:20
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (pk)
+        |vpiParent:
+        \_constant: , line:9:21, endln:9:34
+        |vpiFullName:pk
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:9:34
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (pk::b_gp), line:9:14, endln:9:18
+  |vpiParamAssign:
+  \_param_assign: , line:10:14, endln:10:35
+    |vpiParent:
+    \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+    |vpiRhs:
+    \_constant: , line:10:21, endln:10:35
+      |vpiParent:
+      \_param_assign: , line:10:14, endln:10:35
+      |vpiSize:20
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (pk)
+        |vpiParent:
+        \_constant: , line:10:21, endln:10:35
+        |vpiFullName:pk
+        |vpiActual:
+        \_int_typespec: , line:10:3, endln:10:35
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (pk::c_gp), line:10:14, endln:10:18
+  |vpiDefName:pk
+  |vpiTop:1
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.W), line:7:14, endln:7:15
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |UINT:20
+    |vpiTypespec:
+    \_ref_typespec: (work@top.W)
+      |vpiParent:
+      \_parameter: (work@top.W), line:7:14, endln:7:15
+      |vpiFullName:work@top.W
+      |vpiActual:
+      \_int_typespec: , line:7:3, endln:7:20
+    |vpiLocalParam:1
+    |vpiName:W
+    |vpiFullName:work@top.W
+    |vpiImported:pk
+  |vpiParameter:
+  \_parameter: (work@top.a_gp), line:8:14, endln:8:18
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |BIN:0000101100000000????
+    |vpiTypespec:
+    \_ref_typespec: (work@top.a_gp)
+      |vpiParent:
+      \_parameter: (work@top.a_gp), line:8:14, endln:8:18
+      |vpiFullName:work@top.a_gp
+      |vpiActual:
+      \_int_typespec: , line:8:3, endln:8:33
+    |vpiLocalParam:1
+    |vpiName:a_gp
+    |vpiFullName:work@top.a_gp
+    |vpiImported:pk
+  |vpiParameter:
+  \_parameter: (work@top.b_gp), line:9:14, endln:9:18
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |BIN:0000101100000000????
+    |vpiTypespec:
+    \_ref_typespec: (work@top.b_gp)
+      |vpiParent:
+      \_parameter: (work@top.b_gp), line:9:14, endln:9:18
+      |vpiFullName:work@top.b_gp
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:9:34
+    |vpiLocalParam:1
+    |vpiName:b_gp
+    |vpiFullName:work@top.b_gp
+    |vpiImported:pk
+  |vpiParameter:
+  \_parameter: (work@top.c_gp), line:10:14, endln:10:18
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |BIN:0000101100000000????
+    |vpiTypespec:
+    \_ref_typespec: (work@top.c_gp)
+      |vpiParent:
+      \_parameter: (work@top.c_gp), line:10:14, endln:10:18
+      |vpiFullName:work@top.c_gp
+      |vpiActual:
+      \_int_typespec: , line:10:3, endln:10:35
+    |vpiLocalParam:1
+    |vpiName:c_gp
+    |vpiFullName:work@top.c_gp
+    |vpiImported:pk
+  |vpiParamAssign:
+  \_param_assign: , line:7:14, endln:7:20
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_constant: , line:7:18, endln:7:20
+      |vpiParent:
+      \_param_assign: , line:7:14, endln:7:20
+      |vpiDecompile:20
+      |vpiSize:32
+      |UINT:20
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:7:18, endln:7:20
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:7:3, endln:7:20
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@top.W), line:7:14, endln:7:15
+      |vpiParent:
+      \_param_assign: , line:7:14, endln:7:20
+      |UINT:20
+      |vpiTypespec:
+      \_ref_typespec: (work@top.W)
+        |vpiParent:
+        \_parameter: (work@top.W), line:7:14, endln:7:15
+        |vpiFullName:work@top.W
+        |vpiActual:
+        \_int_typespec: , line:7:3, endln:7:20
+      |vpiLocalParam:1
+      |vpiName:W
+      |vpiFullName:work@top.W
+      |vpiImported:pk
+  |vpiParamAssign:
+  \_param_assign: , line:8:14, endln:8:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_constant: , line:8:21, endln:8:33
+      |vpiParent:
+      \_param_assign: , line:8:14, endln:8:33
+      |vpiDecompile:0000101100000000????
+      |vpiSize:20
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:8:21, endln:8:33
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:8:3, endln:8:33
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@top.a_gp), line:8:14, endln:8:18
+      |vpiParent:
+      \_param_assign: , line:8:14, endln:8:33
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (work@top.a_gp)
+        |vpiParent:
+        \_parameter: (work@top.a_gp), line:8:14, endln:8:18
+        |vpiFullName:work@top.a_gp
+        |vpiActual:
+        \_int_typespec: , line:8:3, endln:8:33
+      |vpiLocalParam:1
+      |vpiName:a_gp
+      |vpiFullName:work@top.a_gp
+      |vpiImported:pk
+  |vpiParamAssign:
+  \_param_assign: , line:9:14, endln:9:34
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_constant: , line:9:21, endln:9:34
+      |vpiParent:
+      \_param_assign: , line:9:14, endln:9:34
+      |vpiSize:20
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:9:21, endln:9:34
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:9:34
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@top.b_gp), line:9:14, endln:9:18
+      |vpiParent:
+      \_param_assign: , line:9:14, endln:9:34
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (work@top.b_gp)
+        |vpiParent:
+        \_parameter: (work@top.b_gp), line:9:14, endln:9:18
+        |vpiFullName:work@top.b_gp
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:9:34
+      |vpiLocalParam:1
+      |vpiName:b_gp
+      |vpiFullName:work@top.b_gp
+      |vpiImported:pk
+  |vpiParamAssign:
+  \_param_assign: , line:10:14, endln:10:35
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_constant: , line:10:21, endln:10:35
+      |vpiParent:
+      \_param_assign: , line:10:14, endln:10:35
+      |vpiSize:20
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:10:21, endln:10:35
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:10:3, endln:10:35
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@top.c_gp), line:10:14, endln:10:18
+      |vpiParent:
+      \_param_assign: , line:10:14, endln:10:35
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (work@top.c_gp)
+        |vpiParent:
+        \_parameter: (work@top.c_gp), line:10:14, endln:10:18
+        |vpiFullName:work@top.c_gp
+        |vpiActual:
+        \_int_typespec: , line:10:3, endln:10:35
+      |vpiLocalParam:1
+      |vpiName:c_gp
+      |vpiFullName:work@top.c_gp
+      |vpiImported:pk
+  |vpiTypedef:
+  \_import_typespec: (pk), line:12:19, endln:12:24
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.addr), line:12:46, endln:12:50
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiName:addr
+    |vpiFullName:work@top.addr
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.m), line:12:71, endln:12:72
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiName:m
+    |vpiFullName:work@top.m
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (addr), line:12:46, endln:12:50
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiName:addr
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.addr.addr), line:12:46, endln:12:50
+      |vpiParent:
+      \_port: (addr), line:12:46, endln:12:50
+      |vpiName:addr
+      |vpiFullName:work@top.addr.addr
+      |vpiActual:
+      \_logic_net: (work@top.addr), line:12:46, endln:12:50
+    |vpiTypedef:
+    \_ref_typespec: (work@top.addr)
+      |vpiParent:
+      \_port: (addr), line:12:46, endln:12:50
+      |vpiFullName:work@top.addr
+      |vpiActual:
+      \_logic_typespec: , line:12:33, endln:12:45
+  |vpiPort:
+  \_port: (m), line:12:71, endln:12:72
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiName:m
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.m.m), line:12:71, endln:12:72
+      |vpiParent:
+      \_port: (m), line:12:71, endln:12:72
+      |vpiName:m
+      |vpiFullName:work@top.m.m
+      |vpiActual:
+      \_logic_net: (work@top.m), line:12:71, endln:12:72
+    |vpiTypedef:
+    \_ref_typespec: (work@top.m)
+      |vpiParent:
+      \_port: (m), line:12:71, endln:12:72
+      |vpiFullName:work@top.m
+      |vpiActual:
+      \_logic_typespec: , line:12:59, endln:12:70
+  |vpiContAssign:
+  \_cont_assign: , line:13:10, endln:13:35
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_operation: , line:13:17, endln:13:35
+      |vpiParent:
+      \_cont_assign: , line:13:10, endln:13:35
+      |vpiOpType:95
+      |vpiOperand:
+      \_ref_obj: (work@top.addr), line:13:17, endln:13:21
+        |vpiParent:
+        \_operation: , line:13:17, endln:13:35
+        |vpiName:addr
+        |vpiFullName:work@top.addr
+        |vpiActual:
+        \_logic_net: (work@top.addr), line:12:46, endln:12:50
+      |vpiOperand:
+      \_constant: , line:13:30, endln:13:34
+        |vpiParent:
+        \_param_assign: , line:8:14, endln:8:33
+        |vpiDecompile:0000101100000000????
+        |vpiSize:20
+        |BIN:0000101100000000????
+        |vpiTypespec:
+        \_ref_typespec: (work@top)
+          |vpiParent:
+          \_constant: , line:13:30, endln:13:34
+          |vpiFullName:work@top
+          |vpiActual:
+          \_int_typespec: , line:8:3, endln:8:33
+        |vpiConstType:3
+    |vpiLhs:
+    \_bit_select: (work@top.m), line:13:10, endln:13:14
+      |vpiParent:
+      \_cont_assign: , line:13:10, endln:13:35
+      |vpiName:m
+      |vpiFullName:work@top.m
+      |vpiIndex:
+      \_constant: , line:13:12, endln:13:13
+        |vpiParent:
+        \_bit_select: (work@top.m), line:13:10, endln:13:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiContAssign:
+  \_cont_assign: , line:14:10, endln:14:35
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_operation: , line:14:17, endln:14:35
+      |vpiParent:
+      \_cont_assign: , line:14:10, endln:14:35
+      |vpiOpType:95
+      |vpiOperand:
+      \_ref_obj: (work@top.addr), line:14:17, endln:14:21
+        |vpiParent:
+        \_operation: , line:14:17, endln:14:35
+        |vpiName:addr
+        |vpiFullName:work@top.addr
+        |vpiActual:
+        \_logic_net: (work@top.addr), line:12:46, endln:12:50
+      |vpiOperand:
+      \_constant: , line:14:30, endln:14:34
+        |vpiParent:
+        \_param_assign: , line:9:14, endln:9:34
+        |vpiSize:20
+        |BIN:0000101100000000????
+        |vpiTypespec:
+        \_ref_typespec: (work@top)
+          |vpiParent:
+          \_constant: , line:14:30, endln:14:34
+          |vpiFullName:work@top
+          |vpiActual:
+          \_int_typespec: , line:9:3, endln:9:34
+        |vpiConstType:3
+    |vpiLhs:
+    \_bit_select: (work@top.m), line:14:10, endln:14:14
+      |vpiParent:
+      \_cont_assign: , line:14:10, endln:14:35
+      |vpiName:m
+      |vpiFullName:work@top.m
+      |vpiIndex:
+      \_constant: , line:14:12, endln:14:13
+        |vpiParent:
+        \_bit_select: (work@top.m), line:14:10, endln:14:14
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+  |vpiContAssign:
+  \_cont_assign: , line:15:10, endln:15:35
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_operation: , line:15:17, endln:15:35
+      |vpiParent:
+      \_cont_assign: , line:15:10, endln:15:35
+      |vpiOpType:95
+      |vpiOperand:
+      \_ref_obj: (work@top.addr), line:15:17, endln:15:21
+        |vpiParent:
+        \_operation: , line:15:17, endln:15:35
+        |vpiName:addr
+        |vpiFullName:work@top.addr
+        |vpiActual:
+        \_logic_net: (work@top.addr), line:12:46, endln:12:50
+      |vpiOperand:
+      \_constant: , line:15:30, endln:15:34
+        |vpiParent:
+        \_param_assign: , line:10:14, endln:10:35
+        |vpiSize:20
+        |BIN:0000101100000000????
+        |vpiTypespec:
+        \_ref_typespec: (work@top)
+          |vpiParent:
+          \_constant: , line:15:30, endln:15:34
+          |vpiFullName:work@top
+          |vpiActual:
+          \_int_typespec: , line:10:3, endln:10:35
+        |vpiConstType:3
+    |vpiLhs:
+    \_bit_select: (work@top.m), line:15:10, endln:15:14
+      |vpiParent:
+      \_cont_assign: , line:15:10, endln:15:35
+      |vpiName:m
+      |vpiFullName:work@top.m
+      |vpiIndex:
+      \_constant: , line:15:12, endln:15:13
+        |vpiParent:
+        \_bit_select: (work@top.m), line:15:10, endln:15:14
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.W), line:7:14, endln:7:15
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |UINT:20
+    |vpiTypespec:
+    \_ref_typespec: (work@top.W)
+      |vpiParent:
+      \_parameter: (work@top.W), line:7:14, endln:7:15
+      |vpiFullName:work@top.W
+      |vpiActual:
+      \_int_typespec: , line:7:3, endln:7:20
+    |vpiLocalParam:1
+    |vpiName:W
+    |vpiFullName:work@top.W
+    |vpiImported:pk
+  |vpiParameter:
+  \_parameter: (work@top.a_gp), line:8:14, endln:8:18
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |BIN:0000101100000000????
+    |vpiTypespec:
+    \_ref_typespec: (work@top.a_gp)
+      |vpiParent:
+      \_parameter: (work@top.a_gp), line:8:14, endln:8:18
+      |vpiFullName:work@top.a_gp
+      |vpiActual:
+      \_int_typespec: , line:8:3, endln:8:33
+    |vpiLocalParam:1
+    |vpiName:a_gp
+    |vpiFullName:work@top.a_gp
+    |vpiImported:pk
+  |vpiParameter:
+  \_parameter: (work@top.b_gp), line:9:14, endln:9:18
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |BIN:0000101100000000????
+    |vpiTypespec:
+    \_ref_typespec: (work@top.b_gp)
+      |vpiParent:
+      \_parameter: (work@top.b_gp), line:9:14, endln:9:18
+      |vpiFullName:work@top.b_gp
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:9:34
+    |vpiLocalParam:1
+    |vpiName:b_gp
+    |vpiFullName:work@top.b_gp
+    |vpiImported:pk
+  |vpiParameter:
+  \_parameter: (work@top.c_gp), line:10:14, endln:10:18
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |BIN:0000101100000000????
+    |vpiTypespec:
+    \_ref_typespec: (work@top.c_gp)
+      |vpiParent:
+      \_parameter: (work@top.c_gp), line:10:14, endln:10:18
+      |vpiFullName:work@top.c_gp
+      |vpiActual:
+      \_int_typespec: , line:10:3, endln:10:35
+    |vpiLocalParam:1
+    |vpiName:c_gp
+    |vpiFullName:work@top.c_gp
+    |vpiImported:pk
+  |vpiParamAssign:
+  \_param_assign: , line:7:14, endln:7:20
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_constant: , line:7:18, endln:7:20
+      |vpiParent:
+      \_param_assign: , line:7:14, endln:7:20
+      |vpiDecompile:20
+      |vpiSize:32
+      |UINT:20
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:7:18, endln:7:20
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:7:3, endln:7:20
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@top.W), line:7:14, endln:7:15
+  |vpiParamAssign:
+  \_param_assign: , line:8:14, endln:8:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_constant: , line:8:21, endln:8:33
+      |vpiParent:
+      \_param_assign: , line:8:14, endln:8:33
+      |vpiDecompile:20'b0000101100000000????
+      |vpiSize:20
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:8:21, endln:8:33
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:8:3, endln:8:33
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@top.a_gp), line:8:14, endln:8:18
+  |vpiParamAssign:
+  \_param_assign: , line:9:14, endln:9:34
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_constant: , line:9:21, endln:9:34
+      |vpiParent:
+      \_param_assign: , line:9:14, endln:9:34
+      |vpiDecompile:20'b0000101100000000????
+      |vpiSize:20
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:9:21, endln:9:34
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:9:34
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@top.b_gp), line:9:14, endln:9:18
+  |vpiParamAssign:
+  \_param_assign: , line:10:14, endln:10:35
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_constant: , line:10:21, endln:10:35
+      |vpiParent:
+      \_param_assign: , line:10:14, endln:10:35
+      |vpiDecompile:20'b0000101100000000????
+      |vpiSize:20
+      |BIN:0000101100000000????
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:10:21, endln:10:35
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:10:3, endln:10:35
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@top.c_gp), line:10:14, endln:10:18
+  |vpiTypedef:
+  \_import_typespec: (pk), line:12:19, endln:12:24
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.addr), line:12:46, endln:12:50
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.addr)
+      |vpiParent:
+      \_logic_net: (work@top.addr), line:12:46, endln:12:50
+      |vpiFullName:work@top.addr
+      |vpiActual:
+      \_logic_typespec: , line:12:33, endln:12:45
+    |vpiName:addr
+    |vpiFullName:work@top.addr
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.m), line:12:71, endln:12:72
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.m)
+      |vpiParent:
+      \_logic_net: (work@top.m), line:12:71, endln:12:72
+      |vpiFullName:work@top.m
+      |vpiActual:
+      \_logic_typespec: , line:12:59, endln:12:70
+    |vpiName:m
+    |vpiFullName:work@top.m
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (addr), line:12:46, endln:12:50
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiName:addr
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.addr), line:12:46, endln:12:50
+      |vpiParent:
+      \_port: (addr), line:12:46, endln:12:50
+      |vpiName:addr
+      |vpiFullName:work@top.addr
+      |vpiActual:
+      \_logic_net: (work@top.addr), line:12:46, endln:12:50
+    |vpiTypedef:
+    \_ref_typespec: (work@top.addr)
+      |vpiParent:
+      \_port: (addr), line:12:46, endln:12:50
+      |vpiFullName:work@top.addr
+      |vpiActual:
+      \_logic_typespec: , line:12:33, endln:12:45
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+  |vpiPort:
+  \_port: (m), line:12:71, endln:12:72
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiName:m
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.m), line:12:71, endln:12:72
+      |vpiParent:
+      \_port: (m), line:12:71, endln:12:72
+      |vpiName:m
+      |vpiFullName:work@top.m
+      |vpiActual:
+      \_logic_net: (work@top.m), line:12:71, endln:12:72
+    |vpiTypedef:
+    \_ref_typespec: (work@top.m)
+      |vpiParent:
+      \_port: (m), line:12:71, endln:12:72
+      |vpiFullName:work@top.m
+      |vpiActual:
+      \_logic_typespec: , line:12:59, endln:12:70
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+  |vpiContAssign:
+  \_cont_assign: , line:13:10, endln:13:35
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_operation: , line:13:17, endln:13:35
+      |vpiParent:
+      \_cont_assign: , line:13:10, endln:13:35
+      |vpiOpType:95
+      |vpiOperand:
+      \_ref_obj: (work@top.addr), line:13:17, endln:13:21
+        |vpiParent:
+        \_operation: , line:13:17, endln:13:35
+        |vpiName:addr
+        |vpiFullName:work@top.addr
+        |vpiActual:
+        \_logic_net: (work@top.addr), line:12:46, endln:12:50
+      |vpiOperand:
+      \_constant: , line:13:30, endln:13:34
+    |vpiLhs:
+    \_bit_select: (work@top.m), line:13:10, endln:13:14
+      |vpiParent:
+      \_cont_assign: , line:13:10, endln:13:35
+      |vpiName:m
+      |vpiFullName:work@top.m
+      |vpiActual:
+      \_logic_net: (work@top.m), line:12:71, endln:12:72
+      |vpiIndex:
+      \_constant: , line:13:12, endln:13:13
+  |vpiContAssign:
+  \_cont_assign: , line:14:10, endln:14:35
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_operation: , line:14:17, endln:14:35
+      |vpiParent:
+      \_cont_assign: , line:14:10, endln:14:35
+      |vpiOpType:95
+      |vpiOperand:
+      \_ref_obj: (work@top.addr), line:14:17, endln:14:21
+        |vpiParent:
+        \_operation: , line:14:17, endln:14:35
+        |vpiName:addr
+        |vpiFullName:work@top.addr
+        |vpiActual:
+        \_logic_net: (work@top.addr), line:12:46, endln:12:50
+      |vpiOperand:
+      \_constant: , line:14:30, endln:14:34
+    |vpiLhs:
+    \_bit_select: (work@top.m), line:14:10, endln:14:14
+      |vpiParent:
+      \_cont_assign: , line:14:10, endln:14:35
+      |vpiName:m
+      |vpiFullName:work@top.m
+      |vpiActual:
+      \_logic_net: (work@top.m), line:12:71, endln:12:72
+      |vpiIndex:
+      \_constant: , line:14:12, endln:14:13
+  |vpiContAssign:
+  \_cont_assign: , line:15:10, endln:15:35
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:12:1, endln:16:10
+    |vpiRhs:
+    \_operation: , line:15:17, endln:15:35
+      |vpiParent:
+      \_cont_assign: , line:15:10, endln:15:35
+      |vpiOpType:95
+      |vpiOperand:
+      \_ref_obj: (work@top.addr), line:15:17, endln:15:21
+        |vpiParent:
+        \_operation: , line:15:17, endln:15:35
+        |vpiName:addr
+        |vpiFullName:work@top.addr
+        |vpiActual:
+        \_logic_net: (work@top.addr), line:12:46, endln:12:50
+      |vpiOperand:
+      \_constant: , line:15:30, endln:15:34
+    |vpiLhs:
+    \_bit_select: (work@top.m), line:15:10, endln:15:14
+      |vpiParent:
+      \_cont_assign: , line:15:10, endln:15:35
+      |vpiName:m
+      |vpiFullName:work@top.m
+      |vpiActual:
+      \_logic_net: (work@top.m), line:12:71, endln:12:72
+      |vpiIndex:
+      \_constant: , line:15:12, endln:15:13
+\_weaklyReferenced:
+\_int_typespec: , line:7:3, endln:7:20
+  |vpiInstance:
+  \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+  |vpiExpr:
+  \_ref_obj: (W)
+    |vpiParent:
+    \_int_typespec: , line:7:3, endln:7:20
+    |vpiName:W
+    |vpiActual:
+    \_parameter: (work@top.W), line:7:14, endln:7:15
+\_int_typespec: , line:8:3, endln:8:33
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:8:3, endln:8:33
+    |vpiLeftRange:
+    \_constant: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:9:34
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:9:34
+    |vpiLeftRange:
+    \_constant: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:10:3, endln:10:35
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:10:3, endln:10:35
+    |vpiLeftRange:
+    \_constant: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:7:3, endln:7:20
+  |vpiInstance:
+  \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+  |vpiExpr:
+  \_ref_obj: (W)
+    |vpiParent:
+    \_int_typespec: , line:7:3, endln:7:20
+    |vpiName:W
+    |vpiActual:
+    \_parameter: (pk::W), line:7:14, endln:7:15
+\_logic_typespec: , line:8:21, endln:8:22
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: , line:8:21, endln:8:22
+    |vpiLeftRange:
+    \_operation: 
+      |vpiParent:
+      \_range: 
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (W), line:8:21, endln:8:22
+        |vpiParent:
+        \_operation: 
+        |vpiName:W
+        |vpiActual:
+        \_parameter: (pk::W), line:7:14, endln:7:15
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: 
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_integer_typespec: , line:9:21, endln:9:23
+  |vpiInstance:
+  \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+  |INT:20
+\_int_typespec: , line:7:3, endln:7:20
+  |vpiParent:
+  \_ref_typespec: (work@top.W)
+  |vpiInstance:
+  \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+  |vpiExpr:
+  \_ref_obj: (W)
+\_int_typespec: , line:8:3, endln:8:33
+  |vpiParent:
+  \_ref_typespec: (work@top.a_gp)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:8:3, endln:8:33
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:9:34
+  |vpiParent:
+  \_ref_typespec: (work@top.b_gp)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:9:34
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:10:3, endln:10:35
+  |vpiParent:
+  \_ref_typespec: (work@top.c_gp)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:10:3, endln:10:35
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:7:3, endln:7:20
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiInstance:
+  \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+  |vpiExpr:
+  \_ref_obj: (W)
+\_int_typespec: , line:7:3, endln:7:20
+  |vpiParent:
+  \_ref_typespec: (work@top.W)
+  |vpiInstance:
+  \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+  |vpiExpr:
+  \_ref_obj: (W)
+\_int_typespec: , line:8:3, endln:8:33
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:8:3, endln:8:33
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:8:3, endln:8:33
+  |vpiParent:
+  \_ref_typespec: (work@top.a_gp)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:8:3, endln:8:33
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:9:34
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:9:34
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:9:34
+  |vpiParent:
+  \_ref_typespec: (work@top.b_gp)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:9:34
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:10:3, endln:10:35
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:10:3, endln:10:35
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:10:3, endln:10:35
+  |vpiParent:
+  \_ref_typespec: (work@top.c_gp)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:10:3, endln:10:35
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:8:3, endln:8:33
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:8:3, endln:8:33
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:9:34
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:9:34
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:10:3, endln:10:35
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:10:3, endln:10:35
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_logic_typespec: , line:12:33, endln:12:45
+  |vpiRange:
+  \_range: , line:12:39, endln:12:45
+    |vpiParent:
+    \_logic_typespec: , line:12:33, endln:12:45
+    |vpiLeftRange:
+    \_constant: , line:12:40, endln:12:42
+      |vpiParent:
+      \_range: , line:12:39, endln:12:45
+      |vpiDecompile:19
+      |vpiSize:64
+      |UINT:19
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:43, endln:12:44
+      |vpiParent:
+      \_range: , line:12:39, endln:12:45
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:59, endln:12:70
+  |vpiRange:
+  \_range: , line:12:65, endln:12:70
+    |vpiParent:
+    \_logic_typespec: , line:12:59, endln:12:70
+    |vpiLeftRange:
+    \_constant: , line:12:66, endln:12:67
+      |vpiParent:
+      \_range: , line:12:65, endln:12:70
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:68, endln:12:69
+      |vpiParent:
+      \_range: , line:12:65, endln:12:70
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:33, endln:12:45
+  |vpiParent:
+  \_logic_net: (work@top.addr), line:12:46, endln:12:50
+  |vpiRange:
+  \_range: , line:12:39, endln:12:45
+    |vpiParent:
+    \_logic_typespec: , line:12:33, endln:12:45
+    |vpiLeftRange:
+    \_constant: , line:12:40, endln:12:42
+      |vpiParent:
+      \_range: , line:12:39, endln:12:45
+      |vpiDecompile:19
+      |vpiSize:64
+      |UINT:19
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:43, endln:12:44
+      |vpiParent:
+      \_range: , line:12:39, endln:12:45
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:59, endln:12:70
+  |vpiParent:
+  \_logic_net: (work@top.m), line:12:71, endln:12:72
+  |vpiRange:
+  \_range: , line:12:65, endln:12:70
+    |vpiParent:
+    \_logic_typespec: , line:12:59, endln:12:70
+    |vpiLeftRange:
+    \_constant: , line:12:66, endln:12:67
+      |vpiParent:
+      \_range: , line:12:65, endln:12:70
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:68, endln:12:69
+      |vpiParent:
+      \_range: , line:12:65, endln:12:70
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:33, endln:12:45
+  |vpiRange:
+  \_range: , line:12:39, endln:12:45
+    |vpiParent:
+    \_logic_typespec: , line:12:33, endln:12:45
+    |vpiLeftRange:
+    \_constant: , line:12:40, endln:12:42
+      |vpiParent:
+      \_range: , line:12:39, endln:12:45
+      |vpiDecompile:19
+      |vpiSize:64
+      |UINT:19
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:43, endln:12:44
+      |vpiParent:
+      \_range: , line:12:39, endln:12:45
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:59, endln:12:70
+  |vpiRange:
+  \_range: , line:12:65, endln:12:70
+    |vpiParent:
+    \_logic_typespec: , line:12:59, endln:12:70
+    |vpiLeftRange:
+    \_constant: , line:12:66, endln:12:67
+      |vpiParent:
+      \_range: , line:12:65, endln:12:70
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:68, endln:12:69
+      |vpiParent:
+      \_range: , line:12:65, endln:12:70
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:7:3, endln:7:20
+  |vpiParent:
+  \_ref_typespec: (work@top.W)
+  |vpiInstance:
+  \_package: pk (pk::), file:${SURELOG_DIR}/tests/SizeCastParamWildcard/dut.sv, line:6:1, endln:11:11
+  |vpiExpr:
+  \_ref_obj: (W)
+\_int_typespec: , line:8:3, endln:8:33
+  |vpiParent:
+  \_ref_typespec: (work@top.a_gp)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:8:3, endln:8:33
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:9:34
+  |vpiParent:
+  \_ref_typespec: (work@top.b_gp)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:9:34
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:10:3, endln:10:35
+  |vpiParent:
+  \_ref_typespec: (work@top.c_gp)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:10:3, endln:10:35
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:19
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 2
+[   NOTE] : 5
