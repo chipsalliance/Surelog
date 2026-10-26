@@ -70,8 +70,27 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
         new ModuleDefinition(fC, id, "GENERATE_STMT_PLACEHOLDER");
     component = subComponent;
     checkForLoops(true);
-    VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
-                                     Reduce::No, nullptr, nullptr, true);
+    // A generate REGION holds a LIST of generate items, chained as siblings
+    // and terminated by ENDGENERATE -- compiling only the first one dropped
+    // every item after it, silently.  ZipCPU's zipmmu writes
+    //    generate
+    //      integer i;
+    //      always @(posedge i_clk) begin ... end
+    //    endgenerate
+    // whose first item is the variable declaration, so the always block
+    // never reached the model at all and its TLB priority encoder had no
+    // driver (no error was reported either).  A region with a single item --
+    // the common `generate ... endgenerate` wrapper around one block -- is
+    // unaffected, which is why this went unnoticed.
+    VectorOfany* stmts = s.MakeAnyVec();
+    for (NodeId itemId = stmtId; itemId; itemId = fC->Sibling(itemId)) {
+      if (fC->Type(itemId) == VObjectType::paENDGENERATE) break;
+      VectorOfany* itemStmts = compileStmt(component, fC, itemId, compileDesign,
+                                           Reduce::No, nullptr, nullptr, true);
+      if (itemStmts != nullptr) {
+        for (any* st : *itemStmts) stmts->push_back(st);
+      }
+    }
     checkForLoops(false);
     NodeId blockNameId = fC->Child(fC->Child(stmtId));
     if (fC->Type(blockNameId) == VObjectType::slStringConst) {
