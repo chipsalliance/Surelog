@@ -7414,7 +7414,7 @@ begin                                                 18
 bit_select                                            23
 bit_typespec                                         369
 bit_var                                               22
-constant                                            2041
+constant                                            1999
 cont_assign                                            8
 design                                                 1
 enum_const                                            51
@@ -7427,7 +7427,7 @@ gen_scope                                              2
 gen_scope_array                                        2
 hier_path                                            457
 immediate_assert                                      14
-int_typespec                                         811
+int_typespec                                         813
 int_var                                               16
 integer_typespec                                      58
 io_decl                                               22
@@ -7445,7 +7445,7 @@ port                                                   8
 range                                                195
 ref_module                                             3
 ref_obj                                             1132
-ref_typespec                                        2285
+ref_typespec                                        2283
 return_stmt                                           10
 string_typespec                                      580
 struct_typespec                                        7
@@ -7463,7 +7463,7 @@ begin                                                 35
 bit_select                                            43
 bit_typespec                                         369
 bit_var                                               88
-constant                                            2048
+constant                                            2006
 cont_assign                                           11
 design                                                 1
 enum_const                                            51
@@ -7476,7 +7476,7 @@ gen_scope                                              3
 gen_scope_array                                        3
 hier_path                                            911
 immediate_assert                                      28
-int_typespec                                         811
+int_typespec                                         813
 int_var                                               52
 integer_typespec                                      58
 io_decl                                               44
@@ -7494,7 +7494,7 @@ port                                                  10
 range                                                195
 ref_module                                             3
 ref_obj                                             2170
-ref_typespec                                        2447
+ref_typespec                                        2445
 return_stmt                                           20
 string_typespec                                      580
 struct_typespec                                        7
@@ -24607,7 +24607,7 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:411:25, endln:411:44
       |vpiDecompile:'0
-      |vpiSize:10099
+      |vpiSize:10131
       |BIN:0
       |vpiTypespec:
       \_ref_typespec: (config_pkg)
@@ -24712,13 +24712,15 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:297:5, endln:297:17
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:499:39, endln:499:41
+        |vpiParent:
+        \_operation: , line:499:16, endln:499:46
         |vpiDecompile:32
         |vpiSize:64
-        |INT:32
-        |vpiConstType:7
+        |UINT:32
+        |vpiConstType:9
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:499:39, endln:499:41
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:297
       |vpiRefColumnNo:5
@@ -24737,13 +24739,15 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:298:5, endln:298:17
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:500:39, endln:500:41
+        |vpiParent:
+        \_operation: , line:500:16, endln:500:46
         |vpiDecompile:34
         |vpiSize:64
-        |INT:34
-        |vpiConstType:7
+        |UINT:34
+        |vpiConstType:9
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:500:39, endln:500:41
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:298
       |vpiRefColumnNo:5
@@ -24762,19 +24766,22 @@ design: (work@top)
         |vpiActual:
         \_bit_typespec: , line:299:5, endln:299:8
       |vpiExpr:
-      \_constant: 
-        |vpiDecompile:1
-        |vpiSize:64
-        |INT:1
+      \_constant: , line:470:44, endln:470:48
+        |vpiParent:
+        \_operation: , line:470:21, endln:470:55
+        |vpiDecompile:1'b1
+        |vpiSize:1
+        |BIN:1
         |vpiTypespec:
-        \_ref_typespec: 
+        \_ref_typespec: (build_config_pkg::build_config)
           |vpiParent:
-          \_constant: 
+          \_constant: , line:470:44, endln:470:48
+          |vpiFullName:build_config_pkg::build_config
           |vpiActual:
           \_bit_typespec: , line:470:5, endln:470:8
-        |vpiConstType:7
+        |vpiConstType:3
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:470:44, endln:470:48
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:299
       |vpiRefColumnNo:5
@@ -24793,19 +24800,22 @@ design: (work@top)
         |vpiActual:
         \_bit_typespec: , line:300:5, endln:300:8
       |vpiExpr:
-      \_constant: 
-        |vpiDecompile:0
-        |vpiSize:64
-        |INT:0
+      \_constant: , line:471:44, endln:471:48
+        |vpiParent:
+        \_operation: , line:471:21, endln:471:55
+        |vpiDecompile:1'b0
+        |vpiSize:1
+        |BIN:0
         |vpiTypespec:
-        \_ref_typespec: 
+        \_ref_typespec: (build_config_pkg::build_config)
           |vpiParent:
-          \_constant: 
+          \_constant: , line:471:44, endln:471:48
+          |vpiFullName:build_config_pkg::build_config
           |vpiActual:
           \_bit_typespec: , line:471:5, endln:471:8
-        |vpiConstType:7
+        |vpiConstType:3
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:471:44, endln:471:48
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:300
       |vpiRefColumnNo:5
@@ -24849,13 +24859,15 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:302:5, endln:302:17
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:504:50, endln:504:51
+        |vpiParent:
+        \_operation: , line:504:22, endln:504:51
         |vpiDecompile:1
         |vpiSize:64
-        |INT:1
-        |vpiConstType:7
+        |UINT:1
+        |vpiConstType:9
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:504:50, endln:504:51
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:302
       |vpiRefColumnNo:5
@@ -25729,19 +25741,22 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:338:5, endln:338:17
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:481:5, endln:481:6
+        |vpiParent:
+        \_operation: , line:480:5, endln:481:6
         |vpiDecompile:1
         |vpiSize:64
-        |INT:1
+        |UINT:1
         |vpiTypespec:
-        \_ref_typespec: 
+        \_ref_typespec: (build_config_pkg::build_config)
           |vpiParent:
-          \_constant: 
+          \_constant: , line:481:5, endln:481:6
+          |vpiFullName:build_config_pkg::build_config
           |vpiActual:
           \_int_typespec: , line:476:5, endln:476:17
-        |vpiConstType:7
+        |vpiConstType:9
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:481:5, endln:481:6
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:338
       |vpiRefColumnNo:5
@@ -25883,19 +25898,22 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:344:5, endln:344:17
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:490:75, endln:490:76
+        |vpiParent:
+        \_operation: , line:490:30, endln:490:76
         |vpiDecompile:4
         |vpiSize:64
-        |INT:4
+        |UINT:4
         |vpiTypespec:
-        \_ref_typespec: 
+        \_ref_typespec: (build_config_pkg::build_config)
           |vpiParent:
-          \_constant: 
+          \_constant: , line:490:75, endln:490:76
+          |vpiFullName:build_config_pkg::build_config
           |vpiActual:
           \_int_typespec: , line:490:5, endln:490:17
-        |vpiConstType:7
+        |vpiConstType:9
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:490:75, endln:490:76
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:344
       |vpiRefColumnNo:5
@@ -27024,13 +27042,9 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:380:5, endln:380:17
       |vpiExpr:
-      \_constant: 
-        |vpiDecompile:128
-        |vpiSize:64
-        |INT:128
-        |vpiConstType:7
+      \_constant: , line:125:34, endln:125:59
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:125:34, endln:125:59
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:380
       |vpiRefColumnNo:5
@@ -27198,13 +27212,9 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:386:5, endln:386:17
       |vpiExpr:
-      \_constant: 
-        |vpiDecompile:128
-        |vpiSize:64
-        |INT:128
-        |vpiConstType:7
+      \_constant: , line:128:34, endln:128:59
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:128:34, endln:128:59
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:386
       |vpiRefColumnNo:5
@@ -27505,8 +27515,8 @@ design: (work@top)
       \_constant: 
         |vpiDecompile:1
         |vpiSize:64
-        |INT:1
-        |vpiConstType:7
+        |UINT:1
+        |vpiConstType:9
       |vpiExpr:
       \_constant: 
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
@@ -27527,13 +27537,15 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:402:5, endln:402:17
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:599:40, endln:599:41
+        |vpiParent:
+        \_operation: , line:599:17, endln:599:45
         |vpiDecompile:1
         |vpiSize:64
-        |INT:1
-        |vpiConstType:7
+        |UINT:1
+        |vpiConstType:9
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:599:40, endln:599:41
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:402
       |vpiRefColumnNo:5
@@ -27552,13 +27564,15 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:403:5, endln:403:17
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:600:40, endln:600:41
+        |vpiParent:
+        \_operation: , line:600:17, endln:600:46
         |vpiDecompile:9
         |vpiSize:64
-        |INT:9
-        |vpiConstType:7
+        |UINT:9
+        |vpiConstType:9
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:600:40, endln:600:41
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:403
       |vpiRefColumnNo:5
@@ -27577,13 +27591,15 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:404:5, endln:404:17
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:601:39, endln:601:41
+        |vpiParent:
+        \_operation: , line:601:16, endln:601:46
         |vpiDecompile:22
         |vpiSize:64
-        |INT:22
-        |vpiConstType:7
+        |UINT:22
+        |vpiConstType:9
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:601:39, endln:601:41
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:404
       |vpiRefColumnNo:5
@@ -27602,13 +27618,15 @@ design: (work@top)
         |vpiActual:
         \_enum_typespec: (config_pkg::vm_mode_t), line:165:3, endln:172:15
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:602:42, endln:602:62
+        |vpiParent:
+        \_operation: , line:602:19, endln:602:85
         |vpiDecompile:1
         |vpiSize:64
-        |INT:1
-        |vpiConstType:7
+        |UINT:1
+        |vpiConstType:9
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:602:42, endln:602:62
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:405
       |vpiRefColumnNo:5
@@ -27627,13 +27645,15 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:406:5, endln:406:17
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:603:14, endln:603:61
+        |vpiParent:
+        \_operation: , line:603:14, endln:603:61
         |vpiDecompile:32
         |vpiSize:64
-        |INT:32
-        |vpiConstType:7
+        |UINT:32
+        |vpiConstType:9
       |vpiExpr:
-      \_constant: 
+      \_constant: , line:603:14, endln:603:61
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
       |vpiRefLineNo:406
       |vpiRefColumnNo:5
@@ -30635,12 +30655,6 @@ design: (work@top)
               |vpiConstType:9
           |vpiOperand:
           \_constant: , line:470:44, endln:470:48
-            |vpiParent:
-            \_operation: , line:470:21, endln:470:55
-            |vpiDecompile:1'b1
-            |vpiSize:1
-            |BIN:1
-            |vpiConstType:3
           |vpiOperand:
           \_constant: , line:470:51, endln:470:55
             |vpiParent:
@@ -30708,12 +30722,6 @@ design: (work@top)
               |vpiConstType:9
           |vpiOperand:
           \_constant: , line:471:44, endln:471:48
-            |vpiParent:
-            \_operation: , line:471:21, endln:471:55
-            |vpiDecompile:1'b0
-            |vpiSize:1
-            |BIN:0
-            |vpiConstType:3
           |vpiOperand:
           \_constant: , line:471:51, endln:471:55
             |vpiParent:
@@ -31251,12 +31259,6 @@ design: (work@top)
                     |vpiConstType:9
                   |vpiOperand:
                   \_constant: , line:481:5, endln:481:6
-                    |vpiParent:
-                    \_operation: , line:480:5, endln:481:6
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                    |vpiConstType:9
         |vpiLhs:
         \_int_var: (build_config_pkg::build_config::FLen), line:476:18, endln:476:22
           |vpiParent:
@@ -31711,12 +31713,6 @@ design: (work@top)
             |vpiConstType:9
           |vpiOperand:
           \_constant: , line:490:75, endln:490:76
-            |vpiParent:
-            \_operation: , line:490:30, endln:490:76
-            |vpiDecompile:4
-            |vpiSize:64
-            |UINT:4
-            |vpiConstType:9
         |vpiLhs:
         \_int_var: (build_config_pkg::build_config::NrWbPorts), line:490:18, endln:490:27
           |vpiParent:
@@ -32016,12 +32012,6 @@ design: (work@top)
               |vpiConstType:9
           |vpiOperand:
           \_constant: , line:499:39, endln:499:41
-            |vpiParent:
-            \_operation: , line:499:16, endln:499:46
-            |vpiDecompile:32
-            |vpiSize:64
-            |UINT:32
-            |vpiConstType:9
           |vpiOperand:
           \_constant: , line:499:44, endln:499:46
             |vpiParent:
@@ -32095,12 +32085,6 @@ design: (work@top)
               |vpiConstType:9
           |vpiOperand:
           \_constant: , line:500:39, endln:500:41
-            |vpiParent:
-            \_operation: , line:500:16, endln:500:46
-            |vpiDecompile:34
-            |vpiSize:64
-            |UINT:34
-            |vpiConstType:9
           |vpiOperand:
           \_constant: , line:500:44, endln:500:46
             |vpiParent:
@@ -32311,12 +32295,6 @@ design: (work@top)
             |vpiConstType:9
           |vpiOperand:
           \_constant: , line:504:50, endln:504:51
-            |vpiParent:
-            \_operation: , line:504:22, endln:504:51
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
         |vpiLhs:
         \_hier_path: (cfg.ASID_WIDTH), line:504:5, endln:504:19
           |vpiParent:
@@ -36424,12 +36402,6 @@ design: (work@top)
               |vpiConstType:9
           |vpiOperand:
           \_constant: , line:599:40, endln:599:41
-            |vpiParent:
-            \_operation: , line:599:17, endln:599:45
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
           |vpiOperand:
           \_constant: , line:599:44, endln:599:45
             |vpiParent:
@@ -36503,12 +36475,6 @@ design: (work@top)
               |vpiConstType:9
           |vpiOperand:
           \_constant: , line:600:40, endln:600:41
-            |vpiParent:
-            \_operation: , line:600:17, endln:600:46
-            |vpiDecompile:9
-            |vpiSize:64
-            |UINT:9
-            |vpiConstType:9
           |vpiOperand:
           \_constant: , line:600:44, endln:600:46
             |vpiParent:
@@ -36582,12 +36548,6 @@ design: (work@top)
               |vpiConstType:9
           |vpiOperand:
           \_constant: , line:601:39, endln:601:41
-            |vpiParent:
-            \_operation: , line:601:16, endln:601:46
-            |vpiDecompile:22
-            |vpiSize:64
-            |UINT:22
-            |vpiConstType:9
           |vpiOperand:
           \_constant: , line:601:44, endln:601:46
             |vpiParent:
@@ -36661,12 +36621,6 @@ design: (work@top)
               |vpiConstType:9
           |vpiOperand:
           \_constant: , line:602:42, endln:602:62
-            |vpiParent:
-            \_operation: , line:602:19, endln:602:85
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
           |vpiOperand:
           \_constant: , line:602:65, endln:602:85
             |vpiParent:
@@ -36712,13 +36666,7 @@ design: (work@top)
             |BIN:1
             |vpiConstType:3
           |vpiOperand:
-          \_constant: , line:603:54, endln:603:56
-            |vpiParent:
-            \_operation: , line:603:14, endln:603:61
-            |vpiDecompile:32
-            |vpiSize:64
-            |UINT:32
-            |vpiConstType:9
+          \_constant: , line:603:14, endln:603:61
           |vpiOperand:
           \_constant: , line:603:59, endln:603:61
             |vpiParent:
@@ -50641,7 +50589,7 @@ design: (work@top)
             |UINT:1
             |vpiConstType:9
         |vpiOperand:
-        \_constant: , line:603:54, endln:603:56
+        \_constant: , line:603:14, endln:603:61
         |vpiOperand:
         \_constant: , line:603:59, endln:603:61
       |vpiLhs:
@@ -58069,15 +58017,15 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:297:5, endln:297:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:499:39, endln:499:41
       |vpiParent:
       \_typespec_member: (VLEN), line:297:18, endln:297:22
       |vpiDecompile:32
       |vpiSize:64
-      |INT:32
-      |vpiConstType:7
+      |UINT:32
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:499:39, endln:499:41
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:297
     |vpiRefColumnNo:5
@@ -58096,15 +58044,15 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:298:5, endln:298:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:500:39, endln:500:41
       |vpiParent:
       \_typespec_member: (PLEN), line:298:18, endln:298:22
       |vpiDecompile:34
       |vpiSize:64
-      |INT:34
-      |vpiConstType:7
+      |UINT:34
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:500:39, endln:500:41
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:298
     |vpiRefColumnNo:5
@@ -58123,22 +58071,22 @@ design: (work@top)
       |vpiActual:
       \_bit_typespec: , line:299:5, endln:299:8
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:470:44, endln:470:48
       |vpiParent:
       \_typespec_member: (IS_XLEN32), line:299:9, endln:299:18
-      |vpiDecompile:1
-      |vpiSize:64
-      |INT:1
+      |vpiDecompile:1'b1
+      |vpiSize:1
+      |BIN:1
       |vpiTypespec:
       \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.IS_XLEN32)
         |vpiParent:
-        \_constant: 
+        \_constant: , line:470:44, endln:470:48
         |vpiFullName:work@top.CVA6Cfg.config_pkg::cva6_cfg_t.IS_XLEN32
         |vpiActual:
         \_bit_typespec: , line:470:5, endln:470:8
-      |vpiConstType:7
+      |vpiConstType:3
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:470:44, endln:470:48
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:299
     |vpiRefColumnNo:5
@@ -58157,22 +58105,22 @@ design: (work@top)
       |vpiActual:
       \_bit_typespec: , line:300:5, endln:300:8
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:471:44, endln:471:48
       |vpiParent:
       \_typespec_member: (IS_XLEN64), line:300:9, endln:300:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |INT:0
+      |vpiDecompile:1'b0
+      |vpiSize:1
+      |BIN:0
       |vpiTypespec:
       \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.IS_XLEN64)
         |vpiParent:
-        \_constant: 
+        \_constant: , line:471:44, endln:471:48
         |vpiFullName:work@top.CVA6Cfg.config_pkg::cva6_cfg_t.IS_XLEN64
         |vpiActual:
         \_bit_typespec: , line:471:5, endln:471:8
-      |vpiConstType:7
+      |vpiConstType:3
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:471:44, endln:471:48
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:300
     |vpiRefColumnNo:5
@@ -58218,15 +58166,15 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:302:5, endln:302:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:504:50, endln:504:51
       |vpiParent:
       \_typespec_member: (ASID_WIDTH), line:302:18, endln:302:28
       |vpiDecompile:1
       |vpiSize:64
-      |INT:1
-      |vpiConstType:7
+      |UINT:1
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:504:50, endln:504:51
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:302
     |vpiRefColumnNo:5
@@ -59110,22 +59058,22 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:338:5, endln:338:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:481:5, endln:481:6
       |vpiParent:
       \_typespec_member: (FLen), line:338:18, endln:338:22
       |vpiDecompile:1
       |vpiSize:64
-      |INT:1
+      |UINT:1
       |vpiTypespec:
       \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.FLen)
         |vpiParent:
-        \_constant: 
+        \_constant: , line:481:5, endln:481:6
         |vpiFullName:work@top.CVA6Cfg.config_pkg::cva6_cfg_t.FLen
         |vpiActual:
         \_int_typespec: , line:476:5, endln:476:17
-      |vpiConstType:7
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:481:5, endln:481:6
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:338
     |vpiRefColumnNo:5
@@ -59275,22 +59223,22 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:344:5, endln:344:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:490:75, endln:490:76
       |vpiParent:
       \_typespec_member: (NrWbPorts), line:344:18, endln:344:27
       |vpiDecompile:4
       |vpiSize:64
-      |INT:4
+      |UINT:4
       |vpiTypespec:
       \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NrWbPorts)
         |vpiParent:
-        \_constant: 
+        \_constant: , line:490:75, endln:490:76
         |vpiFullName:work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NrWbPorts
         |vpiActual:
         \_int_typespec: , line:490:5, endln:490:17
-      |vpiConstType:7
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:490:75, endln:490:76
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:344
     |vpiRefColumnNo:5
@@ -60428,15 +60376,22 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:380:5, endln:380:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:125:34, endln:125:59
       |vpiParent:
       \_typespec_member: (ICACHE_USER_LINE_WIDTH), line:380:18, endln:380:40
       |vpiDecompile:128
-      |vpiSize:64
-      |INT:128
-      |vpiConstType:7
+      |vpiSize:32
+      |UINT:128
+      |vpiTypespec:
+      \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.ICACHE_USER_LINE_WIDTH)
+        |vpiParent:
+        \_constant: , line:125:34, endln:125:59
+        |vpiFullName:work@top.CVA6Cfg.config_pkg::cva6_cfg_t.ICACHE_USER_LINE_WIDTH
+        |vpiActual:
+        \_int_typespec: , line:31:3, endln:31:45
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:125:34, endln:125:59
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:380
     |vpiRefColumnNo:5
@@ -60611,15 +60566,22 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:386:5, endln:386:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:128:34, endln:128:59
       |vpiParent:
       \_typespec_member: (DCACHE_USER_LINE_WIDTH), line:386:18, endln:386:40
       |vpiDecompile:128
-      |vpiSize:64
-      |INT:128
-      |vpiConstType:7
+      |vpiSize:32
+      |UINT:128
+      |vpiTypespec:
+      \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.DCACHE_USER_LINE_WIDTH)
+        |vpiParent:
+        \_constant: , line:128:34, endln:128:59
+        |vpiFullName:work@top.CVA6Cfg.config_pkg::cva6_cfg_t.DCACHE_USER_LINE_WIDTH
+        |vpiActual:
+        \_int_typespec: , line:34:3, endln:34:45
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:128:34, endln:128:59
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:386
     |vpiRefColumnNo:5
@@ -60948,8 +60910,8 @@ design: (work@top)
       \_typespec_member: (LOG2_INSTR_PER_FETCH), line:400:18, endln:400:38
       |vpiDecompile:1
       |vpiSize:64
-      |INT:1
-      |vpiConstType:7
+      |UINT:1
+      |vpiConstType:9
     |vpiExpr:
     \_constant: 
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
@@ -60970,15 +60932,15 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:402:5, endln:402:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:599:40, endln:599:41
       |vpiParent:
       \_typespec_member: (ModeW), line:402:18, endln:402:23
       |vpiDecompile:1
       |vpiSize:64
-      |INT:1
-      |vpiConstType:7
+      |UINT:1
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:599:40, endln:599:41
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:402
     |vpiRefColumnNo:5
@@ -60997,15 +60959,15 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:403:5, endln:403:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:600:40, endln:600:41
       |vpiParent:
       \_typespec_member: (ASIDW), line:403:18, endln:403:23
       |vpiDecompile:9
       |vpiSize:64
-      |INT:9
-      |vpiConstType:7
+      |UINT:9
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:600:40, endln:600:41
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:403
     |vpiRefColumnNo:5
@@ -61024,15 +60986,15 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:404:5, endln:404:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:601:39, endln:601:41
       |vpiParent:
       \_typespec_member: (PPNW), line:404:18, endln:404:22
       |vpiDecompile:22
       |vpiSize:64
-      |INT:22
-      |vpiConstType:7
+      |UINT:22
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:601:39, endln:601:41
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:404
     |vpiRefColumnNo:5
@@ -61051,15 +61013,15 @@ design: (work@top)
       |vpiActual:
       \_enum_typespec: (config_pkg::vm_mode_t), line:165:3, endln:172:15
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:602:42, endln:602:62
       |vpiParent:
       \_typespec_member: (MODE_SV), line:405:15, endln:405:22
       |vpiDecompile:1
       |vpiSize:64
-      |INT:1
-      |vpiConstType:7
+      |UINT:1
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:602:42, endln:602:62
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:405
     |vpiRefColumnNo:5
@@ -61078,15 +61040,15 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:406:5, endln:406:17
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:603:54, endln:603:56
       |vpiParent:
       \_typespec_member: (SV), line:406:18, endln:406:20
       |vpiDecompile:32
       |vpiSize:64
-      |INT:32
-      |vpiConstType:7
+      |UINT:32
+      |vpiConstType:9
     |vpiExpr:
-    \_constant: 
+    \_constant: , line:603:54, endln:603:56
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructVal/dut.sv
     |vpiRefLineNo:406
     |vpiRefColumnNo:5
@@ -62297,6 +62259,9 @@ design: (work@top)
   \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.ICACHE_USER_LINE_WIDTH)
   |vpiInstance:
   \_package: config_pkg (config_pkg::), file:${SURELOG_DIR}/tests/FuncStructVal/dut.sv, line:138:1, endln:464:11
+\_int_typespec: , line:31:3, endln:31:45
+  |vpiParent:
+  \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.ICACHE_USER_LINE_WIDTH)
 \_int_typespec: , line:381:5, endln:381:17
   |vpiParent:
   \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.DCACHE_SET_ASSOC)
@@ -62338,6 +62303,9 @@ design: (work@top)
   \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.DCACHE_USER_LINE_WIDTH)
   |vpiInstance:
   \_package: config_pkg (config_pkg::), file:${SURELOG_DIR}/tests/FuncStructVal/dut.sv, line:138:1, endln:464:11
+\_int_typespec: , line:34:3, endln:34:45
+  |vpiParent:
+  \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.DCACHE_USER_LINE_WIDTH)
 \_int_typespec: , line:387:5, endln:387:17
   |vpiParent:
   \_ref_typespec: (work@top.CVA6Cfg.config_pkg::cva6_cfg_t.DCACHE_USER_WIDTH)
