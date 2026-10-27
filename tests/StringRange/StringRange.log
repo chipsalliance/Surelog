@@ -1750,21 +1750,23 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
-assignment                                            12
-begin                                                  5
-constant                                            7956
-cont_assign                                           20
+assignment                                            13
+begin                                                  8
+case_item                                              3
+constant                                            7962
+cont_assign                                           23
 design                                                 1
 for_stmt                                               1
-func_call                                           1208
+func_call                                           1212
 function                                               2
+gen_case                                               1
 gen_if_else                                            1
 gen_region                                             1
 gen_scope                                            596
 gen_scope_array                                      596
 if_stmt                                                1
 immediate_assert                                      18
-initial                                                7
+initial                                                8
 int_typespec                                         296
 int_var                                                2
 integer_typespec                                       6
@@ -1780,7 +1782,7 @@ parameter                                           2715
 part_select                                          293
 port                                                  22
 range                                               1253
-ref_obj                                              130
+ref_obj                                              136
 ref_typespec                                        4627
 ref_var                                                1
 string_typespec                                       11
@@ -1789,21 +1791,23 @@ sys_func_call                                          6
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
-assignment                                            51
-begin                                                 10
-constant                                            7956
-cont_assign                                           29
+assignment                                            52
+begin                                                 13
+case_item                                              3
+constant                                            7962
+cont_assign                                           32
 design                                                 1
 for_stmt                                               5
-func_call                                           1224
+func_call                                           1228
 function                                               7
+gen_case                                               1
 gen_if_else                                            1
 gen_region                                             1
 gen_scope                                            894
 gen_scope_array                                      894
 if_stmt                                                5
 immediate_assert                                      36
-initial                                               29
+initial                                               30
 int_typespec                                         296
 int_var                                                2
 integer_typespec                                       6
@@ -1819,7 +1823,7 @@ parameter                                           2715
 part_select                                          297
 port                                                  39
 range                                               1253
-ref_obj                                              258
+ref_obj                                              264
 ref_typespec                                        4937
 ref_var                                                5
 string_typespec                                       11
@@ -2456,6 +2460,148 @@ design: (work@top)
               \_cont_assign: , line:15:20, endln:15:28
               |vpiName:outA
               |vpiFullName:work@Example.outA
+      |vpiStmt:
+      \_gen_case: , line:17:9, endln:21:16
+        |vpiParent:
+        \_begin: (work@Example)
+        |vpiCondition:
+        \_func_call: (flip), line:17:15, endln:17:19
+          |vpiParent:
+          \_gen_case: , line:17:9, endln:21:16
+          |vpiArgument:
+          \_ref_obj: (work@Example.OUTPUT), line:17:20, endln:17:26
+            |vpiParent:
+            \_func_call: (flip), line:17:15, endln:17:19
+            |vpiName:OUTPUT
+            |vpiFullName:work@Example.OUTPUT
+          |vpiName:flip
+        |vpiCaseItem:
+        \_case_item: 
+          |vpiExpr:
+          \_func_call: (flip), line:18:13, endln:18:17
+            |vpiParent:
+            \_case_item: 
+            |vpiArgument:
+            \_constant: , line:18:18, endln:18:23
+              |vpiParent:
+              \_func_call: (flip), line:18:13, endln:18:17
+              |vpiDecompile:"FOO"
+              |vpiSize:24
+              |STRING:FOO
+              |vpiConstType:6
+            |vpiName:flip
+          |vpiStmt:
+          \_begin: 
+            |vpiParent:
+            \_case_item: 
+            |vpiStmt:
+            \_cont_assign: , line:18:33, endln:18:46
+              |vpiParent:
+              \_begin: 
+              |vpiRhs:
+              \_ref_obj: (OUTPUT), line:18:40, endln:18:46
+                |vpiParent:
+                \_cont_assign: , line:18:33, endln:18:46
+                |vpiName:OUTPUT
+              |vpiLhs:
+              \_ref_obj: (outB), line:18:33, endln:18:37
+                |vpiParent:
+                \_cont_assign: , line:18:33, endln:18:46
+                |vpiName:outB
+        |vpiCaseItem:
+        \_case_item: 
+          |vpiExpr:
+          \_func_call: (flip), line:19:13, endln:19:17
+            |vpiParent:
+            \_case_item: 
+            |vpiArgument:
+            \_constant: , line:19:18, endln:19:23
+              |vpiParent:
+              \_func_call: (flip), line:19:13, endln:19:17
+              |vpiDecompile:"BAR"
+              |vpiSize:24
+              |STRING:BAR
+              |vpiConstType:6
+            |vpiName:flip
+          |vpiStmt:
+          \_begin: 
+            |vpiParent:
+            \_case_item: 
+            |vpiStmt:
+            \_cont_assign: , line:19:33, endln:19:41
+              |vpiParent:
+              \_begin: 
+              |vpiRhs:
+              \_constant: , line:19:40, endln:19:41
+                |vpiParent:
+                \_cont_assign: , line:19:33, endln:19:41
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+              |vpiLhs:
+              \_ref_obj: (outB), line:19:33, endln:19:37
+                |vpiParent:
+                \_cont_assign: , line:19:33, endln:19:41
+                |vpiName:outB
+        |vpiCaseItem:
+        \_case_item: 
+          |vpiExpr:
+          \_func_call: (flip), line:20:13, endln:20:17
+            |vpiParent:
+            \_case_item: 
+            |vpiArgument:
+            \_constant: , line:20:18, endln:20:23
+              |vpiParent:
+              \_func_call: (flip), line:20:13, endln:20:17
+              |vpiDecompile:"BAZ"
+              |vpiSize:24
+              |STRING:BAZ
+              |vpiConstType:6
+            |vpiName:flip
+          |vpiStmt:
+          \_begin: 
+            |vpiParent:
+            \_case_item: 
+            |vpiStmt:
+            \_cont_assign: , line:20:33, endln:20:44
+              |vpiParent:
+              \_begin: 
+              |vpiRhs:
+              \_constant: , line:20:40, endln:20:44
+                |vpiParent:
+                \_cont_assign: , line:20:33, endln:20:44
+                |vpiDecompile:"HI"
+                |vpiSize:16
+                |STRING:HI
+                |vpiConstType:6
+              |vpiLhs:
+              \_ref_obj: (outB), line:20:33, endln:20:37
+                |vpiParent:
+                \_cont_assign: , line:20:33, endln:20:44
+                |vpiName:outB
+      |vpiStmt:
+      \_initial: , line:24:9, endln:24:26
+        |vpiParent:
+        \_begin: (work@Example)
+        |vpiStmt:
+        \_assignment: , line:24:17, endln:24:25
+          |vpiParent:
+          \_initial: , line:24:9, endln:24:26
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_constant: , line:24:24, endln:24:25
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiLhs:
+          \_ref_obj: (work@Example.outC), line:24:17, endln:24:21
+            |vpiParent:
+            \_assignment: , line:24:17, endln:24:25
+            |vpiName:outC
+            |vpiFullName:work@Example.outC
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
   |vpiParent:

@@ -372,11 +372,11 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             4
 begin                                                  2
-constant                                              17
+constant                                              18
 design                                                 1
 func_call                                              1
 function                                               4
-gen_if                                                 2
+gen_if                                                 3
 gen_region                                             1
 gen_scope                                              6
 gen_scope_array                                        6
@@ -387,7 +387,7 @@ integer_var                                            8
 io_decl                                                4
 method_func_call                                       7
 module_inst                                            3
-named_begin                                            2
+named_begin                                            3
 ref_obj                                               16
 ref_typespec                                           8
 sys_func_call                                          8
@@ -396,11 +396,11 @@ sys_func_call                                          8
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             8
 begin                                                  3
-constant                                              17
+constant                                              18
 design                                                 1
 func_call                                              2
 function                                               8
-gen_if                                                 2
+gen_if                                                 3
 gen_region                                             1
 gen_scope                                              9
 gen_scope_array                                        9
@@ -411,7 +411,7 @@ integer_var                                            8
 io_decl                                                8
 method_func_call                                      14
 module_inst                                            3
-named_begin                                            2
+named_begin                                            3
 ref_obj                                               32
 ref_typespec                                           8
 sys_func_call                                         16
@@ -772,6 +772,24 @@ design: (work@top)
               \_gen_if: , line:8:13, endln:8:15
               |vpiName:blk
               |vpiFullName:work@top.i.blk
+      |vpiStmt:
+      \_gen_if: , line:19:9, endln:19:11
+        |vpiParent:
+        \_begin: (work@top)
+        |vpiCondition:
+        \_constant: , line:19:13, endln:19:14
+          |vpiParent:
+          \_gen_if: , line:19:9, endln:19:11
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiStmt:
+        \_named_begin: (work@top.blk)
+          |vpiParent:
+          \_gen_if: , line:19:9, endln:19:11
+          |vpiName:blk
+          |vpiFullName:work@top.blk
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
   |vpiParent:

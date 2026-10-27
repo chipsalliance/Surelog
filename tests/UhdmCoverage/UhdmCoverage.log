@@ -932,10 +932,10 @@ operation                                             41
 param_assign                                          24
 parameter                                             24
 part_select                                            2
-port                                                  13
+port                                                  15
 range                                                 13
-ref_module                                             5
-ref_obj                                               65
+ref_module                                             6
+ref_obj                                               67
 ref_typespec                                          80
 string_typespec                                        3
 tagged_pattern                                         3
@@ -965,10 +965,10 @@ operation                                             51
 param_assign                                          24
 parameter                                             24
 part_select                                            3
-port                                                  18
+port                                                  20
 range                                                 13
-ref_module                                             5
-ref_obj                                               80
+ref_module                                             6
+ref_obj                                               82
 ref_typespec                                          85
 string_typespec                                        3
 tagged_pattern                                         3
@@ -1486,6 +1486,34 @@ design: (work@divSqrtRecFNToRaw_small)
             \_named_begin: (work@divSqrtRecFNToRaw_small.threeronew)
             |vpiName:m1
             |vpiDefName:work@M
+      |vpiStmt:
+      \_ref_module: work@bsg_wormhole_router (router), line:47:11, endln:47:17
+        |vpiParent:
+        \_begin: (work@divSqrtRecFNToRaw_small)
+        |vpiName:router
+        |vpiDefName:work@bsg_wormhole_router
+        |vpiPort:
+        \_port: (clk_i), line:49:11, endln:49:32
+          |vpiParent:
+          \_ref_module: work@bsg_wormhole_router (router), line:47:11, endln:47:17
+          |vpiName:clk_i
+          |vpiHighConn:
+          \_ref_obj: (work@divSqrtRecFNToRaw_small.router.clk_i.network_clk_i), line:49:18, endln:49:31
+            |vpiParent:
+            \_port: (clk_i), line:49:11, endln:49:32
+            |vpiName:network_clk_i
+            |vpiFullName:work@divSqrtRecFNToRaw_small.router.clk_i.network_clk_i
+        |vpiPort:
+        \_port: (reset_i), line:51:12, endln:51:37
+          |vpiParent:
+          \_ref_module: work@bsg_wormhole_router (router), line:47:11, endln:47:17
+          |vpiName:reset_i
+          |vpiHighConn:
+          \_ref_obj: (work@divSqrtRecFNToRaw_small.router.reset_i.network_reset_i), line:51:21, endln:51:36
+            |vpiParent:
+            \_port: (reset_i), line:51:12, endln:51:37
+            |vpiName:network_reset_i
+            |vpiFullName:work@divSqrtRecFNToRaw_small.router.reset_i.network_reset_i
 |uhdmallModules:
 \_module_inst: work@divSqrtRecFN_small (work@divSqrtRecFN_small), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:117:1, endln:155:10
   |vpiParent:
