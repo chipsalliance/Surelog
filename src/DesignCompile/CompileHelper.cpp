@@ -3579,13 +3579,23 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
           if (ptps->VpiName() == "default") {
             UHDM::ExprEval eval;
             expr* expat = (expr*)pattern->Pattern();
+            if (expat == nullptr) break;
+            // The pattern value is only RESIZABLE when it is a constant.
+            // `'{default: v}` over an array whose element is a struct names a
+            // struct-valued expression -- a parameter reference or a nested
+            // assignment pattern -- and any_cast then yields nullptr:
+            // dereferencing it segfaulted the elaborator on every such
+            // declaration (CV32E40X's `parameter pma_cfg_t
+            // PMA_CFG[PMA_NUM_REGIONS-1:0] = '{default: PMA_R_DEFAULT}`).
             constant* c = any_cast<constant*>(expat);
             int32_t psize = expat->VpiSize();
-            if (psize == -1) {
-              adjustUnsized(c, ncsize);
-              c->VpiSize(ncsize);
-            } else {
-              if (ncsize < c->VpiSize()) c->VpiSize(ncsize);
+            if (c != nullptr) {
+              if (psize == -1) {
+                adjustUnsized(c, ncsize);
+                c->VpiSize(ncsize);
+              } else {
+                if (ncsize < c->VpiSize()) c->VpiSize(ncsize);
+              }
             }
             if (r) {
               bool invalidValue = false;
@@ -3649,7 +3659,7 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
                   }
                   if (!dims.empty()) {
                     std::function<any*(size_t)> build = [&](size_t d) -> any* {
-                      if (d == dims.size()) return c;
+                      if (d == dims.size()) return c ? (any*)c : (any*)expat;
                       array_expr* array = s.MakeArray_expr();
                       VectorOfexpr* exprs = s.MakeExprVec();
                       array->Exprs(exprs);
