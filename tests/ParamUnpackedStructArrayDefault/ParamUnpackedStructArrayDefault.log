@@ -1,0 +1,2869 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamUnpackedStructArrayDefault/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv:10:1: No timescale set for "p".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv:18:1: No timescale set for "dut".
+[INF:CP0300] Compilation...
+[INF:CP0301] ${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv:10:1: Compile package "p".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv:18:1: Compile module "work@dut".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv:18:1: Top level module "work@dut".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 1.
+[NTE:EL0510] Nb instances: 1.
+[NTE:EL0511] Nb leaf instances: 1.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+array_typespec                                        12
+constant                                             208
+cont_assign                                            2
+design                                                 1
+hier_path                                              4
+import_typespec                                        1
+int_typespec                                           2
+logic_net                                              4
+logic_typespec                                        74
+module_inst                                            7
+operation                                             73
+package                                                2
+param_assign                                          12
+parameter                                             16
+port                                                   4
+range                                                 54
+ref_obj                                               34
+ref_typespec                                         249
+string_typespec                                      104
+struct_typespec                                       34
+tagged_pattern                                       104
+typespec_member                                       68
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+array_typespec                                        12
+constant                                             208
+cont_assign                                            3
+design                                                 1
+hier_path                                              6
+import_typespec                                        1
+int_typespec                                           2
+logic_net                                              4
+logic_typespec                                        74
+module_inst                                            7
+operation                                             75
+package                                                2
+param_assign                                          12
+parameter                                             16
+port                                                   6
+range                                                 54
+ref_obj                                               42
+ref_typespec                                         251
+string_typespec                                      104
+struct_typespec                                       34
+tagged_pattern                                       104
+typespec_member                                       68
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamUnpackedStructArrayDefault/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamUnpackedStructArrayDefault/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamUnpackedStructArrayDefault/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@dut)
+|vpiElaborated:1
+|vpiName:work@dut
+|uhdmallPackages:
+\_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiName:p
+  |vpiFullName:p::
+  |vpiParameter:
+  \_parameter: (p::DEF), line:15:19, endln:15:22
+    |vpiParent:
+    \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+    |vpiTypespec:
+    \_ref_typespec: (p::DEF)
+      |vpiParent:
+      \_parameter: (p::DEF), line:15:19, endln:15:22
+      |vpiFullName:p::DEF
+      |vpiActual:
+      \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:DEF
+    |vpiFullName:p::DEF
+  |vpiParamAssign:
+  \_param_assign: , line:15:19, endln:15:49
+    |vpiParent:
+    \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+    |vpiRhs:
+    \_operation: , line:15:25, endln:15:49
+      |vpiParent:
+      \_param_assign: , line:15:19, endln:15:49
+      |vpiOpType:75
+      |vpiOperand:
+      \_tagged_pattern: , line:15:31, endln:15:36
+        |vpiParent:
+        \_operation: , line:15:25, endln:15:49
+        |vpiPattern:
+        \_constant: , line:15:31, endln:15:36
+          |vpiDecompile:8'hA5
+          |vpiSize:8
+          |HEX:A5
+          |vpiConstType:5
+        |vpiTypespec:
+        \_ref_typespec: (p)
+          |vpiParent:
+          \_tagged_pattern: , line:15:31, endln:15:36
+          |vpiFullName:p
+          |vpiActual:
+          \_string_typespec: (lo), line:15:27, endln:15:29
+      |vpiOperand:
+      \_tagged_pattern: , line:15:44, endln:15:48
+        |vpiParent:
+        \_operation: , line:15:25, endln:15:49
+        |vpiPattern:
+        \_constant: , line:15:44, endln:15:48
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiTypespec:
+        \_ref_typespec: (p)
+          |vpiParent:
+          \_tagged_pattern: , line:15:44, endln:15:48
+          |vpiFullName:p
+          |vpiActual:
+          \_string_typespec: (main), line:15:38, endln:15:42
+    |vpiLhs:
+    \_parameter: (p::DEF), line:15:19, endln:15:22
+  |vpiTypedef:
+  \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiParent:
+    \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+    |vpiName:p::cfg_t
+    |vpiInstance:
+    \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiParent:
+      \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+      |vpiName:lo
+      |vpiTypespec:
+      \_ref_typespec: (p::p::cfg_t::lo)
+        |vpiParent:
+        \_typespec_member: (lo), line:12:17, endln:12:19
+        |vpiFullName:p::p::cfg_t::lo
+        |vpiActual:
+        \_logic_typespec: , line:12:5, endln:12:16
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+      |vpiRefLineNo:12
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:12
+      |vpiRefEndColumnNo:16
+    |vpiTypespecMember:
+    \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiParent:
+      \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+      |vpiName:main
+      |vpiTypespec:
+      \_ref_typespec: (p::p::cfg_t::main)
+        |vpiParent:
+        \_typespec_member: (main), line:13:17, endln:13:21
+        |vpiFullName:p::p::cfg_t::main
+        |vpiActual:
+        \_logic_typespec: , line:13:5, endln:13:10
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+      |vpiRefLineNo:13
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:13
+      |vpiRefEndColumnNo:10
+  |vpiDefName:p
+|uhdmtopPackages:
+\_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiName:p
+  |vpiFullName:p::
+  |vpiParameter:
+  \_parameter: (p::DEF), line:15:19, endln:15:22
+    |vpiParent:
+    \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+    |vpiTypespec:
+    \_ref_typespec: (p::DEF)
+      |vpiParent:
+      \_parameter: (p::DEF), line:15:19, endln:15:22
+      |vpiFullName:p::DEF
+      |vpiActual:
+      \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:DEF
+    |vpiFullName:p::DEF
+  |vpiParamAssign:
+  \_param_assign: , line:15:19, endln:15:49
+    |vpiParent:
+    \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+    |vpiRhs:
+    \_operation: , line:15:25, endln:15:49
+      |vpiParent:
+      \_param_assign: , line:15:19, endln:15:49
+      |vpiOpType:75
+      |vpiOperand:
+      \_tagged_pattern: , line:15:31, endln:15:36
+        |vpiParent:
+        \_operation: , line:15:25, endln:15:49
+        |vpiPattern:
+        \_constant: , line:15:31, endln:15:36
+          |vpiDecompile:8'hA5
+          |vpiSize:8
+          |HEX:A5
+          |vpiConstType:5
+        |vpiTypespec:
+        \_ref_typespec: (p)
+          |vpiParent:
+          \_tagged_pattern: , line:15:31, endln:15:36
+          |vpiFullName:p
+          |vpiActual:
+          \_string_typespec: (lo), line:15:27, endln:15:29
+      |vpiOperand:
+      \_tagged_pattern: , line:15:44, endln:15:48
+        |vpiParent:
+        \_operation: , line:15:25, endln:15:49
+        |vpiPattern:
+        \_constant: , line:15:44, endln:15:48
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiTypespec:
+        \_ref_typespec: (p)
+          |vpiParent:
+          \_tagged_pattern: , line:15:44, endln:15:48
+          |vpiFullName:p
+          |vpiActual:
+          \_string_typespec: (main), line:15:38, endln:15:42
+    |vpiLhs:
+    \_parameter: (p::DEF), line:15:19, endln:15:22
+  |vpiTypedef:
+  \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiName:p::cfg_t
+    |vpiInstance:
+    \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiParent:
+      \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+      |vpiName:lo
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.p::cfg_t.lo)
+        |vpiParent:
+        \_typespec_member: (lo), line:12:17, endln:12:19
+        |vpiFullName:work@dut.p::cfg_t.lo
+        |vpiActual:
+        \_logic_typespec: , line:12:5, endln:12:16
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+      |vpiRefLineNo:12
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:12
+      |vpiRefEndColumnNo:16
+    |vpiTypespecMember:
+    \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiParent:
+      \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+      |vpiName:main
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.p::cfg_t.main)
+        |vpiParent:
+        \_typespec_member: (main), line:13:17, endln:13:21
+        |vpiFullName:work@dut.p::cfg_t.main
+        |vpiActual:
+        \_logic_typespec: , line:13:5, endln:13:10
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+      |vpiRefLineNo:13
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:13
+      |vpiRefEndColumnNo:10
+  |vpiDefName:p
+  |vpiTop:1
+|uhdmallModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiFullName:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.DEF), line:15:19, endln:15:22
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.DEF)
+      |vpiParent:
+      \_parameter: (work@dut.DEF), line:15:19, endln:15:22
+      |vpiFullName:work@dut.DEF
+      |vpiActual:
+      \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:DEF
+    |vpiFullName:work@dut.DEF
+    |vpiImported:p
+  |vpiParameter:
+  \_parameter: (work@dut.N), line:21:19, endln:21:20
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.N)
+      |vpiParent:
+      \_parameter: (work@dut.N), line:21:19, endln:21:20
+      |vpiFullName:work@dut.N
+      |vpiActual:
+      \_int_typespec: , line:21:13, endln:21:16
+    |vpiSigned:1
+    |vpiName:N
+    |vpiFullName:work@dut.N
+  |vpiParameter:
+  \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG)
+      |vpiParent:
+      \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+      |vpiFullName:work@dut.CFG
+      |vpiActual:
+      \_array_typespec: , line:22:13, endln:22:30
+    |vpiRange:
+    \_range: , line:22:23, endln:22:30
+      |vpiParent:
+      \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+      |vpiLeftRange:
+      \_operation: , line:22:24, endln:22:27
+        |vpiParent:
+        \_range: , line:22:23, endln:22:30
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@dut.CFG.N), line:22:24, endln:22:25
+          |vpiParent:
+          \_operation: , line:22:24, endln:22:27
+          |vpiName:N
+          |vpiFullName:work@dut.CFG.N
+        |vpiOperand:
+        \_constant: , line:22:26, endln:22:27
+          |vpiParent:
+          \_operation: , line:22:24, endln:22:27
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:22:28, endln:22:29
+        |vpiParent:
+        \_range: , line:22:23, endln:22:30
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiName:CFG
+    |vpiFullName:work@dut.CFG
+  |vpiParameter:
+  \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG2)
+      |vpiParent:
+      \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+      |vpiFullName:work@dut.CFG2
+      |vpiActual:
+      \_array_typespec: , line:23:13, endln:23:30
+    |vpiRange:
+    \_range: , line:23:23, endln:23:30
+      |vpiParent:
+      \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+      |vpiLeftRange:
+      \_operation: , line:23:24, endln:23:27
+        |vpiParent:
+        \_range: , line:23:23, endln:23:30
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@dut.CFG2.N), line:23:24, endln:23:25
+          |vpiParent:
+          \_operation: , line:23:24, endln:23:27
+          |vpiName:N
+          |vpiFullName:work@dut.CFG2.N
+        |vpiOperand:
+        \_constant: , line:23:26, endln:23:27
+          |vpiParent:
+          \_operation: , line:23:24, endln:23:27
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:23:28, endln:23:29
+        |vpiParent:
+        \_range: , line:23:23, endln:23:30
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiName:CFG2
+    |vpiFullName:work@dut.CFG2
+  |vpiParamAssign:
+  \_param_assign: , line:15:19, endln:15:49
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiRhs:
+    \_operation: , line:15:25, endln:15:49
+      |vpiParent:
+      \_param_assign: , line:15:19, endln:15:49
+      |vpiOpType:75
+      |vpiOperand:
+      \_tagged_pattern: , line:15:31, endln:15:36
+        |vpiParent:
+        \_operation: , line:15:25, endln:15:49
+        |vpiPattern:
+        \_constant: , line:15:31, endln:15:36
+          |vpiParent:
+          \_tagged_pattern: , line:15:31, endln:15:36
+          |vpiDecompile:8'hA5
+          |vpiSize:8
+          |HEX:A5
+          |vpiConstType:5
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_tagged_pattern: , line:15:31, endln:15:36
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_string_typespec: (lo), line:15:27, endln:15:29
+      |vpiOperand:
+      \_tagged_pattern: , line:15:44, endln:15:48
+        |vpiParent:
+        \_operation: , line:15:25, endln:15:49
+        |vpiPattern:
+        \_constant: , line:15:44, endln:15:48
+          |vpiParent:
+          \_tagged_pattern: , line:15:44, endln:15:48
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_tagged_pattern: , line:15:44, endln:15:48
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_string_typespec: (main), line:15:38, endln:15:42
+    |vpiLhs:
+    \_parameter: (work@dut.DEF), line:15:19, endln:15:22
+      |vpiParent:
+      \_param_assign: , line:15:19, endln:15:49
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.DEF)
+        |vpiParent:
+        \_parameter: (work@dut.DEF), line:15:19, endln:15:22
+        |vpiFullName:work@dut.DEF
+        |vpiActual:
+        \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+      |vpiName:DEF
+      |vpiFullName:work@dut.DEF
+      |vpiImported:p
+  |vpiParamAssign:
+  \_param_assign: , line:21:19, endln:21:34
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiRhs:
+    \_constant: , line:21:33, endln:21:34
+      |vpiParent:
+      \_param_assign: , line:21:19, endln:21:34
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:21:33, endln:21:34
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:21:13, endln:21:16
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@dut.N), line:21:19, endln:21:20
+  |vpiParamAssign:
+  \_param_assign: , line:22:19, endln:22:48
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiRhs:
+    \_operation: , line:22:33, endln:22:48
+      |vpiParent:
+      \_param_assign: , line:22:19, endln:22:48
+      |vpiOpType:75
+      |vpiOperand:
+      \_tagged_pattern: , line:22:44, endln:22:47
+        |vpiParent:
+        \_operation: , line:22:33, endln:22:48
+        |vpiPattern:
+        \_ref_obj: (work@dut.DEF), line:22:44, endln:22:47
+          |vpiParent:
+          \_operation: , line:22:33, endln:22:48
+          |vpiName:DEF
+          |vpiFullName:work@dut.DEF
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_tagged_pattern: , line:22:44, endln:22:47
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_string_typespec: (default), line:22:35, endln:22:42
+    |vpiLhs:
+    \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+  |vpiParamAssign:
+  \_param_assign: , line:23:19, endln:23:69
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiRhs:
+    \_operation: , line:23:33, endln:23:69
+      |vpiParent:
+      \_param_assign: , line:23:19, endln:23:69
+      |vpiOpType:75
+      |vpiOperand:
+      \_tagged_pattern: , line:23:44, endln:23:68
+        |vpiParent:
+        \_operation: , line:23:33, endln:23:69
+        |vpiPattern:
+        \_operation: , line:23:44, endln:23:68
+          |vpiParent:
+          \_operation: , line:23:33, endln:23:69
+          |vpiOpType:75
+          |vpiOperand:
+          \_tagged_pattern: , line:23:50, endln:23:55
+            |vpiParent:
+            \_operation: , line:23:44, endln:23:68
+            |vpiPattern:
+            \_constant: , line:23:50, endln:23:55
+              |vpiDecompile:8'h5A
+              |vpiSize:8
+              |HEX:5A
+              |vpiConstType:5
+            |vpiTypespec:
+            \_ref_typespec: (work@dut)
+              |vpiParent:
+              \_tagged_pattern: , line:23:50, endln:23:55
+              |vpiFullName:work@dut
+              |vpiActual:
+              \_string_typespec: (lo), line:23:46, endln:23:48
+          |vpiOperand:
+          \_tagged_pattern: , line:23:63, endln:23:67
+            |vpiParent:
+            \_operation: , line:23:44, endln:23:68
+            |vpiPattern:
+            \_constant: , line:23:63, endln:23:67
+              |vpiDecompile:1'b0
+              |vpiSize:1
+              |BIN:0
+              |vpiConstType:3
+            |vpiTypespec:
+            \_ref_typespec: (work@dut)
+              |vpiParent:
+              \_tagged_pattern: , line:23:63, endln:23:67
+              |vpiFullName:work@dut
+              |vpiActual:
+              \_string_typespec: (main), line:23:57, endln:23:61
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_tagged_pattern: , line:23:44, endln:23:68
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_string_typespec: (default), line:23:35, endln:23:42
+    |vpiLhs:
+    \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+  |vpiTypedef:
+  \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiTypedef:
+  \_import_typespec: (p), line:19:10, endln:19:14
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.en), line:26:22, endln:26:24
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiName:en
+    |vpiFullName:work@dut.en
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.y), line:27:22, endln:27:23
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiName:y
+    |vpiFullName:work@dut.y
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (en), line:26:22, endln:26:24
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiName:en
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.en.en), line:26:22, endln:26:24
+      |vpiParent:
+      \_port: (en), line:26:22, endln:26:24
+      |vpiName:en
+      |vpiFullName:work@dut.en.en
+      |vpiActual:
+      \_logic_net: (work@dut.en), line:26:22, endln:26:24
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.en)
+      |vpiParent:
+      \_port: (en), line:26:22, endln:26:24
+      |vpiFullName:work@dut.en
+      |vpiActual:
+      \_logic_typespec: , line:26:10, endln:26:15
+  |vpiPort:
+  \_port: (y), line:27:22, endln:27:23
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiName:y
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@dut.y.y), line:27:22, endln:27:23
+      |vpiParent:
+      \_port: (y), line:27:22, endln:27:23
+      |vpiName:y
+      |vpiFullName:work@dut.y.y
+      |vpiActual:
+      \_logic_net: (work@dut.y), line:27:22, endln:27:23
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.y)
+      |vpiParent:
+      \_port: (y), line:27:22, endln:27:23
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_typespec: , line:27:10, endln:27:21
+  |vpiContAssign:
+  \_cont_assign: , line:29:10, endln:29:46
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiRhs:
+    \_operation: , line:29:14, endln:29:46
+      |vpiParent:
+      \_cont_assign: , line:29:10, endln:29:46
+      |vpiOpType:32
+      |vpiOperand:
+      \_ref_obj: (work@dut.en), line:29:14, endln:29:16
+        |vpiParent:
+        \_operation: , line:29:14, endln:29:46
+        |vpiName:en
+        |vpiFullName:work@dut.en
+        |vpiActual:
+        \_logic_net: (work@dut.en), line:26:22, endln:26:24
+      |vpiOperand:
+      \_operation: , line:29:19, endln:29:37
+        |vpiParent:
+        \_operation: , line:29:14, endln:29:46
+        |vpiOpType:33
+        |vpiOperand:
+        \_hier_path: (DEF.lo), line:29:20, endln:29:26
+          |vpiParent:
+          \_operation: , line:29:19, endln:29:37
+          |vpiActual:
+          \_ref_obj: (DEF), line:29:20, endln:29:23
+            |vpiParent:
+            \_hier_path: (DEF.lo), line:29:20, endln:29:26
+            |vpiName:DEF
+          |vpiActual:
+          \_ref_obj: (work@dut.lo), line:29:24, endln:29:26
+            |vpiParent:
+            \_hier_path: (DEF.lo), line:29:20, endln:29:26
+            |vpiName:lo
+            |vpiFullName:work@dut.lo
+          |vpiName:DEF.lo
+        |vpiOperand:
+        \_hier_path: (DEF.main), line:29:28, endln:29:36
+          |vpiParent:
+          \_operation: , line:29:19, endln:29:37
+          |vpiActual:
+          \_ref_obj: (DEF), line:29:28, endln:29:31
+            |vpiParent:
+            \_hier_path: (DEF.main), line:29:28, endln:29:36
+            |vpiName:DEF
+          |vpiActual:
+          \_ref_obj: (work@dut.main), line:29:32, endln:29:36
+            |vpiParent:
+            \_hier_path: (DEF.main), line:29:28, endln:29:36
+            |vpiName:main
+            |vpiFullName:work@dut.main
+          |vpiName:DEF.main
+      |vpiOperand:
+      \_constant: , line:29:40, endln:29:46
+        |vpiParent:
+        \_operation: , line:29:14, endln:29:46
+        |vpiDecompile:9'h000
+        |vpiSize:9
+        |HEX:000
+        |vpiConstType:5
+    |vpiLhs:
+    \_ref_obj: (work@dut.y), line:29:10, endln:29:11
+      |vpiParent:
+      \_cont_assign: , line:29:10, endln:29:46
+      |vpiName:y
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_net: (work@dut.y), line:27:22, endln:27:23
+|uhdmtopModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiName:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.DEF), line:15:19, endln:15:22
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.DEF)
+      |vpiParent:
+      \_parameter: (work@dut.DEF), line:15:19, endln:15:22
+      |vpiFullName:work@dut.DEF
+      |vpiActual:
+      \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:DEF
+    |vpiFullName:work@dut.DEF
+    |vpiImported:p
+  |vpiParameter:
+  \_parameter: (work@dut.N), line:21:19, endln:21:20
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.N)
+      |vpiParent:
+      \_parameter: (work@dut.N), line:21:19, endln:21:20
+      |vpiFullName:work@dut.N
+      |vpiActual:
+      \_int_typespec: , line:21:13, endln:21:16
+    |vpiSigned:1
+    |vpiName:N
+    |vpiFullName:work@dut.N
+  |vpiParameter:
+  \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG)
+      |vpiParent:
+      \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+      |vpiFullName:work@dut.CFG
+      |vpiActual:
+      \_array_typespec: , line:22:13, endln:22:30
+    |vpiRange:
+    \_range: , line:22:23, endln:22:30
+      |vpiParent:
+      \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+      |vpiLeftRange:
+      \_operation: , line:22:24, endln:22:27
+        |vpiParent:
+        \_range: , line:22:23, endln:22:30
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@dut.CFG.N), line:22:24, endln:22:25
+          |vpiParent:
+          \_operation: , line:22:24, endln:22:27
+          |vpiName:N
+          |vpiFullName:work@dut.CFG.N
+          |vpiActual:
+          \_parameter: (work@dut.N), line:21:19, endln:21:20
+        |vpiOperand:
+        \_constant: , line:22:26, endln:22:27
+          |vpiParent:
+          \_operation: , line:22:24, endln:22:27
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:22:28, endln:22:29
+        |vpiParent:
+        \_range: , line:22:23, endln:22:30
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiName:CFG
+    |vpiFullName:work@dut.CFG
+  |vpiParameter:
+  \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG2)
+      |vpiParent:
+      \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+      |vpiFullName:work@dut.CFG2
+      |vpiActual:
+      \_array_typespec: , line:23:13, endln:23:30
+    |vpiRange:
+    \_range: , line:23:23, endln:23:30
+      |vpiParent:
+      \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+      |vpiLeftRange:
+      \_operation: , line:23:24, endln:23:27
+        |vpiParent:
+        \_range: , line:23:23, endln:23:30
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@dut.CFG2.N), line:23:24, endln:23:25
+          |vpiParent:
+          \_operation: , line:23:24, endln:23:27
+          |vpiName:N
+          |vpiFullName:work@dut.CFG2.N
+          |vpiActual:
+          \_parameter: (work@dut.N), line:21:19, endln:21:20
+        |vpiOperand:
+        \_constant: , line:23:26, endln:23:27
+          |vpiParent:
+          \_operation: , line:23:24, endln:23:27
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:23:28, endln:23:29
+        |vpiParent:
+        \_range: , line:23:23, endln:23:30
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiName:CFG2
+    |vpiFullName:work@dut.CFG2
+  |vpiParamAssign:
+  \_param_assign: , line:21:19, endln:21:34
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiRhs:
+    \_constant: , line:21:33, endln:21:34
+      |vpiParent:
+      \_param_assign: , line:21:19, endln:21:34
+      |vpiDecompile:2
+      |vpiSize:32
+      |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:21:33, endln:21:34
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:21:13, endln:21:16
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@dut.N), line:21:19, endln:21:20
+  |vpiParamAssign:
+  \_param_assign: , line:22:19, endln:22:48
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiRhs:
+    \_operation: , line:22:33, endln:22:48
+      |vpiParent:
+      \_param_assign: , line:22:19, endln:22:48
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_operation: , line:22:33, endln:22:48
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_array_typespec: , line:22:13, endln:22:30
+      |vpiOpType:75
+      |vpiOperand:
+      \_operation: , line:22:44, endln:22:47
+        |vpiParent:
+        \_operation: , line:22:33, endln:22:48
+        |vpiTypespec:
+        \_ref_typespec: 
+          |vpiActual:
+          \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+        |vpiOpType:75
+        |vpiOperand:
+        \_constant: , line:15:31, endln:15:36
+          |vpiParent:
+          \_operation: , line:22:44, endln:22:47
+          |vpiDecompile:8'hA5
+          |vpiSize:8
+          |HEX:A5
+          |vpiConstType:5
+        |vpiOperand:
+        \_constant: , line:15:44, endln:15:48
+          |vpiParent:
+          \_operation: , line:22:44, endln:22:47
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+      |vpiOperand:
+      \_operation: , line:22:44, endln:22:47
+        |vpiParent:
+        \_operation: , line:22:33, endln:22:48
+        |vpiTypespec:
+        \_ref_typespec: 
+          |vpiActual:
+          \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+        |vpiOpType:75
+        |vpiOperand:
+        \_constant: , line:15:31, endln:15:36
+          |vpiParent:
+          \_operation: , line:22:44, endln:22:47
+          |vpiDecompile:8'hA5
+          |vpiSize:8
+          |HEX:A5
+          |vpiConstType:5
+        |vpiOperand:
+        \_constant: , line:15:44, endln:15:48
+          |vpiParent:
+          \_operation: , line:22:44, endln:22:47
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+  |vpiParamAssign:
+  \_param_assign: , line:23:19, endln:23:69
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiRhs:
+    \_operation: , line:23:33, endln:23:69
+      |vpiParent:
+      \_param_assign: , line:23:19, endln:23:69
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_operation: , line:23:33, endln:23:69
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_array_typespec: , line:23:13, endln:23:30
+      |vpiOpType:75
+      |vpiOperand:
+      \_operation: , line:23:44, endln:23:68
+        |vpiParent:
+        \_operation: , line:23:33, endln:23:69
+        |vpiOpType:75
+        |vpiOperand:
+        \_tagged_pattern: , line:23:50, endln:23:55
+          |vpiParent:
+          \_operation: , line:23:44, endln:23:68
+          |vpiPattern:
+          \_constant: , line:23:50, endln:23:55
+            |vpiParent:
+            \_tagged_pattern: , line:23:50, endln:23:55
+            |vpiDecompile:8'h5A
+            |vpiSize:8
+            |HEX:5A
+            |vpiConstType:5
+          |vpiTypespec:
+          \_ref_typespec: (work@dut)
+            |vpiParent:
+            \_tagged_pattern: , line:23:50, endln:23:55
+            |vpiFullName:work@dut
+            |vpiActual:
+            \_string_typespec: (lo), line:23:46, endln:23:48
+        |vpiOperand:
+        \_tagged_pattern: , line:23:63, endln:23:67
+          |vpiParent:
+          \_operation: , line:23:44, endln:23:68
+          |vpiPattern:
+          \_constant: , line:23:63, endln:23:67
+            |vpiParent:
+            \_tagged_pattern: , line:23:63, endln:23:67
+            |vpiDecompile:1'b0
+            |vpiSize:1
+            |BIN:0
+            |vpiConstType:3
+          |vpiTypespec:
+          \_ref_typespec: (work@dut)
+            |vpiParent:
+            \_tagged_pattern: , line:23:63, endln:23:67
+            |vpiFullName:work@dut
+            |vpiActual:
+            \_string_typespec: (main), line:23:57, endln:23:61
+      |vpiOperand:
+      \_operation: , line:23:44, endln:23:68
+        |vpiParent:
+        \_operation: , line:23:33, endln:23:69
+        |vpiOpType:75
+        |vpiOperand:
+        \_tagged_pattern: , line:23:50, endln:23:55
+          |vpiParent:
+          \_operation: , line:23:44, endln:23:68
+          |vpiPattern:
+          \_constant: , line:23:50, endln:23:55
+            |vpiParent:
+            \_tagged_pattern: , line:23:50, endln:23:55
+            |vpiDecompile:8'h5A
+            |vpiSize:8
+            |HEX:5A
+            |vpiConstType:5
+          |vpiTypespec:
+          \_ref_typespec: (work@dut)
+            |vpiParent:
+            \_tagged_pattern: , line:23:50, endln:23:55
+            |vpiFullName:work@dut
+            |vpiActual:
+            \_string_typespec: (lo), line:23:46, endln:23:48
+        |vpiOperand:
+        \_tagged_pattern: , line:23:63, endln:23:67
+          |vpiParent:
+          \_operation: , line:23:44, endln:23:68
+          |vpiPattern:
+          \_constant: , line:23:63, endln:23:67
+            |vpiParent:
+            \_tagged_pattern: , line:23:63, endln:23:67
+            |vpiDecompile:1'b0
+            |vpiSize:1
+            |BIN:0
+            |vpiConstType:3
+          |vpiTypespec:
+          \_ref_typespec: (work@dut)
+            |vpiParent:
+            \_tagged_pattern: , line:23:63, endln:23:67
+            |vpiFullName:work@dut
+            |vpiActual:
+            \_string_typespec: (main), line:23:57, endln:23:61
+    |vpiLhs:
+    \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+  |vpiParamAssign:
+  \_param_assign: , line:15:19, endln:15:49
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiRhs:
+    \_operation: , line:15:25, endln:15:49
+      |vpiParent:
+      \_param_assign: , line:15:19, endln:15:49
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiActual:
+        \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+      |vpiOpType:75
+      |vpiOperand:
+      \_constant: , line:15:31, endln:15:36
+        |vpiParent:
+        \_operation: , line:15:25, endln:15:49
+        |vpiDecompile:8'hA5
+        |vpiSize:8
+        |HEX:A5
+        |vpiConstType:5
+      |vpiOperand:
+      \_constant: , line:15:44, endln:15:48
+        |vpiParent:
+        \_operation: , line:15:25, endln:15:49
+        |vpiDecompile:1'b1
+        |vpiSize:1
+        |BIN:1
+        |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@dut.DEF), line:15:19, endln:15:22
+  |vpiTypedef:
+  \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiTypedef:
+  \_import_typespec: (p), line:19:10, endln:19:14
+  |vpiDefName:work@dut
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@dut.en), line:26:22, endln:26:24
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.en)
+      |vpiParent:
+      \_logic_net: (work@dut.en), line:26:22, endln:26:24
+      |vpiFullName:work@dut.en
+      |vpiActual:
+      \_logic_typespec: , line:26:10, endln:26:15
+    |vpiName:en
+    |vpiFullName:work@dut.en
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.y), line:27:22, endln:27:23
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.y)
+      |vpiParent:
+      \_logic_net: (work@dut.y), line:27:22, endln:27:23
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_typespec: , line:27:10, endln:27:21
+    |vpiName:y
+    |vpiFullName:work@dut.y
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (en), line:26:22, endln:26:24
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiName:en
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.en), line:26:22, endln:26:24
+      |vpiParent:
+      \_port: (en), line:26:22, endln:26:24
+      |vpiName:en
+      |vpiFullName:work@dut.en
+      |vpiActual:
+      \_logic_net: (work@dut.en), line:26:22, endln:26:24
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.en)
+      |vpiParent:
+      \_port: (en), line:26:22, endln:26:24
+      |vpiFullName:work@dut.en
+      |vpiActual:
+      \_logic_typespec: , line:26:10, endln:26:15
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+  |vpiPort:
+  \_port: (y), line:27:22, endln:27:23
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiName:y
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@dut.y), line:27:22, endln:27:23
+      |vpiParent:
+      \_port: (y), line:27:22, endln:27:23
+      |vpiName:y
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_net: (work@dut.y), line:27:22, endln:27:23
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.y)
+      |vpiParent:
+      \_port: (y), line:27:22, endln:27:23
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_typespec: , line:27:10, endln:27:21
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+  |vpiContAssign:
+  \_cont_assign: , line:29:10, endln:29:46
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+    |vpiRhs:
+    \_operation: , line:29:14, endln:29:46
+      |vpiParent:
+      \_cont_assign: , line:29:10, endln:29:46
+      |vpiOpType:32
+      |vpiOperand:
+      \_ref_obj: (work@dut.en), line:29:14, endln:29:16
+        |vpiParent:
+        \_operation: , line:29:14, endln:29:46
+        |vpiName:en
+        |vpiFullName:work@dut.en
+        |vpiActual:
+        \_logic_net: (work@dut.en), line:26:22, endln:26:24
+      |vpiOperand:
+      \_operation: , line:29:19, endln:29:37
+        |vpiParent:
+        \_operation: , line:29:14, endln:29:46
+        |vpiOpType:33
+        |vpiOperand:
+        \_hier_path: (DEF.lo), line:29:20, endln:29:26
+          |vpiParent:
+          \_operation: , line:29:19, endln:29:37
+          |vpiActual:
+          \_ref_obj: (DEF), line:29:20, endln:29:23
+            |vpiParent:
+            \_hier_path: (DEF.lo), line:29:20, endln:29:26
+            |vpiName:DEF
+            |vpiActual:
+            \_parameter: (work@dut.DEF), line:15:19, endln:15:22
+          |vpiActual:
+          \_ref_obj: (work@dut.lo), line:29:24, endln:29:26
+            |vpiParent:
+            \_hier_path: (DEF.lo), line:29:20, endln:29:26
+            |vpiName:lo
+            |vpiFullName:work@dut.lo
+            |vpiActual:
+            \_typespec_member: (lo), line:12:17, endln:12:19
+          |vpiName:DEF.lo
+        |vpiOperand:
+        \_hier_path: (DEF.main), line:29:28, endln:29:36
+          |vpiParent:
+          \_operation: , line:29:19, endln:29:37
+          |vpiActual:
+          \_ref_obj: (DEF), line:29:28, endln:29:31
+            |vpiParent:
+            \_hier_path: (DEF.main), line:29:28, endln:29:36
+            |vpiName:DEF
+            |vpiActual:
+            \_parameter: (work@dut.DEF), line:15:19, endln:15:22
+          |vpiActual:
+          \_ref_obj: (work@dut.main), line:29:32, endln:29:36
+            |vpiParent:
+            \_hier_path: (DEF.main), line:29:28, endln:29:36
+            |vpiName:main
+            |vpiFullName:work@dut.main
+            |vpiActual:
+            \_typespec_member: (main), line:13:17, endln:13:21
+          |vpiName:DEF.main
+      |vpiOperand:
+      \_constant: , line:29:40, endln:29:46
+        |vpiParent:
+        \_operation: , line:29:14, endln:29:46
+        |vpiDecompile:9'h000
+        |vpiSize:9
+        |HEX:000
+        |vpiConstType:5
+    |vpiLhs:
+    \_ref_obj: (work@dut.y), line:29:10, endln:29:11
+      |vpiParent:
+      \_cont_assign: , line:29:10, endln:29:46
+      |vpiName:y
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_net: (work@dut.y), line:27:22, endln:27:23
+\_weaklyReferenced:
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_typespec_member: (main), line:13:17, endln:13:21
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_string_typespec: (lo), line:15:27, endln:15:29
+  |vpiParent:
+  \_tagged_pattern: , line:15:31, endln:15:36
+  |vpiName:lo
+\_string_typespec: (main), line:15:38, endln:15:42
+  |vpiParent:
+  \_tagged_pattern: , line:15:44, endln:15:48
+  |vpiName:main
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_typespec_member: (main), line:13:17, endln:13:21
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_string_typespec: (lo), line:15:27, endln:15:29
+  |vpiParent:
+  \_tagged_pattern: , line:15:31, endln:15:36
+  |vpiName:lo
+\_string_typespec: (main), line:15:38, endln:15:42
+  |vpiParent:
+  \_tagged_pattern: , line:15:44, endln:15:48
+  |vpiName:main
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.DEF.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.DEF.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.DEF.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.DEF.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_string_typespec: (lo), line:15:27, endln:15:29
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:lo
+\_string_typespec: (main), line:15:38, endln:15:42
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:main
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.DEF.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.DEF.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.DEF.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.DEF.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_int_typespec: , line:21:13, endln:21:16
+  |vpiParent:
+  \_parameter: (work@dut.N), line:21:19, endln:21:20
+  |vpiSigned:1
+\_array_typespec: , line:22:13, endln:22:30
+  |vpiParent:
+  \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+  |vpiRange:
+  \_range: , line:22:23, endln:22:30
+  |vpiElemTypespec:
+  \_ref_typespec: (work@dut.CFG)
+    |vpiParent:
+    \_array_typespec: , line:22:13, endln:22:30
+    |vpiFullName:work@dut.CFG
+    |vpiActual:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_string_typespec: (default), line:22:35, endln:22:42
+  |vpiParent:
+  \_tagged_pattern: , line:22:44, endln:22:47
+  |vpiName:default
+\_array_typespec: , line:23:13, endln:23:30
+  |vpiParent:
+  \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+  |vpiRange:
+  \_range: , line:23:23, endln:23:30
+  |vpiElemTypespec:
+  \_ref_typespec: (work@dut.CFG2)
+    |vpiParent:
+    \_array_typespec: , line:23:13, endln:23:30
+    |vpiFullName:work@dut.CFG2
+    |vpiActual:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_string_typespec: (lo), line:23:46, endln:23:48
+  |vpiParent:
+  \_tagged_pattern: , line:23:50, endln:23:55
+  |vpiName:lo
+\_string_typespec: (main), line:23:57, endln:23:61
+  |vpiParent:
+  \_tagged_pattern: , line:23:63, endln:23:67
+  |vpiName:main
+\_string_typespec: (default), line:23:35, endln:23:42
+  |vpiParent:
+  \_tagged_pattern: , line:23:44, endln:23:68
+  |vpiName:default
+\_array_typespec: , line:22:13, endln:22:30
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiRange:
+  \_range: , line:22:23, endln:22:30
+    |vpiParent:
+    \_array_typespec: , line:22:13, endln:22:30
+    |vpiLeftRange:
+    \_operation: , line:22:24, endln:22:27
+      |vpiParent:
+      \_range: , line:22:23, endln:22:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.N), line:22:24, endln:22:25
+        |vpiParent:
+        \_operation: , line:22:24, endln:22:27
+        |vpiName:N
+        |vpiFullName:work@dut.N
+        |vpiActual:
+        \_parameter: (work@dut.N), line:21:19, endln:21:20
+      |vpiOperand:
+      \_constant: , line:22:26, endln:22:27
+        |vpiParent:
+        \_operation: , line:22:24, endln:22:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:28, endln:22:29
+      |vpiParent:
+      \_range: , line:22:23, endln:22:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@dut)
+    |vpiParent:
+    \_array_typespec: , line:22:13, endln:22:30
+    |vpiFullName:work@dut
+    |vpiActual:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_ref_typespec: (work@dut)
+  |vpiParent:
+  \_operation: , line:22:44, endln:22:47
+  |vpiFullName:work@dut
+  |vpiActual:
+  \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_operation: , line:22:44, endln:22:47
+  |vpiParent:
+  \_tagged_pattern: , line:22:44, endln:22:47
+  |vpiTypespec:
+  \_ref_typespec: (work@dut)
+  |vpiOpType:75
+  |vpiOperand:
+  \_tagged_pattern: , line:15:31, endln:15:36
+    |vpiParent:
+    \_operation: , line:22:44, endln:22:47
+    |vpiPattern:
+    \_constant: , line:15:31, endln:15:36
+    |vpiTypespec:
+    \_ref_typespec: (work@dut)
+      |vpiParent:
+      \_tagged_pattern: , line:15:31, endln:15:36
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_string_typespec: (lo), line:15:27, endln:15:29
+  |vpiOperand:
+  \_tagged_pattern: , line:15:44, endln:15:48
+    |vpiParent:
+    \_operation: , line:22:44, endln:22:47
+    |vpiPattern:
+    \_constant: , line:15:44, endln:15:48
+    |vpiTypespec:
+    \_ref_typespec: (work@dut)
+      |vpiParent:
+      \_tagged_pattern: , line:15:44, endln:15:48
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_string_typespec: (main), line:15:38, endln:15:42
+\_tagged_pattern: , line:22:44, endln:22:47
+  |vpiParent:
+  \_operation: , line:22:33, endln:22:48
+  |vpiPattern:
+  \_operation: , line:22:44, endln:22:47
+  |vpiTypespec:
+  \_ref_typespec: (work@dut)
+    |vpiParent:
+    \_tagged_pattern: , line:22:44, endln:22:47
+    |vpiFullName:work@dut
+    |vpiActual:
+    \_string_typespec: (default), line:22:35, endln:22:42
+\_string_typespec: (default), line:22:35, endln:22:42
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:default
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_string_typespec: (lo), line:15:27, endln:15:29
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:lo
+\_string_typespec: (main), line:15:38, endln:15:42
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:main
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_ref_typespec: (work@dut)
+  |vpiParent:
+  \_operation: , line:22:44, endln:22:47
+  |vpiFullName:work@dut
+  |vpiActual:
+  \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_operation: , line:22:44, endln:22:47
+  |vpiParent:
+  \_tagged_pattern: , line:22:44, endln:22:47
+  |vpiTypespec:
+  \_ref_typespec: (work@dut)
+  |vpiOpType:75
+  |vpiOperand:
+  \_tagged_pattern: , line:15:31, endln:15:36
+    |vpiParent:
+    \_operation: , line:22:44, endln:22:47
+    |vpiPattern:
+    \_constant: , line:15:31, endln:15:36
+    |vpiTypespec:
+    \_ref_typespec: (work@dut)
+      |vpiParent:
+      \_tagged_pattern: , line:15:31, endln:15:36
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_string_typespec: (lo), line:15:27, endln:15:29
+  |vpiOperand:
+  \_tagged_pattern: , line:15:44, endln:15:48
+    |vpiParent:
+    \_operation: , line:22:44, endln:22:47
+    |vpiPattern:
+    \_constant: , line:15:44, endln:15:48
+    |vpiTypespec:
+    \_ref_typespec: (work@dut)
+      |vpiParent:
+      \_tagged_pattern: , line:15:44, endln:15:48
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_string_typespec: (main), line:15:38, endln:15:42
+\_tagged_pattern: , line:22:44, endln:22:47
+  |vpiParent:
+  \_operation: , line:22:33, endln:22:48
+  |vpiPattern:
+  \_operation: , line:22:44, endln:22:47
+  |vpiTypespec:
+  \_ref_typespec: (work@dut)
+    |vpiParent:
+    \_tagged_pattern: , line:22:44, endln:22:47
+    |vpiFullName:work@dut
+    |vpiActual:
+    \_string_typespec: (default), line:22:35, endln:22:42
+\_string_typespec: (default), line:22:35, endln:22:42
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:default
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_string_typespec: (lo), line:15:27, endln:15:29
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:lo
+\_string_typespec: (main), line:15:38, endln:15:42
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:main
+\_operation: , line:22:33, endln:22:48
+  |vpiParent:
+  \_param_assign: , line:22:19, endln:22:48
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiOpType:75
+  |vpiOperand:
+  \_operation: , line:22:44, endln:22:47
+  |vpiOperand:
+  \_operation: , line:22:44, endln:22:47
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.CFG.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.CFG.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_ref_typespec: (work@dut.CFG)
+  |vpiParent:
+  \_array_typespec: , line:22:13, endln:22:30
+  |vpiFullName:work@dut.CFG
+  |vpiActual:
+  \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_array_typespec: , line:22:13, endln:22:30
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG)
+  |vpiRange:
+  \_range: , line:22:23, endln:22:30
+    |vpiParent:
+    \_array_typespec: , line:22:13, endln:22:30
+    |vpiLeftRange:
+    \_operation: , line:22:24, endln:22:27
+      |vpiParent:
+      \_range: , line:22:23, endln:22:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.CFG.N), line:22:24, endln:22:25
+        |vpiParent:
+        \_operation: , line:22:24, endln:22:27
+        |vpiName:N
+        |vpiFullName:work@dut.CFG.N
+      |vpiOperand:
+      \_constant: , line:22:26, endln:22:27
+        |vpiParent:
+        \_operation: , line:22:24, endln:22:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:28, endln:22:29
+      |vpiParent:
+      \_range: , line:22:23, endln:22:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@dut.CFG)
+\_ref_typespec: (work@dut.CFG)
+  |vpiParent:
+  \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+  |vpiFullName:work@dut.CFG
+  |vpiActual:
+  \_array_typespec: , line:22:13, endln:22:30
+\_parameter: (work@dut.CFG), line:22:19, endln:22:22
+  |vpiParent:
+  \_param_assign: , line:22:19, endln:22:48
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.CFG)
+  |vpiRange:
+  \_range: , line:22:23, endln:22:30
+    |vpiParent:
+    \_parameter: (work@dut.CFG), line:22:19, endln:22:22
+    |vpiLeftRange:
+    \_operation: , line:22:24, endln:22:27
+      |vpiParent:
+      \_range: , line:22:23, endln:22:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.CFG.N), line:22:24, endln:22:25
+        |vpiParent:
+        \_operation: , line:22:24, endln:22:27
+        |vpiName:N
+        |vpiFullName:work@dut.CFG.N
+      |vpiOperand:
+      \_constant: , line:22:26, endln:22:27
+        |vpiParent:
+        \_operation: , line:22:24, endln:22:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:28, endln:22:29
+      |vpiParent:
+      \_range: , line:22:23, endln:22:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiName:CFG
+  |vpiFullName:work@dut.CFG
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_array_typespec: , line:23:13, endln:23:30
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiRange:
+  \_range: , line:23:23, endln:23:30
+    |vpiParent:
+    \_array_typespec: , line:23:13, endln:23:30
+    |vpiLeftRange:
+    \_operation: , line:23:24, endln:23:27
+      |vpiParent:
+      \_range: , line:23:23, endln:23:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.N), line:23:24, endln:23:25
+        |vpiParent:
+        \_operation: , line:23:24, endln:23:27
+        |vpiName:N
+        |vpiFullName:work@dut.N
+        |vpiActual:
+        \_parameter: (work@dut.N), line:21:19, endln:21:20
+      |vpiOperand:
+      \_constant: , line:23:26, endln:23:27
+        |vpiParent:
+        \_operation: , line:23:24, endln:23:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:23:28, endln:23:29
+      |vpiParent:
+      \_range: , line:23:23, endln:23:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@dut)
+    |vpiParent:
+    \_array_typespec: , line:23:13, endln:23:30
+    |vpiFullName:work@dut
+    |vpiActual:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_string_typespec: (lo), line:23:46, endln:23:48
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:lo
+\_string_typespec: (main), line:23:57, endln:23:61
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:main
+\_string_typespec: (lo), line:23:46, endln:23:48
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:lo
+\_string_typespec: (main), line:23:57, endln:23:61
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiName:main
+\_operation: , line:23:33, endln:23:69
+  |vpiParent:
+  \_param_assign: , line:23:19, endln:23:69
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiOpType:75
+  |vpiOperand:
+  \_operation: , line:23:44, endln:23:68
+  |vpiOperand:
+  \_operation: , line:23:44, endln:23:68
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG2)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG2.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.CFG2.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG2.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.CFG2.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_ref_typespec: (work@dut.CFG2)
+  |vpiParent:
+  \_array_typespec: , line:23:13, endln:23:30
+  |vpiFullName:work@dut.CFG2
+  |vpiActual:
+  \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_array_typespec: , line:23:13, endln:23:30
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG2)
+  |vpiRange:
+  \_range: , line:23:23, endln:23:30
+    |vpiParent:
+    \_array_typespec: , line:23:13, endln:23:30
+    |vpiLeftRange:
+    \_operation: , line:23:24, endln:23:27
+      |vpiParent:
+      \_range: , line:23:23, endln:23:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.CFG2.N), line:23:24, endln:23:25
+        |vpiParent:
+        \_operation: , line:23:24, endln:23:27
+        |vpiName:N
+        |vpiFullName:work@dut.CFG2.N
+      |vpiOperand:
+      \_constant: , line:23:26, endln:23:27
+        |vpiParent:
+        \_operation: , line:23:24, endln:23:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:23:28, endln:23:29
+      |vpiParent:
+      \_range: , line:23:23, endln:23:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@dut.CFG2)
+\_ref_typespec: (work@dut.CFG2)
+  |vpiParent:
+  \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+  |vpiFullName:work@dut.CFG2
+  |vpiActual:
+  \_array_typespec: , line:23:13, endln:23:30
+\_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+  |vpiParent:
+  \_param_assign: , line:23:19, endln:23:69
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.CFG2)
+  |vpiRange:
+  \_range: , line:23:23, endln:23:30
+    |vpiParent:
+    \_parameter: (work@dut.CFG2), line:23:19, endln:23:23
+    |vpiLeftRange:
+    \_operation: , line:23:24, endln:23:27
+      |vpiParent:
+      \_range: , line:23:23, endln:23:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.CFG2.N), line:23:24, endln:23:25
+        |vpiParent:
+        \_operation: , line:23:24, endln:23:27
+        |vpiName:N
+        |vpiFullName:work@dut.CFG2.N
+      |vpiOperand:
+      \_constant: , line:23:26, endln:23:27
+        |vpiParent:
+        \_operation: , line:23:24, endln:23:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:23:28, endln:23:29
+      |vpiParent:
+      \_range: , line:23:23, endln:23:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiName:CFG2
+  |vpiFullName:work@dut.CFG2
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG2.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG2.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_logic_typespec: , line:26:10, endln:26:15
+\_logic_typespec: , line:27:10, endln:27:21
+  |vpiRange:
+  \_range: , line:27:16, endln:27:21
+    |vpiParent:
+    \_logic_typespec: , line:27:10, endln:27:21
+    |vpiLeftRange:
+    \_constant: , line:27:17, endln:27:18
+      |vpiParent:
+      \_range: , line:27:16, endln:27:21
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:27:19, endln:27:20
+      |vpiParent:
+      \_range: , line:27:16, endln:27:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.DEF.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.DEF.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.DEF.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.DEF.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_ref_typespec: (work@dut.DEF)
+  |vpiParent:
+  \_parameter: (work@dut.DEF), line:15:19, endln:15:22
+  |vpiFullName:work@dut.DEF
+  |vpiActual:
+  \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_parameter: (work@dut.DEF), line:15:19, endln:15:22
+  |vpiParent:
+  \_param_assign: , line:15:19, endln:15:49
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.DEF)
+  |vpiName:DEF
+  |vpiFullName:work@dut.DEF
+  |vpiImported:p
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_logic_typespec: , line:26:10, endln:26:15
+  |vpiParent:
+  \_logic_net: (work@dut.en), line:26:22, endln:26:24
+\_logic_typespec: , line:27:10, endln:27:21
+  |vpiRange:
+  \_range: , line:27:16, endln:27:21
+    |vpiParent:
+    \_logic_typespec: , line:27:10, endln:27:21
+    |vpiLeftRange:
+    \_constant: , line:27:17, endln:27:18
+      |vpiParent:
+      \_range: , line:27:16, endln:27:21
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:27:19, endln:27:20
+      |vpiParent:
+      \_range: , line:27:16, endln:27:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:26:10, endln:26:15
+\_logic_typespec: , line:27:10, endln:27:21
+  |vpiRange:
+  \_range: , line:27:16, endln:27:21
+    |vpiParent:
+    \_logic_typespec: , line:27:10, endln:27:21
+    |vpiLeftRange:
+    \_constant: , line:27:17, endln:27:18
+      |vpiParent:
+      \_range: , line:27:16, endln:27:21
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:27:19, endln:27:20
+      |vpiParent:
+      \_range: , line:27:16, endln:27:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.DEF.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.DEF.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.DEF.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.DEF.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.DEF.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_int_typespec: , line:21:13, endln:21:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.N)
+  |vpiSigned:1
+\_array_typespec: , line:22:13, endln:22:30
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG)
+  |vpiRange:
+  \_range: , line:22:23, endln:22:30
+    |vpiParent:
+    \_array_typespec: , line:22:13, endln:22:30
+    |vpiLeftRange:
+    \_operation: , line:22:24, endln:22:27
+      |vpiParent:
+      \_range: , line:22:23, endln:22:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.CFG.N), line:22:24, endln:22:25
+        |vpiParent:
+        \_operation: , line:22:24, endln:22:27
+        |vpiName:N
+        |vpiFullName:work@dut.CFG.N
+        |vpiActual:
+        \_parameter: (work@dut.N), line:21:19, endln:21:20
+      |vpiOperand:
+      \_constant: , line:22:26, endln:22:27
+        |vpiParent:
+        \_operation: , line:22:24, endln:22:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:28, endln:22:29
+      |vpiParent:
+      \_range: , line:22:23, endln:22:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@dut.CFG)
+    |vpiParent:
+    \_array_typespec: , line:22:13, endln:22:30
+    |vpiFullName:work@dut.CFG
+    |vpiActual:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.CFG.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.CFG.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_array_typespec: , line:23:13, endln:23:30
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG2)
+  |vpiRange:
+  \_range: , line:23:23, endln:23:30
+    |vpiParent:
+    \_array_typespec: , line:23:13, endln:23:30
+    |vpiLeftRange:
+    \_operation: , line:23:24, endln:23:27
+      |vpiParent:
+      \_range: , line:23:23, endln:23:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.CFG2.N), line:23:24, endln:23:25
+        |vpiParent:
+        \_operation: , line:23:24, endln:23:27
+        |vpiName:N
+        |vpiFullName:work@dut.CFG2.N
+        |vpiActual:
+        \_parameter: (work@dut.N), line:21:19, endln:21:20
+      |vpiOperand:
+      \_constant: , line:23:26, endln:23:27
+        |vpiParent:
+        \_operation: , line:23:24, endln:23:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:23:28, endln:23:29
+      |vpiParent:
+      \_range: , line:23:23, endln:23:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@dut.CFG2)
+    |vpiParent:
+    \_array_typespec: , line:23:13, endln:23:30
+    |vpiFullName:work@dut.CFG2
+    |vpiActual:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+\_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG2)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (lo), line:12:17, endln:12:19
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:lo
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG2.p::cfg_t.lo)
+      |vpiParent:
+      \_typespec_member: (lo), line:12:17, endln:12:19
+      |vpiFullName:work@dut.CFG2.p::cfg_t.lo
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (main), line:13:17, endln:13:21
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:11:11, endln:14:4
+    |vpiName:main
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CFG2.p::cfg_t.main)
+      |vpiParent:
+      \_typespec_member: (main), line:13:17, endln:13:21
+      |vpiFullName:work@dut.CFG2.p::cfg_t.main
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:12:5, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG2.p::cfg_t.lo)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+  |vpiRange:
+  \_range: , line:12:11, endln:12:16
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:16
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:13
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:11, endln:12:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:10
+  |vpiParent:
+  \_ref_typespec: (work@dut.CFG2.p::cfg_t.main)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:10:1, endln:16:11
+\_operation: , line:29:14, endln:29:46
+  |vpiParent:
+  \_cont_assign: , line:29:10, endln:29:46
+  |vpiOpType:32
+  |vpiOperand:
+  \_ref_obj: (work@dut.en), line:29:14, endln:29:16
+    |vpiParent:
+    \_operation: , line:29:14, endln:29:46
+    |vpiName:en
+    |vpiFullName:work@dut.en
+    |vpiActual:
+    \_logic_net: (work@dut.en), line:26:22, endln:26:24
+  |vpiOperand:
+  \_operation: , line:29:19, endln:29:37
+    |vpiParent:
+    \_operation: , line:29:14, endln:29:46
+    |vpiOpType:33
+    |vpiOperand:
+    \_hier_path: (DEF.lo), line:29:20, endln:29:26
+      |vpiParent:
+      \_operation: , line:29:19, endln:29:37
+      |vpiActual:
+      \_ref_obj: (DEF), line:29:20, endln:29:23
+        |vpiParent:
+        \_hier_path: (DEF.lo), line:29:20, endln:29:26
+        |vpiName:DEF
+      |vpiActual:
+      \_ref_obj: (work@dut.lo), line:29:24, endln:29:26
+        |vpiParent:
+        \_hier_path: (DEF.lo), line:29:20, endln:29:26
+        |vpiName:lo
+        |vpiFullName:work@dut.lo
+      |vpiName:DEF.lo
+    |vpiOperand:
+    \_hier_path: (DEF.main), line:29:28, endln:29:36
+      |vpiParent:
+      \_operation: , line:29:19, endln:29:37
+      |vpiActual:
+      \_ref_obj: (DEF), line:29:28, endln:29:31
+        |vpiParent:
+        \_hier_path: (DEF.main), line:29:28, endln:29:36
+        |vpiName:DEF
+      |vpiActual:
+      \_ref_obj: (work@dut.main), line:29:32, endln:29:36
+        |vpiParent:
+        \_hier_path: (DEF.main), line:29:28, endln:29:36
+        |vpiName:main
+        |vpiFullName:work@dut.main
+      |vpiName:DEF.main
+  |vpiOperand:
+  \_constant: , line:29:40, endln:29:46
+\_cont_assign: , line:29:10, endln:29:46
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamUnpackedStructArrayDefault/dut.sv, line:18:1, endln:30:10
+  |vpiRhs:
+  \_operation: , line:29:14, endln:29:46
+  |vpiLhs:
+  \_ref_obj: (work@dut.y), line:29:10, endln:29:11
+    |vpiParent:
+    \_cont_assign: , line:29:10, endln:29:46
+    |vpiName:y
+    |vpiFullName:work@dut.y
+    |vpiActual:
+    \_logic_net: (work@dut.y), line:27:22, endln:27:23
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 2
+[   NOTE] : 5
