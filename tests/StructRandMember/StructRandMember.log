@@ -1,0 +1,636 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/StructRandMember/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/StructRandMember/dut.sv:10:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/StructRandMember/dut.sv:10:1: Compile module "work@top".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/StructRandMember/dut.sv:10:1: Top level module "work@top".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 1.
+[NTE:EL0510] Nb instances: 1.
+[NTE:EL0511] Nb leaf instances: 1.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+array_typespec                                         1
+bit_typespec                                           2
+constant                                              29
+cont_assign                                            4
+design                                                 1
+hier_path                                              1
+int_typespec                                           2
+integer_typespec                                       1
+logic_net                                              5
+logic_typespec                                         6
+module_inst                                            6
+param_assign                                           2
+parameter                                              2
+port                                                   4
+range                                                 10
+ref_obj                                               10
+ref_typespec                                          16
+struct_typespec                                        1
+struct_var                                             1
+typespec_member                                        3
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+array_typespec                                         1
+bit_typespec                                           2
+constant                                              29
+cont_assign                                            6
+design                                                 1
+hier_path                                              1
+int_typespec                                           2
+integer_typespec                                       1
+logic_net                                              5
+logic_typespec                                         6
+module_inst                                            6
+param_assign                                           2
+parameter                                              2
+port                                                   6
+range                                                 10
+ref_obj                                               14
+ref_typespec                                          18
+struct_typespec                                        1
+struct_var                                             1
+typespec_member                                        3
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StructRandMember/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/StructRandMember/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/StructRandMember/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@top)
+|vpiElaborated:1
+|vpiName:work@top
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.nbits), line:10:39, endln:10:44
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiName:nbits
+    |vpiFullName:work@top.nbits
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.nplain), line:10:73, endln:10:79
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiName:nplain
+    |vpiFullName:work@top.nplain
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.s), line:11:14, endln:11:15
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.s)
+      |vpiParent:
+      \_logic_net: (work@top.s), line:11:14, endln:11:15
+      |vpiFullName:work@top.s
+      |vpiActual:
+      \_struct_typespec: (randstruct), line:5:9, endln:9:2
+    |vpiName:s
+    |vpiFullName:work@top.s
+  |vpiPort:
+  \_port: (nbits), line:10:39, endln:10:44
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiName:nbits
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.nbits.nbits), line:10:39, endln:10:44
+      |vpiParent:
+      \_port: (nbits), line:10:39, endln:10:44
+      |vpiName:nbits
+      |vpiFullName:work@top.nbits.nbits
+      |vpiActual:
+      \_logic_net: (work@top.nbits), line:10:39, endln:10:44
+    |vpiTypedef:
+    \_ref_typespec: (work@top.nbits)
+      |vpiParent:
+      \_port: (nbits), line:10:39, endln:10:44
+      |vpiFullName:work@top.nbits
+      |vpiActual:
+      \_logic_typespec: , line:10:19, endln:10:38
+  |vpiPort:
+  \_port: (nplain), line:10:73, endln:10:79
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiName:nplain
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.nplain.nplain), line:10:73, endln:10:79
+      |vpiParent:
+      \_port: (nplain), line:10:73, endln:10:79
+      |vpiName:nplain
+      |vpiFullName:work@top.nplain.nplain
+      |vpiActual:
+      \_logic_net: (work@top.nplain), line:10:73, endln:10:79
+    |vpiTypedef:
+    \_ref_typespec: (work@top.nplain)
+      |vpiParent:
+      \_port: (nplain), line:10:73, endln:10:79
+      |vpiFullName:work@top.nplain
+      |vpiActual:
+      \_logic_typespec: , line:10:53, endln:10:72
+  |vpiContAssign:
+  \_cont_assign: , line:12:10, endln:12:35
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiRhs:
+    \_constant: , line:12:18, endln:12:35
+      |vpiParent:
+      \_cont_assign: , line:12:10, endln:12:35
+      |vpiDecompile:329
+      |vpiSize:64
+      |UINT:329
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.nbits), line:12:10, endln:12:15
+      |vpiParent:
+      \_cont_assign: , line:12:10, endln:12:35
+      |vpiName:nbits
+      |vpiFullName:work@top.nbits
+      |vpiActual:
+      \_logic_net: (work@top.nbits), line:10:39, endln:10:44
+  |vpiContAssign:
+  \_cont_assign: , line:13:10, endln:13:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiRhs:
+    \_constant: , line:13:19, endln:13:33
+      |vpiParent:
+      \_cont_assign: , line:13:10, endln:13:33
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.nplain), line:13:10, endln:13:16
+      |vpiParent:
+      \_cont_assign: , line:13:10, endln:13:33
+      |vpiName:nplain
+      |vpiFullName:work@top.nplain
+      |vpiActual:
+      \_logic_net: (work@top.nplain), line:10:73, endln:10:79
+|vpiTypedef:
+\_struct_typespec: (randstruct), line:5:9, endln:9:2
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:randstruct
+  |vpiInstance:
+  \_design: (work@top)
+  |vpiTypespecMember:
+  \_typespec_member: (i), line:6:12, endln:6:13
+    |vpiParent:
+    \_struct_typespec: (randstruct), line:5:9, endln:9:2
+    |vpiName:i
+    |vpiTypespec:
+    \_ref_typespec: (randstruct.i)
+      |vpiParent:
+      \_typespec_member: (i), line:6:12, endln:6:13
+      |vpiFullName:randstruct.i
+      |vpiActual:
+      \_bit_typespec: , line:6:8, endln:6:11
+    |vpiRefFile:${SURELOG_DIR}/tests/StructRandMember/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:8
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:11
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:7:17, endln:7:23
+    |vpiParent:
+    \_struct_typespec: (randstruct), line:5:9, endln:9:2
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (randstruct.b)
+      |vpiParent:
+      \_typespec_member: (b), line:7:17, endln:7:23
+      |vpiFullName:randstruct.b
+      |vpiActual:
+      \_array_typespec: 
+    |vpiRefFile:${SURELOG_DIR}/tests/StructRandMember/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:9
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (plain), line:8:13, endln:8:18
+    |vpiParent:
+    \_struct_typespec: (randstruct), line:5:9, endln:9:2
+    |vpiName:plain
+    |vpiTypespec:
+    \_ref_typespec: (randstruct.plain)
+      |vpiParent:
+      \_typespec_member: (plain), line:8:13, endln:8:18
+      |vpiFullName:randstruct.plain
+      |vpiActual:
+      \_bit_typespec: , line:8:3, endln:8:12
+    |vpiRefFile:${SURELOG_DIR}/tests/StructRandMember/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:3
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:12
+|vpiParameter:
+\_parameter: (K), line:4:11, endln:4:12
+  |vpiParent:
+  \_design: (work@top)
+  |UINT:9
+  |vpiTypespec:
+  \_ref_typespec: (K)
+    |vpiParent:
+    \_parameter: (K), line:4:11, endln:4:12
+    |vpiFullName:K
+    |vpiActual:
+    \_int_typespec: , line:4:1, endln:4:16
+  |vpiName:K
+|vpiParamAssign:
+\_param_assign: , line:4:11, endln:4:16
+  |vpiParent:
+  \_design: (work@top)
+  |vpiRhs:
+  \_constant: , line:4:15, endln:4:16
+    |vpiParent:
+    \_param_assign: , line:4:11, endln:4:16
+    |vpiDecompile:9
+    |vpiSize:32
+    |UINT:9
+    |vpiTypespec:
+    \_ref_typespec: 
+      |vpiParent:
+      \_constant: , line:4:15, endln:4:16
+      |vpiActual:
+      \_int_typespec: , line:4:1, endln:4:16
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (K), line:4:11, endln:4:12
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiVariables:
+  \_struct_var: (work@top.s), line:11:14, endln:11:15
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.s)
+      |vpiParent:
+      \_struct_var: (work@top.s), line:11:14, endln:11:15
+      |vpiFullName:work@top.s
+      |vpiActual:
+      \_struct_typespec: (randstruct), line:5:9, endln:9:2
+    |vpiName:s
+    |vpiFullName:work@top.s
+    |vpiVisibility:1
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.nbits), line:10:39, endln:10:44
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.nbits)
+      |vpiParent:
+      \_logic_net: (work@top.nbits), line:10:39, endln:10:44
+      |vpiFullName:work@top.nbits
+      |vpiActual:
+      \_logic_typespec: , line:10:19, endln:10:38
+    |vpiName:nbits
+    |vpiFullName:work@top.nbits
+    |vpiNetType:36
+    |vpiSigned:1
+  |vpiNet:
+  \_logic_net: (work@top.nplain), line:10:73, endln:10:79
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.nplain)
+      |vpiParent:
+      \_logic_net: (work@top.nplain), line:10:73, endln:10:79
+      |vpiFullName:work@top.nplain
+      |vpiActual:
+      \_logic_typespec: , line:10:53, endln:10:72
+    |vpiName:nplain
+    |vpiFullName:work@top.nplain
+    |vpiNetType:36
+    |vpiSigned:1
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (nbits), line:10:39, endln:10:44
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiName:nbits
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.nbits), line:10:39, endln:10:44
+      |vpiParent:
+      \_port: (nbits), line:10:39, endln:10:44
+      |vpiName:nbits
+      |vpiFullName:work@top.nbits
+      |vpiActual:
+      \_logic_net: (work@top.nbits), line:10:39, endln:10:44
+    |vpiTypedef:
+    \_ref_typespec: (work@top.nbits)
+      |vpiParent:
+      \_port: (nbits), line:10:39, endln:10:44
+      |vpiFullName:work@top.nbits
+      |vpiActual:
+      \_logic_typespec: , line:10:19, endln:10:38
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+  |vpiPort:
+  \_port: (nplain), line:10:73, endln:10:79
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiName:nplain
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.nplain), line:10:73, endln:10:79
+      |vpiParent:
+      \_port: (nplain), line:10:73, endln:10:79
+      |vpiName:nplain
+      |vpiFullName:work@top.nplain
+      |vpiActual:
+      \_logic_net: (work@top.nplain), line:10:73, endln:10:79
+    |vpiTypedef:
+    \_ref_typespec: (work@top.nplain)
+      |vpiParent:
+      \_port: (nplain), line:10:73, endln:10:79
+      |vpiFullName:work@top.nplain
+      |vpiActual:
+      \_logic_typespec: , line:10:53, endln:10:72
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+  |vpiContAssign:
+  \_cont_assign: , line:12:10, endln:12:35
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiRhs:
+    \_constant: , line:12:18, endln:12:35
+      |vpiParent:
+      \_cont_assign: , line:12:10, endln:12:35
+      |vpiDecompile:329
+      |vpiSize:32
+      |UINT:329
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.nbits), line:12:10, endln:12:15
+      |vpiParent:
+      \_cont_assign: , line:12:10, endln:12:35
+      |vpiName:nbits
+      |vpiFullName:work@top.nbits
+      |vpiActual:
+      \_logic_net: (work@top.nbits), line:10:39, endln:10:44
+  |vpiContAssign:
+  \_cont_assign: , line:13:10, endln:13:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+    |vpiRhs:
+    \_constant: , line:13:19, endln:13:33
+      |vpiParent:
+      \_cont_assign: , line:13:10, endln:13:33
+      |vpiDecompile:8
+      |vpiSize:32
+      |UINT:8
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.nplain), line:13:10, endln:13:16
+      |vpiParent:
+      \_cont_assign: , line:13:10, endln:13:33
+      |vpiName:nplain
+      |vpiFullName:work@top.nplain
+      |vpiActual:
+      \_logic_net: (work@top.nplain), line:10:73, endln:10:79
+\_weaklyReferenced:
+\_int_typespec: , line:4:1, endln:4:16
+\_bit_typespec: , line:6:8, endln:6:11
+  |vpiParent:
+  \_typespec_member: (i), line:6:12, endln:6:13
+\_array_typespec: 
+  |vpiRange:
+  \_range: , line:7:18, endln:7:23
+    |vpiLeftRange:
+    \_constant: , line:7:19, endln:7:20
+      |vpiParent:
+      \_range: , line:7:18, endln:7:23
+      |vpiDecompile:9
+      |vpiSize:32
+      |UINT:9
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiParent:
+        \_constant: , line:7:19, endln:7:20
+        |vpiActual:
+        \_int_typespec: , line:4:1, endln:4:16
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:21, endln:7:22
+      |vpiParent:
+      \_range: , line:7:18, endln:7:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_integer_typespec: , line:7:9, endln:7:16
+\_integer_typespec: , line:7:9, endln:7:16
+  |vpiParent:
+  \_typespec_member: (b), line:7:17, endln:7:23
+  |vpiSigned:1
+\_int_typespec: , line:4:1, endln:4:16
+  |vpiParent:
+  \_ref_typespec: 
+\_bit_typespec: , line:8:3, endln:8:12
+  |vpiParent:
+  \_typespec_member: (plain), line:8:13, endln:8:18
+  |vpiRange:
+  \_range: , line:8:7, endln:8:12
+    |vpiParent:
+    \_bit_typespec: , line:8:3, endln:8:12
+    |vpiLeftRange:
+    \_constant: , line:8:8, endln:8:9
+      |vpiParent:
+      \_range: , line:8:7, endln:8:12
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:10, endln:8:11
+      |vpiParent:
+      \_range: , line:8:7, endln:8:12
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:10:19, endln:10:38
+  |vpiRange:
+  \_range: , line:10:32, endln:10:38
+    |vpiParent:
+    \_logic_typespec: , line:10:19, endln:10:38
+    |vpiLeftRange:
+    \_constant: , line:10:33, endln:10:35
+      |vpiParent:
+      \_range: , line:10:32, endln:10:38
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:36, endln:10:37
+      |vpiParent:
+      \_range: , line:10:32, endln:10:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiSigned:1
+\_logic_typespec: , line:10:53, endln:10:72
+  |vpiRange:
+  \_range: , line:10:66, endln:10:72
+    |vpiParent:
+    \_logic_typespec: , line:10:53, endln:10:72
+    |vpiLeftRange:
+    \_constant: , line:10:67, endln:10:69
+      |vpiParent:
+      \_range: , line:10:66, endln:10:72
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:70, endln:10:71
+      |vpiParent:
+      \_range: , line:10:66, endln:10:72
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiSigned:1
+\_logic_typespec: , line:10:19, endln:10:38
+  |vpiRange:
+  \_range: , line:10:32, endln:10:38
+    |vpiParent:
+    \_logic_typespec: , line:10:19, endln:10:38
+    |vpiLeftRange:
+    \_constant: , line:10:33, endln:10:35
+      |vpiParent:
+      \_range: , line:10:32, endln:10:38
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:36, endln:10:37
+      |vpiParent:
+      \_range: , line:10:32, endln:10:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiSigned:1
+\_logic_typespec: , line:10:53, endln:10:72
+  |vpiRange:
+  \_range: , line:10:66, endln:10:72
+    |vpiParent:
+    \_logic_typespec: , line:10:53, endln:10:72
+    |vpiLeftRange:
+    \_constant: , line:10:67, endln:10:69
+      |vpiParent:
+      \_range: , line:10:66, endln:10:72
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:70, endln:10:71
+      |vpiParent:
+      \_range: , line:10:66, endln:10:72
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiSigned:1
+\_logic_typespec: , line:10:19, endln:10:38
+  |vpiRange:
+  \_range: , line:10:32, endln:10:38
+    |vpiParent:
+    \_logic_typespec: , line:10:19, endln:10:38
+    |vpiLeftRange:
+    \_constant: , line:10:33, endln:10:35
+      |vpiParent:
+      \_range: , line:10:32, endln:10:38
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:36, endln:10:37
+      |vpiParent:
+      \_range: , line:10:32, endln:10:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiSigned:1
+\_logic_typespec: , line:10:53, endln:10:72
+  |vpiRange:
+  \_range: , line:10:66, endln:10:72
+    |vpiParent:
+    \_logic_typespec: , line:10:53, endln:10:72
+    |vpiLeftRange:
+    \_constant: , line:10:67, endln:10:69
+      |vpiParent:
+      \_range: , line:10:66, endln:10:72
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:70, endln:10:71
+      |vpiParent:
+      \_range: , line:10:66, endln:10:72
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiSigned:1
+\_cont_assign: , line:12:10, endln:12:35
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+  |vpiRhs:
+  \_constant: , line:12:18, endln:12:35
+  |vpiLhs:
+  \_ref_obj: (work@top.nbits), line:12:10, endln:12:15
+    |vpiParent:
+    \_cont_assign: , line:12:10, endln:12:35
+    |vpiName:nbits
+    |vpiFullName:work@top.nbits
+    |vpiActual:
+    \_logic_net: (work@top.nbits), line:10:39, endln:10:44
+\_cont_assign: , line:13:10, endln:13:33
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructRandMember/dut.sv, line:10:1, endln:14:10
+  |vpiRhs:
+  \_constant: , line:13:19, endln:13:33
+  |vpiLhs:
+  \_ref_obj: (work@top.nplain), line:13:10, endln:13:16
+    |vpiParent:
+    \_cont_assign: , line:13:10, endln:13:33
+    |vpiName:nplain
+    |vpiFullName:work@top.nplain
+    |vpiActual:
+    \_logic_net: (work@top.nplain), line:10:73, endln:10:79
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 5
