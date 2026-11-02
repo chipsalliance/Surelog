@@ -1,0 +1,1115 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/LetFormalSubst/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/LetFormalSubst/dut.sv:5:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/LetFormalSubst/dut.sv:5:1: Compile module "work@top".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/LetFormalSubst/dut.sv:5:1: Top level module "work@top".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 1.
+[NTE:EL0510] Nb instances: 1.
+[NTE:EL0511] Nb leaf instances: 1.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+constant                                              32
+cont_assign                                            6
+design                                                 1
+io_decl                                                4
+let_decl                                               2
+logic_net                                             12
+logic_typespec                                        18
+module_inst                                            4
+operation                                             18
+port                                                  12
+range                                                 16
+ref_obj                                               49
+ref_typespec                                          18
+seq_formal_decl                                        4
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+constant                                              32
+cont_assign                                            9
+design                                                 1
+io_decl                                                4
+let_decl                                               4
+logic_net                                             12
+logic_typespec                                        18
+module_inst                                            4
+operation                                             29
+port                                                  18
+range                                                 16
+ref_obj                                               71
+ref_typespec                                          24
+seq_formal_decl                                        4
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LetFormalSubst/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LetFormalSubst/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/LetFormalSubst/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@top)
+|vpiElaborated:1
+|vpiName:work@top
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiLetDecl:
+  \_let_decl: (op), line:7:3, endln:7:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiExpr:
+    \_operation: , line:7:21, endln:7:35
+      |vpiParent:
+      \_let_decl: (op), line:7:3, endln:7:36
+      |vpiOpType:7
+      |vpiOperand:
+      \_operation: , line:7:23, endln:7:34
+        |vpiParent:
+        \_operation: , line:7:21, endln:7:35
+        |vpiOpType:28
+        |vpiOperand:
+        \_operation: , line:7:24, endln:7:29
+          |vpiParent:
+          \_operation: , line:7:23, endln:7:34
+          |vpiOpType:29
+          |vpiOperand:
+          \_ref_obj: (work@top.op.x), line:7:24, endln:7:25
+            |vpiParent:
+            \_operation: , line:7:24, endln:7:29
+            |vpiName:x
+            |vpiFullName:work@top.op.x
+          |vpiOperand:
+          \_ref_obj: (work@top.op.y), line:7:28, endln:7:29
+            |vpiParent:
+            \_operation: , line:7:24, endln:7:29
+            |vpiName:y
+            |vpiFullName:work@top.op.y
+        |vpiOperand:
+        \_ref_obj: (work@top.op.z), line:7:33, endln:7:34
+          |vpiParent:
+          \_operation: , line:7:23, endln:7:34
+          |vpiName:z
+          |vpiFullName:work@top.op.z
+    |vpiName:op
+  |vpiLetDecl:
+  \_let_decl: (twice), line:8:3, endln:8:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiExpr:
+    \_operation: , line:8:18, endln:8:23
+      |vpiParent:
+      \_let_decl: (twice), line:8:3, endln:8:24
+      |vpiOpType:24
+      |vpiOperand:
+      \_ref_obj: (work@top.twice.v), line:8:18, endln:8:19
+        |vpiParent:
+        \_operation: , line:8:18, endln:8:23
+        |vpiName:v
+        |vpiFullName:work@top.twice.v
+      |vpiOperand:
+      \_ref_obj: (work@top.twice.v), line:8:22, endln:8:23
+        |vpiParent:
+        \_operation: , line:8:18, endln:8:23
+        |vpiName:v
+        |vpiFullName:work@top.twice.v
+    |vpiName:twice
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.a), line:5:30, endln:5:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.b), line:5:51, endln:5:52
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.c), line:5:72, endln:5:73
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:c
+    |vpiFullName:work@top.c
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.d), line:6:25, endln:6:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:d
+    |vpiFullName:work@top.d
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.e), line:6:41, endln:6:42
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:e
+    |vpiFullName:work@top.e
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.f), line:6:63, endln:6:64
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:f
+    |vpiFullName:work@top.f
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (a), line:5:30, endln:5:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:a
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.a.a), line:5:30, endln:5:31
+      |vpiParent:
+      \_port: (a), line:5:30, endln:5:31
+      |vpiName:a
+      |vpiFullName:work@top.a.a
+      |vpiActual:
+      \_logic_net: (work@top.a), line:5:30, endln:5:31
+    |vpiTypedef:
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:5:30, endln:5:31
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:5:18, endln:5:29
+  |vpiPort:
+  \_port: (b), line:5:51, endln:5:52
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:b
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.b.b), line:5:51, endln:5:52
+      |vpiParent:
+      \_port: (b), line:5:51, endln:5:52
+      |vpiName:b
+      |vpiFullName:work@top.b.b
+      |vpiActual:
+      \_logic_net: (work@top.b), line:5:51, endln:5:52
+    |vpiTypedef:
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:5:51, endln:5:52
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:5:39, endln:5:50
+  |vpiPort:
+  \_port: (c), line:5:72, endln:5:73
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:c
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.c.c), line:5:72, endln:5:73
+      |vpiParent:
+      \_port: (c), line:5:72, endln:5:73
+      |vpiName:c
+      |vpiFullName:work@top.c.c
+      |vpiActual:
+      \_logic_net: (work@top.c), line:5:72, endln:5:73
+    |vpiTypedef:
+    \_ref_typespec: (work@top.c)
+      |vpiParent:
+      \_port: (c), line:5:72, endln:5:73
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_typespec: , line:5:60, endln:5:71
+  |vpiPort:
+  \_port: (d), line:6:25, endln:6:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:d
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.d.d), line:6:25, endln:6:26
+      |vpiParent:
+      \_port: (d), line:6:25, endln:6:26
+      |vpiName:d
+      |vpiFullName:work@top.d.d
+      |vpiActual:
+      \_logic_net: (work@top.d), line:6:25, endln:6:26
+    |vpiTypedef:
+    \_ref_typespec: (work@top.d)
+      |vpiParent:
+      \_port: (d), line:6:25, endln:6:26
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_typespec: , line:6:19, endln:6:24
+  |vpiPort:
+  \_port: (e), line:6:41, endln:6:42
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:e
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.e.e), line:6:41, endln:6:42
+      |vpiParent:
+      \_port: (e), line:6:41, endln:6:42
+      |vpiName:e
+      |vpiFullName:work@top.e.e
+      |vpiActual:
+      \_logic_net: (work@top.e), line:6:41, endln:6:42
+    |vpiTypedef:
+    \_ref_typespec: (work@top.e)
+      |vpiParent:
+      \_port: (e), line:6:41, endln:6:42
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_typespec: , line:6:35, endln:6:40
+  |vpiPort:
+  \_port: (f), line:6:63, endln:6:64
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:f
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.f.f), line:6:63, endln:6:64
+      |vpiParent:
+      \_port: (f), line:6:63, endln:6:64
+      |vpiName:f
+      |vpiFullName:work@top.f.f
+      |vpiActual:
+      \_logic_net: (work@top.f), line:6:63, endln:6:64
+    |vpiTypedef:
+    \_ref_typespec: (work@top.f)
+      |vpiParent:
+      \_port: (f), line:6:63, endln:6:64
+      |vpiFullName:work@top.f
+      |vpiActual:
+      \_logic_typespec: , line:6:51, endln:6:62
+  |vpiContAssign:
+  \_cont_assign: , line:9:10, endln:9:37
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiRhs:
+    \_operation: , line:7:21, endln:7:35
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:37
+      |vpiOpType:7
+      |vpiOperand:
+      \_operation: , line:7:23, endln:7:34
+        |vpiParent:
+        \_operation: , line:7:21, endln:7:35
+        |vpiOpType:28
+        |vpiOperand:
+        \_operation: , line:7:24, endln:7:29
+          |vpiParent:
+          \_operation: , line:7:23, endln:7:34
+          |vpiOpType:29
+          |vpiOperand:
+          \_ref_obj: (work@top.a), line:9:20, endln:9:21
+            |vpiParent:
+            \_cont_assign: , line:9:10, endln:9:37
+            |vpiName:a
+            |vpiFullName:work@top.a
+            |vpiActual:
+            \_logic_net: (work@top.a), line:5:30, endln:5:31
+          |vpiOperand:
+          \_ref_obj: (work@top.b), line:9:27, endln:9:28
+            |vpiParent:
+            \_cont_assign: , line:9:10, endln:9:37
+            |vpiName:b
+            |vpiFullName:work@top.b
+            |vpiActual:
+            \_logic_net: (work@top.b), line:5:51, endln:5:52
+        |vpiOperand:
+        \_ref_obj: (work@top.c), line:9:34, endln:9:35
+          |vpiParent:
+          \_cont_assign: , line:9:10, endln:9:37
+          |vpiName:c
+          |vpiFullName:work@top.c
+          |vpiActual:
+          \_logic_net: (work@top.c), line:5:72, endln:5:73
+    |vpiLhs:
+    \_ref_obj: (work@top.d), line:9:10, endln:9:11
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:37
+      |vpiName:d
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_net: (work@top.d), line:6:25, endln:6:26
+  |vpiContAssign:
+  \_cont_assign: , line:10:10, endln:10:25
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiRhs:
+    \_operation: , line:7:21, endln:7:35
+      |vpiParent:
+      \_cont_assign: , line:10:10, endln:10:25
+      |vpiOpType:7
+      |vpiOperand:
+      \_operation: , line:7:23, endln:7:34
+        |vpiParent:
+        \_operation: , line:7:21, endln:7:35
+        |vpiOpType:28
+        |vpiOperand:
+        \_operation: , line:7:24, endln:7:29
+          |vpiParent:
+          \_operation: , line:7:23, endln:7:34
+          |vpiOpType:29
+          |vpiOperand:
+          \_ref_obj: (work@top.c), line:10:17, endln:10:18
+            |vpiParent:
+            \_cont_assign: , line:10:10, endln:10:25
+            |vpiName:c
+            |vpiFullName:work@top.c
+            |vpiActual:
+            \_logic_net: (work@top.c), line:5:72, endln:5:73
+          |vpiOperand:
+          \_ref_obj: (work@top.b), line:10:20, endln:10:21
+            |vpiParent:
+            \_cont_assign: , line:10:10, endln:10:25
+            |vpiName:b
+            |vpiFullName:work@top.b
+            |vpiActual:
+            \_logic_net: (work@top.b), line:5:51, endln:5:52
+        |vpiOperand:
+        \_ref_obj: (work@top.a), line:10:23, endln:10:24
+          |vpiParent:
+          \_cont_assign: , line:10:10, endln:10:25
+          |vpiName:a
+          |vpiFullName:work@top.a
+          |vpiActual:
+          \_logic_net: (work@top.a), line:5:30, endln:5:31
+    |vpiLhs:
+    \_ref_obj: (work@top.e), line:10:10, endln:10:11
+      |vpiParent:
+      \_cont_assign: , line:10:10, endln:10:25
+      |vpiName:e
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_net: (work@top.e), line:6:41, endln:6:42
+  |vpiContAssign:
+  \_cont_assign: , line:11:10, endln:11:22
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiRhs:
+    \_operation: , line:8:18, endln:8:23
+      |vpiParent:
+      \_cont_assign: , line:11:10, endln:11:22
+      |vpiOpType:24
+      |vpiOperand:
+      \_ref_obj: (work@top.a), line:11:20, endln:11:21
+        |vpiParent:
+        \_cont_assign: , line:11:10, endln:11:22
+        |vpiName:a
+        |vpiFullName:work@top.a
+        |vpiActual:
+        \_logic_net: (work@top.a), line:5:30, endln:5:31
+      |vpiOperand:
+      \_ref_obj: (work@top.a), line:11:20, endln:11:21
+    |vpiLhs:
+    \_ref_obj: (work@top.f), line:11:10, endln:11:11
+      |vpiParent:
+      \_cont_assign: , line:11:10, endln:11:22
+      |vpiName:f
+      |vpiFullName:work@top.f
+      |vpiActual:
+      \_logic_net: (work@top.f), line:6:63, endln:6:64
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiLetDecl:
+  \_let_decl: (op), line:7:3, endln:7:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiExpr:
+    \_operation: , line:7:21, endln:7:35
+      |vpiParent:
+      \_let_decl: (op), line:7:3, endln:7:36
+      |vpiOpType:7
+      |vpiOperand:
+      \_operation: , line:7:23, endln:7:34
+        |vpiParent:
+        \_operation: , line:7:21, endln:7:35
+        |vpiOpType:28
+        |vpiOperand:
+        \_operation: , line:7:24, endln:7:29
+          |vpiParent:
+          \_operation: , line:7:23, endln:7:34
+          |vpiOpType:29
+          |vpiOperand:
+          \_ref_obj: (work@top.op.x), line:7:24, endln:7:25
+            |vpiParent:
+            \_operation: , line:7:24, endln:7:29
+            |vpiName:x
+            |vpiFullName:work@top.op.x
+          |vpiOperand:
+          \_ref_obj: (work@top.op.y), line:7:28, endln:7:29
+            |vpiParent:
+            \_operation: , line:7:24, endln:7:29
+            |vpiName:y
+            |vpiFullName:work@top.op.y
+        |vpiOperand:
+        \_ref_obj: (work@top.op.z), line:7:33, endln:7:34
+          |vpiParent:
+          \_operation: , line:7:23, endln:7:34
+          |vpiName:z
+          |vpiFullName:work@top.op.z
+    |vpiName:op
+  |vpiLetDecl:
+  \_let_decl: (twice), line:8:3, endln:8:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiExpr:
+    \_operation: , line:8:18, endln:8:23
+      |vpiParent:
+      \_let_decl: (twice), line:8:3, endln:8:24
+      |vpiOpType:24
+      |vpiOperand:
+      \_ref_obj: (work@top.twice.v), line:8:18, endln:8:19
+        |vpiParent:
+        \_operation: , line:8:18, endln:8:23
+        |vpiName:v
+        |vpiFullName:work@top.twice.v
+      |vpiOperand:
+      \_ref_obj: (work@top.twice.v), line:8:22, endln:8:23
+        |vpiParent:
+        \_operation: , line:8:18, endln:8:23
+        |vpiName:v
+        |vpiFullName:work@top.twice.v
+    |vpiName:twice
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.a), line:5:30, endln:5:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_logic_net: (work@top.a), line:5:30, endln:5:31
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:5:18, endln:5:29
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.b), line:5:51, endln:5:52
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_logic_net: (work@top.b), line:5:51, endln:5:52
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:5:39, endln:5:50
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.c), line:5:72, endln:5:73
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.c)
+      |vpiParent:
+      \_logic_net: (work@top.c), line:5:72, endln:5:73
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_typespec: , line:5:60, endln:5:71
+    |vpiName:c
+    |vpiFullName:work@top.c
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.d), line:6:25, endln:6:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.d)
+      |vpiParent:
+      \_logic_net: (work@top.d), line:6:25, endln:6:26
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_typespec: , line:6:19, endln:6:24
+    |vpiName:d
+    |vpiFullName:work@top.d
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.e), line:6:41, endln:6:42
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.e)
+      |vpiParent:
+      \_logic_net: (work@top.e), line:6:41, endln:6:42
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_typespec: , line:6:35, endln:6:40
+    |vpiName:e
+    |vpiFullName:work@top.e
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.f), line:6:63, endln:6:64
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.f)
+      |vpiParent:
+      \_logic_net: (work@top.f), line:6:63, endln:6:64
+      |vpiFullName:work@top.f
+      |vpiActual:
+      \_logic_typespec: , line:6:51, endln:6:62
+    |vpiName:f
+    |vpiFullName:work@top.f
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (a), line:5:30, endln:5:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:a
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.a), line:5:30, endln:5:31
+      |vpiParent:
+      \_port: (a), line:5:30, endln:5:31
+      |vpiName:a
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_net: (work@top.a), line:5:30, endln:5:31
+    |vpiTypedef:
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:5:30, endln:5:31
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:5:18, endln:5:29
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+  |vpiPort:
+  \_port: (b), line:5:51, endln:5:52
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:b
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.b), line:5:51, endln:5:52
+      |vpiParent:
+      \_port: (b), line:5:51, endln:5:52
+      |vpiName:b
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_net: (work@top.b), line:5:51, endln:5:52
+    |vpiTypedef:
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:5:51, endln:5:52
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:5:39, endln:5:50
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+  |vpiPort:
+  \_port: (c), line:5:72, endln:5:73
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:c
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.c), line:5:72, endln:5:73
+      |vpiParent:
+      \_port: (c), line:5:72, endln:5:73
+      |vpiName:c
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_net: (work@top.c), line:5:72, endln:5:73
+    |vpiTypedef:
+    \_ref_typespec: (work@top.c)
+      |vpiParent:
+      \_port: (c), line:5:72, endln:5:73
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_typespec: , line:5:60, endln:5:71
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+  |vpiPort:
+  \_port: (d), line:6:25, endln:6:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:d
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.d), line:6:25, endln:6:26
+      |vpiParent:
+      \_port: (d), line:6:25, endln:6:26
+      |vpiName:d
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_net: (work@top.d), line:6:25, endln:6:26
+    |vpiTypedef:
+    \_ref_typespec: (work@top.d)
+      |vpiParent:
+      \_port: (d), line:6:25, endln:6:26
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_typespec: , line:6:19, endln:6:24
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+  |vpiPort:
+  \_port: (e), line:6:41, endln:6:42
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:e
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.e), line:6:41, endln:6:42
+      |vpiParent:
+      \_port: (e), line:6:41, endln:6:42
+      |vpiName:e
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_net: (work@top.e), line:6:41, endln:6:42
+    |vpiTypedef:
+    \_ref_typespec: (work@top.e)
+      |vpiParent:
+      \_port: (e), line:6:41, endln:6:42
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_typespec: , line:6:35, endln:6:40
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+  |vpiPort:
+  \_port: (f), line:6:63, endln:6:64
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiName:f
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.f), line:6:63, endln:6:64
+      |vpiParent:
+      \_port: (f), line:6:63, endln:6:64
+      |vpiName:f
+      |vpiFullName:work@top.f
+      |vpiActual:
+      \_logic_net: (work@top.f), line:6:63, endln:6:64
+    |vpiTypedef:
+    \_ref_typespec: (work@top.f)
+      |vpiParent:
+      \_port: (f), line:6:63, endln:6:64
+      |vpiFullName:work@top.f
+      |vpiActual:
+      \_logic_typespec: , line:6:51, endln:6:62
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+  |vpiContAssign:
+  \_cont_assign: , line:9:10, endln:9:37
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiRhs:
+    \_operation: , line:7:21, endln:7:35
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:37
+      |vpiOpType:7
+      |vpiOperand:
+      \_operation: , line:7:23, endln:7:34
+        |vpiParent:
+        \_operation: , line:7:21, endln:7:35
+        |vpiOpType:28
+        |vpiOperand:
+        \_operation: , line:7:24, endln:7:29
+          |vpiParent:
+          \_operation: , line:7:23, endln:7:34
+          |vpiOpType:29
+          |vpiOperand:
+          \_ref_obj: (work@top.a), line:9:20, endln:9:21
+            |vpiParent:
+            \_operation: , line:7:24, endln:7:29
+            |vpiName:a
+            |vpiFullName:work@top.a
+            |vpiActual:
+            \_logic_net: (work@top.a), line:5:30, endln:5:31
+          |vpiOperand:
+          \_ref_obj: (work@top.b), line:9:27, endln:9:28
+            |vpiParent:
+            \_operation: , line:7:24, endln:7:29
+            |vpiName:b
+            |vpiFullName:work@top.b
+            |vpiActual:
+            \_logic_net: (work@top.b), line:5:51, endln:5:52
+        |vpiOperand:
+        \_ref_obj: (work@top.c), line:9:34, endln:9:35
+          |vpiParent:
+          \_operation: , line:7:23, endln:7:34
+          |vpiName:c
+          |vpiFullName:work@top.c
+          |vpiActual:
+          \_logic_net: (work@top.c), line:5:72, endln:5:73
+    |vpiLhs:
+    \_ref_obj: (work@top.d), line:9:10, endln:9:11
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:37
+      |vpiName:d
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_net: (work@top.d), line:6:25, endln:6:26
+  |vpiContAssign:
+  \_cont_assign: , line:10:10, endln:10:25
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiRhs:
+    \_operation: , line:7:21, endln:7:35
+      |vpiParent:
+      \_cont_assign: , line:10:10, endln:10:25
+      |vpiOpType:7
+      |vpiOperand:
+      \_operation: , line:7:23, endln:7:34
+        |vpiParent:
+        \_operation: , line:7:21, endln:7:35
+        |vpiOpType:28
+        |vpiOperand:
+        \_operation: , line:7:24, endln:7:29
+          |vpiParent:
+          \_operation: , line:7:23, endln:7:34
+          |vpiOpType:29
+          |vpiOperand:
+          \_ref_obj: (work@top.c), line:10:17, endln:10:18
+            |vpiParent:
+            \_operation: , line:7:24, endln:7:29
+            |vpiName:c
+            |vpiFullName:work@top.c
+            |vpiActual:
+            \_logic_net: (work@top.c), line:5:72, endln:5:73
+          |vpiOperand:
+          \_ref_obj: (work@top.b), line:10:20, endln:10:21
+            |vpiParent:
+            \_operation: , line:7:24, endln:7:29
+            |vpiName:b
+            |vpiFullName:work@top.b
+            |vpiActual:
+            \_logic_net: (work@top.b), line:5:51, endln:5:52
+        |vpiOperand:
+        \_ref_obj: (work@top.a), line:10:23, endln:10:24
+          |vpiParent:
+          \_operation: , line:7:23, endln:7:34
+          |vpiName:a
+          |vpiFullName:work@top.a
+          |vpiActual:
+          \_logic_net: (work@top.a), line:5:30, endln:5:31
+    |vpiLhs:
+    \_ref_obj: (work@top.e), line:10:10, endln:10:11
+      |vpiParent:
+      \_cont_assign: , line:10:10, endln:10:25
+      |vpiName:e
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_net: (work@top.e), line:6:41, endln:6:42
+  |vpiContAssign:
+  \_cont_assign: , line:11:10, endln:11:22
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LetFormalSubst/dut.sv, line:5:1, endln:12:10
+    |vpiRhs:
+    \_operation: , line:8:18, endln:8:23
+      |vpiParent:
+      \_cont_assign: , line:11:10, endln:11:22
+      |vpiOpType:24
+      |vpiOperand:
+      \_ref_obj: (work@top.a), line:11:20, endln:11:21
+        |vpiParent:
+        \_operation: , line:8:18, endln:8:23
+        |vpiName:a
+        |vpiFullName:work@top.a
+        |vpiActual:
+        \_logic_net: (work@top.a), line:5:30, endln:5:31
+      |vpiOperand:
+      \_ref_obj: (work@top.a), line:11:20, endln:11:21
+        |vpiParent:
+        \_operation: , line:8:18, endln:8:23
+        |vpiName:a
+        |vpiFullName:work@top.a
+        |vpiActual:
+        \_logic_net: (work@top.a), line:5:30, endln:5:31
+    |vpiLhs:
+    \_ref_obj: (work@top.f), line:11:10, endln:11:11
+      |vpiParent:
+      \_cont_assign: , line:11:10, endln:11:22
+      |vpiName:f
+      |vpiFullName:work@top.f
+      |vpiActual:
+      \_logic_net: (work@top.f), line:6:63, endln:6:64
+\_weaklyReferenced:
+\_logic_typespec: , line:5:18, endln:5:29
+  |vpiRange:
+  \_range: , line:5:24, endln:5:29
+    |vpiParent:
+    \_logic_typespec: , line:5:18, endln:5:29
+    |vpiLeftRange:
+    \_constant: , line:5:25, endln:5:26
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:27, endln:5:28
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:39, endln:5:50
+  |vpiRange:
+  \_range: , line:5:45, endln:5:50
+    |vpiParent:
+    \_logic_typespec: , line:5:39, endln:5:50
+    |vpiLeftRange:
+    \_constant: , line:5:46, endln:5:47
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:48, endln:5:49
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:60, endln:5:71
+  |vpiRange:
+  \_range: , line:5:66, endln:5:71
+    |vpiParent:
+    \_logic_typespec: , line:5:60, endln:5:71
+    |vpiLeftRange:
+    \_constant: , line:5:67, endln:5:68
+      |vpiParent:
+      \_range: , line:5:66, endln:5:71
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:69, endln:5:70
+      |vpiParent:
+      \_range: , line:5:66, endln:5:71
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:19, endln:6:24
+\_logic_typespec: , line:6:35, endln:6:40
+\_logic_typespec: , line:6:51, endln:6:62
+  |vpiRange:
+  \_range: , line:6:57, endln:6:62
+    |vpiParent:
+    \_logic_typespec: , line:6:51, endln:6:62
+    |vpiLeftRange:
+    \_constant: , line:6:58, endln:6:59
+      |vpiParent:
+      \_range: , line:6:57, endln:6:62
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:60, endln:6:61
+      |vpiParent:
+      \_range: , line:6:57, endln:6:62
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:18, endln:5:29
+  |vpiParent:
+  \_logic_net: (work@top.a), line:5:30, endln:5:31
+  |vpiRange:
+  \_range: , line:5:24, endln:5:29
+    |vpiParent:
+    \_logic_typespec: , line:5:18, endln:5:29
+    |vpiLeftRange:
+    \_constant: , line:5:25, endln:5:26
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:27, endln:5:28
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:39, endln:5:50
+  |vpiParent:
+  \_logic_net: (work@top.b), line:5:51, endln:5:52
+  |vpiRange:
+  \_range: , line:5:45, endln:5:50
+    |vpiParent:
+    \_logic_typespec: , line:5:39, endln:5:50
+    |vpiLeftRange:
+    \_constant: , line:5:46, endln:5:47
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:48, endln:5:49
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:60, endln:5:71
+  |vpiParent:
+  \_logic_net: (work@top.c), line:5:72, endln:5:73
+  |vpiRange:
+  \_range: , line:5:66, endln:5:71
+    |vpiParent:
+    \_logic_typespec: , line:5:60, endln:5:71
+    |vpiLeftRange:
+    \_constant: , line:5:67, endln:5:68
+      |vpiParent:
+      \_range: , line:5:66, endln:5:71
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:69, endln:5:70
+      |vpiParent:
+      \_range: , line:5:66, endln:5:71
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:19, endln:6:24
+\_logic_typespec: , line:6:35, endln:6:40
+\_logic_typespec: , line:6:51, endln:6:62
+  |vpiRange:
+  \_range: , line:6:57, endln:6:62
+    |vpiParent:
+    \_logic_typespec: , line:6:51, endln:6:62
+    |vpiLeftRange:
+    \_constant: , line:6:58, endln:6:59
+      |vpiParent:
+      \_range: , line:6:57, endln:6:62
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:60, endln:6:61
+      |vpiParent:
+      \_range: , line:6:57, endln:6:62
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:18, endln:5:29
+  |vpiRange:
+  \_range: , line:5:24, endln:5:29
+    |vpiParent:
+    \_logic_typespec: , line:5:18, endln:5:29
+    |vpiLeftRange:
+    \_constant: , line:5:25, endln:5:26
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:27, endln:5:28
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:39, endln:5:50
+  |vpiRange:
+  \_range: , line:5:45, endln:5:50
+    |vpiParent:
+    \_logic_typespec: , line:5:39, endln:5:50
+    |vpiLeftRange:
+    \_constant: , line:5:46, endln:5:47
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:48, endln:5:49
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:60, endln:5:71
+  |vpiRange:
+  \_range: , line:5:66, endln:5:71
+    |vpiParent:
+    \_logic_typespec: , line:5:60, endln:5:71
+    |vpiLeftRange:
+    \_constant: , line:5:67, endln:5:68
+      |vpiParent:
+      \_range: , line:5:66, endln:5:71
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:69, endln:5:70
+      |vpiParent:
+      \_range: , line:5:66, endln:5:71
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:19, endln:6:24
+\_logic_typespec: , line:6:35, endln:6:40
+\_logic_typespec: , line:6:51, endln:6:62
+  |vpiRange:
+  \_range: , line:6:57, endln:6:62
+    |vpiParent:
+    \_logic_typespec: , line:6:51, endln:6:62
+    |vpiLeftRange:
+    \_constant: , line:6:58, endln:6:59
+      |vpiParent:
+      \_range: , line:6:57, endln:6:62
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:60, endln:6:61
+      |vpiParent:
+      \_range: , line:6:57, endln:6:62
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 5
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/LetFormalSubst/dut.sv | ${SURELOG_DIR}/build/regression/LetFormalSubst/roundtrip/dut_000.sv | 7 | 12 |
+============================== End RoundTrip Results ==============================
