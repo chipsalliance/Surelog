@@ -3891,6 +3891,16 @@ UHDM::any *CompileHelper::compileExpression(
           operation->Operands(operands);
           operation->VpiOpType(vpiConcatOp);
           fC->populateCoreMembers(parent, parent, operation);
+          // `{b, c}[9:6]` / `{b, c}[3]`: primary = concatenation followed by a
+          // range_expression (LRM A.8.4).  The select was silently DROPPED and
+          // the bare concatenation handed over (sv-tests concat_op-bit_select:
+          // the 4-bit target read c[3:0] instead of {b[1:0], c[7:6]}).  A
+          // select has no name here: the operation is its Actual_group.
+          if (UHDM::any *sel = compileSelectOnExpression(
+                  component, fC, fC->Sibling(child), operation, compileDesign,
+                  reduce, pexpr, instance, muteErrors)) {
+            result = sel;
+          }
           break;
         }
         case VObjectType::paConstant_multiple_concatenation:
@@ -5018,6 +5028,42 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
     }
   }
   return ranges;
+}
+
+// A select applied to an EXPRESSION (a concatenation primary followed by a
+// range_expression): a nameless part_select / bit_select whose Actual_group is
+// the expression.  Returns nullptr when `Range_expression` is not one.
+UHDM::any *CompileHelper::compileSelectOnExpression(
+    DesignComponent *component, const FileContent *fC, NodeId Range_expression,
+    UHDM::expr *base, CompileDesign *compileDesign, Reduce reduce,
+    UHDM::any *pexpr, ValuedComponentI *instance, bool muteErrors) {
+  if (!Range_expression ||
+      fC->Type(Range_expression) != VObjectType::paRange_expression)
+    return nullptr;
+  UHDM::Serializer &s = compileDesign->getSerializer();
+  NodeId sel = fC->Child(Range_expression);
+  UHDM::any *result = nullptr;
+  if (fC->Type(sel) == VObjectType::paPart_select_range) {
+    NodeId Constant_range = fC->Child(sel);
+    result =
+        compilePartSelectRange(component, fC, Constant_range, "", compileDesign,
+                               reduce, pexpr, instance, muteErrors);
+  } else {
+    UHDM::bit_select *bs = s.MakeBit_select();
+    if (UHDM::expr *idx =
+            (expr *)compileExpression(component, fC, sel, compileDesign, reduce,
+                                      bs, instance, muteErrors)) {
+      bs->VpiIndex(idx);
+    }
+    bs->VpiParent(pexpr);
+    fC->populateCoreMembers(Range_expression, Range_expression, bs);
+    result = bs;
+  }
+  if (UHDM::ref_obj *ro = any_cast<UHDM::ref_obj *>(result)) {
+    ro->Actual_group(base);
+    base->VpiParent(ro);
+  }
+  return result;
 }
 
 UHDM::any *CompileHelper::compilePartSelectRange(
