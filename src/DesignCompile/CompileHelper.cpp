@@ -510,12 +510,12 @@ bool CompileHelper::compileTfPortList(Procedure* parent, const FileContent* fC,
   return result;
 }
 
-namespace {
 // Parse a Verilog Integral_number token used as an enum-member range bound
 // ("12'h003", "5'd31", "31", "8'b1010") into its integer value.  Used to expand
 // ranged enum members `name[hi:lo] = base` into the indexed constants
-// name<lo>..name<hi> (LRM 6.19.1).
-int64_t parseEnumRangeBound(std::string_view tok) {
+// name<lo>..name<hi> (LRM 6.19.1) -- by compileTypeDef here and by the
+// anonymous-enum path in CompileType.cpp.
+int64_t CompileHelper::parseEnumRangeBound(std::string_view tok) {
   std::string s(tok);
   s.erase(std::remove(s.begin(), s.end(), '_'), s.end());
   int base = 10;
@@ -548,7 +548,6 @@ int64_t parseEnumRangeBound(std::string_view tok) {
   }
   return v;
 }
-}  // namespace
 
 const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                                               const FileContent* fC,
