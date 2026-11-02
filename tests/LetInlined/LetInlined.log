@@ -190,8 +190,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
 begin                                                  1
-constant                                               2
-cont_assign                                            3
+constant                                               4
 design                                                 1
 immediate_assert                                       3
 io_decl                                                3
@@ -199,21 +198,18 @@ let_decl                                               3
 logic_net                                              1
 logic_typespec                                         2
 logic_var                                              1
-module_inst                                            5
-operation                                              1
-param_assign                                           3
-parameter                                              3
-ref_obj                                                7
+module_inst                                            2
+operation                                              2
+ref_obj                                               11
 ref_typespec                                           2
 seq_formal_decl                                        3
-sys_func_call                                          3
+sys_func_call                                          6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
 begin                                                  2
-constant                                               2
-cont_assign                                            3
+constant                                               4
 design                                                 1
 immediate_assert                                       6
 io_decl                                                3
@@ -221,14 +217,12 @@ let_decl                                               6
 logic_net                                              1
 logic_typespec                                         2
 logic_var                                              1
-module_inst                                            5
-operation                                              3
-param_assign                                           3
-parameter                                              3
-ref_obj                                               15
+module_inst                                            2
+operation                                              4
+ref_obj                                               19
 ref_typespec                                           2
 seq_formal_decl                                        3
-sys_func_call                                          9
+sys_func_call                                         12
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LetInlined/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LetInlined/slpp_all/checker/surelog.chk.html ...
@@ -250,13 +244,13 @@ design: (work@m)
     |vpiExpr:
     \_sys_func_call: ($past), line:4:13, endln:4:21
       |vpiParent:
-      \_immediate_assert: (a1), line:10:1, endln:10:19
+      \_let_decl: (p1), line:4:1, endln:4:22
       |vpiArgument:
-      \_ref_obj: (work@m.a1.x), line:4:19, endln:4:20
+      \_ref_obj: (work@m.p1.x), line:4:19, endln:4:20
         |vpiParent:
         \_sys_func_call: ($past), line:4:13, endln:4:21
         |vpiName:x
-        |vpiFullName:work@m.a1.x
+        |vpiFullName:work@m.p1.x
       |vpiName:$past
     |vpiName:p1
   |vpiLetDecl:
@@ -266,13 +260,13 @@ design: (work@m)
     |vpiExpr:
     \_sys_func_call: ($past), line:6:13, endln:6:18
       |vpiParent:
-      \_immediate_assert: (a2), line:11:1, endln:11:19
+      \_let_decl: (p2), line:6:1, endln:6:41
       |vpiArgument:
-      \_ref_obj: (work@m.a2.x), line:6:19, endln:6:20
+      \_ref_obj: (work@m.p2.x), line:6:19, endln:6:20
         |vpiParent:
         \_sys_func_call: ($past), line:6:13, endln:6:18
         |vpiName:x
-        |vpiFullName:work@m.a2.x
+        |vpiFullName:work@m.p2.x
       |vpiArgument:
       \_constant: , line:6:21, endln:6:21
         |vpiDecompile:0
@@ -291,11 +285,11 @@ design: (work@m)
         \_sys_func_call: ($past), line:6:13, endln:6:18
         |vpiOpType:39
         |vpiOperand:
-        \_ref_obj: (work@m.a2.clock), line:6:33, endln:6:38
+        \_ref_obj: (work@m.p2.clock), line:6:33, endln:6:38
           |vpiParent:
           \_operation: , line:6:25, endln:6:38
           |vpiName:clock
-          |vpiFullName:work@m.a2.clock
+          |vpiFullName:work@m.p2.clock
       |vpiName:$past
     |vpiName:p2
   |vpiLetDecl:
@@ -305,13 +299,13 @@ design: (work@m)
     |vpiExpr:
     \_sys_func_call: ($sampled), line:7:12, endln:7:23
       |vpiParent:
-      \_immediate_assert: (a3), line:12:1, endln:12:18
+      \_let_decl: (s), line:7:1, endln:7:24
       |vpiArgument:
-      \_ref_obj: (work@m.a3.x), line:7:21, endln:7:22
+      \_ref_obj: (work@m.s.x), line:7:21, endln:7:22
         |vpiParent:
         \_sys_func_call: ($sampled), line:7:12, endln:7:23
         |vpiName:x
-        |vpiFullName:work@m.a3.x
+        |vpiFullName:work@m.s.x
       |vpiName:$sampled
     |vpiName:s
   |vpiDefName:work@m
@@ -345,6 +339,17 @@ design: (work@m)
         |vpiName:a1
         |vpiExpr:
         \_sys_func_call: ($past), line:4:13, endln:4:21
+          |vpiParent:
+          \_immediate_assert: (a1), line:10:1, endln:10:19
+          |vpiArgument:
+          \_ref_obj: (work@m.a), line:10:15, endln:10:16
+            |vpiParent:
+            \_begin: (work@m), line:9:13, endln:13:4
+            |vpiName:a
+            |vpiFullName:work@m.a
+            |vpiActual:
+            \_logic_net: (work@m.a), line:3:7, endln:3:8
+          |vpiName:$past
       |vpiStmt:
       \_immediate_assert: (a2), line:11:1, endln:11:19
         |vpiParent:
@@ -352,6 +357,44 @@ design: (work@m)
         |vpiName:a2
         |vpiExpr:
         \_sys_func_call: ($past), line:6:13, endln:6:18
+          |vpiParent:
+          \_immediate_assert: (a2), line:11:1, endln:11:19
+          |vpiArgument:
+          \_ref_obj: (work@m.a), line:11:15, endln:11:16
+            |vpiParent:
+            \_begin: (work@m), line:9:13, endln:13:4
+            |vpiName:a
+            |vpiFullName:work@m.a
+            |vpiActual:
+            \_logic_net: (work@m.a), line:3:7, endln:3:8
+          |vpiArgument:
+          \_constant: , line:6:21, endln:6:21
+            |vpiParent:
+            \_sys_func_call: ($past), line:6:13, endln:6:18
+            |vpiDecompile:0
+            |vpiSize:64
+            |INT:0
+            |vpiConstType:7
+          |vpiArgument:
+          \_constant: , line:6:22, endln:6:22
+            |vpiParent:
+            \_sys_func_call: ($past), line:6:13, endln:6:18
+            |vpiDecompile:0
+            |vpiSize:64
+            |INT:0
+            |vpiConstType:7
+          |vpiArgument:
+          \_operation: , line:6:25, endln:6:38
+            |vpiParent:
+            \_sys_func_call: ($past), line:6:13, endln:6:18
+            |vpiOpType:39
+            |vpiOperand:
+            \_ref_obj: (work@m.a2.clock), line:6:33, endln:6:38
+              |vpiParent:
+              \_operation: , line:6:25, endln:6:38
+              |vpiName:clock
+              |vpiFullName:work@m.a2.clock
+          |vpiName:$past
       |vpiStmt:
       \_immediate_assert: (a3), line:12:1, endln:12:18
         |vpiParent:
@@ -359,6 +402,17 @@ design: (work@m)
         |vpiName:a3
         |vpiExpr:
         \_sys_func_call: ($sampled), line:7:12, endln:7:23
+          |vpiParent:
+          \_immediate_assert: (a3), line:12:1, endln:12:18
+          |vpiArgument:
+          \_ref_obj: (work@m.a), line:12:14, endln:12:15
+            |vpiParent:
+            \_begin: (work@m), line:9:13, endln:13:4
+            |vpiName:a
+            |vpiFullName:work@m.a
+            |vpiActual:
+            \_logic_net: (work@m.a), line:3:7, endln:3:8
+          |vpiName:$sampled
     |vpiAlwaysType:2
   |vpiEndLabel:m
 |uhdmtopModules:
@@ -465,11 +519,13 @@ design: (work@m)
           |vpiParent:
           \_immediate_assert: (a1), line:10:1, endln:10:19
           |vpiArgument:
-          \_ref_obj: (work@m.a1.x), line:4:19, endln:4:20
+          \_ref_obj: (work@m.a1.a), line:10:15, endln:10:16
             |vpiParent:
             \_sys_func_call: ($past), line:4:13, endln:4:21
-            |vpiName:x
-            |vpiFullName:work@m.a1.x
+            |vpiName:a
+            |vpiFullName:work@m.a1.a
+            |vpiActual:
+            \_logic_var: (work@m.a), line:3:7, endln:3:8
           |vpiName:$past
       |vpiStmt:
       \_immediate_assert: (a2), line:11:1, endln:11:19
@@ -481,11 +537,13 @@ design: (work@m)
           |vpiParent:
           \_immediate_assert: (a2), line:11:1, endln:11:19
           |vpiArgument:
-          \_ref_obj: (work@m.a2.x), line:6:19, endln:6:20
+          \_ref_obj: (work@m.a2.a), line:11:15, endln:11:16
             |vpiParent:
             \_sys_func_call: ($past), line:6:13, endln:6:18
-            |vpiName:x
-            |vpiFullName:work@m.a2.x
+            |vpiName:a
+            |vpiFullName:work@m.a2.a
+            |vpiActual:
+            \_logic_var: (work@m.a), line:3:7, endln:3:8
           |vpiArgument:
           \_constant: , line:6:21, endln:6:21
           |vpiArgument:
@@ -512,11 +570,13 @@ design: (work@m)
           |vpiParent:
           \_immediate_assert: (a3), line:12:1, endln:12:18
           |vpiArgument:
-          \_ref_obj: (work@m.a3.x), line:7:21, endln:7:22
+          \_ref_obj: (work@m.a3.a), line:12:14, endln:12:15
             |vpiParent:
             \_sys_func_call: ($sampled), line:7:12, endln:7:23
-            |vpiName:x
-            |vpiFullName:work@m.a3.x
+            |vpiName:a
+            |vpiFullName:work@m.a3.a
+            |vpiActual:
+            \_logic_var: (work@m.a), line:3:7, endln:3:8
           |vpiName:$sampled
     |vpiAlwaysType:2
 \_weaklyReferenced:
@@ -532,6 +592,9 @@ design: (work@m)
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/LetInlined/dut.sv:4:13: Non synthesizable construct, $past
+[LINT]: ${SURELOG_DIR}/tests/LetInlined/dut.sv:6:13: Non synthesizable construct, $past
+[LINT]: ${SURELOG_DIR}/tests/LetInlined/dut.sv:7:12: Non synthesizable construct, $sampled
 [LINT]: ${SURELOG_DIR}/tests/LetInlined/dut.sv:4:13: Non synthesizable construct, $past
 [LINT]: ${SURELOG_DIR}/tests/LetInlined/dut.sv:6:13: Non synthesizable construct, $past
 [LINT]: ${SURELOG_DIR}/tests/LetInlined/dut.sv:7:12: Non synthesizable construct, $sampled

@@ -4741,46 +4741,84 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
         if (compileDesign->getCompiler()
                 ->getCommandLineParser()
                 ->getLetExprSubstitution()) {
-          // Inline the let declaration
+          // Inline the let declaration: clone its expression and substitute
+          // every reference to a formal with the matching actual -- by name
+          // for `.x(a)`, by position otherwise.  The previous scheme
+          // elaborated a throwaway module whose Param_assigns carried the
+          // actuals, but the elaborator fills its parameter map from
+          // Param_assigns only in mute-errors mode, so the formals stayed
+          // unbound ref_objs and every reader saw three unknown signals
+          // (sv-tests let_construct: `let op(x, y, z) = |((x | y) & z)`).
           NodeId argListNode = fC->Sibling(tfNameNode);
-          VectorOfany* arguments =
-              compileTfCallArguments(component, fC, argListNode, compileDesign,
-                                     Reduce::No, call, nullptr, false);
-          module_inst* modTmp = s.MakeModule_inst();
-          modTmp->VpiName("tmp");
-          const VectorOfseq_formal_decl* decls = stmt->Ios();
-          VectorOfparam_assign* passigns = s.MakeParam_assignVec();
-          for (uint32_t i = 0; i < decls->size(); i++) {
-            seq_formal_decl* decl = decls->at(i);
-            any* actual = nullptr;
-            if (i < arguments->size()) actual = arguments->at(i);
-            parameter* p = s.MakeParameter();
-            p->VpiName(decl->VpiName());
-            param_assign* pass = s.MakeParam_assign();
-            pass->Lhs(p);
-            if (actual) {
-              if (actual->UhdmType() == uhdmref_obj)
-                component->needLateBinding((ref_obj*)actual);
-              pass->Rhs(actual);
+          std::map<std::string, any*, std::less<>> byName;
+          std::vector<any*> byPos;
+          if (argListNode && fC->Type(argListNode) != VObjectType::paSelect) {
+            NodeId argumentNode = fC->Child(argListNode);
+            while (argumentNode) {
+              NodeId argument = argumentNode;
+              if (fC->Type(argument) == VObjectType::paArgument)
+                argument = fC->Child(argument);
+              NodeId sibling = fC->Sibling(argument);
+              if ((fC->Type(argument) == VObjectType::slStringConst) &&
+                  (fC->Type(sibling) == VObjectType::paExpression)) {
+                if (any* exp =
+                        compileExpression(component, fC, sibling, compileDesign,
+                                          Reduce::No, pexpr, nullptr, false))
+                  byName.emplace(fC->SymName(argument), exp);
+              } else if (any* exp = compileExpression(component, fC, argument,
+                                                      compileDesign, Reduce::No,
+                                                      pexpr, nullptr, false)) {
+                byPos.push_back(exp);
+              }
+              argumentNode = fC->Sibling(argumentNode);
             }
-            passigns->push_back(pass);
           }
-          modTmp->Param_assigns(passigns);
-          cont_assign* cts = s.MakeCont_assign();
-          VectorOfcont_assign* assigns = s.MakeCont_assignVec();
-          const expr* exp = stmt->Expr();
-          cts->Rhs((expr*)exp);
-          assigns->push_back(cts);
-          modTmp->Cont_assigns(assigns);
-
-          if (ElaboratorContext* elaboratorContext =
-                  new ElaboratorContext(&s, false)) {
-            vpiHandle defModule = NewVpiHandle(modTmp);
-            elaboratorContext->m_elaborator.listenModule_inst(defModule);
-            vpi_free_object(defModule);
-            delete elaboratorContext;
+          std::map<std::string, any*, std::less<>> subst;
+          if (const VectorOfseq_formal_decl* decls = stmt->Ios()) {
+            for (uint32_t i = 0; i < decls->size(); i++) {
+              const std::string_view fname = decls->at(i)->VpiName();
+              auto it = byName.find(fname);
+              if (it != byName.end())
+                subst.emplace(fname, it->second);
+              else if (i < byPos.size())
+                subst.emplace(fname, byPos[i]);
+            }
           }
-          return (any*)cts->Rhs();
+          ElaboratorContext ctx(&s, false);
+          any* body = UHDM::clone_tree((any*)stmt->Expr(), &ctx);
+          std::function<any*(any*)> rewrite = [&](any* node) -> any* {
+            if (node == nullptr) return node;
+            if (node->UhdmType() == uhdmref_obj) {
+              auto it = subst.find(node->VpiName());
+              return (it != subst.end()) ? it->second : node;
+            }
+            if (node->UhdmType() == uhdmoperation) {
+              operation* op = (operation*)node;
+              if (op->Operands()) {
+                for (auto& o : *op->Operands()) {
+                  any* r = rewrite(o);
+                  if (r != o) {
+                    o = r;
+                    if (r->VpiParent() == nullptr) r->VpiParent(op);
+                  }
+                }
+              }
+            } else if (tf_call* tfc = dynamic_cast<tf_call*>(node)) {
+              if (tfc->Tf_call_args()) {
+                for (auto& a : *tfc->Tf_call_args()) {
+                  any* r = rewrite(a);
+                  if (r != a) {
+                    a = r;
+                    if (r->VpiParent() == nullptr) r->VpiParent(tfc);
+                  }
+                }
+              }
+            }
+            return node;
+          };
+          body = rewrite(body);
+          if (body) body->VpiParent(pexpr);
+          return body;
         } else {
           let_expr* let = s.MakeLet_expr();
           let->Let_decl((let_decl*)stmt->Decl());
