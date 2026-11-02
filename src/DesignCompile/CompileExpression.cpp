@@ -4590,6 +4590,17 @@ UHDM::any *CompileHelper::compileAssignmentPattern(
             NodeId Primary_literal = Constant_primary;
             if (fC->Type(Primary_literal) != VObjectType::paPrimary_literal)
               Primary_literal = fC->Child(Constant_primary);
+            NodeId literal = fC->Child(Primary_literal);
+            if (fC->Type(Primary_literal) == VObjectType::paPrimary_literal &&
+                (fC->Type(literal) == VObjectType::slIntConst)) {
+              // An INDEX key of an array pattern (`'{1: v, default: 0}`, LRM
+              // 10.9.1): name the tagged_pattern after the index so a consumer
+              // walking keys by NAME sees it (a type key has a typespec and no
+              // name; `default` is a string_typespec named "default").  The
+              // integer_typespec carrying the index as its value stays, for
+              // ExprEval's pattern flattening and every existing consumer.
+              pattern->VpiName(fC->SymName(literal));
+            }
             if (typespec *tps = compileTypespec(component, fC, Primary_literal,
                                                 compileDesign, Reduce::Yes,
                                                 nullptr, instance, false)) {
