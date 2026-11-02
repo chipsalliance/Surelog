@@ -1,0 +1,903 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/SelectOnConcat/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/SelectOnConcat/dut.sv:5:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/SelectOnConcat/dut.sv:5:1: Compile module "work@top".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/SelectOnConcat/dut.sv:5:1: Top level module "work@top".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 1.
+[NTE:EL0510] Nb instances: 1.
+[NTE:EL0511] Nb leaf instances: 1.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+bit_select                                             1
+constant                                              37
+cont_assign                                            4
+design                                                 1
+logic_net                                             10
+logic_typespec                                        15
+module_inst                                            4
+operation                                              6
+part_select                                            1
+port                                                  10
+range                                                 16
+ref_obj                                               20
+ref_typespec                                          15
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+bit_select                                             2
+constant                                              37
+cont_assign                                            7
+design                                                 1
+logic_net                                             10
+logic_typespec                                        15
+module_inst                                            4
+operation                                              8
+part_select                                            2
+port                                                  15
+range                                                 16
+ref_obj                                               29
+ref_typespec                                          20
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SelectOnConcat/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/SelectOnConcat/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/SelectOnConcat/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@top)
+|vpiElaborated:1
+|vpiName:work@top
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.b), line:5:30, endln:5:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.c), line:5:51, endln:5:52
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:c
+    |vpiFullName:work@top.c
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.a), line:5:73, endln:5:74
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.d), line:6:25, endln:6:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:d
+    |vpiFullName:work@top.d
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.e), line:6:47, endln:6:48
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:e
+    |vpiFullName:work@top.e
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (b), line:5:30, endln:5:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:b
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.b.b), line:5:30, endln:5:31
+      |vpiParent:
+      \_port: (b), line:5:30, endln:5:31
+      |vpiName:b
+      |vpiFullName:work@top.b.b
+      |vpiActual:
+      \_logic_net: (work@top.b), line:5:30, endln:5:31
+    |vpiTypedef:
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:5:30, endln:5:31
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:5:18, endln:5:29
+  |vpiPort:
+  \_port: (c), line:5:51, endln:5:52
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:c
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.c.c), line:5:51, endln:5:52
+      |vpiParent:
+      \_port: (c), line:5:51, endln:5:52
+      |vpiName:c
+      |vpiFullName:work@top.c.c
+      |vpiActual:
+      \_logic_net: (work@top.c), line:5:51, endln:5:52
+    |vpiTypedef:
+    \_ref_typespec: (work@top.c)
+      |vpiParent:
+      \_port: (c), line:5:51, endln:5:52
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_typespec: , line:5:39, endln:5:50
+  |vpiPort:
+  \_port: (a), line:5:73, endln:5:74
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:a
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.a.a), line:5:73, endln:5:74
+      |vpiParent:
+      \_port: (a), line:5:73, endln:5:74
+      |vpiName:a
+      |vpiFullName:work@top.a.a
+      |vpiActual:
+      \_logic_net: (work@top.a), line:5:73, endln:5:74
+    |vpiTypedef:
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:5:73, endln:5:74
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:5:61, endln:5:72
+  |vpiPort:
+  \_port: (d), line:6:25, endln:6:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:d
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.d.d), line:6:25, endln:6:26
+      |vpiParent:
+      \_port: (d), line:6:25, endln:6:26
+      |vpiName:d
+      |vpiFullName:work@top.d.d
+      |vpiActual:
+      \_logic_net: (work@top.d), line:6:25, endln:6:26
+    |vpiTypedef:
+    \_ref_typespec: (work@top.d)
+      |vpiParent:
+      \_port: (d), line:6:25, endln:6:26
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_typespec: , line:6:19, endln:6:24
+  |vpiPort:
+  \_port: (e), line:6:47, endln:6:48
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:e
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.e.e), line:6:47, endln:6:48
+      |vpiParent:
+      \_port: (e), line:6:47, endln:6:48
+      |vpiName:e
+      |vpiFullName:work@top.e.e
+      |vpiActual:
+      \_logic_net: (work@top.e), line:6:47, endln:6:48
+    |vpiTypedef:
+    \_ref_typespec: (work@top.e)
+      |vpiParent:
+      \_port: (e), line:6:47, endln:6:48
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_typespec: , line:6:35, endln:6:46
+  |vpiContAssign:
+  \_cont_assign: , line:7:10, endln:7:25
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiRhs:
+    \_part_select: (work@top), line:7:21, endln:7:24
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:25
+      |vpiFullName:work@top
+      |vpiActual:
+      \_operation: , line:7:14, endln:7:25
+      |vpiConstantSelect:1
+      |vpiLeftRange:
+      \_constant: , line:7:21, endln:7:22
+        |vpiDecompile:9
+        |vpiSize:64
+        |UINT:9
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:7:23, endln:7:24
+        |vpiDecompile:6
+        |vpiSize:64
+        |UINT:6
+        |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.a), line:7:10, endln:7:11
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:25
+      |vpiName:a
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_net: (work@top.a), line:5:73, endln:5:74
+  |vpiContAssign:
+  \_cont_assign: , line:8:10, endln:8:23
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiRhs:
+    \_bit_select: (work@top), line:8:21, endln:8:22
+      |vpiParent:
+      \_cont_assign: , line:8:10, endln:8:23
+      |vpiFullName:work@top
+      |vpiActual:
+      \_operation: , line:8:14, endln:8:23
+      |vpiIndex:
+      \_constant: , line:8:21, endln:8:22
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.d), line:8:10, endln:8:11
+      |vpiParent:
+      \_cont_assign: , line:8:10, endln:8:23
+      |vpiName:d
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_net: (work@top.d), line:6:25, endln:6:26
+  |vpiContAssign:
+  \_cont_assign: , line:9:10, endln:9:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiRhs:
+    \_operation: , line:9:14, endln:9:26
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:26
+      |vpiOpType:34
+      |vpiOperand:
+      \_constant: , line:9:15, endln:9:16
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiOperand:
+      \_operation: , line:9:16, endln:9:19
+        |vpiParent:
+        \_operation: , line:9:14, endln:9:26
+        |vpiOpType:33
+        |vpiOperand:
+        \_ref_obj: (work@top.c), line:9:17, endln:9:18
+          |vpiParent:
+          \_operation: , line:9:16, endln:9:19
+          |vpiName:c
+          |vpiFullName:work@top.c
+          |vpiActual:
+          \_logic_net: (work@top.c), line:5:51, endln:5:52
+    |vpiLhs:
+    \_ref_obj: (work@top.e), line:9:10, endln:9:11
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:26
+      |vpiName:e
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_net: (work@top.e), line:6:47, endln:6:48
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.b), line:5:30, endln:5:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_logic_net: (work@top.b), line:5:30, endln:5:31
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:5:18, endln:5:29
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.c), line:5:51, endln:5:52
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.c)
+      |vpiParent:
+      \_logic_net: (work@top.c), line:5:51, endln:5:52
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_typespec: , line:5:39, endln:5:50
+    |vpiName:c
+    |vpiFullName:work@top.c
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.a), line:5:73, endln:5:74
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_logic_net: (work@top.a), line:5:73, endln:5:74
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:5:61, endln:5:72
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.d), line:6:25, endln:6:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.d)
+      |vpiParent:
+      \_logic_net: (work@top.d), line:6:25, endln:6:26
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_typespec: , line:6:19, endln:6:24
+    |vpiName:d
+    |vpiFullName:work@top.d
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.e), line:6:47, endln:6:48
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.e)
+      |vpiParent:
+      \_logic_net: (work@top.e), line:6:47, endln:6:48
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_typespec: , line:6:35, endln:6:46
+    |vpiName:e
+    |vpiFullName:work@top.e
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (b), line:5:30, endln:5:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:b
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.b), line:5:30, endln:5:31
+      |vpiParent:
+      \_port: (b), line:5:30, endln:5:31
+      |vpiName:b
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_net: (work@top.b), line:5:30, endln:5:31
+    |vpiTypedef:
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:5:30, endln:5:31
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:5:18, endln:5:29
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+  |vpiPort:
+  \_port: (c), line:5:51, endln:5:52
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:c
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.c), line:5:51, endln:5:52
+      |vpiParent:
+      \_port: (c), line:5:51, endln:5:52
+      |vpiName:c
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_net: (work@top.c), line:5:51, endln:5:52
+    |vpiTypedef:
+    \_ref_typespec: (work@top.c)
+      |vpiParent:
+      \_port: (c), line:5:51, endln:5:52
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_typespec: , line:5:39, endln:5:50
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+  |vpiPort:
+  \_port: (a), line:5:73, endln:5:74
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:a
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.a), line:5:73, endln:5:74
+      |vpiParent:
+      \_port: (a), line:5:73, endln:5:74
+      |vpiName:a
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_net: (work@top.a), line:5:73, endln:5:74
+    |vpiTypedef:
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:5:73, endln:5:74
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:5:61, endln:5:72
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+  |vpiPort:
+  \_port: (d), line:6:25, endln:6:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:d
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.d), line:6:25, endln:6:26
+      |vpiParent:
+      \_port: (d), line:6:25, endln:6:26
+      |vpiName:d
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_net: (work@top.d), line:6:25, endln:6:26
+    |vpiTypedef:
+    \_ref_typespec: (work@top.d)
+      |vpiParent:
+      \_port: (d), line:6:25, endln:6:26
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_typespec: , line:6:19, endln:6:24
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+  |vpiPort:
+  \_port: (e), line:6:47, endln:6:48
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiName:e
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.e), line:6:47, endln:6:48
+      |vpiParent:
+      \_port: (e), line:6:47, endln:6:48
+      |vpiName:e
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_net: (work@top.e), line:6:47, endln:6:48
+    |vpiTypedef:
+    \_ref_typespec: (work@top.e)
+      |vpiParent:
+      \_port: (e), line:6:47, endln:6:48
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_typespec: , line:6:35, endln:6:46
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+  |vpiContAssign:
+  \_cont_assign: , line:7:10, endln:7:25
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiRhs:
+    \_part_select: (work@top), line:7:21, endln:7:24
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:25
+      |vpiFullName:work@top
+      |vpiActual:
+      \_operation: , line:7:14, endln:7:25
+      |vpiConstantSelect:1
+      |vpiLeftRange:
+      \_constant: , line:7:21, endln:7:22
+      |vpiRightRange:
+      \_constant: , line:7:23, endln:7:24
+    |vpiLhs:
+    \_ref_obj: (work@top.a), line:7:10, endln:7:11
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:25
+      |vpiName:a
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_net: (work@top.a), line:5:73, endln:5:74
+  |vpiContAssign:
+  \_cont_assign: , line:8:10, endln:8:23
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiRhs:
+    \_bit_select: (work@top), line:8:21, endln:8:22
+      |vpiParent:
+      \_cont_assign: , line:8:10, endln:8:23
+      |vpiFullName:work@top
+      |vpiActual:
+      \_operation: , line:8:14, endln:8:23
+      |vpiIndex:
+      \_constant: , line:8:21, endln:8:22
+    |vpiLhs:
+    \_ref_obj: (work@top.d), line:8:10, endln:8:11
+      |vpiParent:
+      \_cont_assign: , line:8:10, endln:8:23
+      |vpiName:d
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_net: (work@top.d), line:6:25, endln:6:26
+  |vpiContAssign:
+  \_cont_assign: , line:9:10, endln:9:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+    |vpiRhs:
+    \_operation: , line:9:14, endln:9:26
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:26
+      |vpiOpType:34
+      |vpiOperand:
+      \_constant: , line:9:15, endln:9:16
+        |vpiParent:
+        \_operation: , line:9:14, endln:9:26
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiOperand:
+      \_operation: , line:9:16, endln:9:19
+        |vpiParent:
+        \_operation: , line:9:14, endln:9:26
+        |vpiOpType:33
+        |vpiOperand:
+        \_ref_obj: (work@top.c), line:9:17, endln:9:18
+          |vpiParent:
+          \_operation: , line:9:16, endln:9:19
+          |vpiName:c
+          |vpiFullName:work@top.c
+          |vpiActual:
+          \_logic_net: (work@top.c), line:5:51, endln:5:52
+    |vpiLhs:
+    \_ref_obj: (work@top.e), line:9:10, endln:9:11
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:26
+      |vpiName:e
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_net: (work@top.e), line:6:47, endln:6:48
+\_weaklyReferenced:
+\_operation: , line:7:14, endln:7:25
+  |vpiParent:
+  \_part_select: (work@top), line:7:21, endln:7:24
+  |vpiOpType:33
+  |vpiOperand:
+  \_ref_obj: (work@top.b), line:7:15, endln:7:16
+    |vpiParent:
+    \_operation: , line:7:14, endln:7:25
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiActual:
+    \_logic_net: (work@top.b), line:5:30, endln:5:31
+  |vpiOperand:
+  \_ref_obj: (work@top.c), line:7:18, endln:7:19
+    |vpiParent:
+    \_operation: , line:7:14, endln:7:25
+    |vpiName:c
+    |vpiFullName:work@top.c
+    |vpiActual:
+    \_logic_net: (work@top.c), line:5:51, endln:5:52
+\_operation: , line:8:14, endln:8:23
+  |vpiParent:
+  \_bit_select: (work@top), line:8:21, endln:8:22
+  |vpiOpType:33
+  |vpiOperand:
+  \_ref_obj: (work@top.b), line:8:15, endln:8:16
+    |vpiParent:
+    \_operation: , line:8:14, endln:8:23
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiActual:
+    \_logic_net: (work@top.b), line:5:30, endln:5:31
+  |vpiOperand:
+  \_ref_obj: (work@top.c), line:8:18, endln:8:19
+    |vpiParent:
+    \_operation: , line:8:14, endln:8:23
+    |vpiName:c
+    |vpiFullName:work@top.c
+    |vpiActual:
+    \_logic_net: (work@top.c), line:5:51, endln:5:52
+\_logic_typespec: , line:5:18, endln:5:29
+  |vpiRange:
+  \_range: , line:5:24, endln:5:29
+    |vpiParent:
+    \_logic_typespec: , line:5:18, endln:5:29
+    |vpiLeftRange:
+    \_constant: , line:5:25, endln:5:26
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:27, endln:5:28
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:39, endln:5:50
+  |vpiRange:
+  \_range: , line:5:45, endln:5:50
+    |vpiParent:
+    \_logic_typespec: , line:5:39, endln:5:50
+    |vpiLeftRange:
+    \_constant: , line:5:46, endln:5:47
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:48, endln:5:49
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:61, endln:5:72
+  |vpiRange:
+  \_range: , line:5:67, endln:5:72
+    |vpiParent:
+    \_logic_typespec: , line:5:61, endln:5:72
+    |vpiLeftRange:
+    \_constant: , line:5:68, endln:5:69
+      |vpiParent:
+      \_range: , line:5:67, endln:5:72
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:70, endln:5:71
+      |vpiParent:
+      \_range: , line:5:67, endln:5:72
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:19, endln:6:24
+\_logic_typespec: , line:6:35, endln:6:46
+  |vpiRange:
+  \_range: , line:6:41, endln:6:46
+    |vpiParent:
+    \_logic_typespec: , line:6:35, endln:6:46
+    |vpiLeftRange:
+    \_constant: , line:6:42, endln:6:43
+      |vpiParent:
+      \_range: , line:6:41, endln:6:46
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:44, endln:6:45
+      |vpiParent:
+      \_range: , line:6:41, endln:6:46
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:18, endln:5:29
+  |vpiParent:
+  \_logic_net: (work@top.b), line:5:30, endln:5:31
+  |vpiRange:
+  \_range: , line:5:24, endln:5:29
+    |vpiParent:
+    \_logic_typespec: , line:5:18, endln:5:29
+    |vpiLeftRange:
+    \_constant: , line:5:25, endln:5:26
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:27, endln:5:28
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:39, endln:5:50
+  |vpiParent:
+  \_logic_net: (work@top.c), line:5:51, endln:5:52
+  |vpiRange:
+  \_range: , line:5:45, endln:5:50
+    |vpiParent:
+    \_logic_typespec: , line:5:39, endln:5:50
+    |vpiLeftRange:
+    \_constant: , line:5:46, endln:5:47
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:48, endln:5:49
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:61, endln:5:72
+  |vpiRange:
+  \_range: , line:5:67, endln:5:72
+    |vpiParent:
+    \_logic_typespec: , line:5:61, endln:5:72
+    |vpiLeftRange:
+    \_constant: , line:5:68, endln:5:69
+      |vpiParent:
+      \_range: , line:5:67, endln:5:72
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:70, endln:5:71
+      |vpiParent:
+      \_range: , line:5:67, endln:5:72
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:19, endln:6:24
+\_logic_typespec: , line:6:35, endln:6:46
+  |vpiRange:
+  \_range: , line:6:41, endln:6:46
+    |vpiParent:
+    \_logic_typespec: , line:6:35, endln:6:46
+    |vpiLeftRange:
+    \_constant: , line:6:42, endln:6:43
+      |vpiParent:
+      \_range: , line:6:41, endln:6:46
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:44, endln:6:45
+      |vpiParent:
+      \_range: , line:6:41, endln:6:46
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:18, endln:5:29
+  |vpiRange:
+  \_range: , line:5:24, endln:5:29
+    |vpiParent:
+    \_logic_typespec: , line:5:18, endln:5:29
+    |vpiLeftRange:
+    \_constant: , line:5:25, endln:5:26
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:27, endln:5:28
+      |vpiParent:
+      \_range: , line:5:24, endln:5:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:39, endln:5:50
+  |vpiRange:
+  \_range: , line:5:45, endln:5:50
+    |vpiParent:
+    \_logic_typespec: , line:5:39, endln:5:50
+    |vpiLeftRange:
+    \_constant: , line:5:46, endln:5:47
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:48, endln:5:49
+      |vpiParent:
+      \_range: , line:5:45, endln:5:50
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:61, endln:5:72
+  |vpiRange:
+  \_range: , line:5:67, endln:5:72
+    |vpiParent:
+    \_logic_typespec: , line:5:61, endln:5:72
+    |vpiLeftRange:
+    \_constant: , line:5:68, endln:5:69
+      |vpiParent:
+      \_range: , line:5:67, endln:5:72
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:70, endln:5:71
+      |vpiParent:
+      \_range: , line:5:67, endln:5:72
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:19, endln:6:24
+\_logic_typespec: , line:6:35, endln:6:46
+  |vpiRange:
+  \_range: , line:6:41, endln:6:46
+    |vpiParent:
+    \_logic_typespec: , line:6:35, endln:6:46
+    |vpiLeftRange:
+    \_constant: , line:6:42, endln:6:43
+      |vpiParent:
+      \_range: , line:6:41, endln:6:46
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:44, endln:6:45
+      |vpiParent:
+      \_range: , line:6:41, endln:6:46
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_operation: , line:9:14, endln:9:26
+  |vpiParent:
+  \_cont_assign: , line:9:10, endln:9:26
+  |vpiOpType:34
+  |vpiOperand:
+  \_constant: , line:9:15, endln:9:16
+  |vpiOperand:
+  \_operation: , line:9:16, endln:9:19
+    |vpiParent:
+    \_operation: , line:9:14, endln:9:26
+    |vpiOpType:33
+    |vpiOperand:
+    \_ref_obj: (work@top.c), line:9:17, endln:9:18
+      |vpiParent:
+      \_operation: , line:9:16, endln:9:19
+      |vpiName:c
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_net: (work@top.c), line:5:51, endln:5:52
+\_cont_assign: , line:9:10, endln:9:26
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/SelectOnConcat/dut.sv, line:5:1, endln:10:10
+  |vpiRhs:
+  \_operation: , line:9:14, endln:9:26
+  |vpiLhs:
+  \_ref_obj: (work@top.e), line:9:10, endln:9:11
+    |vpiParent:
+    \_cont_assign: , line:9:10, endln:9:26
+    |vpiName:e
+    |vpiFullName:work@top.e
+    |vpiActual:
+    \_logic_net: (work@top.e), line:6:47, endln:6:48
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 5
