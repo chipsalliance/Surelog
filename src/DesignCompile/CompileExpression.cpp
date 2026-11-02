@@ -5771,40 +5771,103 @@ UHDM::any *CompileHelper::compileBits(
         }
         return false;
       };
-      // Bits of `t` with `strip` outer packed ranges removed.
+      // Bits of `t` with `strip` outer ranges removed, ONE dimension per
+      // select, outermost first: the unpacked ranges of an array_typespec
+      // (`arr_a[1][1]` on `bit [7:0][31:0] arr_a [1:5][1:10]` consumes [1:5]
+      // then [1:10] and lands on the 256-bit element), then the element
+      // type's own ranges.  An explicit element type is entered only once
+      // every range of the enclosing type has been consumed -- stepping into
+      // it at the first select skipped the remaining unpacked extents.
+      auto range_extent = [&](range *r, uint64_t &outer) -> bool {
+        bool inv = false;
+        UHDM::ExprEval eval;
+        int64_t l = eval.get_value(
+            inv, reduceExpr(r->Left_expr(), inv, component, compileDesign,
+                            instance, fC->getFileId(typeSpecId),
+                            fC->Line(typeSpecId), pexpr, muteErrors));
+        int64_t r2 = eval.get_value(
+            inv, reduceExpr(r->Right_expr(), inv, component, compileDesign,
+                            instance, fC->getFileId(typeSpecId),
+                            fC->Line(typeSpecId), pexpr, muteErrors));
+        outer = (uint64_t)((l > r2) ? (l - r2) : (r2 - l)) + 1;
+        return !inv && outer != 0;
+      };
       auto bits_stripped = [&](const typespec *t, int strip) -> uint64_t {
         uint64_t total =
             Bits(t, invalidValue, component, compileDesign, reduce, instance,
                  fC->getFileId(typeSpecId), fC->Line(typeSpecId), sizeMode);
         if (strip == 0 || invalidValue) return total;
+        int ri = 0;  // next range of `t` to consume
         for (int i = 0; i < strip; i++) {
-          if (const typespec *el = elem_of(t)) {  // explicit element type
-            total = Bits(el, invalidValue, component, compileDesign, reduce,
-                         instance, fC->getFileId(typeSpecId),
-                         fC->Line(typeSpecId), sizeMode);
-            t = el;
-            continue;
-          }
           VectorOfrange *ranges = nullptr;
-          if (const logic_typespec *lt = any_cast<const logic_typespec *>(t))
+          if (const array_typespec *at = any_cast<const array_typespec *>(t))
+            ranges = at->Ranges();
+          else if (const packed_array_typespec *pt =
+                       any_cast<const packed_array_typespec *>(t))
+            ranges = pt->Ranges();
+          else if (const logic_typespec *lt =
+                       any_cast<const logic_typespec *>(t))
             ranges = lt->Ranges();
           else if (const bit_typespec *bt = any_cast<const bit_typespec *>(t))
             ranges = bt->Ranges();
-          if (!ranges || (int)ranges->size() <= i) return 0;
-          range *r = ranges->at(i);
-          bool inv = false;
-          UHDM::ExprEval eval;
-          int64_t l = eval.get_value(
-              inv, reduceExpr(r->Left_expr(), inv, component, compileDesign,
-                              instance, fC->getFileId(typeSpecId),
-                              fC->Line(typeSpecId), pexpr, muteErrors));
-          int64_t r2 = eval.get_value(
-              inv, reduceExpr(r->Right_expr(), inv, component, compileDesign,
-                              instance, fC->getFileId(typeSpecId),
-                              fC->Line(typeSpecId), pexpr, muteErrors));
-          uint64_t outer = (uint64_t)((l > r2) ? (l - r2) : (r2 - l)) + 1;
-          if (inv || outer == 0 || total % outer) return 0;
-          total /= outer;
+          if (ranges && ri < (int)ranges->size()) {
+            range *rg = ranges->at(ri);
+            // An UNSIZED dimension (`bit x[]`, a queue) has no bounds to
+            // divide by: the select lands on the element type.
+            if (!rg->Left_expr() || !rg->Right_expr()) {
+              const typespec *el = elem_of(t);
+              if (!el) return total;
+              total = Bits(el, invalidValue, component, compileDesign, reduce,
+                           instance, fC->getFileId(typeSpecId),
+                           fC->Line(typeSpecId), sizeMode);
+              if (invalidValue) return 0;
+              t = el;
+              ri = 0;
+              continue;
+            }
+            uint64_t outer = 0;
+            if (!range_extent(rg, outer) || total % outer) {
+              // A range that does not divide the width is not part of it:
+              // the dynamic dimension of `bit x[]` (Bits() already sizes the
+              // element alone) -- the select lands on the element.
+              const typespec *el = elem_of(t);
+              if (!el) return total;
+              total = Bits(el, invalidValue, component, compileDesign, reduce,
+                           instance, fC->getFileId(typeSpecId),
+                           fC->Line(typeSpecId), sizeMode);
+              if (invalidValue) return 0;
+              t = el;
+              ri = 0;
+              continue;
+            }
+            total /= outer;
+            ri++;
+            // every range of this type consumed: continue in its element type
+            if (ri == (int)ranges->size()) {
+              if (const typespec *el = elem_of(t)) {
+                t = el;
+                ri = 0;
+              }
+            }
+            continue;
+          }
+          // No sized range left on this type but it has an element type: the
+          // select consumes an UNSIZED dimension (a dynamic array `bit x[]`,
+          // a queue) and lands on the element, whose width is the answer.
+          if (const typespec *el = elem_of(t)) {
+            total = Bits(el, invalidValue, component, compileDesign, reduce,
+                         instance, fC->getFileId(typeSpecId),
+                         fC->Line(typeSpecId), sizeMode);
+            if (invalidValue) return 0;
+            t = el;
+            ri = 0;
+            continue;
+          }
+          // Neither a range nor an element type left: the lookup had already
+          // resolved to the element (a dynamic array `bit x[]` presents its
+          // ELEMENT type, the unsized dimension lives elsewhere), so the
+          // select has nothing to strip and the current width stands.
+          return total;
         }
         return total;
       };
@@ -5813,12 +5876,15 @@ UHDM::any *CompileHelper::compileBits(
       std::vector<std::string_view> members;
       bool indexed_base = false;  // an index select before the last member
       int pendingElem = 0;        // element selects after the last member
+      int baseIndex = 0;          // element selects on the bare base name
       NodeId partRange;           // trailing part-select range node
       auto note_index = [&]() {
-        if (members.empty())
+        if (members.empty()) {
           indexed_base = true;
-        else
+          baseIndex++;
+        } else {
           pendingElem++;
+        }
       };
       auto note_member = [&](std::string_view n) {
         if (!members.empty() && pendingElem) indexed_base = true;
@@ -5877,6 +5943,12 @@ UHDM::any *CompileHelper::compileBits(
           bits = (uint64_t)r;
         else
           ok = false;
+      } else if (ok && members.empty() && baseIndex > 0) {
+        // Element selects on a bare array name (`arr[1]`, `arr_a[1][1]`): the
+        // lookup sized the WHOLE declared array (`$bits(arr[1])` on
+        // `bit [3:0][7:0] arr [1:10]` answered 320); strip one dimension per
+        // select.  Not sizable -> fall through to the symbolic call.
+        bits = bits_stripped(cur, baseIndex);
       } else if (ok) {
         // The whole-name lookup already applied trailing element selects
         // (`keymgr_key_i.key[0]` resolves to the 256-bit share); size as is.
