@@ -1,0 +1,1346 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/TimeLiteralScaling/slpp_all/surelog.log".
+[WRN:PA0206] ${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv:6:1: Missing timeunit/timeprecision for "top".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv:6:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv:14:1: Compile module "work@unit_decl".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv:6:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv:14:1: Top level module "work@unit_decl".
+[NTE:EL0504] Multiple top level modules in design.
+[NTE:EL0508] Nb Top level modules: 2.
+[NTE:EL0509] Max instance depth: 1.
+[NTE:EL0510] Nb instances: 2.
+[NTE:EL0511] Nb leaf instances: 2.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+constant                                              77
+cont_assign                                           14
+design                                                 1
+logic_net                                             14
+logic_typespec                                        21
+module_inst                                            7
+port                                                  14
+range                                                 28
+ref_obj                                               28
+ref_typespec                                          21
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+constant                                              77
+cont_assign                                           21
+design                                                 1
+logic_net                                             14
+logic_typespec                                        21
+module_inst                                            7
+port                                                  21
+range                                                 28
+ref_obj                                               42
+ref_typespec                                          28
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TimeLiteralScaling/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TimeLiteralScaling/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TimeLiteralScaling/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@top)
+|vpiElaborated:1
+|vpiName:work@top
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.t_ns), line:6:32, endln:6:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_ns
+    |vpiFullName:work@top.t_ns
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.t_us), line:6:58, endln:6:62
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_us
+    |vpiFullName:work@top.t_us
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.t_ms), line:6:84, endln:6:88
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_ms
+    |vpiFullName:work@top.t_ms
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.t_real), line:7:32, endln:7:38
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_real
+    |vpiFullName:work@top.t_real
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.t_sep), line:7:60, endln:7:65
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_sep
+    |vpiFullName:work@top.t_sep
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (t_ns), line:6:32, endln:6:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_ns
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.t_ns.t_ns), line:6:32, endln:6:36
+      |vpiParent:
+      \_port: (t_ns), line:6:32, endln:6:36
+      |vpiName:t_ns
+      |vpiFullName:work@top.t_ns.t_ns
+      |vpiActual:
+      \_logic_net: (work@top.t_ns), line:6:32, endln:6:36
+    |vpiTypedef:
+    \_ref_typespec: (work@top.t_ns)
+      |vpiParent:
+      \_port: (t_ns), line:6:32, endln:6:36
+      |vpiFullName:work@top.t_ns
+      |vpiActual:
+      \_logic_typespec: , line:6:19, endln:6:31
+  |vpiPort:
+  \_port: (t_us), line:6:58, endln:6:62
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_us
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.t_us.t_us), line:6:58, endln:6:62
+      |vpiParent:
+      \_port: (t_us), line:6:58, endln:6:62
+      |vpiName:t_us
+      |vpiFullName:work@top.t_us.t_us
+      |vpiActual:
+      \_logic_net: (work@top.t_us), line:6:58, endln:6:62
+    |vpiTypedef:
+    \_ref_typespec: (work@top.t_us)
+      |vpiParent:
+      \_port: (t_us), line:6:58, endln:6:62
+      |vpiFullName:work@top.t_us
+      |vpiActual:
+      \_logic_typespec: , line:6:45, endln:6:57
+  |vpiPort:
+  \_port: (t_ms), line:6:84, endln:6:88
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_ms
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.t_ms.t_ms), line:6:84, endln:6:88
+      |vpiParent:
+      \_port: (t_ms), line:6:84, endln:6:88
+      |vpiName:t_ms
+      |vpiFullName:work@top.t_ms.t_ms
+      |vpiActual:
+      \_logic_net: (work@top.t_ms), line:6:84, endln:6:88
+    |vpiTypedef:
+    \_ref_typespec: (work@top.t_ms)
+      |vpiParent:
+      \_port: (t_ms), line:6:84, endln:6:88
+      |vpiFullName:work@top.t_ms
+      |vpiActual:
+      \_logic_typespec: , line:6:71, endln:6:83
+  |vpiPort:
+  \_port: (t_real), line:7:32, endln:7:38
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_real
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.t_real.t_real), line:7:32, endln:7:38
+      |vpiParent:
+      \_port: (t_real), line:7:32, endln:7:38
+      |vpiName:t_real
+      |vpiFullName:work@top.t_real.t_real
+      |vpiActual:
+      \_logic_net: (work@top.t_real), line:7:32, endln:7:38
+    |vpiTypedef:
+    \_ref_typespec: (work@top.t_real)
+      |vpiParent:
+      \_port: (t_real), line:7:32, endln:7:38
+      |vpiFullName:work@top.t_real
+      |vpiActual:
+      \_logic_typespec: , line:7:19, endln:7:31
+  |vpiPort:
+  \_port: (t_sep), line:7:60, endln:7:65
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_sep
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.t_sep.t_sep), line:7:60, endln:7:65
+      |vpiParent:
+      \_port: (t_sep), line:7:60, endln:7:65
+      |vpiName:t_sep
+      |vpiFullName:work@top.t_sep.t_sep
+      |vpiActual:
+      \_logic_net: (work@top.t_sep), line:7:60, endln:7:65
+    |vpiTypedef:
+    \_ref_typespec: (work@top.t_sep)
+      |vpiParent:
+      \_port: (t_sep), line:7:60, endln:7:65
+      |vpiFullName:work@top.t_sep
+      |vpiActual:
+      \_logic_typespec: , line:7:47, endln:7:59
+  |vpiContAssign:
+  \_cont_assign: , line:8:10, endln:8:22
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiRhs:
+    \_constant: , line:8:19, endln:8:22
+      |vpiParent:
+      \_cont_assign: , line:8:10, endln:8:22
+      |vpiSize:64
+      |UINT:10
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.t_ns), line:8:10, endln:8:14
+      |vpiParent:
+      \_cont_assign: , line:8:10, endln:8:22
+      |vpiName:t_ns
+      |vpiFullName:work@top.t_ns
+      |vpiActual:
+      \_logic_net: (work@top.t_ns), line:6:32, endln:6:36
+  |vpiContAssign:
+  \_cont_assign: , line:9:10, endln:9:22
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiRhs:
+    \_constant: , line:9:19, endln:9:22
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:22
+      |vpiSize:64
+      |UINT:10000
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.t_us), line:9:10, endln:9:14
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:22
+      |vpiName:t_us
+      |vpiFullName:work@top.t_us
+      |vpiActual:
+      \_logic_net: (work@top.t_us), line:6:58, endln:6:62
+  |vpiContAssign:
+  \_cont_assign: , line:10:10, endln:10:22
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiRhs:
+    \_constant: , line:10:19, endln:10:22
+      |vpiParent:
+      \_cont_assign: , line:10:10, endln:10:22
+      |vpiSize:64
+      |UINT:10000000
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.t_ms), line:10:10, endln:10:14
+      |vpiParent:
+      \_cont_assign: , line:10:10, endln:10:22
+      |vpiName:t_ms
+      |vpiFullName:work@top.t_ms
+      |vpiActual:
+      \_logic_net: (work@top.t_ms), line:6:84, endln:6:88
+  |vpiContAssign:
+  \_cont_assign: , line:11:10, endln:11:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiRhs:
+    \_constant: , line:11:19, endln:11:24
+      |vpiParent:
+      \_cont_assign: , line:11:10, endln:11:24
+      |vpiSize:64
+      |UINT:21000000
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.t_real), line:11:10, endln:11:16
+      |vpiParent:
+      \_cont_assign: , line:11:10, endln:11:24
+      |vpiName:t_real
+      |vpiFullName:work@top.t_real
+      |vpiActual:
+      \_logic_net: (work@top.t_real), line:7:32, endln:7:38
+  |vpiContAssign:
+  \_cont_assign: , line:12:10, endln:12:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiRhs:
+    \_constant: , line:12:19, endln:12:24
+      |vpiParent:
+      \_cont_assign: , line:12:10, endln:12:24
+      |vpiSize:64
+      |UINT:100
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.t_sep), line:12:10, endln:12:15
+      |vpiParent:
+      \_cont_assign: , line:12:10, endln:12:24
+      |vpiName:t_sep
+      |vpiFullName:work@top.t_sep
+      |vpiActual:
+      \_logic_net: (work@top.t_sep), line:7:60, endln:7:65
+|uhdmallModules:
+\_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@unit_decl
+  |vpiDefName:work@unit_decl
+  |vpiNet:
+  \_logic_net: (work@unit_decl.t_ns), line:14:38, endln:14:42
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiName:t_ns
+    |vpiFullName:work@unit_decl.t_ns
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@unit_decl.t_half), line:14:64, endln:14:70
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiName:t_half
+    |vpiFullName:work@unit_decl.t_half
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (t_ns), line:14:38, endln:14:42
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiName:t_ns
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@unit_decl.t_ns.t_ns), line:14:38, endln:14:42
+      |vpiParent:
+      \_port: (t_ns), line:14:38, endln:14:42
+      |vpiName:t_ns
+      |vpiFullName:work@unit_decl.t_ns.t_ns
+      |vpiActual:
+      \_logic_net: (work@unit_decl.t_ns), line:14:38, endln:14:42
+    |vpiTypedef:
+    \_ref_typespec: (work@unit_decl.t_ns)
+      |vpiParent:
+      \_port: (t_ns), line:14:38, endln:14:42
+      |vpiFullName:work@unit_decl.t_ns
+      |vpiActual:
+      \_logic_typespec: , line:14:25, endln:14:37
+  |vpiPort:
+  \_port: (t_half), line:14:64, endln:14:70
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiName:t_half
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@unit_decl.t_half.t_half), line:14:64, endln:14:70
+      |vpiParent:
+      \_port: (t_half), line:14:64, endln:14:70
+      |vpiName:t_half
+      |vpiFullName:work@unit_decl.t_half.t_half
+      |vpiActual:
+      \_logic_net: (work@unit_decl.t_half), line:14:64, endln:14:70
+    |vpiTypedef:
+    \_ref_typespec: (work@unit_decl.t_half)
+      |vpiParent:
+      \_port: (t_half), line:14:64, endln:14:70
+      |vpiFullName:work@unit_decl.t_half
+      |vpiActual:
+      \_logic_typespec: , line:14:51, endln:14:63
+  |vpiContAssign:
+  \_cont_assign: , line:16:10, endln:16:22
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiRhs:
+    \_constant: , line:16:19, endln:16:22
+      |vpiParent:
+      \_cont_assign: , line:16:10, endln:16:22
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@unit_decl.t_ns), line:16:10, endln:16:14
+      |vpiParent:
+      \_cont_assign: , line:16:10, endln:16:22
+      |vpiName:t_ns
+      |vpiFullName:work@unit_decl.t_ns
+      |vpiActual:
+      \_logic_net: (work@unit_decl.t_ns), line:14:38, endln:14:42
+  |vpiContAssign:
+  \_cont_assign: , line:17:10, endln:17:24
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiRhs:
+    \_constant: , line:17:19, endln:17:24
+      |vpiParent:
+      \_cont_assign: , line:17:10, endln:17:24
+      |vpiSize:64
+      |UINT:500
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@unit_decl.t_half), line:17:10, endln:17:16
+      |vpiParent:
+      \_cont_assign: , line:17:10, endln:17:24
+      |vpiName:t_half
+      |vpiFullName:work@unit_decl.t_half
+      |vpiActual:
+      \_logic_net: (work@unit_decl.t_half), line:14:64, endln:14:70
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.t_ns), line:6:32, endln:6:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.t_ns)
+      |vpiParent:
+      \_logic_net: (work@top.t_ns), line:6:32, endln:6:36
+      |vpiFullName:work@top.t_ns
+      |vpiActual:
+      \_logic_typespec: , line:6:19, endln:6:31
+    |vpiName:t_ns
+    |vpiFullName:work@top.t_ns
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.t_us), line:6:58, endln:6:62
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.t_us)
+      |vpiParent:
+      \_logic_net: (work@top.t_us), line:6:58, endln:6:62
+      |vpiFullName:work@top.t_us
+      |vpiActual:
+      \_logic_typespec: , line:6:45, endln:6:57
+    |vpiName:t_us
+    |vpiFullName:work@top.t_us
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.t_ms), line:6:84, endln:6:88
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.t_ms)
+      |vpiParent:
+      \_logic_net: (work@top.t_ms), line:6:84, endln:6:88
+      |vpiFullName:work@top.t_ms
+      |vpiActual:
+      \_logic_typespec: , line:6:71, endln:6:83
+    |vpiName:t_ms
+    |vpiFullName:work@top.t_ms
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.t_real), line:7:32, endln:7:38
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.t_real)
+      |vpiParent:
+      \_logic_net: (work@top.t_real), line:7:32, endln:7:38
+      |vpiFullName:work@top.t_real
+      |vpiActual:
+      \_logic_typespec: , line:7:19, endln:7:31
+    |vpiName:t_real
+    |vpiFullName:work@top.t_real
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.t_sep), line:7:60, endln:7:65
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.t_sep)
+      |vpiParent:
+      \_logic_net: (work@top.t_sep), line:7:60, endln:7:65
+      |vpiFullName:work@top.t_sep
+      |vpiActual:
+      \_logic_typespec: , line:7:47, endln:7:59
+    |vpiName:t_sep
+    |vpiFullName:work@top.t_sep
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (t_ns), line:6:32, endln:6:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_ns
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.t_ns), line:6:32, endln:6:36
+      |vpiParent:
+      \_port: (t_ns), line:6:32, endln:6:36
+      |vpiName:t_ns
+      |vpiFullName:work@top.t_ns
+      |vpiActual:
+      \_logic_net: (work@top.t_ns), line:6:32, endln:6:36
+    |vpiTypedef:
+    \_ref_typespec: (work@top.t_ns)
+      |vpiParent:
+      \_port: (t_ns), line:6:32, endln:6:36
+      |vpiFullName:work@top.t_ns
+      |vpiActual:
+      \_logic_typespec: , line:6:19, endln:6:31
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiPort:
+  \_port: (t_us), line:6:58, endln:6:62
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_us
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.t_us), line:6:58, endln:6:62
+      |vpiParent:
+      \_port: (t_us), line:6:58, endln:6:62
+      |vpiName:t_us
+      |vpiFullName:work@top.t_us
+      |vpiActual:
+      \_logic_net: (work@top.t_us), line:6:58, endln:6:62
+    |vpiTypedef:
+    \_ref_typespec: (work@top.t_us)
+      |vpiParent:
+      \_port: (t_us), line:6:58, endln:6:62
+      |vpiFullName:work@top.t_us
+      |vpiActual:
+      \_logic_typespec: , line:6:45, endln:6:57
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiPort:
+  \_port: (t_ms), line:6:84, endln:6:88
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_ms
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.t_ms), line:6:84, endln:6:88
+      |vpiParent:
+      \_port: (t_ms), line:6:84, endln:6:88
+      |vpiName:t_ms
+      |vpiFullName:work@top.t_ms
+      |vpiActual:
+      \_logic_net: (work@top.t_ms), line:6:84, endln:6:88
+    |vpiTypedef:
+    \_ref_typespec: (work@top.t_ms)
+      |vpiParent:
+      \_port: (t_ms), line:6:84, endln:6:88
+      |vpiFullName:work@top.t_ms
+      |vpiActual:
+      \_logic_typespec: , line:6:71, endln:6:83
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiPort:
+  \_port: (t_real), line:7:32, endln:7:38
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_real
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.t_real), line:7:32, endln:7:38
+      |vpiParent:
+      \_port: (t_real), line:7:32, endln:7:38
+      |vpiName:t_real
+      |vpiFullName:work@top.t_real
+      |vpiActual:
+      \_logic_net: (work@top.t_real), line:7:32, endln:7:38
+    |vpiTypedef:
+    \_ref_typespec: (work@top.t_real)
+      |vpiParent:
+      \_port: (t_real), line:7:32, endln:7:38
+      |vpiFullName:work@top.t_real
+      |vpiActual:
+      \_logic_typespec: , line:7:19, endln:7:31
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiPort:
+  \_port: (t_sep), line:7:60, endln:7:65
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiName:t_sep
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.t_sep), line:7:60, endln:7:65
+      |vpiParent:
+      \_port: (t_sep), line:7:60, endln:7:65
+      |vpiName:t_sep
+      |vpiFullName:work@top.t_sep
+      |vpiActual:
+      \_logic_net: (work@top.t_sep), line:7:60, endln:7:65
+    |vpiTypedef:
+    \_ref_typespec: (work@top.t_sep)
+      |vpiParent:
+      \_port: (t_sep), line:7:60, endln:7:65
+      |vpiFullName:work@top.t_sep
+      |vpiActual:
+      \_logic_typespec: , line:7:47, endln:7:59
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiContAssign:
+  \_cont_assign: , line:8:10, endln:8:22
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiRhs:
+    \_constant: , line:8:19, endln:8:22
+      |vpiParent:
+      \_cont_assign: , line:8:10, endln:8:22
+      |vpiDecompile:10
+      |vpiSize:64
+      |UINT:10
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.t_ns), line:8:10, endln:8:14
+      |vpiParent:
+      \_cont_assign: , line:8:10, endln:8:22
+      |vpiName:t_ns
+      |vpiFullName:work@top.t_ns
+      |vpiActual:
+      \_logic_net: (work@top.t_ns), line:6:32, endln:6:36
+  |vpiContAssign:
+  \_cont_assign: , line:9:10, endln:9:22
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiRhs:
+    \_constant: , line:9:19, endln:9:22
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:22
+      |vpiDecompile:10000
+      |vpiSize:64
+      |UINT:10000
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.t_us), line:9:10, endln:9:14
+      |vpiParent:
+      \_cont_assign: , line:9:10, endln:9:22
+      |vpiName:t_us
+      |vpiFullName:work@top.t_us
+      |vpiActual:
+      \_logic_net: (work@top.t_us), line:6:58, endln:6:62
+  |vpiContAssign:
+  \_cont_assign: , line:10:10, endln:10:22
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiRhs:
+    \_constant: , line:10:19, endln:10:22
+      |vpiParent:
+      \_cont_assign: , line:10:10, endln:10:22
+      |vpiDecompile:10000000
+      |vpiSize:64
+      |UINT:10000000
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.t_ms), line:10:10, endln:10:14
+      |vpiParent:
+      \_cont_assign: , line:10:10, endln:10:22
+      |vpiName:t_ms
+      |vpiFullName:work@top.t_ms
+      |vpiActual:
+      \_logic_net: (work@top.t_ms), line:6:84, endln:6:88
+  |vpiContAssign:
+  \_cont_assign: , line:11:10, endln:11:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiRhs:
+    \_constant: , line:11:19, endln:11:24
+      |vpiParent:
+      \_cont_assign: , line:11:10, endln:11:24
+      |vpiDecompile:21000000
+      |vpiSize:64
+      |UINT:21000000
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.t_real), line:11:10, endln:11:16
+      |vpiParent:
+      \_cont_assign: , line:11:10, endln:11:24
+      |vpiName:t_real
+      |vpiFullName:work@top.t_real
+      |vpiActual:
+      \_logic_net: (work@top.t_real), line:7:32, endln:7:38
+  |vpiContAssign:
+  \_cont_assign: , line:12:10, endln:12:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+    |vpiRhs:
+    \_constant: , line:12:19, endln:12:24
+      |vpiParent:
+      \_cont_assign: , line:12:10, endln:12:24
+      |vpiDecompile:100
+      |vpiSize:64
+      |UINT:100
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@top.t_sep), line:12:10, endln:12:15
+      |vpiParent:
+      \_cont_assign: , line:12:10, endln:12:24
+      |vpiName:t_sep
+      |vpiFullName:work@top.t_sep
+      |vpiActual:
+      \_logic_net: (work@top.t_sep), line:7:60, endln:7:65
+|uhdmtopModules:
+\_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@unit_decl
+  |vpiDefName:work@unit_decl
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@unit_decl.t_ns), line:14:38, endln:14:42
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiTypespec:
+    \_ref_typespec: (work@unit_decl.t_ns)
+      |vpiParent:
+      \_logic_net: (work@unit_decl.t_ns), line:14:38, endln:14:42
+      |vpiFullName:work@unit_decl.t_ns
+      |vpiActual:
+      \_logic_typespec: , line:14:25, endln:14:37
+    |vpiName:t_ns
+    |vpiFullName:work@unit_decl.t_ns
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@unit_decl.t_half), line:14:64, endln:14:70
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiTypespec:
+    \_ref_typespec: (work@unit_decl.t_half)
+      |vpiParent:
+      \_logic_net: (work@unit_decl.t_half), line:14:64, endln:14:70
+      |vpiFullName:work@unit_decl.t_half
+      |vpiActual:
+      \_logic_typespec: , line:14:51, endln:14:63
+    |vpiName:t_half
+    |vpiFullName:work@unit_decl.t_half
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (t_ns), line:14:38, endln:14:42
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiName:t_ns
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@unit_decl.t_ns), line:14:38, endln:14:42
+      |vpiParent:
+      \_port: (t_ns), line:14:38, endln:14:42
+      |vpiName:t_ns
+      |vpiFullName:work@unit_decl.t_ns
+      |vpiActual:
+      \_logic_net: (work@unit_decl.t_ns), line:14:38, endln:14:42
+    |vpiTypedef:
+    \_ref_typespec: (work@unit_decl.t_ns)
+      |vpiParent:
+      \_port: (t_ns), line:14:38, endln:14:42
+      |vpiFullName:work@unit_decl.t_ns
+      |vpiActual:
+      \_logic_typespec: , line:14:25, endln:14:37
+    |vpiInstance:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+  |vpiPort:
+  \_port: (t_half), line:14:64, endln:14:70
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiName:t_half
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@unit_decl.t_half), line:14:64, endln:14:70
+      |vpiParent:
+      \_port: (t_half), line:14:64, endln:14:70
+      |vpiName:t_half
+      |vpiFullName:work@unit_decl.t_half
+      |vpiActual:
+      \_logic_net: (work@unit_decl.t_half), line:14:64, endln:14:70
+    |vpiTypedef:
+    \_ref_typespec: (work@unit_decl.t_half)
+      |vpiParent:
+      \_port: (t_half), line:14:64, endln:14:70
+      |vpiFullName:work@unit_decl.t_half
+      |vpiActual:
+      \_logic_typespec: , line:14:51, endln:14:63
+    |vpiInstance:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+  |vpiContAssign:
+  \_cont_assign: , line:16:10, endln:16:22
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiRhs:
+    \_constant: , line:16:19, endln:16:22
+      |vpiParent:
+      \_cont_assign: , line:16:10, endln:16:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@unit_decl.t_ns), line:16:10, endln:16:14
+      |vpiParent:
+      \_cont_assign: , line:16:10, endln:16:22
+      |vpiName:t_ns
+      |vpiFullName:work@unit_decl.t_ns
+      |vpiActual:
+      \_logic_net: (work@unit_decl.t_ns), line:14:38, endln:14:42
+  |vpiContAssign:
+  \_cont_assign: , line:17:10, endln:17:24
+    |vpiParent:
+    \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+    |vpiRhs:
+    \_constant: , line:17:19, endln:17:24
+      |vpiParent:
+      \_cont_assign: , line:17:10, endln:17:24
+      |vpiDecompile:500
+      |vpiSize:64
+      |UINT:500
+      |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@unit_decl.t_half), line:17:10, endln:17:16
+      |vpiParent:
+      \_cont_assign: , line:17:10, endln:17:24
+      |vpiName:t_half
+      |vpiFullName:work@unit_decl.t_half
+      |vpiActual:
+      \_logic_net: (work@unit_decl.t_half), line:14:64, endln:14:70
+\_weaklyReferenced:
+\_logic_typespec: , line:6:19, endln:6:31
+  |vpiRange:
+  \_range: , line:6:25, endln:6:31
+    |vpiParent:
+    \_logic_typespec: , line:6:19, endln:6:31
+    |vpiLeftRange:
+    \_constant: , line:6:26, endln:6:28
+      |vpiParent:
+      \_range: , line:6:25, endln:6:31
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:29, endln:6:30
+      |vpiParent:
+      \_range: , line:6:25, endln:6:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:45, endln:6:57
+  |vpiRange:
+  \_range: , line:6:51, endln:6:57
+    |vpiParent:
+    \_logic_typespec: , line:6:45, endln:6:57
+    |vpiLeftRange:
+    \_constant: , line:6:52, endln:6:54
+      |vpiParent:
+      \_range: , line:6:51, endln:6:57
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:55, endln:6:56
+      |vpiParent:
+      \_range: , line:6:51, endln:6:57
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:71, endln:6:83
+  |vpiRange:
+  \_range: , line:6:77, endln:6:83
+    |vpiParent:
+    \_logic_typespec: , line:6:71, endln:6:83
+    |vpiLeftRange:
+    \_constant: , line:6:78, endln:6:80
+      |vpiParent:
+      \_range: , line:6:77, endln:6:83
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:81, endln:6:82
+      |vpiParent:
+      \_range: , line:6:77, endln:6:83
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:19, endln:7:31
+  |vpiRange:
+  \_range: , line:7:25, endln:7:31
+    |vpiParent:
+    \_logic_typespec: , line:7:19, endln:7:31
+    |vpiLeftRange:
+    \_constant: , line:7:26, endln:7:28
+      |vpiParent:
+      \_range: , line:7:25, endln:7:31
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:29, endln:7:30
+      |vpiParent:
+      \_range: , line:7:25, endln:7:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:47, endln:7:59
+  |vpiRange:
+  \_range: , line:7:53, endln:7:59
+    |vpiParent:
+    \_logic_typespec: , line:7:47, endln:7:59
+    |vpiLeftRange:
+    \_constant: , line:7:54, endln:7:56
+      |vpiParent:
+      \_range: , line:7:53, endln:7:59
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:57, endln:7:58
+      |vpiParent:
+      \_range: , line:7:53, endln:7:59
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:19, endln:6:31
+  |vpiRange:
+  \_range: , line:6:25, endln:6:31
+    |vpiParent:
+    \_logic_typespec: , line:6:19, endln:6:31
+    |vpiLeftRange:
+    \_constant: , line:6:26, endln:6:28
+      |vpiParent:
+      \_range: , line:6:25, endln:6:31
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:29, endln:6:30
+      |vpiParent:
+      \_range: , line:6:25, endln:6:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:45, endln:6:57
+  |vpiRange:
+  \_range: , line:6:51, endln:6:57
+    |vpiParent:
+    \_logic_typespec: , line:6:45, endln:6:57
+    |vpiLeftRange:
+    \_constant: , line:6:52, endln:6:54
+      |vpiParent:
+      \_range: , line:6:51, endln:6:57
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:55, endln:6:56
+      |vpiParent:
+      \_range: , line:6:51, endln:6:57
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:71, endln:6:83
+  |vpiRange:
+  \_range: , line:6:77, endln:6:83
+    |vpiParent:
+    \_logic_typespec: , line:6:71, endln:6:83
+    |vpiLeftRange:
+    \_constant: , line:6:78, endln:6:80
+      |vpiParent:
+      \_range: , line:6:77, endln:6:83
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:81, endln:6:82
+      |vpiParent:
+      \_range: , line:6:77, endln:6:83
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:19, endln:7:31
+  |vpiRange:
+  \_range: , line:7:25, endln:7:31
+    |vpiParent:
+    \_logic_typespec: , line:7:19, endln:7:31
+    |vpiLeftRange:
+    \_constant: , line:7:26, endln:7:28
+      |vpiParent:
+      \_range: , line:7:25, endln:7:31
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:29, endln:7:30
+      |vpiParent:
+      \_range: , line:7:25, endln:7:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:47, endln:7:59
+  |vpiRange:
+  \_range: , line:7:53, endln:7:59
+    |vpiParent:
+    \_logic_typespec: , line:7:47, endln:7:59
+    |vpiLeftRange:
+    \_constant: , line:7:54, endln:7:56
+      |vpiParent:
+      \_range: , line:7:53, endln:7:59
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:57, endln:7:58
+      |vpiParent:
+      \_range: , line:7:53, endln:7:59
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:25, endln:14:37
+  |vpiRange:
+  \_range: , line:14:31, endln:14:37
+    |vpiParent:
+    \_logic_typespec: , line:14:25, endln:14:37
+    |vpiLeftRange:
+    \_constant: , line:14:32, endln:14:34
+      |vpiParent:
+      \_range: , line:14:31, endln:14:37
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:35, endln:14:36
+      |vpiParent:
+      \_range: , line:14:31, endln:14:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:51, endln:14:63
+  |vpiRange:
+  \_range: , line:14:57, endln:14:63
+    |vpiParent:
+    \_logic_typespec: , line:14:51, endln:14:63
+    |vpiLeftRange:
+    \_constant: , line:14:58, endln:14:60
+      |vpiParent:
+      \_range: , line:14:57, endln:14:63
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:61, endln:14:62
+      |vpiParent:
+      \_range: , line:14:57, endln:14:63
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:25, endln:14:37
+  |vpiRange:
+  \_range: , line:14:31, endln:14:37
+    |vpiParent:
+    \_logic_typespec: , line:14:25, endln:14:37
+    |vpiLeftRange:
+    \_constant: , line:14:32, endln:14:34
+      |vpiParent:
+      \_range: , line:14:31, endln:14:37
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:35, endln:14:36
+      |vpiParent:
+      \_range: , line:14:31, endln:14:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:51, endln:14:63
+  |vpiRange:
+  \_range: , line:14:57, endln:14:63
+    |vpiParent:
+    \_logic_typespec: , line:14:51, endln:14:63
+    |vpiLeftRange:
+    \_constant: , line:14:58, endln:14:60
+      |vpiParent:
+      \_range: , line:14:57, endln:14:63
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:61, endln:14:62
+      |vpiParent:
+      \_range: , line:14:57, endln:14:63
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:19, endln:6:31
+  |vpiRange:
+  \_range: , line:6:25, endln:6:31
+    |vpiParent:
+    \_logic_typespec: , line:6:19, endln:6:31
+    |vpiLeftRange:
+    \_constant: , line:6:26, endln:6:28
+      |vpiParent:
+      \_range: , line:6:25, endln:6:31
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:29, endln:6:30
+      |vpiParent:
+      \_range: , line:6:25, endln:6:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:45, endln:6:57
+  |vpiRange:
+  \_range: , line:6:51, endln:6:57
+    |vpiParent:
+    \_logic_typespec: , line:6:45, endln:6:57
+    |vpiLeftRange:
+    \_constant: , line:6:52, endln:6:54
+      |vpiParent:
+      \_range: , line:6:51, endln:6:57
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:55, endln:6:56
+      |vpiParent:
+      \_range: , line:6:51, endln:6:57
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:71, endln:6:83
+  |vpiRange:
+  \_range: , line:6:77, endln:6:83
+    |vpiParent:
+    \_logic_typespec: , line:6:71, endln:6:83
+    |vpiLeftRange:
+    \_constant: , line:6:78, endln:6:80
+      |vpiParent:
+      \_range: , line:6:77, endln:6:83
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:81, endln:6:82
+      |vpiParent:
+      \_range: , line:6:77, endln:6:83
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:19, endln:7:31
+  |vpiRange:
+  \_range: , line:7:25, endln:7:31
+    |vpiParent:
+    \_logic_typespec: , line:7:19, endln:7:31
+    |vpiLeftRange:
+    \_constant: , line:7:26, endln:7:28
+      |vpiParent:
+      \_range: , line:7:25, endln:7:31
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:29, endln:7:30
+      |vpiParent:
+      \_range: , line:7:25, endln:7:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:47, endln:7:59
+  |vpiRange:
+  \_range: , line:7:53, endln:7:59
+    |vpiParent:
+    \_logic_typespec: , line:7:47, endln:7:59
+    |vpiLeftRange:
+    \_constant: , line:7:54, endln:7:56
+      |vpiParent:
+      \_range: , line:7:53, endln:7:59
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:57, endln:7:58
+      |vpiParent:
+      \_range: , line:7:53, endln:7:59
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:25, endln:14:37
+  |vpiRange:
+  \_range: , line:14:31, endln:14:37
+    |vpiParent:
+    \_logic_typespec: , line:14:25, endln:14:37
+    |vpiLeftRange:
+    \_constant: , line:14:32, endln:14:34
+      |vpiParent:
+      \_range: , line:14:31, endln:14:37
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:35, endln:14:36
+      |vpiParent:
+      \_range: , line:14:31, endln:14:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:51, endln:14:63
+  |vpiRange:
+  \_range: , line:14:57, endln:14:63
+    |vpiParent:
+    \_logic_typespec: , line:14:51, endln:14:63
+    |vpiLeftRange:
+    \_constant: , line:14:58, endln:14:60
+      |vpiParent:
+      \_range: , line:14:57, endln:14:63
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:61, endln:14:62
+      |vpiParent:
+      \_range: , line:14:57, endln:14:63
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_cont_assign: , line:8:10, endln:8:22
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiRhs:
+  \_constant: , line:8:19, endln:8:22
+  |vpiLhs:
+  \_ref_obj: (work@top.t_ns), line:8:10, endln:8:14
+    |vpiParent:
+    \_cont_assign: , line:8:10, endln:8:22
+    |vpiName:t_ns
+    |vpiFullName:work@top.t_ns
+    |vpiActual:
+    \_logic_net: (work@top.t_ns), line:6:32, endln:6:36
+\_cont_assign: , line:9:10, endln:9:22
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiRhs:
+  \_constant: , line:9:19, endln:9:22
+  |vpiLhs:
+  \_ref_obj: (work@top.t_us), line:9:10, endln:9:14
+    |vpiParent:
+    \_cont_assign: , line:9:10, endln:9:22
+    |vpiName:t_us
+    |vpiFullName:work@top.t_us
+    |vpiActual:
+    \_logic_net: (work@top.t_us), line:6:58, endln:6:62
+\_cont_assign: , line:10:10, endln:10:22
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiRhs:
+  \_constant: , line:10:19, endln:10:22
+  |vpiLhs:
+  \_ref_obj: (work@top.t_ms), line:10:10, endln:10:14
+    |vpiParent:
+    \_cont_assign: , line:10:10, endln:10:22
+    |vpiName:t_ms
+    |vpiFullName:work@top.t_ms
+    |vpiActual:
+    \_logic_net: (work@top.t_ms), line:6:84, endln:6:88
+\_cont_assign: , line:11:10, endln:11:24
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiRhs:
+  \_constant: , line:11:19, endln:11:24
+  |vpiLhs:
+  \_ref_obj: (work@top.t_real), line:11:10, endln:11:16
+    |vpiParent:
+    \_cont_assign: , line:11:10, endln:11:24
+    |vpiName:t_real
+    |vpiFullName:work@top.t_real
+    |vpiActual:
+    \_logic_net: (work@top.t_real), line:7:32, endln:7:38
+\_cont_assign: , line:12:10, endln:12:24
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:6:1, endln:13:10
+  |vpiRhs:
+  \_constant: , line:12:19, endln:12:24
+  |vpiLhs:
+  \_ref_obj: (work@top.t_sep), line:12:10, endln:12:15
+    |vpiParent:
+    \_cont_assign: , line:12:10, endln:12:24
+    |vpiName:t_sep
+    |vpiFullName:work@top.t_sep
+    |vpiActual:
+    \_logic_net: (work@top.t_sep), line:7:60, endln:7:65
+\_cont_assign: , line:16:10, endln:16:22
+  |vpiParent:
+  \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+  |vpiRhs:
+  \_constant: , line:16:19, endln:16:22
+  |vpiLhs:
+  \_ref_obj: (work@unit_decl.t_ns), line:16:10, endln:16:14
+    |vpiParent:
+    \_cont_assign: , line:16:10, endln:16:22
+    |vpiName:t_ns
+    |vpiFullName:work@unit_decl.t_ns
+    |vpiActual:
+    \_logic_net: (work@unit_decl.t_ns), line:14:38, endln:14:42
+\_cont_assign: , line:17:10, endln:17:24
+  |vpiParent:
+  \_module_inst: work@unit_decl (work@unit_decl), file:${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv, line:14:1, endln:18:10
+  |vpiRhs:
+  \_constant: , line:17:19, endln:17:24
+  |vpiLhs:
+  \_ref_obj: (work@unit_decl.t_half), line:17:10, endln:17:16
+    |vpiParent:
+    \_cont_assign: , line:17:10, endln:17:24
+    |vpiName:t_half
+    |vpiFullName:work@unit_decl.t_half
+    |vpiActual:
+    \_logic_net: (work@unit_decl.t_half), line:14:64, endln:14:70
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 7
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/TimeLiteralScaling/dut.sv | ${SURELOG_DIR}/build/regression/TimeLiteralScaling/roundtrip/dut_000.sv | 12 | 18 |
+============================== End RoundTrip Results ==============================
