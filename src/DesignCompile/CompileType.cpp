@@ -1789,14 +1789,28 @@ UHDM::typespec* CompileHelper::compileTypespec(
       VectorOftypespec_member* members = s.MakeTypespec_memberVec();
 
       NodeId struct_or_union_member = fC->Sibling(type);
-      if (fC->Type(struct_or_union_member) == VObjectType::paPacked_keyword) {
+      // `struct packed signed { ... }` (LRM 7.2.1): the signing keyword
+      // follows `packed` and was never recorded, so a packed signed struct
+      // read into a wider signed context zero-extended (sv-tests
+      // packed-and-signed-structures: 8'd200 gave 200 where the LRM, read_slang
+      // and read_verilog give -56).
+      bool isSigned = false;
+      while (
+          fC->Type(struct_or_union_member) == VObjectType::paPacked_keyword ||
+          fC->Type(struct_or_union_member) == VObjectType::paSigning_Signed ||
+          fC->Type(struct_or_union_member) == VObjectType::paSigning_Unsigned) {
+        if (fC->Type(struct_or_union_member) == VObjectType::paPacked_keyword)
+          isPacked = true;
+        else if (fC->Type(struct_or_union_member) ==
+                 VObjectType::paSigning_Signed)
+          isSigned = true;
         struct_or_union_member = fC->Sibling(struct_or_union_member);
-        isPacked = true;
       }
 
       if (struct_or_union_type == VObjectType::paStruct_keyword) {
         struct_typespec* ts = s.MakeStruct_typespec();
         ts->VpiPacked(isPacked);
+        ts->VpiSigned(isSigned);
         ts->Members(members);
         result = ts;
       } else {
