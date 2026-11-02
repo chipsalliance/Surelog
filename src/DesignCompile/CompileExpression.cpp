@@ -2808,7 +2808,74 @@ UHDM::any *CompileHelper::compileExpression(
 
             VObjectType opType = fC->Type(op);
             uint32_t vopType = UhdmWriter::getVpiOpType(opType);
-            if (vopType) {
+            const bool is_assign_op =
+                (opType == VObjectType::paAssignOp_Assign ||
+                 opType == VObjectType::paAssignOp_Add ||
+                 opType == VObjectType::paAssignOp_Sub ||
+                 opType == VObjectType::paAssignOp_Mult ||
+                 opType == VObjectType::paAssignOp_Div ||
+                 opType == VObjectType::paAssignOp_Modulo ||
+                 opType == VObjectType::paAssignOp_BitwAnd ||
+                 opType == VObjectType::paAssignOp_BitwOr ||
+                 opType == VObjectType::paAssignOp_BitwXor ||
+                 opType == VObjectType::paAssignOp_BitwLeftShift ||
+                 opType == VObjectType::paAssignOp_BitwRightShift ||
+                 opType == VObjectType::paAssignOp_ArithShiftLeft ||
+                 opType == VObjectType::paAssignOp_ArithShiftRight);
+            if (is_assign_op) {
+              // An assignment used as an EXPRESSION, `( lvalue <op>= expr )`.
+              // A COMPOUND form is desugared to the plain one with the
+              // operation on the right -- `(a -= 1)` is
+              // `operation(vpiAssignmentOp, [a, operation(vpiSubOp, [a, 1])])`
+              // -- so a consumer sees exactly what the statement form means
+              // (the statement form keeps the operator on the assignment
+              // node; an operation node has no second slot for it).  The
+              // operator used to be dropped at parse time and this became
+              // `(a = 1)`.
+              UHDM::operation *operation = s.MakeOperation();
+              UHDM::VectorOfany *operands = s.MakeAnyVec();
+              if (attributes != nullptr) {
+                operation->Attributes(attributes);
+                for (auto a : *attributes) a->VpiParent(operation);
+              }
+              fC->populateCoreMembers(parent, parent, operation);
+              operation->VpiParent(pexpr);
+              operation->VpiOpType(vpiAssignmentOp);
+              operation->Operands(operands);
+              operands->push_back(variable);
+              variable->VpiParent(operation);
+              result = operation;
+              NodeId rval = fC->Sibling(op);
+              while (fC->Type(rval) == VObjectType::paAttribute_instance)
+                rval = fC->Sibling(rval);
+              UHDM::any *rexp =
+                  compileExpression(component, fC, rval, compileDesign, reduce,
+                                    operation, instance, muteErrors);
+              if (rexp == nullptr) {
+                // fall through to the plain shape with no RHS
+              } else if (opType == VObjectType::paAssignOp_Assign) {
+                operands->push_back(rexp);
+                rexp->VpiParent(operation);
+              } else {
+                UHDM::operation *binop = s.MakeOperation();
+                UHDM::VectorOfany *bops = s.MakeAnyVec();
+                fC->populateCoreMembers(parent, parent, binop);
+                binop->VpiParent(operation);
+                binop->VpiOpType(vopType);
+                binop->Operands(bops);
+                // a second, independent read of the lvalue for the operand
+                UHDM::any *lhs_read = compileExpression(
+                    component, fC, fC->Child(child), compileDesign, reduce,
+                    binop, instance, muteErrors);
+                if (lhs_read) {
+                  bops->push_back(lhs_read);
+                  lhs_read->VpiParent(binop);
+                }
+                bops->push_back(rexp);
+                rexp->VpiParent(binop);
+                operands->push_back(binop);
+              }
+            } else if (vopType) {
               // Post increment/decrement
               UHDM::operation *operation = s.MakeOperation();
               UHDM::VectorOfany *operands = s.MakeAnyVec();

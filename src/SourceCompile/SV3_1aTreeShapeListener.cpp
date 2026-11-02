@@ -1549,6 +1549,36 @@ void SV3_1aTreeShapeListener::exitExpression(
   if (ctx->QMARK()) {
     addVObject((antlr4::ParserRuleContext *)ctx->QMARK(), VObjectType::paQMARK);
   }
+  // `( lvalue <op>= expr )` -- an assignment used as an EXPRESSION.  The
+  // grammar lists the assignment tokens inline here (not through
+  // assignment_operator), so nothing recorded WHICH operator was written and
+  // the compiler could only emit a plain assignment: `b = (a -= 1)` became
+  // `b = (a = 1)`.  Give the token the same node the statement form gets.
+  {
+    struct {
+      antlr4::tree::TerminalNode *tok;
+      VObjectType type;
+    } assign_ops[] = {
+        {ctx->ASSIGN_OP(), VObjectType::paAssignOp_Assign},
+        {ctx->ADD_ASSIGN(), VObjectType::paAssignOp_Add},
+        {ctx->SUB_ASSIGN(), VObjectType::paAssignOp_Sub},
+        {ctx->MULT_ASSIGN(), VObjectType::paAssignOp_Mult},
+        {ctx->DIV_ASSIGN(), VObjectType::paAssignOp_Div},
+        {ctx->MODULO_ASSIGN(), VObjectType::paAssignOp_Modulo},
+        {ctx->BITW_AND_ASSIGN(), VObjectType::paAssignOp_BitwAnd},
+        {ctx->BITW_OR_ASSIGN(), VObjectType::paAssignOp_BitwOr},
+        {ctx->BITW_XOR_ASSIGN(), VObjectType::paAssignOp_BitwXor},
+        {ctx->BITW_LEFT_SHIFT_ASSIGN(), VObjectType::paAssignOp_BitwLeftShift},
+        {ctx->BITW_RIGHT_SHIFT_ASSIGN(),
+         VObjectType::paAssignOp_BitwRightShift},
+        {ctx->ARITH_SHIFT_LEFT_ASSIGN(),
+         VObjectType::paAssignOp_ArithShiftLeft},
+        {ctx->ARITH_SHIFT_RIGHT_ASSIGN(),
+         VObjectType::paAssignOp_ArithShiftRight},
+    };
+    for (auto &ao : assign_ops)
+      if (ao.tok) addVObject((antlr4::ParserRuleContext *)ao.tok, ao.type);
+  }
   addVObject(ctx, VObjectType::paExpression);
 }
 
