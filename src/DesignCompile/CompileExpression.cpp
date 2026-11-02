@@ -41,6 +41,7 @@
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Design/DataType.h"
+#include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/Enum.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
@@ -536,7 +537,10 @@ static bool largeInt(std::string_view str) {
   return isLarge;
 }
 
-constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
+// `component` only scales a time literal to the enclosing module's time unit
+// (its DesignElement carries the `timescale` / `timeunit` in force).
+constant *compileConst(const FileContent *fC, NodeId child, Serializer &s,
+                       const DesignComponent *component = nullptr) {
   VObjectType objtype = fC->Type(child);
   constant *result = nullptr;
   switch (objtype) {
@@ -773,38 +777,51 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
       const std::string_view value = fC->SymName(intC);
       NodeId unitId = fC->Sibling(intC);
       TimeInfo::Unit unit = TimeInfo::unitFromString(fC->SymName(unitId));
-      uint64_t val = 0;
-      if (NumUtils::parseUint64(value, &val) == nullptr) {
-        val = 0;
+      // A time literal is a value in the ENCLOSING MODULE's time unit, rounded
+      // to its precision (LRM 5.8, 3.14): under `timescale 100ps/10ps`, 1ns is
+      // 10, 1us is 10000 and 2.1ms is 21000000.  It was parsed as an integer
+      // (2.1 -> 2), converted to picoseconds with the ns and us factors
+      // swapped, and never related to the module's unit at all.
+      std::string bare(value);
+      bare.erase(std::remove(bare.begin(), bare.end(), '_'), bare.end());
+      double magnitude = 0;
+      if (NumUtils::parseDouble(bare, &magnitude) == nullptr) {
+        magnitude = 0;
       }
-      switch (unit) {
-        case TimeInfo::Unit::Second: {
-          val = 1e12 * val;
-          break;
+      auto unitFs = [](TimeInfo::Unit u) -> double {
+        switch (u) {
+          case TimeInfo::Unit::Second:
+            return 1e15;
+          case TimeInfo::Unit::Millisecond:
+            return 1e12;
+          case TimeInfo::Unit::Microsecond:
+            return 1e9;
+          case TimeInfo::Unit::Nanosecond:
+            return 1e6;
+          case TimeInfo::Unit::Picosecond:
+            return 1e3;
+          case TimeInfo::Unit::Femtosecond:
+            return 1;
         }
-        case TimeInfo::Unit::Millisecond: {
-          val = 1e9 * val;
-          break;
+        return 1e6;
+      };
+      double fs = magnitude * unitFs(unit);
+      // Unit and precision default to 1ns when the module declares neither.
+      double moduleUnitFs = 1e6;
+      double precisionFs = 1e6;
+      if (component != nullptr) {
+        if (const DesignElement *elem = component->getDesignElement()) {
+          const TimeInfo &ti = elem->m_timeInfo;
+          if (ti.m_type != TimeInfo::Type::None) {
+            moduleUnitFs = ti.m_timeUnitValue * unitFs(ti.m_timeUnit);
+            precisionFs = ti.m_timePrecisionValue * unitFs(ti.m_timePrecision);
+            if (moduleUnitFs <= 0) moduleUnitFs = 1e6;
+            if (precisionFs <= 0) precisionFs = moduleUnitFs;
+          }
         }
-        case TimeInfo::Unit::Nanosecond: {
-          val = 1e6 * val;
-          break;
-        }
-        case TimeInfo::Unit::Microsecond: {
-          val = 1e3 * val;
-          break;
-        }
-        case TimeInfo::Unit::Picosecond: {
-          val = 1 * val;
-          break;
-        }
-        case TimeInfo::Unit::Femtosecond: {
-          val = 1e-3 * val;
-          break;
-        }
-        default:
-          break;
       }
+      fs = std::round(fs / precisionFs) * precisionFs;
+      uint64_t val = static_cast<uint64_t>(std::llround(fs / moduleUnitFs));
       UHDM::constant *c = s.MakeConstant();
       c->VpiValue("UINT:" + std::to_string(val));
       c->VpiConstType(vpiUIntConst);
@@ -3733,7 +3750,7 @@ UHDM::any *CompileHelper::compileExpression(
         case VObjectType::paZ:
         case VObjectType::paTime_literal:
         case VObjectType::slStringLiteral: {
-          result = compileConst(fC, child, s);
+          result = compileConst(fC, child, s, component);
           break;
         }
         case VObjectType::paStreaming_concatenation: {
@@ -4309,7 +4326,7 @@ UHDM::any *CompileHelper::compileExpression(
         case VObjectType::paZ:
         case VObjectType::paTime_literal:
         case VObjectType::slStringLiteral: {
-          result = compileConst(fC, parent, s);
+          result = compileConst(fC, parent, s, component);
           break;
         }
         case VObjectType::slStringConst:

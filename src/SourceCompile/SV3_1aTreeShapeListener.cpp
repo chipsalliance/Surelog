@@ -746,14 +746,16 @@ void SV3_1aTreeShapeListener::enterTimeUnitsDecl_TimePrecision(
 
 void SV3_1aTreeShapeListener::exitTime_literal(
     SV3_1aParser::Time_literalContext *ctx) {
-  auto pair = getTimeValue(ctx);
-  uint64_t value = pair.first;
+  // Keep the literal's own spelling: it went through atoi, so `2.1ms` lost
+  // its fraction (2ms) and `1_000ns` its digits (1ns) before compilation
+  // ever saw it.  CompileExpression scales the magnitude to the module's
+  // time unit.
   if (ctx->Integral_number())
     addVObject((antlr4::ParserRuleContext *)ctx->Integral_number(),
-               std::to_string(value), VObjectType::slIntConst);
+               ctx->Integral_number()->getText(), VObjectType::slIntConst);
   else if (ctx->Real_number())
     addVObject((antlr4::ParserRuleContext *)ctx->Real_number(),
-               std::to_string(value), VObjectType::slIntConst);
+               ctx->Real_number()->getText(), VObjectType::slRealConst);
   const std::string &s = ctx->time_unit()->getText();
   if ((s == "s") || (s == "ms") || (s == "us") || (s == "ns") || (s == "ps") ||
       (s == "fs")) {
