@@ -647,7 +647,13 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s,
       UHDM::constant *c = s.MakeConstant();
       const std::string_view value = fC->SymName(child);
       c->VpiDecompile(value);
-      c->VpiValue(StrCat("REAL:", value));
+      // A real literal may carry digit separators (`236.123_763_e-12`, LRM
+      // 5.7.2); strtod stops at the first one, so the stored value lost its
+      // trailing digits AND its exponent (236.123 instead of 2.36e-10).  The
+      // decompile keeps the spelling, the value is stored bare.
+      std::string bare(value);
+      bare.erase(std::remove(bare.begin(), bare.end(), '_'), bare.end());
+      c->VpiValue(StrCat("REAL:", bare));
       c->VpiConstType(vpiRealConst);
       c->VpiSize(64);
       result = c;

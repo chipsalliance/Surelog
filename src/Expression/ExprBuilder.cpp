@@ -22,6 +22,7 @@
  */
 #include "Surelog/Expression/ExprBuilder.h"
 
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <string>
@@ -1065,8 +1066,11 @@ Value* ExprBuilder::fromVpiValue(std::string_view s, int32_t size) {
   } else if (s.find("REAL:") == 0) {
     val = m_valueFactory.newLValue();
     s.remove_prefix(std::string_view("REAL:").length());
+    // Digit separators are legal in a real literal and stop strtod cold.
+    std::string bare(s);
+    bare.erase(std::remove(bare.begin(), bare.end(), '_'), bare.end());
     double v = 0;
-    if (NumUtils::parseDouble(s, &v) == nullptr) {
+    if (NumUtils::parseDouble(bare, &v) == nullptr) {
       v = 0;
     }
     val->set(v);
