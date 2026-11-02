@@ -1852,9 +1852,17 @@ UHDM::typespec* CompileHelper::compileTypespec(
       while (struct_or_union_member) {
         NodeId Data_type_or_void = fC->Child(struct_or_union_member);
         // struct_union_member ::= { attribute_instance } [random_qualifier]
-        // data_type_or_void ... - skip the optional leading attributes.
+        // data_type_or_void ... - skip the optional leading attributes AND
+        // the `rand` / `randc` qualifier: a qualified member was skipped
+        // entirely (the qualifier node was taken for the data type), so
+        // `struct { rand bit i; randc integer b[9:0]; }` had NO members and
+        // measured 1 bit instead of 321 (sv-tests typedef_test_18).
         while (fC->Type(Data_type_or_void) ==
-               VObjectType::paAttribute_instance) {
+                   VObjectType::paAttribute_instance ||
+               fC->Type(Data_type_or_void) ==
+                   VObjectType::paRandomQualifier_Rand ||
+               fC->Type(Data_type_or_void) ==
+                   VObjectType::paRandomQualifier_RandC) {
           Data_type_or_void = fC->Sibling(Data_type_or_void);
         }
         NodeId Data_type = fC->Child(Data_type_or_void);
