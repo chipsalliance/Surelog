@@ -366,6 +366,8 @@ class CompileHelper final {
                                ValuedComponentI* instance = nullptr,
                                bool muteErrors = false);
 
+  static int64_t parseEnumRangeBound(std::string_view tok);
+
   UHDM::any* compilePartSelectRange(
       DesignComponent* component, const FileContent* fC, NodeId Constant_range,
       std::string_view name, CompileDesign* compileDesign, Reduce reduce,

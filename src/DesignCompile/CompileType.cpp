@@ -66,6 +66,7 @@
 #include <uhdm/vpi_user.h>
 
 #include <cstdint>
+#include <cstdlib>
 #include <stack>
 #include <string>
 #include <string_view>
@@ -1373,6 +1374,18 @@ UHDM::typespec* CompileHelper::compileTypespec(
         NodeId enumNameId = fC->Child(enum_name_declaration);
         const std::string_view enumName = fC->SymName(enumNameId);
         NodeId enumValueId = fC->Sibling(enumNameId);
+        // A ranged member `name[N]` / `name[hi:lo]` (LRM 6.19.1): the
+        // tree-shape listener emits the bounds as slIntConst children between
+        // the name and the value.  They were read as the VALUE here (`step[10]`
+        // made one constant `step` = 10, so `step0`..`step9` did not exist);
+        // compileTypeDef already expands them, this is the anonymous `enum
+        // {...} e;` path.
+        std::vector<int64_t> rangeBounds;
+        while (enumValueId &&
+               fC->Type(enumValueId) == VObjectType::slIntConst) {
+          rangeBounds.push_back(parseEnumRangeBound(fC->SymName(enumValueId)));
+          enumValueId = fC->Sibling(enumValueId);
+        }
         Value* value = nullptr;
         if (enumValueId) {
           value = m_exprBuilder.evalExpr(fC, enumValueId, component);
@@ -1403,7 +1416,45 @@ UHDM::typespec* CompileHelper::compileTypespec(
           value->set(val, Value::Type::Integer, baseSize);
         }
         // the_enum->addValue(enumName, fC->Line(enumNameId), value);
+        // The next implicit member follows the EXPLICIT value, not the member
+        // count (`enum {a=10, b}` has b = 11, not 1).
+        if (enumValueId && value->isValid()) val = value->getValueL();
         val++;
+        if (!rangeBounds.empty()) {
+          int64_t firstIdx = 0;
+          int64_t lastIdx = 0;
+          if (rangeBounds.size() == 1) {
+            lastIdx = rangeBounds[0] - 1;
+          } else {
+            firstIdx = rangeBounds[0];
+            lastIdx = rangeBounds[1];
+          }
+          const int64_t step = (lastIdx >= firstIdx) ? 1 : -1;
+          const int64_t baseInt = val - 1;
+          for (int64_t i = firstIdx;; i += step) {
+            const std::string nm =
+                std::string(enumName).append(std::to_string(i));
+            Value* v = m_exprBuilder.getValueFactory().newLValue();
+            v->set(baseInt + (i - firstIdx), Value::Type::Integer, baseSize);
+            if (component) component->setValue(nm, v, m_exprBuilder);
+            Variable* variable =
+                new Variable(nullptr, fC, enumValueId, InvalidNodeId, nm);
+            if (component) component->addVariable(variable);
+            enum_const* econst = s.MakeEnum_const();
+            econst->VpiName(nm);
+            econst->VpiParent(en);
+            fC->populateCoreMembers(enum_name_declaration,
+                                    enum_name_declaration, econst);
+            econst->VpiValue(v->uhdmValue());
+            econst->VpiDecompile(v->decompiledValue());
+            econst->VpiSize(v->getSize());
+            econsts->push_back(econst);
+            if (i == lastIdx) break;
+          }
+          val = baseInt + (std::llabs(lastIdx - firstIdx) + 1);
+          enum_name_declaration = fC->Sibling(enum_name_declaration);
+          continue;
+        }
         if (component) component->setValue(enumName, value, m_exprBuilder);
         Variable* variable =
             new Variable(nullptr, fC, enumValueId, InvalidNodeId, enumName);
