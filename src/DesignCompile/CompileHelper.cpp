@@ -5949,9 +5949,73 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
           } else if (rtps->UhdmType() == uhdmlogic_typespec) {
             // Apply default
             // parameter logic[7:0] P = '{default: 1};
+            //
+            // The per-BIT fill below is only right for a SINGLE range, whose
+            // elements are bits.  A multi-range packed logic has WORDS as its
+            // elements -- `logic [NumDim-1:0][31:0] RepWidths = '{default:
+            // RepWidth}` (iDMA's nd midend synth wrapper) -- and filling every
+            // bit with the nonzero default turned `'{default: 32}` into ALL
+            // ONES: each repetition width read 2^32-1 and every per-dimension
+            // counter was mis-sized (cheshire's idma_nd_midend_synth row).
+            // Lay the default down per element, at the element width that the
+            // inner ranges (and an Elem_typespec) give.
+            const logic_typespec* ltps = (const logic_typespec*)rtps;
+            uint64_t lew = 1;
+            bool lewInvalid = false;
+            if (ltps->Ranges() && ltps->Ranges()->size() >= 2) {
+              for (uint32_t ri = 1; ri < ltps->Ranges()->size(); ri++) {
+                const range* rd = ltps->Ranges()->at(ri);
+                bool dInvalid = false;
+                UHDM::ExprEval reval;
+                expr* dl = reduceExpr(
+                    (expr*)rd->Left_expr(), dInvalid, component, compileDesign,
+                    instance,
+                    fileSystem->toPathId(
+                        rhs->VpiFile(),
+                        compileDesign->getCompiler()->getSymbolTable()),
+                    rhs->VpiLineNo(), nullptr);
+                expr* dr = reduceExpr(
+                    (expr*)rd->Right_expr(), dInvalid, component, compileDesign,
+                    instance,
+                    fileSystem->toPathId(
+                        rhs->VpiFile(),
+                        compileDesign->getCompiler()->getSymbolTable()),
+                    rhs->VpiLineNo(), nullptr);
+                int64_t l = reval.get_value(dInvalid, dl);
+                int64_t r = reval.get_value(dInvalid, dr);
+                if (dInvalid) {
+                  lewInvalid = true;
+                  break;
+                }
+                lew *= (uint64_t)(std::abs(l - r) + 1);
+              }
+            }
+            if (!lewInvalid && ltps->Elem_typespec() &&
+                ltps->Elem_typespec()->Actual_typespec()) {
+              bool eInvalid = false;
+              uint64_t ebits =
+                  Bits(ltps->Elem_typespec()->Actual_typespec(), eInvalid,
+                       component, compileDesign, Reduce::Yes, instance,
+                       fileSystem->toPathId(
+                           rhs->VpiFile(),
+                           compileDesign->getCompiler()->getSymbolTable()),
+                       rhs->VpiLineNo(), false);
+              if (eInvalid || ebits == 0)
+                lewInvalid = true;
+              else
+                lew *= ebits;
+            }
             patternSize += size;
-            for (uint64_t i = 0; i < size; i++) {
-              values[i] = defaultval;
+            if (!lewInvalid && lew > 1 && lew <= 64 && (size % lew) == 0) {
+              const uint64_t n = size / lew;
+              for (uint64_t e = 0; e < n; e++)
+                for (uint64_t i = 0; i < lew; i++)
+                  values[e * lew + i] =
+                      ((uint64_t)defaultval >> (lew - 1 - i)) & 1ULL;
+            } else {
+              for (uint64_t i = 0; i < size; i++) {
+                values[i] = defaultval;
+              }
             }
             // Apply any other indexed value
             for (any* op : *operands) {
