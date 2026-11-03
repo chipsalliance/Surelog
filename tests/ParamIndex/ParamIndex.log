@@ -307,37 +307,37 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 constant                                              34
 design                                                 1
-int_typespec                                          15
-int_var                                                8
+int_typespec                                          19
+int_var                                               10
 logic_net                                              6
 logic_typespec                                         7
-logic_var                                              6
+logic_var                                              4
 module_inst                                           14
 param_assign                                          10
 parameter                                             10
 range                                                  9
 ref_module                                             5
 ref_obj                                                4
-ref_typespec                                          47
-type_parameter                                         7
+ref_typespec                                          51
+type_parameter                                        11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 constant                                              34
 design                                                 1
-int_typespec                                          15
-int_var                                                8
+int_typespec                                          19
+int_var                                               10
 logic_net                                              6
 logic_typespec                                         7
-logic_var                                              6
+logic_var                                              4
 module_inst                                           14
 param_assign                                          10
 parameter                                             10
 range                                                  9
 ref_module                                             5
 ref_obj                                                4
-ref_typespec                                          47
-type_parameter                                         7
+ref_typespec                                          51
+type_parameter                                        11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamIndex/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamIndex/slpp_all/checker/surelog.chk.html ...
@@ -935,16 +935,16 @@ design: (work@top)
       |vpiName:u3
       |vpiFullName:work@top.u0.u3
       |vpiVariables:
-      \_logic_var: (work@top.u0.u3.DATA1), line:20:9, endln:20:14
+      \_int_var: (work@top.u0.u3.DATA1), line:20:9, endln:20:14
         |vpiParent:
         \_module_inst: work@bottom (work@top.u0.u3), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:15:2, endln:15:38
         |vpiTypespec:
         \_ref_typespec: (work@top.u0.u3.DATA1)
           |vpiParent:
-          \_logic_var: (work@top.u0.u3.DATA1), line:20:9, endln:20:14
+          \_int_var: (work@top.u0.u3.DATA1), line:20:9, endln:20:14
           |vpiFullName:work@top.u0.u3.DATA1
           |vpiActual:
-          \_logic_typespec: , line:19:38, endln:19:43
+          \_int_typespec: , line:15:11, endln:15:14
         |vpiName:DATA1
         |vpiFullName:work@top.u0.u3.DATA1
         |vpiVisibility:1
@@ -972,12 +972,23 @@ design: (work@top)
           \_int_var: (work@top.u0.u3.DATA2), line:22:9, endln:22:14
           |vpiFullName:work@top.u0.u3.DATA2
           |vpiActual:
-          \_int_typespec: , line:19:85, endln:19:88
+          \_int_typespec: , line:15:22, endln:15:25
         |vpiName:DATA2
         |vpiFullName:work@top.u0.u3.DATA2
         |vpiVisibility:1
       |vpiParameter:
-      \_type_parameter: (work@bottom.TP1), line:19:32, endln:19:35
+      \_type_parameter: (work@top.u0.u3.TP1)
+        |vpiParent:
+        \_module_inst: work@bottom (work@top.u0.u3), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:15:2, endln:15:38
+        |vpiName:TP1
+        |vpiFullName:work@top.u0.u3.TP1
+        |vpiTypespec:
+        \_ref_typespec: (work@top.u0.u3.TP1)
+          |vpiParent:
+          \_type_parameter: (work@top.u0.u3.TP1)
+          |vpiFullName:work@top.u0.u3.TP1
+          |vpiActual:
+          \_int_typespec: , line:15:11, endln:15:14
       |vpiParameter:
       \_parameter: (work@top.u0.u3.SIZE), line:19:55, endln:19:59
         |vpiParent:
@@ -993,7 +1004,18 @@ design: (work@top)
         |vpiName:SIZE
         |vpiFullName:work@top.u0.u3.SIZE
       |vpiParameter:
-      \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82
+      \_type_parameter: (work@top.u0.u3.TP2)
+        |vpiParent:
+        \_module_inst: work@bottom (work@top.u0.u3), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:15:2, endln:15:38
+        |vpiName:TP2
+        |vpiFullName:work@top.u0.u3.TP2
+        |vpiTypespec:
+        \_ref_typespec: (work@top.u0.u3.TP2)
+          |vpiParent:
+          \_type_parameter: (work@top.u0.u3.TP2)
+          |vpiFullName:work@top.u0.u3.TP2
+          |vpiActual:
+          \_int_typespec: , line:15:22, endln:15:25
       |vpiParameter:
       \_parameter: (work@top.u0.u3.PPP), line:19:104, endln:19:107
         |vpiParent:
@@ -1065,16 +1087,16 @@ design: (work@top)
       |vpiName:u4
       |vpiFullName:work@top.u0.u4
       |vpiVariables:
-      \_logic_var: (work@top.u0.u4.DATA1), line:20:9, endln:20:14
+      \_int_var: (work@top.u0.u4.DATA1), line:20:9, endln:20:14
         |vpiParent:
         \_module_inst: work@bottom (work@top.u0.u4), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:16:2, endln:16:39
         |vpiTypespec:
         \_ref_typespec: (work@top.u0.u4.DATA1)
           |vpiParent:
-          \_logic_var: (work@top.u0.u4.DATA1), line:20:9, endln:20:14
+          \_int_var: (work@top.u0.u4.DATA1), line:20:9, endln:20:14
           |vpiFullName:work@top.u0.u4.DATA1
           |vpiActual:
-          \_logic_typespec: , line:19:38, endln:19:43
+          \_int_typespec: , line:16:11, endln:16:14
         |vpiName:DATA1
         |vpiFullName:work@top.u0.u4.DATA1
         |vpiVisibility:1
@@ -1102,12 +1124,23 @@ design: (work@top)
           \_int_var: (work@top.u0.u4.DATA2), line:22:9, endln:22:14
           |vpiFullName:work@top.u0.u4.DATA2
           |vpiActual:
-          \_int_typespec: , line:19:85, endln:19:88
+          \_int_typespec: , line:16:22, endln:16:25
         |vpiName:DATA2
         |vpiFullName:work@top.u0.u4.DATA2
         |vpiVisibility:1
       |vpiParameter:
-      \_type_parameter: (work@bottom.TP1), line:19:32, endln:19:35
+      \_type_parameter: (work@top.u0.u4.TP1)
+        |vpiParent:
+        \_module_inst: work@bottom (work@top.u0.u4), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:16:2, endln:16:39
+        |vpiName:TP1
+        |vpiFullName:work@top.u0.u4.TP1
+        |vpiTypespec:
+        \_ref_typespec: (work@top.u0.u4.TP1)
+          |vpiParent:
+          \_type_parameter: (work@top.u0.u4.TP1)
+          |vpiFullName:work@top.u0.u4.TP1
+          |vpiActual:
+          \_int_typespec: , line:16:11, endln:16:14
       |vpiParameter:
       \_parameter: (work@top.u0.u4.SIZE), line:19:55, endln:19:59
         |vpiParent:
@@ -1123,7 +1156,18 @@ design: (work@top)
         |vpiName:SIZE
         |vpiFullName:work@top.u0.u4.SIZE
       |vpiParameter:
-      \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82
+      \_type_parameter: (work@top.u0.u4.TP2)
+        |vpiParent:
+        \_module_inst: work@bottom (work@top.u0.u4), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:16:2, endln:16:39
+        |vpiName:TP2
+        |vpiFullName:work@top.u0.u4.TP2
+        |vpiTypespec:
+        \_ref_typespec: (work@top.u0.u4.TP2)
+          |vpiParent:
+          \_type_parameter: (work@top.u0.u4.TP2)
+          |vpiFullName:work@top.u0.u4.TP2
+          |vpiActual:
+          \_int_typespec: , line:16:22, endln:16:25
       |vpiParameter:
       \_parameter: (work@top.u0.u4.PPP), line:19:104, endln:19:107
         |vpiParent:
@@ -1265,6 +1309,14 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_int_typespec: , line:15:11, endln:15:14
+  |vpiParent:
+  \_type_parameter: (work@top.u0.u3.TP1)
+  |vpiSigned:1
+\_int_typespec: , line:15:22, endln:15:25
+  |vpiParent:
+  \_type_parameter: (work@top.u0.u3.TP2)
+  |vpiSigned:1
 \_logic_typespec: , line:21:5, endln:21:19
   |vpiParent:
   \_logic_var: (work@top.u0.u3.a), line:21:20, endln:21:21
@@ -1288,6 +1340,14 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_int_typespec: , line:16:11, endln:16:14
+  |vpiParent:
+  \_type_parameter: (work@top.u0.u4.TP1)
+  |vpiSigned:1
+\_int_typespec: , line:16:22, endln:16:25
+  |vpiParent:
+  \_type_parameter: (work@top.u0.u4.TP2)
+  |vpiSigned:1
 \_logic_typespec: , line:21:5, endln:21:19
   |vpiParent:
   \_logic_var: (work@top.u0.u4.a), line:21:20, endln:21:21
