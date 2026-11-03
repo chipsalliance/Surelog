@@ -1,0 +1,1 @@
+-parse -nobuiltin -nonote dut.sv -top top
