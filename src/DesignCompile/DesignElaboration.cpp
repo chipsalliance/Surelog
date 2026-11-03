@@ -2342,6 +2342,31 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
           p = params.at(index);
           isTypeParam = p->isTypeParam();
         }
+        NodeId pos_data_type = parentFile->Child(expr);
+        if (isTypeParam && index < moduleParams.size() &&
+            parentFile->Type(pos_data_type) == VObjectType::paData_type) {
+          // A POSITIONAL data-type actual (`cdc_2phase #(logic [31:0]) i_cdc`)
+          // binds the type parameter at this position exactly as the named
+          // `.T(logic [31:0])` form does above: record the override as a
+          // type Parameter of the instance.  It used to fall through to the
+          // value path, which cannot evaluate a data type, so the instance
+          // kept the parameter's DEFAULT type and every port declared over it
+          // was elaborated at the default width.  A VALUE actual for a type
+          // parameter (`Interface #(1)`, invalid) keeps the value path.
+          const std::string_view pname = moduleParams[index];
+          overridenParams.insert(pname);
+          NodeId data_type = pos_data_type;
+          NodeId type = parentFile->Child(data_type);
+          Value* tvalue =
+              m_exprBuilder.evalExpr(parentFile, expr, parentInstance, true);
+          Parameter* param = new Parameter(parentFile, expr, pname, type, true);
+          instance->getTypeParams().push_back(param);
+          instance->setValue(pname, tvalue, m_exprBuilder,
+                             parentFile->Line(expr));
+          instance->setOverridenParam(pname);
+          index++;
+          continue;
+        }
         m_helper.checkForLoops(true);
         UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
             parentDefinition, parentFile, expr, m_compileDesign, Reduce::Yes,
