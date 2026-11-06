@@ -5389,6 +5389,42 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
   const typespec *result = nullptr;
   std::string basename;
   std::vector<std::string> suffixnames;
+  // The typespec a TYPE PARAMETER of the instance is bound to, or nullptr
+  // when there is no instance binding by that name (the parameter keeps its
+  // default, or this is a definition-time compile).  The instantiating
+  // instance's binding lives in its getTypeParams() from design elaboration
+  // on, while the netlist param_assigns are only built by the later netlist
+  // elaboration.
+  auto boundTypeParamTypespec = [&](std::string_view name) -> const typespec * {
+    ModuleInstance *inst = valuedcomponenti_cast<ModuleInstance *>(instance);
+    if (inst == nullptr) return nullptr;
+    for (Parameter *tp : inst->getTypeParams()) {
+      if (tp->getName() != name) continue;
+      const typespec *bound = nullptr;
+      if (const type_parameter *utp =
+              any_cast<const type_parameter *>(tp->getUhdmParam())) {
+        if (const UHDM::ref_typespec *rt = utp->Typespec()) {
+          bound = rt->Actual_typespec();
+        }
+      }
+      if (bound == nullptr && tp->getNodeType() &&
+          !loopDetected(fC->getFileId(), fC->Line(id), compileDesign,
+                        instance)) {
+        // A RELAYED binding (`.id_t(id_t)` through several instance
+        // levels, axi_burst_splitter -> gran -> ax_chan -> counters):
+        // the UHDM type_parameter is not materialized yet at this level.
+        // Compile the parameter's own type node in the PARENT instance,
+        // as elabTypeParameter_ does, which recurses up the relay.
+        ModuleInstance *parent = inst;
+        if (ModuleInstance *pinst = inst->getParent()) parent = pinst;
+        bound =
+            compileTypespec(component, tp->getFileContent(), tp->getNodeType(),
+                            compileDesign, Reduce::Yes, nullptr, parent, true);
+      }
+      return bound;
+    }
+    return nullptr;
+  };
   switch (fC->Type(id)) {
     case VObjectType::paIntegerAtomType_Byte: {
       result = s.MakeByte_typespec();
@@ -5434,6 +5470,25 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
               (hier_path *)exp, invalidValue, component, compileDesign, reduce,
               instance, fC->getFileId(), fC->Line(id), nullptr, muteErrors,
               true);
+          if (result == nullptr) {
+            // `apb_req_i.paddr` where `apb_req_i` is a signal declared over a
+            // TYPE PARAMETER: the hier_path decode binds the base through the
+            // definition, where the parameter is still at its DEFAULT, and
+            // finds no such member.  A path of plain names is a signal plus
+            // member names: hand them to the signal lookup below, which
+            // sizes the signal through the instance's type-parameter binding
+            // and then descends the members.
+            hier_path *path = (hier_path *)exp;
+            bool plain = path->Path_elems() && !path->Path_elems()->empty();
+            if (plain)
+              for (any *el : *path->Path_elems())
+                if (el->UhdmType() != uhdmref_obj) plain = false;
+            if (plain) {
+              basename = path->Path_elems()->front()->VpiName();
+              for (size_t k = 1; k < path->Path_elems()->size(); k++)
+                suffixnames.emplace_back(path->Path_elems()->at(k)->VpiName());
+            }
+          }
         } else if (exp->UhdmType() == uhdmbit_select) {
           bit_select *select = (bit_select *)exp;
           basename = select->VpiName();
@@ -5533,8 +5588,20 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
     }
     if (sig) {
       if (NodeId sigTypeId = sig->getTypeSpecId()) {
-        result = compileTypespec(component, fC, sigTypeId, compileDesign,
-                                 reduce, nullptr, instance, true);
+        // A signal declared over a TYPE PARAMETER (`input apb_req_t
+        // apb_req_i` under `parameter type apb_req_t = logic`): compiling
+        // the type NAME in the definition yields the parameter's DEFAULT, so
+        // `$bits(apb_req_i)` folded to 1 and `$bits(apb_req_i.paddr)` found
+        // no member at all -- and a module-level
+        // `localparam cfg_t Cfg = pkg::default_cfg($bits(apb_req_i.paddr),
+        // ...)` (cheshire apb_uart_wrap) stayed an unfolded function call,
+        // leaving every width written over `Cfg.*` at one bit.  Under an
+        // elaborated instance the binding is known: size that.
+        if (fC->Type(sigTypeId) == VObjectType::slStringConst)
+          result = boundTypeParamTypespec(fC->SymName(sigTypeId));
+        if (result == nullptr)
+          result = compileTypespec(component, fC, sigTypeId, compileDesign,
+                                   reduce, nullptr, instance, true);
         NodeId Unpacked_dimension = sig->getUnpackedDimension();
         if (fC->Type(Unpacked_dimension) != VObjectType::sl_INVALID_) {
           array_typespec *array = s.MakeArray_typespec();
@@ -5622,35 +5689,9 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
       // to nothing, `$bits` stayed an unfolded call, the child's IdWidth
       // never became a constant and every generate loop bounded by it
       // elaborated zero iterations.
-      for (Parameter *tp : inst->getTypeParams()) {
-        if (tp->getName() != basename) continue;
-        const typespec *bound = nullptr;
-        if (const type_parameter *utp =
-                any_cast<const type_parameter *>(tp->getUhdmParam())) {
-          if (const UHDM::ref_typespec *rt = utp->Typespec()) {
-            bound = rt->Actual_typespec();
-          }
-        }
-        if (bound == nullptr && tp->getNodeType() &&
-            !loopDetected(fC->getFileId(), fC->Line(id), compileDesign,
-                          instance)) {
-          // A RELAYED binding (`.id_t(id_t)` through several instance
-          // levels, axi_burst_splitter -> gran -> ax_chan -> counters):
-          // the UHDM type_parameter is not materialized yet at this level.
-          // Compile the parameter's own type node in the PARENT instance,
-          // as elabTypeParameter_ does, which recurses up the relay.
-          ModuleInstance *parent = inst;
-          if (ModuleInstance *pinst = inst->getParent()) parent = pinst;
-          bound = compileTypespec(component, tp->getFileContent(),
-                                  tp->getNodeType(), compileDesign, Reduce::Yes,
-                                  nullptr, parent, true);
-        }
-        if (bound) {
-          result = suffixnames.empty()
-                       ? bound
-                       : getMemberTypespec(bound, suffixnames, 0);
-        }
-        break;
+      if (const typespec *bound = boundTypeParamTypespec(basename)) {
+        result = suffixnames.empty() ? bound
+                                     : getMemberTypespec(bound, suffixnames, 0);
       }
       // A type parameter that keeps its DEFAULT, and whose default depends
       // on a value parameter of the same module (`parameter type id_t =
@@ -5859,6 +5900,21 @@ UHDM::any *CompileHelper::compileBits(
                   (param->VpiName() == tname)) {
                 unbound_type_param_arg = true;
                 break;
+              }
+            }
+          }
+          // Under an elaborated instance that BINDS the type parameter the
+          // argument is sizable: getTypespec() resolves the signal's type
+          // through that binding (module-level `localparam ... =
+          // f($bits(port_of_type_param_type))`, cheshire apb_uart_wrap).
+          if (unbound_type_param_arg) {
+            if (ModuleInstance *mi =
+                    valuedcomponenti_cast<ModuleInstance *>(instance)) {
+              for (Parameter *tp : mi->getTypeParams()) {
+                if (tp->getName() == tname) {
+                  unbound_type_param_arg = false;
+                  break;
+                }
               }
             }
           }
