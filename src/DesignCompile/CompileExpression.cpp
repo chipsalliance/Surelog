@@ -7199,7 +7199,22 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             if (invalidValue == false && type == uhdmoperation) {
               operation *op = (operation *)st;
               int32_t opType = op->VpiOpType();
-              if (opType == vpiAssignmentPatternOp) {
+              // A struct / union pattern's operands are its MEMBERS, not
+              // its bits (see ExprEval::reduceExpr's bit_select case).
+              bool structPattern = false;
+              if (const ref_typespec *sprt = op->Typespec()) {
+                if (const typespec *spts = sprt->Actual_typespec()) {
+                  structPattern = spts->UhdmType() == uhdmstruct_typespec ||
+                                  spts->UhdmType() == uhdmunion_typespec;
+                }
+              }
+              if (opType == vpiAssignmentPatternOp && structPattern) {
+                if (constant *b = eval.reduceStructPatternBitSelect(
+                        op, ind, nullptr, pexpr, muteErrors)) {
+                  result = b;
+                  st = result;
+                }
+              } else if (opType == vpiAssignmentPatternOp) {
                 VectorOfany *operands = op->Operands();
                 if (ind < operands->size()) {
                   result = operands->at(ind);
