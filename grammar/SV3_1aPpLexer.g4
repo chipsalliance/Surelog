@@ -23,7 +23,12 @@ ESCAPED_LINE_COMMENT: '//' ~[\\\r\n]* ESCAPED_CR;
 
 // A.9.2 Comments
 
-One_line_comment: '//' Comment_text '\r'? '\n';
+// A line comment on the LAST line of a file that has no final newline still
+// ends at EOF.  Without the EOF alternative it did not lex as a comment at
+// all, so `define LSR_DR 0 // bit number<EOF> (OpenPiton's
+// uart16550_define.vh) kept "// bit number" in the macro body and every use
+// commented out the rest of its line.
+One_line_comment: '//' Comment_text ('\r'? '\n' | EOF);
 
 Block_comment: '/*' Comment_text '*/';
 
