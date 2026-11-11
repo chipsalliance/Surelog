@@ -68,18 +68,27 @@ bool LoopCheck::addEdge(SymbolId from, SymbolId to) {
     itr.second->m_visited = false;
   }
 
-  // BFS
+  // The new edge closes a cycle iff `from` is reachable from `to`.  Meeting a
+  // node twice is NOT a cycle: two macros of one body that both expand a
+  // common macro (`define A `B+`C, `define B `D, `define C `D) reconverge on
+  // `D -- a diamond, which is legal and common in generated headers.
+  if (nodeTo == nodeFrom) {
+    nodeFrom->m_visited = true;
+    return true;
+  }
   std::queue<Node*> queue;
   queue.push(nodeTo);
   nodeTo->m_visited = true;
   while (!queue.empty()) {
     Node* tmp = queue.front();
     queue.pop();
-    tmp->m_visited = true;
     for (auto next : tmp->m_toList) {
-      if (next->m_visited)
+      if (next == nodeFrom) {
+        next->m_visited = true;
         return true;
-      else {
+      }
+      if (!next->m_visited) {
+        next->m_visited = true;
         queue.push(next);
       }
     }
