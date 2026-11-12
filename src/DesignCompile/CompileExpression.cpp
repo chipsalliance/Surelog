@@ -5398,6 +5398,37 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
   auto boundTypeParamTypespec = [&](std::string_view name) -> const typespec * {
     ModuleInstance *inst = valuedcomponenti_cast<ModuleInstance *>(instance);
     if (inst == nullptr) return nullptr;
+    // A GENERATE scope's instance binds no parameters of its own: the type
+    // parameter belongs to the enclosing module instance.  Step out of
+    // generate scopes only (never across a module boundary).  common_cells
+    // id_queue's `for (genvar j = 0; j < $bits(data_t); j++)` nested in
+    // `gen_lookup[i]` otherwise elaborated ZERO iterations, leaving every
+    // exists_match_bits undriven (cheshire axi_riscv_lrsc).
+    bool leftGenScope = false;
+    while (inst->getTypeParams().empty() && inst->getParent()) {
+      const ModuleDefinition *md =
+          valuedcomponenti_cast<const ModuleDefinition *>(
+              inst->getDefinition());
+      if (md == nullptr || !md->getGenBlockId()) break;
+      inst = inst->getParent();
+      leftGenScope = true;
+    }
+    // Out of a generate scope, an UNBOUND type parameter keeps the enclosing
+    // module's declared default: the generate scope's own definition (the
+    // `component` the caller resolves against) does not declare it.
+    auto enclosingDefault = [&]() -> const typespec * {
+      if (!leftGenScope) return nullptr;
+      if (DesignComponent *dc = inst->getDefinition()) {
+        if (Parameter *p = dc->getParameter(name)) {
+          if (const type_parameter *utp =
+                  any_cast<const type_parameter *>(p->getUhdmParam())) {
+            if (const UHDM::ref_typespec *rt = utp->Typespec())
+              return rt->Actual_typespec();
+          }
+        }
+      }
+      return nullptr;
+    };
     for (Parameter *tp : inst->getTypeParams()) {
       if (tp->getName() != name) continue;
       const typespec *bound = nullptr;
@@ -5423,7 +5454,7 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
       }
       return bound;
     }
-    return nullptr;
+    return enclosingDefault();
   };
   switch (fC->Type(id)) {
     case VObjectType::paIntegerAtomType_Byte: {
