@@ -11,8 +11,21 @@ module dut (
   output logic [4:0] b0, b1, b2,
   output logic [4:0] c0, c1, c2,
   output logic [3:0] d0, e0, e1,
-  output logic [1:0] f0
+  output logic [1:0] f0,
+  output logic [9:0] g0
 );
+  // A FUNCTION LOCAL declared with a NEGATIVE lower bound and selected by its
+  // declared indices (OpenTitan i3c_timing_pkg's 'n.1' fixed-point cycle
+  // count): `cnt[W-1:0]` is the integer part, bits 1.. of the vector.  The
+  // fold ran with a null parent expression inside the function and found no
+  // typespec for the local, so it sliced the raw low bits (1 instead of 0).
+  function automatic logic [9:0] cyc_init(int unsigned v);
+    logic [9:-1] cnt;
+    cnt = v;
+    cnt = cnt - 'b1;
+    return cnt[9:0];
+  endfunction
+  assign g0 = cyc_init(2);     // (2 - 1) = 0.5 cycles -> integer part 0
   localparam [5:15]  p = 11'b10110011101;
   localparam [15:5]  q = 11'b10110011101;
   localparam [10:0]  r = 11'b10110011101;
