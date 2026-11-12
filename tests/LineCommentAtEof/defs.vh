@@ -1,0 +1,1 @@
+`define LSR_DR          0         // bit number    
