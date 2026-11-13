@@ -23,6 +23,10 @@
 
 #include "Surelog/DesignCompile/CompileDesign.h"
 
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/clone_tree.h>
+#include <uhdm/uhdm.h>
+
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/Containers.h"
 #include "Surelog/Common/FileSystem.h"
@@ -56,11 +60,8 @@
 #include "Surelog/SourceCompile/IncludeFileInfo.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Utils/StringUtils.h"
-#include <uhdm/ElaboratorListener.h>
-#include <uhdm/clone_tree.h>
-#include <uhdm/uhdm.h>
 #include "Surelog/Testbench/Program.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/Serializer.h>
@@ -312,8 +313,8 @@ void CompileDesign::bindPendingClassMethodCalls() {
     UHDM::VectorOfparam_assign* class_pas = cls->getParam_assigns();
     if (class_pas && !class_pas->empty()) {
       UHDM::ElaboratorContext elaboratorContext(&s, false, true);
-      UHDM::task_func* spec = any_cast<UHDM::task_func*>(
-          UHDM::clone_tree(tf, &elaboratorContext));
+      UHDM::task_func* spec =
+          any_cast<UHDM::task_func*>(UHDM::clone_tree(tf, &elaboratorContext));
       if (spec != nullptr) {
         UHDM::VectorOfparam_assign* pas = s.MakeParam_assignVec();
         size_t k = 0;
