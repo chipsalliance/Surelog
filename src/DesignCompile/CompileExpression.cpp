@@ -2579,9 +2579,15 @@ UHDM::any *CompileHelper::compileExpression(
             UHDM::VectorOfany *operands = s.MakeAnyVec();
             op->Operands(operands);
             result = op;
+            // Compile the element Pattern node itself (as the siblings
+            // below are), so a `.name` element reaches the paDOT case with
+            // its Pattern parent and becomes an any_pattern.
             if (expr *cExpr = (expr *)compileExpression(
-                    component, fC, fC->Child(child), compileDesign, reduce, op,
-                    instance, muteErrors)) {
+                    component, fC,
+                    fC->Type(fC->Child(child)) == VObjectType::paDOT
+                        ? child
+                        : fC->Child(child),
+                    compileDesign, reduce, op, instance, muteErrors)) {
               operands->push_back(cExpr);
             }
             while (Sibling) {
@@ -2593,9 +2599,12 @@ UHDM::any *CompileHelper::compileExpression(
               Sibling = fC->Sibling(Sibling);
             }
           } else {
-            result = (expr *)compileExpression(component, fC, fC->Child(child),
-                                               compileDesign, reduce, pexpr,
-                                               instance, muteErrors);
+            result = (expr *)compileExpression(
+                component, fC,
+                fC->Type(fC->Child(child)) == VObjectType::paDOT
+                    ? child
+                    : fC->Child(child),
+                compileDesign, reduce, pexpr, instance, muteErrors);
           }
           break;
         }
