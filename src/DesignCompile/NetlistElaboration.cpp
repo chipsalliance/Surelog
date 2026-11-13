@@ -1051,32 +1051,6 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   std::vector<UHDM::port*>* ports = netlist->ports();
   DesignComponent* comp = instance->getDefinition();
   std::vector<Signal*>* signals = nullptr;
-  std::string instName = instance->getInstanceName();
-  bool instanceArray = false;
-  int32_t instanceArrayIndex = 0;
-  {
-    std::string indexS;
-    bool inValue = false;
-    if (!instName.empty()) {
-      for (uint64_t i = instName.size() - 1; i > 1; i--) {
-        char c = instName[i];
-        if (c == '[') {
-          break;
-        }
-        if (inValue) {
-          indexS += c;
-        }
-        if (c == ']') {
-          instanceArray = true;
-          inValue = true;
-        }
-      }
-    }
-    if (!indexS.empty()) {
-      std::reverse(indexS.begin(), indexS.end());
-      instanceArrayIndex = std::atoll(indexS.c_str());
-    }
-  }
   if (comp) {
     signals = &comp->getPorts();
   }
@@ -1227,59 +1201,29 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
 
             if ((!bit_or_part_select) &&
                 (fC->Type(sigId) == VObjectType::slStringConst)) {
-              bool bitBlast = false;
               any* net = nullptr;
               if (parent) {
                 net = bind_net_(fC, sigId, parent,
                                 instance->getInstanceBinding(), sigName);
               }
-              if (instanceArray) {
-                if (parent) {
-                  if (net) {
-                    UHDM_OBJECT_TYPE ntype = net->UhdmType();
-                    if (ntype == uhdmlogic_net) {
-                      logic_net* lnet = (logic_net*)net;
-                      if (const ref_typespec* rt = lnet->Typespec()) {
-                        if (const logic_typespec* tps =
-                                rt->Actual_typespec<logic_typespec>()) {
-                          if (tps->Ranges()) bitBlast = true;
-                        }
-                      }
-                    } else if (ntype == uhdmarray_net) {
-                      array_net* lnet = (array_net*)net;
-                      if (const ref_typespec* rt = lnet->Typespec()) {
-                        if (const array_typespec* tps =
-                                rt->Actual_typespec<array_typespec>()) {
-                          if (tps->Ranges()) bitBlast = true;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-              if (bitBlast) {
-                bit_select* sel = s.MakeBit_select();
-                sel->VpiName(sigName);
-                constant* c = s.MakeConstant();
-                c->VpiValue("UINT:" + std::to_string(instanceArrayIndex));
-                c->VpiDecompile(std::to_string(instanceArrayIndex));
-                c->VpiSize(64);
-                fC->populateCoreMembers(sigId, sigId, c);
-                sel->VpiIndex(c);
-                sel->VpiParent(p);
-                p->High_conn(sel);
-                fC->populateCoreMembers(sigId, sigId, sel);
-                sel->Actual_group(net);
-              } else {
-                ref_obj* ref = s.MakeRef_obj();
-                fC->populateCoreMembers(sigId, sigId, ref);
-                p->High_conn(ref);
-                ref->VpiParent(p);
-                ref->VpiName(sigName);
-                if (parent) {
-                  ref->VpiFullName(parent->getFullPathName() + "." + sigName);
-                  ref->Actual_group(net);
-                }
+              // An instance-array member's actual must stay WHOLE: LRM
+              // 23.3.3.5 gives each member the whole actual when its width
+              // matches the port, and slice k when it is N times wider --
+              // which depends on the PORT width, unknown here.  Selecting
+              // bit <member index> was right only for 1-bit ports on an
+              // actual declared [N-1:0]: `r15sub sub[7:0] (allbits, onebit,
+              // bitout)` gave every member one bit of the 8-bit `allbits`,
+              // one bit of the 2-bit-per-member `onebit`, and an
+              // out-of-range bit of `bitout[17:10]` (sv-elab regress.sv r15).
+              // Consumers split by port width.
+              ref_obj* ref = s.MakeRef_obj();
+              fC->populateCoreMembers(sigId, sigId, ref);
+              p->High_conn(ref);
+              ref->VpiParent(p);
+              ref->VpiName(sigName);
+              if (parent) {
+                ref->VpiFullName(parent->getFullPathName() + "." + sigName);
+                ref->Actual_group(net);
               }
             } else {
               any* exp = nullptr;
