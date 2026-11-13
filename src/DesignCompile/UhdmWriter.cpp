@@ -350,6 +350,8 @@ uint32_t UhdmWriter::getVpiOpType(VObjectType type) {
       return vpiArithRShiftOp;
     case VObjectType::paMatches:
       return vpiMatchOp;
+    case VObjectType::paCOND_PRED_OP:
+      return vpiCompAndOp;
     case VObjectType::paBinOp_WildcardEqual:
     case VObjectType::paBinOp_WildEqual:
       return vpiWildEqOp;

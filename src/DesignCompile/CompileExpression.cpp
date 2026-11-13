@@ -2804,10 +2804,43 @@ UHDM::any *CompileHelper::compileExpression(
             opR->VpiParent(operation);
             operands->push_back(opR);
           }
-          if (opType == VObjectType::paMatches) {
-            // expression matches pattern ? e1 : e2 (LRM 11.4.11 / 12.6):
-            // the match is the condition of a vpiConditionOp.
+          if (opType == VObjectType::paMatches ||
+              opType == VObjectType::paCOND_PRED_OP) {
+            // expression matches pattern { &&& expr } ? e1 : e2, or
+            // expr &&& expr { &&& expr } ? e1 : e2 (LRM 11.4.11 / 12.6):
+            // the cond_predicate (vpiCompAndOp over the terms when there
+            // is more than one) is the condition of a vpiConditionOp.
             NodeId qmark = fC->Sibling(rval);
+            UHDM::any *predicate = operation;
+            if (opType == VObjectType::paCOND_PRED_OP) {
+              // `operation` was built as op(opL, rval): retype it.
+              operation->VpiOpType(vpiCompAndOp);
+            }
+            while (qmark && fC->Type(qmark) == VObjectType::paCOND_PRED_OP) {
+              NodeId guard = fC->Sibling(qmark);
+              if (!guard) break;
+              UHDM::operation *andOp = nullptr;
+              if (predicate->UhdmType() == uhdmoperation &&
+                  ((UHDM::operation *)predicate)->VpiOpType() == vpiCompAndOp) {
+                andOp = (UHDM::operation *)predicate;
+              } else {
+                andOp = s.MakeOperation();
+                andOp->VpiOpType(vpiCompAndOp);
+                andOp->VpiParent(pexpr);
+                andOp->Operands(s.MakeAnyVec());
+                predicate->VpiParent(andOp);
+                andOp->Operands()->push_back(predicate);
+                fC->populateCoreMembers(child, guard, andOp);
+              }
+              if (UHDM::any *g = compileExpression(component, fC, guard,
+                                                   compileDesign, reduce, andOp,
+                                                   instance, muteErrors)) {
+                g->VpiParent(andOp);
+                andOp->Operands()->push_back(g);
+              }
+              predicate = andOp;
+              qmark = fC->Sibling(guard);
+            }
             if (qmark && fC->Type(qmark) == VObjectType::paQMARK) {
               NodeId tval = fC->Sibling(qmark);
               while (tval &&
@@ -2819,8 +2852,8 @@ UHDM::any *CompileHelper::compileExpression(
               cond->VpiParent(pexpr);
               UHDM::VectorOfany *cops = s.MakeAnyVec();
               cond->Operands(cops);
-              operation->VpiParent(cond);
-              cops->push_back(operation);
+              predicate->VpiParent(cond);
+              cops->push_back(predicate);
               for (NodeId v : {tval, fval}) {
                 if (!v) continue;
                 if (UHDM::any *e = compileExpression(
