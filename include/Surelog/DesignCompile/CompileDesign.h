@@ -69,6 +69,24 @@ class CompileDesign {
     return m_typespecSwapMap;
   }
 
+  // A call `Cls::f(...)` / `Cls#(...)::f(...)` to a static method of a CLASS,
+  // compiled while the class is not compiled yet (classes compile after
+  // modules): bound to the class's function once it is
+  // (bindPendingClassMethodCalls), specialized by the call's parameter
+  // overrides -- positional, then named.
+  struct PendingClassMethodCall {
+    UHDM::tf_call* call = nullptr;
+    std::string className;
+    std::string methodName;
+    std::vector<UHDM::any*> positional;
+    std::map<std::string, UHDM::any*> named;
+  };
+  void addPendingClassMethodCall(PendingClassMethodCall&& p) {
+    std::lock_guard<std::mutex> guard(m_pendingClassCallsMutex);
+    m_pendingClassCalls.emplace_back(std::move(p));
+  }
+  void bindPendingClassMethodCalls();
+
  private:
   template <class ObjectType, class ObjectMapType, typename FunctorType>
   void compileMT_(ObjectMapType& objects, int32_t maxThreadCount);
@@ -83,6 +101,8 @@ class CompileDesign {
   std::vector<ErrorContainer*> m_errorContainers;
   UHDM::VectorOfinclude_file_info* m_fileInfo = nullptr;
   std::mutex m_serializerMutex;
+  std::mutex m_pendingClassCallsMutex;
+  std::vector<PendingClassMethodCall> m_pendingClassCalls;
   UHDM::Serializer m_serializer;
   std::map<const UHDM::typespec*, const UHDM::typespec*> m_typespecSwapMap;
 };

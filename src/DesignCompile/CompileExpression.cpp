@@ -6795,6 +6795,47 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
     }
     Design *design = compileDesign->getCompiler()->getDesign();
     Package *pack = design->getPackage(packagename);
+    // `Cls::f(...)` / `Cls#(...)::f(...)`: a static method of a CLASS.
+    // Classes compile after modules, so the method does not exist yet: emit
+    // the call with its arguments and bind it once the class is compiled
+    // (CompileDesign::bindPendingClassMethodCalls).  It used to fall to a
+    // bare ref_obj `Cls::f` with the arguments dropped (povik/sv-elab#308).
+    // Only a CALL -- a name followed by an argument list; `C::E` / `C::T`
+    // (a class localparam / type) and `C::E[6]` are not.
+    if (call == nullptr && pack == nullptr && List_of_arguments &&
+        fC->Type(List_of_arguments) == VObjectType::paList_of_arguments &&
+        (design->getClassDefinition(packagename) ||
+         design->getClassDefinition(StrCat("work@", packagename)))) {
+      CompileDesign::PendingClassMethodCall pend;
+      pend.className = std::string(packagename);
+      pend.methodName = std::string(functionname);
+      NodeId Pva = fC->Sibling(Class_type_name);
+      if (Pva && fC->Type(Pva) == VObjectType::paParameter_value_assignment) {
+        NodeId List = fC->Child(Pva);
+        for (NodeId a = List ? fC->Child(List) : InvalidNodeId; a;
+             a = fC->Sibling(a)) {
+          if (fC->Type(a) == VObjectType::paOrdered_parameter_assignment) {
+            pend.positional.push_back(compileExpression(
+                component, fC, fC->Child(a), compileDesign, Reduce::Yes,
+                nullptr, instance, true));
+          } else if (fC->Type(a) ==
+                     VObjectType::paNamed_parameter_assignment) {
+            NodeId pn = fC->Child(a);
+            NodeId pv = fC->Sibling(pn);
+            if (pv)
+              pend.named[std::string(fC->SymName(pn))] = compileExpression(
+                  component, fC, pv, compileDesign, Reduce::Yes, nullptr,
+                  instance, true);
+          }
+        }
+      }
+      func_call *fcall = s.MakeFunc_call();
+      fcall->VpiParent(pexpr);
+      fC->populateCoreMembers(Class_type_name, Class_type_name, fcall);
+      call = fcall;
+      pend.call = fcall;
+      compileDesign->addPendingClassMethodCall(std::move(pend));
+    }
     if (call == nullptr) {
       if (pack && !List_of_arguments) {
         Value *val = pack->getValue(functionname);
