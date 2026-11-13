@@ -2424,9 +2424,9 @@ UHDM::any *CompileHelper::compileExpression(
             andOp->Operands(operands);
             result->VpiParent(andOp);
             operands->push_back(result);
-            if (any *rhs = compileExpression(component, fC, next,
-                                             compileDesign, reduce, andOp,
-                                             instance, muteErrors)) {
+            if (any *rhs =
+                    compileExpression(component, fC, next, compileDesign,
+                                      reduce, andOp, instance, muteErrors)) {
               operands->push_back(rhs);
             }
             result = andOp;
@@ -2841,9 +2841,9 @@ UHDM::any *CompileHelper::compileExpression(
                 andOp->Operands()->push_back(predicate);
                 fC->populateCoreMembers(child, guard, andOp);
               }
-              if (UHDM::any *g = compileExpression(component, fC, guard,
-                                                   compileDesign, reduce, andOp,
-                                                   instance, muteErrors)) {
+              if (UHDM::any *g =
+                      compileExpression(component, fC, guard, compileDesign,
+                                        reduce, andOp, instance, muteErrors)) {
                 g->VpiParent(andOp);
                 andOp->Operands()->push_back(g);
               }
@@ -2865,9 +2865,9 @@ UHDM::any *CompileHelper::compileExpression(
               cops->push_back(predicate);
               for (NodeId v : {tval, fval}) {
                 if (!v) continue;
-                if (UHDM::any *e = compileExpression(
-                        component, fC, v, compileDesign, reduce, cond,
-                        instance, muteErrors)) {
+                if (UHDM::any *e =
+                        compileExpression(component, fC, v, compileDesign,
+                                          reduce, cond, instance, muteErrors)) {
                   e->VpiParent(cond);
                   cops->push_back(e);
                 }
@@ -6935,17 +6935,16 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
         for (NodeId a = List ? fC->Child(List) : InvalidNodeId; a;
              a = fC->Sibling(a)) {
           if (fC->Type(a) == VObjectType::paOrdered_parameter_assignment) {
-            pend.positional.push_back(compileExpression(
-                component, fC, fC->Child(a), compileDesign, Reduce::Yes,
-                nullptr, instance, true));
-          } else if (fC->Type(a) ==
-                     VObjectType::paNamed_parameter_assignment) {
+            pend.positional.push_back(
+                compileExpression(component, fC, fC->Child(a), compileDesign,
+                                  Reduce::Yes, nullptr, instance, true));
+          } else if (fC->Type(a) == VObjectType::paNamed_parameter_assignment) {
             NodeId pn = fC->Child(a);
             NodeId pv = fC->Sibling(pn);
             if (pv)
-              pend.named[std::string(fC->SymName(pn))] = compileExpression(
-                  component, fC, pv, compileDesign, Reduce::Yes, nullptr,
-                  instance, true);
+              pend.named[std::string(fC->SymName(pn))] =
+                  compileExpression(component, fC, pv, compileDesign,
+                                    Reduce::Yes, nullptr, instance, true);
           }
         }
       }

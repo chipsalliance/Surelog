@@ -1534,9 +1534,9 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
         VectorOfany* exprs = s.MakeAnyVec();
         case_item->VpiExprs(exprs);
         NodeId Next = fC->Sibling(Pattern);
-        UHDM::any* pat = compileExpression(component, fC, Pattern,
-                                           compileDesign, Reduce::No,
-                                           case_item, instance);
+        UHDM::any* pat =
+            compileExpression(component, fC, Pattern, compileDesign, Reduce::No,
+                              case_item, instance);
         if (Next && fC->Type(Next) == VObjectType::paExpression) {
           operation* andOp = s.MakeOperation();
           andOp->VpiOpType(vpiCompAndOp);
