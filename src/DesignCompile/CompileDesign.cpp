@@ -56,6 +56,10 @@
 #include "Surelog/SourceCompile/IncludeFileInfo.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Utils/StringUtils.h"
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/clone_tree.h>
+#include <uhdm/uhdm.h>
 #include "Surelog/Testbench/Program.h"
 
 // UHDM
@@ -279,6 +283,67 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
   }
 }
 
+void CompileDesign::bindPendingClassMethodCalls() {
+  Design* design = m_compiler->getDesign();
+  UHDM::Serializer& s = m_serializer;
+  for (PendingClassMethodCall& p : m_pendingClassCalls) {
+    ClassDefinition* cls = design->getClassDefinition(p.className);
+    if (cls == nullptr)
+      cls = design->getClassDefinition(StrCat("work@", p.className));
+    if (cls == nullptr) continue;
+    UHDM::class_defn* cd = cls->getUhdmDefinition();
+    // The methods are on the ClassDefinition (UhdmWriter copies them onto
+    // the class_defn only when it writes the design).
+    if (cd == nullptr || cls->getTask_funcs() == nullptr) continue;
+    UHDM::task_func* tf = nullptr;
+    for (UHDM::task_func* t : *cls->getTask_funcs()) {
+      if (t->VpiName() == p.methodName) {
+        tf = t;
+        break;
+      }
+    }
+    if (tf == nullptr) continue;
+    // A PARAMETERIZED class: the call gets its own copy of the method
+    // carrying one param_assign per class parameter -- the call's override,
+    // else the class default -- so a consumer sizes `logic [W-1:0]` for THIS
+    // specialization.  The class keeps its own function.
+    // The class's param_assigns, like its methods, live on the
+    // ClassDefinition until UhdmWriter copies them onto the class_defn.
+    UHDM::VectorOfparam_assign* class_pas = cls->getParam_assigns();
+    if (class_pas && !class_pas->empty()) {
+      UHDM::ElaboratorContext elaboratorContext(&s, false, true);
+      UHDM::task_func* spec = any_cast<UHDM::task_func*>(
+          UHDM::clone_tree(tf, &elaboratorContext));
+      if (spec != nullptr) {
+        UHDM::VectorOfparam_assign* pas = s.MakeParam_assignVec();
+        size_t k = 0;
+        for (UHDM::param_assign* cpa : *class_pas) {
+          UHDM::any* lhs = cpa->Lhs();
+          UHDM::any* rhs = cpa->Rhs();
+          std::string pname = lhs ? std::string(lhs->VpiName()) : "";
+          if (k < p.positional.size() && p.positional[k]) rhs = p.positional[k];
+          auto nit = p.named.find(pname);
+          if (nit != p.named.end() && nit->second) rhs = nit->second;
+          UHDM::param_assign* pa = s.MakeParam_assign();
+          pa->Lhs(lhs);
+          pa->Rhs(rhs);
+          pa->VpiParent(spec);
+          pas->push_back(pa);
+          k++;
+        }
+        spec->Param_assigns(pas);
+        spec->VpiParent(p.call);
+        tf = spec;
+      }
+    }
+    if (UHDM::func_call* fc = any_cast<UHDM::func_call*>(p.call)) {
+      if (tf->UhdmType() == UHDM::uhdmfunction)
+        fc->Function(any_cast<UHDM::function*>(tf));
+    }
+  }
+  m_pendingClassCalls.clear();
+}
+
 bool CompileDesign::elaborate() {
   Location loc(BadSymbolId);
   Error err2(ErrorDefinition::ELAB_ELABORATING_DESIGN, loc);
@@ -386,6 +451,7 @@ bool CompileDesign::compilation_() {
   compileMT_<ClassDefinition, ClassNameClassDefinitionMultiMap,
              FunctorCompileClass>(
       m_compiler->getDesign()->getClassDefinitions(), maxThreadCount);
+  bindPendingClassMethodCalls();
   design->clearContainers();
   collectObjects_(all_files, design, true);
 
