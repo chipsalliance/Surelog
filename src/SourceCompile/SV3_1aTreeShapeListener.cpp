@@ -1548,6 +1548,10 @@ void SV3_1aTreeShapeListener::exitExpression(
     addVObject((antlr4::ParserRuleContext *)ctx->TAGGED(),
                VObjectType::paTAGGED);
   }
+  // cond_predicate `&&&` terms of a conditional operator (LRM 12.6)
+  for (auto *t : ctx->COND_PRED_OP()) {
+    addVObject((antlr4::ParserRuleContext *)t, VObjectType::paCOND_PRED_OP);
+  }
   if (ctx->QMARK()) {
     addVObject((antlr4::ParserRuleContext *)ctx->QMARK(), VObjectType::paQMARK);
   }

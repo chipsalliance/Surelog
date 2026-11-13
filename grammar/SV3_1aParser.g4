@@ -3477,7 +3477,7 @@ expression
     | ARITH_SHIFT_RIGHT_ASSIGN
   ) expression CLOSE_PARENS
   | OPEN_PARENS expression MATCHES pattern (
-    LOGICAL_AND expression
+    COND_PRED_OP expression
   )* CLOSE_PARENS QMARK attribute_instance* expression COLON expression
   | TAGGED identifier expression?
   | expression STARSTAR attribute_instance* expression
@@ -3525,8 +3525,10 @@ expression
   | expression LOGICAL_OR attribute_instance* expression
   | <assoc = right> expression (LOGICAL_AND expression)* QMARK attribute_instance* expression COLON
       expression
+  | <assoc = right> expression (COND_PRED_OP expression)+ QMARK attribute_instance* expression COLON
+      expression
   | <assoc = right> expression (IMPLY | EQUIVALENCE) attribute_instance* expression
-  | expression MATCHES pattern (LOGICAL_AND expression)* QMARK attribute_instance* expression COLON
+  | expression MATCHES pattern (COND_PRED_OP expression)* QMARK attribute_instance* expression COLON
       expression
   ;
 

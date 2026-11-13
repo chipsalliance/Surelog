@@ -1816,6 +1816,10 @@ UHDM::typespec* CompileHelper::compileTypespec(
       } else {
         union_typespec* ts = s.MakeUnion_typespec();
         ts->VpiPacked(isPacked);
+        // `union tagged` (LRM 7.3.2): the keyword follows Union_keyword.
+        NodeId tag = fC->Sibling(struct_or_union);
+        if (tag && fC->Type(tag) == VObjectType::paTagged_keyword)
+          ts->VpiTagged(true);
         ts->Members(members);
         result = ts;
       }

@@ -1485,7 +1485,8 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
   while (Case_item) {
     UHDM::case_item* case_item = nullptr;
     if (fC->Type(Case_item) == VObjectType::paCase_item ||
-        fC->Type(Case_item) == VObjectType::paCase_inside_item) {
+        fC->Type(Case_item) == VObjectType::paCase_inside_item ||
+        fC->Type(Case_item) == VObjectType::paCase_pattern_item) {
       case_item = s.MakeCase_item();
       case_items->push_back(case_item);
       fC->populateCoreMembers(Case_item, Case_item, case_item);
@@ -1519,6 +1520,53 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
         }
       } else {
         isDefault = true;
+      }
+    } else if (fC->Type(Case_item) == VObjectType::paCase_pattern_item) {
+      // case (e) matches: case_pattern_item ::=
+      //   pattern [ &&& expression ] : statement_or_null | default ...
+      // The item's single expr is the pattern, or vpiCompAndOp(pattern,
+      // guard) when a guard is present (LRM 12.6.1).
+      NodeId Pattern = fC->Child(Case_item);
+      if (fC->Type(Pattern) != VObjectType::paPattern) {
+        isDefault = true;
+        Expression = Pattern;
+      } else {
+        VectorOfany* exprs = s.MakeAnyVec();
+        case_item->VpiExprs(exprs);
+        NodeId Next = fC->Sibling(Pattern);
+        UHDM::any* pat =
+            compileExpression(component, fC, Pattern, compileDesign, Reduce::No,
+                              case_item, instance);
+        if (Next && fC->Type(Next) == VObjectType::paExpression) {
+          operation* andOp = s.MakeOperation();
+          andOp->VpiOpType(vpiCompAndOp);
+          andOp->VpiParent(case_item);
+          fC->populateCoreMembers(Pattern, Next, andOp);
+          UHDM::VectorOfany* operands = s.MakeAnyVec();
+          andOp->Operands(operands);
+          if (pat) {
+            pat->VpiParent(andOp);
+            operands->push_back(pat);
+          }
+          if (UHDM::any* guard =
+                  compileExpression(component, fC, Next, compileDesign,
+                                    Reduce::No, andOp, instance)) {
+            operands->push_back(guard);
+          }
+          pat = andOp;
+          Next = fC->Sibling(Next);
+        }
+        if (pat) {
+          setParentNoOverride(pat, case_item);
+          exprs->push_back(pat);
+        }
+        if (Next) {
+          if (VectorOfany* stmts =
+                  compileStmt(component, fC, Next, compileDesign, Reduce::No,
+                              case_item, instance, muteErrors)) {
+            case_item->Stmt((*stmts)[0]);
+          }
+        }
       }
     } else if (fC->Type(Case_item) == VObjectType::paCase_inside_item) {
       NodeId Open_range_list = fC->Child(Case_item);
