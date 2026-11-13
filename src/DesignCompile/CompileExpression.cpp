@@ -4841,17 +4841,32 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         lexpc->VpiDecompile("0");
         range->Left_expr(lexpc);
         lexpc->VpiParent(range);
+        bool sized = false;
         if (reduce == Reduce::Yes) {
           Value *rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
           if (rightV->isValid()) {
             int64_t rint = rightV->getValueL();
             size = size * rint;
+            sized = true;
           }
         }
 
         expr *rexp = any_cast<expr *>(
             compileExpression(component, fC, rexpr, compileDesign, reduce,
                               range, instance, muteErrors));
+        // evalExpr cannot see a parameter OVERRIDE of the instance being
+        // elaborated, which compileExpression resolves: an interface-array
+        // PORT `bus_if.master arr[N]` of a child elaborated with `.N(2)`
+        // reduced its dimension to the constant 2 but kept size 1, so only
+        // arr[0] was ever created (povik/sv-elab#304).  Size the dimension
+        // from the folded constant then.
+        if ((reduce == Reduce::Yes) && !sized && rexp &&
+            (rexp->UhdmType() == uhdmconstant)) {
+          UHDM::ExprEval eval;
+          bool invalidValue = false;
+          int64_t rint = eval.get_value(invalidValue, rexp);
+          if (!invalidValue && (rint > 0)) size = size * rint;
+        }
         bool associativeArray = false;
         if (rexp && rexp->UhdmType() == uhdmconstant) {
           constant *c = (constant *)rexp;
