@@ -2406,6 +2406,43 @@ UHDM::any *CompileHelper::compileExpression(
           result = op;
           break;
         }
+        case VObjectType::paExpression_or_cond_pattern: {
+          // cond_predicate ::= expression_or_cond_pattern
+          //                    { &&& expression_or_cond_pattern }
+          // The &&& token is not kept in the tree: the terms are siblings.
+          // Chain them with vpiCompAndOp (LRM 12.6), left-associative.
+          result = compileExpression(component, fC, child, compileDesign,
+                                     reduce, pexpr, instance, muteErrors);
+          NodeId next = fC->Sibling(child);
+          while (result && next &&
+                 fC->Type(next) == VObjectType::paExpression_or_cond_pattern) {
+            operation *andOp = s.MakeOperation();
+            andOp->VpiOpType(vpiCompAndOp);
+            andOp->VpiParent(pexpr);
+            fC->populateCoreMembers(child, next, andOp);
+            UHDM::VectorOfany *operands = s.MakeAnyVec();
+            andOp->Operands(operands);
+            result->VpiParent(andOp);
+            operands->push_back(result);
+            if (any *rhs = compileExpression(component, fC, next,
+                                             compileDesign, reduce, andOp,
+                                             instance, muteErrors)) {
+              operands->push_back(rhs);
+            }
+            result = andOp;
+            next = fC->Sibling(next);
+          }
+          break;
+        }
+        case VObjectType::paDOTSTAR: {
+          // `.*` wildcard pattern (LRM 12.6)
+          any_pattern *pattern = s.MakeAny_pattern();
+          pattern->VpiName("*");
+          pattern->VpiParent(pexpr);
+          fC->populateCoreMembers(child, child, pattern);
+          result = pattern;
+          break;
+        }
         case VObjectType::paImplicit_class_handle:
         case VObjectType::paInc_or_dec_expression:
         case VObjectType::paConstant_primary:
@@ -2413,7 +2450,6 @@ UHDM::any *CompileHelper::compileExpression(
         case VObjectType::paPrimary:
         case VObjectType::paSystem_task:
         case VObjectType::paParam_expression:
-        case VObjectType::paExpression_or_cond_pattern:
         case VObjectType::paConstant_param_expression:
         case VObjectType::paAssignment_pattern_expression:
         case VObjectType::paConstant_assignment_pattern_expression:
@@ -2469,6 +2505,16 @@ UHDM::any *CompileHelper::compileExpression(
         }
         case VObjectType::paDOT: {
           NodeId Identifier = fC->Sibling(child);
+          if (fC->Type(parent) == VObjectType::paPattern) {
+            // `.name` pattern variable (LRM 12.6): an any_pattern carrying
+            // the variable's name, so a consumer can bind the matched value.
+            any_pattern *pattern = s.MakeAny_pattern();
+            pattern->VpiName(fC->SymName(Identifier));
+            pattern->VpiParent(pexpr);
+            fC->populateCoreMembers(parent, parent, pattern);
+            result = pattern;
+            break;
+          }
           ref_obj *ref = s.MakeRef_obj();
           ref->VpiName(fC->SymName(Identifier));
           ref->VpiParent(pexpr);
@@ -2757,6 +2803,38 @@ UHDM::any *CompileHelper::compileExpression(
                                     operation, instance, muteErrors)) {
             opR->VpiParent(operation);
             operands->push_back(opR);
+          }
+          if (opType == VObjectType::paMatches) {
+            // expression matches pattern ? e1 : e2 (LRM 11.4.11 / 12.6):
+            // the match is the condition of a vpiConditionOp.
+            NodeId qmark = fC->Sibling(rval);
+            if (qmark && fC->Type(qmark) == VObjectType::paQMARK) {
+              NodeId tval = fC->Sibling(qmark);
+              while (tval &&
+                     fC->Type(tval) == VObjectType::paAttribute_instance)
+                tval = fC->Sibling(tval);
+              NodeId fval = tval ? fC->Sibling(tval) : NodeId();
+              UHDM::operation *cond = s.MakeOperation();
+              cond->VpiOpType(vpiConditionOp);
+              cond->VpiParent(pexpr);
+              UHDM::VectorOfany *cops = s.MakeAnyVec();
+              cond->Operands(cops);
+              operation->VpiParent(cond);
+              cops->push_back(operation);
+              for (NodeId v : {tval, fval}) {
+                if (!v) continue;
+                if (UHDM::any *e = compileExpression(
+                        component, fC, v, compileDesign, reduce, cond,
+                        instance, muteErrors)) {
+                  e->VpiParent(cond);
+                  cops->push_back(e);
+                }
+              }
+              fC->populateCoreMembers(child, fval ? fval : rval, cond);
+              fC->populateCoreMembers(child, rval, operation);
+              result = cond;
+              break;
+            }
           }
           if (opType == VObjectType::paQMARK ||
               opType == VObjectType::paConditional_operator) {  // Ternary op

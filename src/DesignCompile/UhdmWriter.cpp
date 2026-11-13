@@ -3294,12 +3294,84 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
   }
 }
 
+// True when `pat` (a pattern subtree, LRM 12.6) declares the pattern
+// variable `name` (`.name`, compiled as an any_pattern of that name).
+static bool patternDeclares(const any* pat, std::string_view name) {
+  if (pat == nullptr) return false;
+  switch (pat->UhdmType()) {
+    case uhdmany_pattern:
+      return ((const any_pattern*)pat)->VpiName() == name;
+    case uhdmtagged_pattern:
+      return patternDeclares(((const tagged_pattern*)pat)->Pattern(), name);
+    case uhdmstruct_pattern:
+      return patternDeclares(((const struct_pattern*)pat)->Pattern(), name);
+    case uhdmoperation: {
+      const operation* op = (const operation*)pat;
+      if (op->Operands() == nullptr) return false;
+      if (op->VpiOpType() == vpiMatchOp) {
+        return op->Operands()->size() > 1 &&
+               patternDeclares(op->Operands()->at(1), name);
+      }
+      if (op->VpiOpType() == vpiCompAndOp || op->VpiOpType() == vpiListOp ||
+          op->VpiOpType() == vpiAssignmentPatternOp ||
+          op->VpiOpType() == vpiConcatOp) {
+        for (const any* o : *op->Operands())
+          if (patternDeclares(o, name)) return true;
+      }
+      return false;
+    }
+    default:
+      return false;
+  }
+}
+
+// True when `ref` reads a pattern variable bound by an enclosing
+// `matches` (if / case item / conditional operator).  Such a name is local to
+// the match and must not be bound to -- or fabricated as -- a module net.
+static bool isPatternVariableUse(const ref_obj* ref, std::string_view name) {
+  for (const any* p = ref->VpiParent(); p != nullptr; p = p->VpiParent()) {
+    switch (p->UhdmType()) {
+      case uhdmcase_item: {
+        const case_item* ci = (const case_item*)p;
+        if (ci->VpiExprs())
+          for (const any* e : *ci->VpiExprs())
+            if (patternDeclares(e, name)) return true;
+        break;
+      }
+      case uhdmif_stmt:
+        if (patternDeclares(((const if_stmt*)p)->VpiCondition(), name))
+          return true;
+        break;
+      case uhdmif_else:
+        if (patternDeclares(((const if_else*)p)->VpiCondition(), name))
+          return true;
+        break;
+      case uhdmoperation: {
+        const operation* op = (const operation*)p;
+        if ((op->VpiOpType() == vpiConditionOp ||
+             op->VpiOpType() == vpiCompAndOp) &&
+            op->Operands() && !op->Operands()->empty() &&
+            patternDeclares(op->Operands()->at(0), name))
+          return true;
+        break;
+      }
+      default:
+        if (p->UhdmType() == uhdmmodule_inst || p->UhdmType() == uhdmpackage ||
+            p->UhdmType() == uhdminterface_inst)
+          return false;
+        break;
+    }
+  }
+  return false;
+}
+
 void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   for (UHDM::ref_obj* ref : mod->getLateBinding()) {
     if (ref->Actual_group()) continue;
     std::string_view name = ref->VpiName();
     name = StringUtils::trim(name);
+    if (isPatternVariableUse(ref, name)) continue;
     if (name.find("::") != std::string::npos) {
       std::vector<std::string_view> res;
       StringUtils::tokenizeMulti(name, "::", res);
