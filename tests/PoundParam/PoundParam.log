@@ -632,7 +632,7 @@ there are 2 more instances of this message.
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
 assignment                                             1
-constant                                             144
+constant                                             152
 cont_assign                                            1
 design                                                 1
 event_control                                          1
@@ -640,21 +640,21 @@ int_typespec                                           3
 logic_net                                             33
 logic_typespec                                        45
 module_inst                                           10
-operation                                             38
+operation                                             42
 param_assign                                           3
 parameter                                              3
-part_select                                            9
+part_select                                           13
 port                                                  47
 range                                                 36
 ref_module                                             2
-ref_obj                                               53
+ref_obj                                               59
 ref_typespec                                          59
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 3
 assignment                                             3
-constant                                             144
+constant                                             152
 cont_assign                                            3
 design                                                 1
 event_control                                          3
@@ -662,14 +662,14 @@ int_typespec                                           3
 logic_net                                             33
 logic_typespec                                        45
 module_inst                                           10
-operation                                             58
+operation                                             66
 param_assign                                           3
 parameter                                              3
-part_select                                           19
+part_select                                           27
 port                                                  67
 range                                                 36
 ref_module                                             2
-ref_obj                                               91
+ref_obj                                              103
 ref_typespec                                          79
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PoundParam/slpp_all/surelog.uhdm ...
@@ -1901,8 +1901,30 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiName:din
       |vpiDirection:1
+      |vpiHighConn:
+      \_part_select: next_pv (work@test.next_pv), line:39:27, endln:39:39
+        |vpiParent:
+        \_port: (din), line:2:14, endln:2:17
+        |vpiName:next_pv
+        |vpiFullName:work@test.next_pv
+        |vpiDefName:next_pv
+        |vpiActual:
+        \_logic_net: (work@test.next_pv), line:35:21, endln:35:28
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_constant: , line:39:35, endln:39:36
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:39:37, endln:39:38
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
       |vpiLowConn:
-      \_ref_obj: (work@test.park_reg.din), line:2:14, endln:2:17
+      \_ref_obj: (work@test.park_reg.din), line:39:21, endln:39:24
         |vpiParent:
         \_port: (din), line:2:14, endln:2:17
         |vpiName:din
@@ -1924,8 +1946,16 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiName:clk
       |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@test.clk), line:40:28, endln:40:31
+        |vpiParent:
+        \_port: (clk), line:2:19, endln:2:22
+        |vpiName:clk
+        |vpiFullName:work@test.clk
+        |vpiActual:
+        \_logic_net: (work@test.clk), line:35:29, endln:35:32
       |vpiLowConn:
-      \_ref_obj: (work@test.park_reg.clk), line:2:19, endln:2:22
+      \_ref_obj: (work@test.park_reg.clk), line:40:22, endln:40:25
         |vpiParent:
         \_port: (clk), line:2:19, endln:2:22
         |vpiName:clk
@@ -1947,8 +1977,16 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiName:rst
       |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@test.reset), line:42:28, endln:42:33
+        |vpiParent:
+        \_port: (rst), line:2:24, endln:2:27
+        |vpiName:reset
+        |vpiFullName:work@test.reset
+        |vpiActual:
+        \_logic_net: (work@test.reset), line:35:33, endln:35:38
       |vpiLowConn:
-      \_ref_obj: (work@test.park_reg.rst), line:2:24, endln:2:27
+      \_ref_obj: (work@test.park_reg.rst), line:42:22, endln:42:25
         |vpiParent:
         \_port: (rst), line:2:24, endln:2:27
         |vpiName:rst
@@ -1970,8 +2008,30 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiName:q
       |vpiDirection:2
+      |vpiHighConn:
+      \_part_select: pv1 (work@test.pv1), line:41:28, endln:41:36
+        |vpiParent:
+        \_port: (q), line:2:29, endln:2:30
+        |vpiName:pv1
+        |vpiFullName:work@test.pv1
+        |vpiDefName:pv1
+        |vpiActual:
+        \_logic_net: (work@test.pv1), line:35:13, endln:35:16
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_constant: , line:41:32, endln:41:33
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:41:34, endln:41:35
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
       |vpiLowConn:
-      \_ref_obj: (work@test.park_reg.q), line:2:29, endln:2:30
+      \_ref_obj: (work@test.park_reg.q), line:41:22, endln:41:23
         |vpiParent:
         \_port: (q), line:2:29, endln:2:30
         |vpiName:q
@@ -1993,8 +2053,16 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiName:se
       |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@test.se), line:43:28, endln:43:30
+        |vpiParent:
+        \_port: (se), line:2:32, endln:2:34
+        |vpiName:se
+        |vpiFullName:work@test.se
+        |vpiActual:
+        \_logic_net: (work@test.se), line:35:39, endln:35:41
       |vpiLowConn:
-      \_ref_obj: (work@test.park_reg.se), line:2:32, endln:2:34
+      \_ref_obj: (work@test.park_reg.se), line:43:22, endln:43:24
         |vpiParent:
         \_port: (se), line:2:32, endln:2:34
         |vpiName:se
@@ -2016,6 +2084,11 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiName:si
       |vpiDirection:1
+      |vpiHighConn:
+      \_operation: , line:43:37, endln:43:38
+        |vpiParent:
+        \_port: (si), line:2:36, endln:2:38
+        |vpiOpType:36
       |vpiLowConn:
       \_ref_obj: (work@test.park_reg.si), line:2:36, endln:2:38
         |vpiParent:
@@ -2039,6 +2112,11 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiName:so
       |vpiDirection:2
+      |vpiHighConn:
+      \_operation: , line:43:44, endln:43:45
+        |vpiParent:
+        \_port: (so), line:2:40, endln:2:42
+        |vpiOpType:36
       |vpiLowConn:
       \_ref_obj: (work@test.park_reg.so), line:2:40, endln:2:42
         |vpiParent:
@@ -2368,8 +2446,30 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiName:din
       |vpiDirection:1
+      |vpiHighConn:
+      \_part_select: next_pv (work@test.next_pv), line:45:23, endln:45:35
+        |vpiParent:
+        \_port: (din), line:2:14, endln:2:17
+        |vpiName:next_pv
+        |vpiFullName:work@test.next_pv
+        |vpiDefName:next_pv
+        |vpiActual:
+        \_logic_net: (work@test.next_pv), line:35:21, endln:35:28
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_constant: , line:45:31, endln:45:32
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:45:33, endln:45:34
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
       |vpiLowConn:
-      \_ref_obj: (work@test.logic.din), line:2:14, endln:2:17
+      \_ref_obj: (work@test.logic.din), line:45:17, endln:45:20
         |vpiParent:
         \_port: (din), line:2:14, endln:2:17
         |vpiName:din
@@ -2391,8 +2491,16 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiName:clk
       |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@test.clk), line:46:28, endln:46:31
+        |vpiParent:
+        \_port: (clk), line:2:19, endln:2:22
+        |vpiName:clk
+        |vpiFullName:work@test.clk
+        |vpiActual:
+        \_logic_net: (work@test.clk), line:35:29, endln:35:32
       |vpiLowConn:
-      \_ref_obj: (work@test.logic.clk), line:2:19, endln:2:22
+      \_ref_obj: (work@test.logic.clk), line:46:22, endln:46:25
         |vpiParent:
         \_port: (clk), line:2:19, endln:2:22
         |vpiName:clk
@@ -2414,8 +2522,16 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiName:rst
       |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@test.reset), line:48:28, endln:48:33
+        |vpiParent:
+        \_port: (rst), line:2:24, endln:2:27
+        |vpiName:reset
+        |vpiFullName:work@test.reset
+        |vpiActual:
+        \_logic_net: (work@test.reset), line:35:33, endln:35:38
       |vpiLowConn:
-      \_ref_obj: (work@test.logic.rst), line:2:24, endln:2:27
+      \_ref_obj: (work@test.logic.rst), line:48:22, endln:48:25
         |vpiParent:
         \_port: (rst), line:2:24, endln:2:27
         |vpiName:rst
@@ -2437,8 +2553,30 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiName:q
       |vpiDirection:2
+      |vpiHighConn:
+      \_part_select: pv2 (work@test.pv2), line:47:28, endln:47:36
+        |vpiParent:
+        \_port: (q), line:2:29, endln:2:30
+        |vpiName:pv2
+        |vpiFullName:work@test.pv2
+        |vpiDefName:pv2
+        |vpiActual:
+        \_logic_net: (work@test.pv2), line:35:17, endln:35:20
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_constant: , line:47:32, endln:47:33
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:47:34, endln:47:35
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
       |vpiLowConn:
-      \_ref_obj: (work@test.logic.q), line:2:29, endln:2:30
+      \_ref_obj: (work@test.logic.q), line:47:22, endln:47:23
         |vpiParent:
         \_port: (q), line:2:29, endln:2:30
         |vpiName:q
@@ -2460,8 +2598,16 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiName:se
       |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@test.se), line:49:28, endln:49:30
+        |vpiParent:
+        \_port: (se), line:2:32, endln:2:34
+        |vpiName:se
+        |vpiFullName:work@test.se
+        |vpiActual:
+        \_logic_net: (work@test.se), line:35:39, endln:35:41
       |vpiLowConn:
-      \_ref_obj: (work@test.logic.se), line:2:32, endln:2:34
+      \_ref_obj: (work@test.logic.se), line:49:22, endln:49:24
         |vpiParent:
         \_port: (se), line:2:32, endln:2:34
         |vpiName:se
@@ -2483,6 +2629,11 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiName:si
       |vpiDirection:1
+      |vpiHighConn:
+      \_operation: , line:49:37, endln:49:38
+        |vpiParent:
+        \_port: (si), line:2:36, endln:2:38
+        |vpiOpType:36
       |vpiLowConn:
       \_ref_obj: (work@test.logic.si), line:2:36, endln:2:38
         |vpiParent:
@@ -2506,6 +2657,11 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiName:so
       |vpiDirection:2
+      |vpiHighConn:
+      \_operation: , line:49:44, endln:49:45
+        |vpiParent:
+        \_port: (so), line:2:40, endln:2:42
+        |vpiOpType:36
       |vpiLowConn:
       \_ref_obj: (work@test.logic.so), line:2:40, endln:2:42
         |vpiParent:
