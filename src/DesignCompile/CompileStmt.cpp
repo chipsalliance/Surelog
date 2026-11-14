@@ -1131,7 +1131,23 @@ VectorOfany* CompileHelper::compileDataDeclaration(
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfany* results = nullptr;
   VObjectType type = fC->Type(nodeId);
+  // A variable declared without a lifetime takes the lifetime of its
+  // enclosing task or function (LRM 6.21): automatic in an automatic
+  // subroutine, static otherwise.  An explicit `static` / `automatic` below
+  // overrides it.  Defaulting to static here marked every local of an
+  // `automatic function` static, so a consumer could not tell `int t;` from
+  // `static int slot = 5;` (the latter keeps its value across calls).
   bool automatic_status = false;
+  for (const any* p = pstmt; p != nullptr; p = p->VpiParent()) {
+    if (p->UhdmType() == uhdmfunction || p->UhdmType() == uhdmtask) {
+      automatic_status = static_cast<const task_func*>(p)->VpiAutomatic();
+      break;
+    }
+    if (p->UhdmType() == uhdmmodule_inst || p->UhdmType() == uhdmpackage ||
+        p->UhdmType() == uhdminterface_inst || p->UhdmType() == uhdmprogram ||
+        p->UhdmType() == uhdmclass_defn)
+      break;
+  }
   bool const_status = false;
   if (type == VObjectType::paLifetime_Automatic) {
     nodeId = fC->Sibling(nodeId);
