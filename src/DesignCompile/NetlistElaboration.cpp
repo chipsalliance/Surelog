@@ -80,6 +80,17 @@
 
 namespace SURELOG {
 
+// `a #66 inst (...)`: a parameter override written without parentheses (the
+// Verilog-1995 delay form) is a bare `#66` IntConst sibling of the module
+// name, not a Parameter_value_assignment.  DesignElaboration applies it as
+// the override; the port-connection walk must step over it too, or it
+// stops on the constant and the instance loses every port actual.
+static bool isBareParamOverride(const FileContent* fC, NodeId id) {
+  if (!id || fC->Type(id) != VObjectType::slIntConst) return false;
+  std::string_view v = fC->SymName(id);
+  return !v.empty() && v[0] == '#';
+}
+
 using namespace UHDM;  // NOLINT (using a bunch of these)
 
 NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
@@ -881,7 +892,8 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
       (inst_type == VObjectType::paPull_gate_instance)) {
     NodeId modId = fC->Child(Udp_instantiation);
     NodeId Udp_instance = fC->Sibling(modId);
-    if (fC->Type(Udp_instance) == VObjectType::paParameter_value_assignment) {
+    if (fC->Type(Udp_instance) == VObjectType::paParameter_value_assignment ||
+        isBareParamOverride(fC, Udp_instance)) {
       Udp_instance = fC->Sibling(Udp_instance);
     } else if (fC->Type(Udp_instance) == VObjectType::paDelay2 ||
                fC->Type(Udp_instance) == VObjectType::paDelay3) {
@@ -1105,12 +1117,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       // In the case of single instance, point to the delay or parameter
       NodeId tmp = fC->Sibling(modId);
       if ((fC->Type(tmp) == VObjectType::paParameter_value_assignment) ||
+          isBareParamOverride(fC, tmp) ||
           (fC->Type(tmp) == VObjectType::paDelay2) ||
           (fC->Type(tmp) == VObjectType::paDelay3)) {
         Udp_instance = tmp;
       }
     }
-    if (fC->Type(Udp_instance) == VObjectType::paParameter_value_assignment) {
+    if (fC->Type(Udp_instance) == VObjectType::paParameter_value_assignment ||
+        isBareParamOverride(fC, Udp_instance)) {
       Udp_instance = fC->Sibling(Udp_instance);
     } else if (fC->Type(Udp_instance) == VObjectType::paDelay2 ||
                fC->Type(Udp_instance) == VObjectType::paDelay3) {
