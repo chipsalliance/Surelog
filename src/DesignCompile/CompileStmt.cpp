@@ -1670,6 +1670,19 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
         NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
         NodeId Data_type = fC->Child(Data_type_or_implicit);
         typespec* ts = nullptr;
+        // `input signed [7:0] a;` (an implicit type with a signing keyword):
+        // the keyword comes first and the packed dimension after it.  Neither
+        // branch below matched the keyword, so the formal had no typespec at
+        // all -- no range, no sign -- and read as a 1-bit value
+        // (MikePopoloski/slang#1154: a popcount function returned X).
+        bool implicitSigning = false;
+        bool isSigned = false;
+        if (fC->Type(Data_type) == VObjectType::paSigning_Signed ||
+            fC->Type(Data_type) == VObjectType::paSigning_Unsigned) {
+          implicitSigning = true;
+          isSigned = fC->Type(Data_type) == VObjectType::paSigning_Signed;
+          Data_type = fC->Sibling(Data_type);
+        }
         if (fC->Type(Data_type) == VObjectType::paData_type) {
           ts = compileTypespec(component, fC, Data_type, compileDesign,
                                Reduce::Yes, parent, nullptr, false);
@@ -1683,6 +1696,14 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
                                 Reduce::No, pts, nullptr, size, false)) {
             pts->Ranges(ranges);
           }
+          pts->VpiSigned(isSigned);
+          ts = pts;
+        } else if (implicitSigning) {
+          // `input signed a;`: a 1-bit implicit type
+          logic_typespec* pts = s.MakeLogic_typespec();
+          fC->populateCoreMembers(Data_type_or_implicit, Data_type_or_implicit,
+                                  pts);
+          pts->VpiSigned(isSigned);
           ts = pts;
         }
 
