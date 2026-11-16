@@ -3085,6 +3085,44 @@ UHDM::any *CompileHelper::compileExpression(
                                             reduce, pexpr, instance);
           break;
         }
+        case VObjectType::paAssignment_pattern_variable_lvalue:
+        case VObjectType::paAssignment_pattern_net_lvalue: {
+          // An assignment pattern as a TARGET (IEEE 1800-2023 10.8),
+          // `'{x, y, z} = s;`: each element is itself an lvalue that receives
+          // the corresponding member (or element) of the right-hand side.
+          // Emit the same vpiAssignmentPatternOp a pattern on the right gets,
+          // with the lvalues as its operands.
+          UHDM::operation *operation = s.MakeOperation();
+          UHDM::VectorOfany *operands = s.MakeAnyVec();
+          if (attributes != nullptr) {
+            operation->Attributes(attributes);
+            for (auto a : *attributes) a->VpiParent(operation);
+          }
+          fC->populateCoreMembers(child, child, operation);
+          operation->VpiParent(pexpr);
+          operation->VpiOpType(vpiAssignmentPatternOp);
+          operation->Operands(operands);
+          for (NodeId elem = fC->Child(child); elem; elem = fC->Sibling(elem)) {
+            // Each element is a Variable_lvalue / Net_lvalue.  A plain
+            // (possibly selected) name compiles from its
+            // Ps_or_hierarchical_identifier, the way a statement's own lvalue
+            // does (compileBlockingAssignment); a nested pattern or
+            // concatenation compiles from the lvalue node itself.
+            NodeId target = elem;
+            NodeId first = fC->Child(elem);
+            if (first &&
+                fC->Type(first) == VObjectType::paPs_or_hierarchical_identifier)
+              target = first;
+            if (any *lv = compileExpression(component, fC, target,
+                                            compileDesign, reduce, operation,
+                                            instance, muteErrors)) {
+              lv->VpiParent(operation);
+              operands->push_back(lv);
+            }
+          }
+          result = operation;
+          break;
+        }
         case VObjectType::paSequence_instance: {
           NodeId Ps_or_hierarchical_sequence_identifier = fC->Child(child);
           NodeId Ps_or_hierarchical_array_identifier =
