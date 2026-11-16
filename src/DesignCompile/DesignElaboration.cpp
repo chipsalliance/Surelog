@@ -48,6 +48,7 @@
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Library/Library.h"
+#include "Surelog/Library/ParseLibraryDef.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
@@ -111,6 +112,21 @@ bool DesignElaboration::elaborate() {
 bool DesignElaboration::setupConfigurations_() {
   ConfigSet* configSet =
       m_compileDesign->getCompiler()->getDesign()->getConfigSet();
+  // A `config` may be declared in a design SOURCE, not only in a -cfgfile
+  // (IEEE 1800-2023 33.4): `config cfg; design work.dut; ... endconfig`
+  // next to the modules.  Only -cfgfile contents were registered, so
+  // `-cfg cfg` reported CM0028 "Undefined configuration" and the design
+  // elaborated without the configuration's bindings.
+  {
+    Compiler* compiler = m_compileDesign->getCompiler();
+    ParseLibraryDef libParser(compiler->getCommandLineParser(),
+                              compiler->getErrorContainer(),
+                              compiler->getSymbolTable(), nullptr, configSet);
+    for (const auto& [fileId, fC] :
+         compiler->getDesign()->getAllFileContents()) {
+      libParser.parseConfigDefinition(fC);
+    }
+  }
   SymbolTable* st =
       m_compileDesign->getCompiler()->getCommandLineParser()->getSymbolTable();
   std::vector<Config>& allConfigs = configSet->getAllMutableConfigs();

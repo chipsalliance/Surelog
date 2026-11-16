@@ -1,0 +1,1 @@
+-parse dut.sv -nobuiltin -cfg cfg -d ast -elabuhdm -d uhdm
