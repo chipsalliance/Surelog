@@ -3035,30 +3035,37 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
         }
 
         NodeId Data_type = fC->Child(For_variable_declaration);
+        // `for (int i = 0, j = 7; ...)`: one data type, then one
+        // `variable = expression` pair per declared variable (IEEE 1800-2023
+        // 12.7.1, for_variable_declaration).  Only the first pair was read,
+        // so `j` was never declared and never initialised.
         NodeId Var = fC->Sibling(Data_type);
-        NodeId Expression = fC->Sibling(Var);
-        assignment* assign_stmt = s.MakeAssignment();
-        assign_stmt->VpiParent(for_stmt);
-        fC->populateCoreMembers(For_variable_declaration,
-                                For_variable_declaration, assign_stmt);
+        while (Var) {
+          NodeId Expression = fC->Sibling(Var);
+          assignment* assign_stmt = s.MakeAssignment();
+          assign_stmt->VpiParent(for_stmt);
+          fC->populateCoreMembers(For_variable_declaration,
+                                  For_variable_declaration, assign_stmt);
 
-        variables* var = (variables*)compileVariable(
-            component, fC, Data_type, compileDesign, Reduce::Yes, assign_stmt,
-            nullptr, false);
-        if (var) {
-          assign_stmt->Lhs(var);
-          var->VpiParent(assign_stmt);
-          var->VpiName(fC->SymName(Var));
-          fC->populateCoreMembers(Var, Var, var);
-        }
+          variables* var = (variables*)compileVariable(
+              component, fC, Data_type, compileDesign, Reduce::Yes,
+              assign_stmt, nullptr, false);
+          if (var) {
+            assign_stmt->Lhs(var);
+            var->VpiParent(assign_stmt);
+            var->VpiName(fC->SymName(Var));
+            fC->populateCoreMembers(Var, Var, var);
+          }
 
-        expr* rhs = (expr*)compileExpression(component, fC, Expression,
-                                             compileDesign, Reduce::No);
-        if (rhs) {
-          rhs->VpiParent(assign_stmt);
-          assign_stmt->Rhs(rhs);
+          expr* rhs = (expr*)compileExpression(component, fC, Expression,
+                                               compileDesign, Reduce::No);
+          if (rhs) {
+            rhs->VpiParent(assign_stmt);
+            assign_stmt->Rhs(rhs);
+          }
+          stmts->push_back(assign_stmt);
+          Var = Expression ? fC->Sibling(Expression) : InvalidNodeId;
         }
-        stmts->push_back(assign_stmt);
 
         For_variable_declaration = fC->Sibling(For_variable_declaration);
       }
