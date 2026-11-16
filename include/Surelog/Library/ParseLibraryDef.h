@@ -47,6 +47,9 @@ class ParseLibraryDef final {
   bool parseLibrariesDefinition();
   bool parseLibraryDefinition(PathId file, Library* lib = nullptr);
   bool parseConfigDefinition();
+  // Register the `config` declarations of an already parsed file (a design
+  // source, not a -cfgfile).
+  bool parseConfigDefinition(const FileContent* fC);
 
   PathId getFileId() const { return m_fileId; }
   CommandLineParser* getCommandLineParser() const {

@@ -166,7 +166,10 @@ bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
 }
 
 bool ParseLibraryDef::parseConfigDefinition() {
-  FileContent* fC = m_fileContent;
+  return parseConfigDefinition(m_fileContent);
+}
+
+bool ParseLibraryDef::parseConfigDefinition(const FileContent* fC) {
   if (!fC) return false;
 
   VObjectTypeUnorderedSet types = {VObjectType::paConfig_declaration};
@@ -176,6 +179,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
     std::string name =
         StrCat(fC->getLibrary()->getName(), "@", fC->SymName(ident));
     m_symbolTable->registerSymbol(name);
+    if (m_configSet->getMutableConfigByName(name) != nullptr) continue;
     Config conf(name, fC, config);
 
     // Design clause
