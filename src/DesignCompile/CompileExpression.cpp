@@ -1930,6 +1930,17 @@ UHDM::any *CompileHelper::compileExpression(
   if (child) {
     childType = fC->Type(child);
   }
+  // `type(a) == type(logic [5:0])` (IEEE 1800-2023 6.23): an equality
+  // between two type references is a constant, true when the types match.
+  if ((parentType == VObjectType::paExpression ||
+       parentType == VObjectType::paConstant_expression) &&
+      child) {
+    if (any *folded = foldTypeEquality(component, fC, child, compileDesign,
+                                       pexpr, instance)) {
+      if (m_checkForLoops) m_stackLevel--;
+      return folded;
+    }
+  }
   switch (parentType) {
     case VObjectType::paIntegerAtomType_Byte: {
       result = s.MakeByte_var();
@@ -7744,4 +7755,88 @@ void CompileHelper::reorderAssignmentPattern(
     }
   }
 }
+
+// The operand of `type(...)` when `n` is an Expression / Constant_expression
+// that is nothing but a type reference, else InvalidNodeId.
+static NodeId typeReferenceLeaf(const FileContent *fC, NodeId n) {
+  while (n && fC->Child(n) && !fC->Sibling(fC->Child(n)) &&
+         (fC->Type(n) == VObjectType::paExpression ||
+          fC->Type(n) == VObjectType::paConstant_expression ||
+          fC->Type(n) == VObjectType::paPrimary ||
+          fC->Type(n) == VObjectType::paConstant_primary))
+    n = fC->Child(n);
+  return (n && fC->Type(n) == VObjectType::paType_reference) ? n
+                                                             : InvalidNodeId;
+}
+
+static bool typespecSigned(const UHDM::typespec *ts) {
+  switch (ts->UhdmType()) {
+    case UHDM::uhdmlogic_typespec:
+      return ((const UHDM::logic_typespec *)ts)->VpiSigned();
+    case UHDM::uhdmbit_typespec:
+      return ((const UHDM::bit_typespec *)ts)->VpiSigned();
+    case UHDM::uhdmint_typespec:
+      return ((const UHDM::int_typespec *)ts)->VpiSigned();
+    case UHDM::uhdminteger_typespec:
+      return ((const UHDM::integer_typespec *)ts)->VpiSigned();
+    case UHDM::uhdmbyte_typespec:
+      return ((const UHDM::byte_typespec *)ts)->VpiSigned();
+    case UHDM::uhdmshort_int_typespec:
+      return ((const UHDM::short_int_typespec *)ts)->VpiSigned();
+    case UHDM::uhdmlong_int_typespec:
+      return ((const UHDM::long_int_typespec *)ts)->VpiSigned();
+    default:
+      return false;
+  }
+}
+
+UHDM::any *CompileHelper::foldTypeEquality(DesignComponent *component,
+                                           const FileContent *fC, NodeId lhs,
+                                           CompileDesign *compileDesign,
+                                           UHDM::any *pexpr,
+                                           ValuedComponentI *instance) {
+  NodeId op = fC->Sibling(lhs);
+  if (!op) return nullptr;
+  NodeId rhs = fC->Sibling(op);
+  if (!rhs || fC->Sibling(rhs)) return nullptr;
+  const VObjectType opType = fC->Type(op);
+  const bool eq = opType == VObjectType::paBinOp_Equiv ||
+                  opType == VObjectType::paBinOp_FourStateLogicEqual;
+  const bool neq = opType == VObjectType::paBinOp_Not ||
+                   opType == VObjectType::paBinOp_FourStateLogicNotEqual;
+  if (!eq && !neq) return nullptr;
+  NodeId lt = typeReferenceLeaf(fC, lhs);
+  NodeId rt = typeReferenceLeaf(fC, rhs);
+  if (!lt || !rt) return nullptr;
+  UHDM::Serializer &s = compileDesign->getSerializer();
+  UHDM::typespec *lts = compileTypespec(component, fC, lt, compileDesign,
+                                        Reduce::Yes, nullptr, instance, false);
+  UHDM::typespec *rts = compileTypespec(component, fC, rt, compileDesign,
+                                        Reduce::Yes, nullptr, instance, false);
+  if (!lts || !rts) return nullptr;
+  // Matching types (6.22.1), for the integral types a type operator can
+  // name here: the same kind (4-state logic vs 2-state bit, and the same
+  // integer atom), the same signing and the same number of bits.
+  bool match = lts->UhdmType() == rts->UhdmType() &&
+               typespecSigned(lts) == typespecSigned(rts);
+  if (match) {
+    bool invalidL = false, invalidR = false;
+    uint64_t wl = Bits(lts, invalidL, component, compileDesign, Reduce::Yes,
+                       instance, fC->getFileId(lt), fC->Line(lt), true);
+    uint64_t wr = Bits(rts, invalidR, component, compileDesign, Reduce::Yes,
+                       instance, fC->getFileId(rt), fC->Line(rt), true);
+    if (invalidL || invalidR) return nullptr;
+    match = wl == wr;
+  }
+  const bool value = eq ? match : !match;
+  UHDM::constant *c = s.MakeConstant();
+  fC->populateCoreMembers(lhs, rhs, c);
+  c->VpiValue(value ? "UINT:1" : "UINT:0");
+  c->VpiDecompile(value ? "1" : "0");
+  c->VpiConstType(vpiUIntConst);
+  c->VpiSize(1);
+  c->VpiParent(pexpr);
+  return c;
+}
+
 }  // namespace SURELOG

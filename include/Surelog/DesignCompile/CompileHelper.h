@@ -576,6 +576,13 @@ class CompileHelper final {
                                       CompileDesign* compileDesign,
                                       ValuedComponentI* instance);
 
+  // `type(a) == type(b)` between two type references (IEEE 1800-2023
+  // 6.23), folded to a 1-bit constant; nullptr when `lhs` does not start
+  // such an equality.
+  UHDM::any* foldTypeEquality(DesignComponent* component, const FileContent* fC,
+                              NodeId lhs, CompileDesign* compileDesign,
+                              UHDM::any* pexpr, ValuedComponentI* instance);
+
   uint64_t Bits(const UHDM::any* typespec, bool& invalidValue,
                 DesignComponent* component, CompileDesign* compileDesign,
                 Reduce reduce, ValuedComponentI* instance, PathId fileId,

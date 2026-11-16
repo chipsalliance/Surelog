@@ -3768,6 +3768,20 @@ bool CompileHelper::compileParameterDeclaration(
       p->VpiName(fC->SymName(Identifier));
       fC->populateCoreMembers(Identifier, Identifier, p);
       NodeId Data_type = fC->Child(Constant_param_expression);
+      // `parameter type T = type(expr)` (IEEE 1800-2023 6.23): the type
+      // operator parses as a constant expression wrapping a Type_reference;
+      // hand compileTypespec the Type_reference itself, which it resolves to
+      // the expression's type.  Through the wrappers it reached
+      // compileExpression, which reported UH0700 and left T untyped.
+      {
+        NodeId n = Data_type;
+        while (n && fC->Child(n) && !fC->Sibling(fC->Child(n)) &&
+               (fC->Type(n) == VObjectType::paConstant_mintypmax_expression ||
+                fC->Type(n) == VObjectType::paConstant_expression ||
+                fC->Type(n) == VObjectType::paConstant_primary))
+          n = fC->Child(n);
+        if (n && fC->Type(n) == VObjectType::paType_reference) Data_type = n;
+      }
       typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
                                       Reduce::No, p, nullptr, false);
       typespec* borrowed_tps = nullptr;

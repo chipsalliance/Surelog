@@ -2546,7 +2546,26 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
           }
         }
-        if (param.fC->Type(Data_type) != VObjectType::paData_type) {
+        // `localparam type ST = type(s)` (IEEE 1800-2023 6.23) parses as an
+        // expression wrapping a Type_reference; it names a type, not a
+        // value, and evaluating it as one reported UH0700.  Only that shape
+        // is skipped: `parameter type T = pkg::t` also parses as an
+        // expression and keeps the value path it always had.
+        bool typeOperatorRhs = false;
+        {
+          NodeId n = Data_type;
+          while (n && param.fC->Child(n) &&
+                 !param.fC->Sibling(param.fC->Child(n)) &&
+                 (param.fC->Type(n) ==
+                      VObjectType::paConstant_mintypmax_expression ||
+                  param.fC->Type(n) == VObjectType::paConstant_expression ||
+                  param.fC->Type(n) == VObjectType::paConstant_primary))
+            n = param.fC->Child(n);
+          typeOperatorRhs =
+              n && param.fC->Type(n) == VObjectType::paType_reference;
+        }
+        if (param.fC->Type(Data_type) != VObjectType::paData_type &&
+            !typeOperatorRhs) {
           // Regular params
           Parameter* p = module->getParameter(name);
           bool isMultidimension = false;
