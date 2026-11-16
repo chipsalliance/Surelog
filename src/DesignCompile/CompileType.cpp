@@ -2281,6 +2281,24 @@ UHDM::typespec* CompileHelper::compileTypespec(
         if (exp) {
           UHDM_OBJECT_TYPE typ = exp->UhdmType();
           if (typ == uhdmref_obj) {
+            // `type(a)` over a declared port / net / variable (IEEE
+            // 1800-2023 6.23): the type is the declaration's.  Compiling the
+            // Expression node as a type name found nothing, so `var type(a)
+            // t` fell back to a 1-bit logic and `type(a) == ...` could not
+            // be decided.
+            // During elaboration the instance view answers the name with
+            // its elaborated object, not a type: fall back to the
+            // definition's declaration.
+            if (component) {
+              for (ValuedComponentI* ctx :
+                   {instance, (ValuedComponentI*)nullptr}) {
+                if (any* obj = getObject(((ref_obj*)exp)->VpiName(), component,
+                                         compileDesign, ctx, nullptr)) {
+                  if (typespec* ts = any_cast<typespec*>(obj)) return ts;
+                }
+                if (ctx == nullptr) break;
+              }
+            }
             return compileTypespec(component, fC, child, compileDesign, reduce,
                                    result, instance, false);
           } else if (typ == uhdmconstant) {
