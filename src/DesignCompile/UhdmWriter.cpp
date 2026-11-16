@@ -250,7 +250,11 @@ uint32_t UhdmWriter::getVpiOpType(VObjectType type) {
     case VObjectType::paBinOp_Imply:
       return vpiImplyOp;
     case VObjectType::paBinOp_Equivalence:
-      return vpiEqOp;
+      // `a <-> b` is logical equivalence (LRM 11.4.7): it compares the
+      // operands' TRUTH values, so a multi-bit operand is true when any bit
+      // is 1.  vpiEqOp compares bits and is only right for 1-bit operands.
+      // VPI has no dedicated operator; vpiIffOp is the same operation.
+      return vpiIffOp;
     case VObjectType::paBinOp_LessEqual:
       return vpiLeOp;
     case VObjectType::paBinOp_Equiv:
