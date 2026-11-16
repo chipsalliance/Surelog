@@ -3048,8 +3048,8 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
                                   For_variable_declaration, assign_stmt);
 
           variables* var = (variables*)compileVariable(
-              component, fC, Data_type, compileDesign, Reduce::Yes,
-              assign_stmt, nullptr, false);
+              component, fC, Data_type, compileDesign, Reduce::Yes, assign_stmt,
+              nullptr, false);
           if (var) {
             assign_stmt->Lhs(var);
             var->VpiParent(assign_stmt);
