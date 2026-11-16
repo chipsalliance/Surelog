@@ -42,8 +42,7 @@ AST_DEBUG_END
 [WRN:PA0205] ${SURELOG_DIR}/tests/PortExpr/dut.sv:1:1: No timescale set for "top".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/PortExpr/dut.sv:1:1: Compile module "work@top".
-[NTE:CP0309] ${SURELOG_DIR}/tests/PortExpr/dut.sv:4:11: Implicit port type (wire) for "op[79]",
-there are 1 more instances of this message.
+[NTE:CP0309] ${SURELOG_DIR}/tests/PortExpr/dut.sv:2:5: Implicit port type (wire) for "op".
 [INF:EL0526] Design Elaboration...
 [NTE:EL0503] ${SURELOG_DIR}/tests/PortExpr/dut.sv:1:1: Top level module "work@top".
 [NTE:EL0508] Nb Top level modules: 1.
@@ -54,13 +53,12 @@ there are 1 more instances of this message.
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 design                                                 1
 logic_net                                              6
-logic_typespec                                         7
+logic_typespec                                         4
 module_inst                                            2
 operation                                              2
-port                                                   6
-ref_obj                                                8
-ref_typespec                                          11
-unsupported_typespec                                   4
+port                                                   2
+ref_obj                                                4
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PortExpr/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PortExpr/slpp_all/checker/surelog.chk.html ...
@@ -79,12 +77,26 @@ design: (work@top)
   \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.op[79])
+      |vpiParent:
+      \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
+      |vpiFullName:work@top.op[79]
+      |vpiActual:
+      \_logic_typespec: , line:4:11, endln:4:11
     |vpiName:op[79]
     |vpiFullName:work@top.op[79]
   |vpiNet:
   \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.op[78])
+      |vpiParent:
+      \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
+      |vpiFullName:work@top.op[78]
+      |vpiActual:
+      \_logic_typespec: , line:5:11, endln:5:11
     |vpiName:op[78]
     |vpiFullName:work@top.op[78]
   |vpiNet:
@@ -120,55 +132,6 @@ design: (work@top)
         |vpiFullName:work@top.op.op[78]
         |vpiActual:
         \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
-    |vpiTypedef:
-    \_ref_typespec: (work@top.op)
-      |vpiParent:
-      \_port: (op), line:2:5, endln:2:7
-      |vpiFullName:work@top.op
-      |vpiActual:
-      \_logic_typespec: , line:4:11, endln:4:11
-  |vpiPort:
-  \_port: (op[79]), line:4:11, endln:4:23
-    |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
-    |vpiName:op[79]
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: (work@top.op[79].op[79]), line:4:11, endln:4:23
-      |vpiParent:
-      \_port: (op[79]), line:4:11, endln:4:23
-      |vpiName:op[79]
-      |vpiFullName:work@top.op[79].op[79]
-      |vpiActual:
-      \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
-    |vpiTypedef:
-    \_ref_typespec: (work@top.op[79])
-      |vpiParent:
-      \_port: (op[79]), line:4:11, endln:4:23
-      |vpiFullName:work@top.op[79]
-      |vpiActual:
-      \_logic_typespec: , line:4:11, endln:4:11
-  |vpiPort:
-  \_port: (op[78]), line:5:11, endln:5:23
-    |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
-    |vpiName:op[78]
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: (work@top.op[78].op[78]), line:5:11, endln:5:23
-      |vpiParent:
-      \_port: (op[78]), line:5:11, endln:5:23
-      |vpiName:op[78]
-      |vpiFullName:work@top.op[78].op[78]
-      |vpiActual:
-      \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
-    |vpiTypedef:
-    \_ref_typespec: (work@top.op[78])
-      |vpiParent:
-      \_port: (op[78]), line:5:11, endln:5:23
-      |vpiFullName:work@top.op[78]
-      |vpiActual:
-      \_logic_typespec: , line:5:11, endln:5:11
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
   |vpiParent:
@@ -206,13 +169,6 @@ design: (work@top)
   \_logic_net: (work@top.op), line:2:5, endln:2:7
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
-    |vpiTypespec:
-    \_ref_typespec: (work@top.op)
-      |vpiParent:
-      \_logic_net: (work@top.op), line:2:5, endln:2:7
-      |vpiFullName:work@top.op
-      |vpiActual:
-      \_logic_typespec: , line:4:11, endln:4:11
     |vpiName:op
     |vpiFullName:work@top.op
   |vpiTopModule:1
@@ -243,65 +199,13 @@ design: (work@top)
         |vpiFullName:work@top.op.op[78]
         |vpiActual:
         \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
-    |vpiTypedef:
-    \_ref_typespec: (work@top.op)
-      |vpiParent:
-      \_port: (op), line:2:5, endln:2:7
-      |vpiFullName:work@top.op
-      |vpiActual:
-      \_logic_typespec: , line:4:11, endln:4:11
-  |vpiPort:
-  \_port: (op[79]), line:4:11, endln:4:23
-    |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
-    |vpiName:op[79]
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: (work@top.op[79]), line:4:11, endln:4:23
-      |vpiParent:
-      \_port: (op[79]), line:4:11, endln:4:23
-      |vpiName:op[79]
-      |vpiFullName:work@top.op[79]
-      |vpiActual:
-      \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
-    |vpiTypedef:
-    \_ref_typespec: (work@top.op[79])
-      |vpiParent:
-      \_port: (op[79]), line:4:11, endln:4:23
-      |vpiFullName:work@top.op[79]
-      |vpiActual:
-      \_logic_typespec: , line:4:11, endln:4:11
-  |vpiPort:
-  \_port: (op[78]), line:5:11, endln:5:23
-    |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
-    |vpiName:op[78]
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: (work@top.op[78]), line:5:11, endln:5:23
-      |vpiParent:
-      \_port: (op[78]), line:5:11, endln:5:23
-      |vpiName:op[78]
-      |vpiFullName:work@top.op[78]
-      |vpiActual:
-      \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
-    |vpiTypedef:
-    \_ref_typespec: (work@top.op[78])
-      |vpiParent:
-      \_port: (op[78]), line:5:11, endln:5:23
-      |vpiFullName:work@top.op[78]
-      |vpiActual:
-      \_logic_typespec: , line:5:11, endln:5:11
 \_weaklyReferenced:
 \_logic_typespec: , line:4:11, endln:4:11
-\_logic_typespec: , line:5:11, endln:5:11
-\_logic_typespec: , line:4:11, endln:4:11
   |vpiParent:
-  \_logic_net: (work@top.op), line:2:5, endln:2:7
+  \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
 \_logic_typespec: , line:5:11, endln:5:11
   |vpiParent:
   \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
-\_logic_typespec: , line:4:11, endln:4:11
 \_logic_typespec: , line:4:11, endln:4:11
 \_logic_typespec: , line:5:11, endln:5:11
 ===================

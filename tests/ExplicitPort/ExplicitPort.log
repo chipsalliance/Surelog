@@ -38,9 +38,8 @@ AST_DEBUG_END
 [WRN:PA0205] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:1:1: No timescale set for "InoutConnect".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:1:1: Compile module "work@InoutConnect".
-[NTE:CP0309] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:5:10: Implicit port type (wire) for "internal".
-[WRN:CP0310] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:3:22: Port "X2" definition missing its direction (input, output, inout).
-[ERR:CP0340] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:3:22: Port "X2" of unspecified type.
+[NTE:CP0309] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:2:22: Implicit port type (wire) for "X1",
+there are 1 more instances of this message.
 [INF:EL0526] Design Elaboration...
 [NTE:EL0503] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:1:1: Top level module "work@InoutConnect".
 [NTE:EL0508] Nb Top level modules: 1.
@@ -50,24 +49,22 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 design                                                 1
-logic_net                                              5
+logic_net                                              6
 logic_typespec                                         4
-logic_var                                              1
 module_inst                                            2
-port                                                   6
-ref_obj                                                6
-ref_typespec                                           6
+port                                                   4
+ref_obj                                                4
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 design                                                 1
-logic_net                                              5
+logic_net                                              6
 logic_typespec                                         4
-logic_var                                              1
 module_inst                                            2
-port                                                   9
-ref_obj                                                9
-ref_typespec                                           8
+port                                                   6
+ref_obj                                                6
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ExplicitPort/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ExplicitPort/slpp_all/checker/surelog.chk.html ...
@@ -87,6 +84,13 @@ design: (work@InoutConnect)
   \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
     |vpiParent:
     \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiTypespec:
+    \_ref_typespec: (work@InoutConnect.internal)
+      |vpiParent:
+      \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
+      |vpiFullName:work@InoutConnect.internal
+      |vpiActual:
+      \_logic_typespec: , line:5:10, endln:5:10
     |vpiName:internal
     |vpiFullName:work@InoutConnect.internal
   |vpiNet:
@@ -136,40 +140,11 @@ design: (work@InoutConnect)
       |vpiFullName:work@InoutConnect.internal
       |vpiActual:
       \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
-  |vpiPort:
-  \_port: (internal), line:5:10, endln:5:18
-    |vpiParent:
-    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
-    |vpiName:internal
-    |vpiDirection:3
-    |vpiLowConn:
-    \_ref_obj: (work@InoutConnect.internal.internal), line:5:10, endln:5:18
-      |vpiParent:
-      \_port: (internal), line:5:10, endln:5:18
-      |vpiName:internal
-      |vpiFullName:work@InoutConnect.internal.internal
-      |vpiActual:
-      \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
-    |vpiTypedef:
-    \_ref_typespec: (work@InoutConnect.internal)
-      |vpiParent:
-      \_port: (internal), line:5:10, endln:5:18
-      |vpiFullName:work@InoutConnect.internal
-      |vpiActual:
-      \_logic_typespec: , line:5:10, endln:5:10
 |uhdmtopModules:
 \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
   |vpiParent:
   \_design: (work@InoutConnect)
   |vpiName:work@InoutConnect
-  |vpiVariables:
-  \_logic_var: (work@InoutConnect.X2), line:3:22, endln:3:24
-    |vpiParent:
-    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
-    |vpiName:X2
-    |vpiFullName:work@InoutConnect.X2
-    |vpiAutomatic:1
-    |vpiVisibility:1
   |vpiDefName:work@InoutConnect
   |vpiTop:1
   |vpiNet:
@@ -198,6 +173,12 @@ design: (work@InoutConnect)
       \_logic_typespec: , line:5:10, endln:5:10
     |vpiName:X1
     |vpiFullName:work@InoutConnect.X1
+  |vpiNet:
+  \_logic_net: (work@InoutConnect.X2), line:3:22, endln:3:24
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:X2
+    |vpiFullName:work@InoutConnect.X2
   |vpiTopModule:1
   |vpiPort:
   \_port: (X1), line:2:22, endln:2:24
@@ -238,29 +219,6 @@ design: (work@InoutConnect)
       \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
     |vpiInstance:
     \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
-  |vpiPort:
-  \_port: (internal), line:5:10, endln:5:18
-    |vpiParent:
-    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
-    |vpiName:internal
-    |vpiDirection:3
-    |vpiLowConn:
-    \_ref_obj: (work@InoutConnect.internal), line:5:10, endln:5:18
-      |vpiParent:
-      \_port: (internal), line:5:10, endln:5:18
-      |vpiName:internal
-      |vpiFullName:work@InoutConnect.internal
-      |vpiActual:
-      \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
-    |vpiTypedef:
-    \_ref_typespec: (work@InoutConnect.internal)
-      |vpiParent:
-      \_port: (internal), line:5:10, endln:5:18
-      |vpiFullName:work@InoutConnect.internal
-      |vpiActual:
-      \_logic_typespec: , line:5:10, endln:5:10
-    |vpiInstance:
-    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
 \_weaklyReferenced:
 \_logic_typespec: , line:5:10, endln:5:10
 \_logic_typespec: , line:5:10, endln:5:10
@@ -271,8 +229,8 @@ design: (work@InoutConnect)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
-[WARNING] : 2
+[  ERROR] : 0
+[WARNING] : 1
 [   NOTE] : 6
 
 ============================== Begin RoundTrip Results ==============================

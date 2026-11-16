@@ -3166,15 +3166,10 @@ bool NetlistElaboration::elab_ports_nets_(
                      (fC->Type(sig->getPortExpression()) ==
                       VObjectType::paPort_expression)) {
             port* dest_port = (*netlist->ports())[portIndex];
-            any* exp = m_helper.compileExpression(
-                comp, fC, sig->getPortExpression(), m_compileDesign, Reduce::No,
-                dest_port, instance, false);
-            if (exp->UhdmType() == uhdmoperation) {
-              operation* op = (operation*)exp;
-              // We don't compute proper typespec
-              op->Typespec(nullptr);
-            }
-            dest_port->Low_conn(exp);
+            if (any* exp = m_helper.compilePortExpression(
+                    comp, fC, sig->getPortExpression(), m_compileDesign,
+                    dest_port, instance))
+              dest_port->Low_conn(exp);
             portIndex++;
             continue;
           } else {

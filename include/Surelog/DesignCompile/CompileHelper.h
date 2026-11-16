@@ -413,6 +413,15 @@ class CompileHelper final {
                             NodeId nodeId, CompileDesign* compileDesign,
                             bool muteErrors = false);
 
+  // The low connection of a non-ANSI port with an explicit name whose
+  // internal side is a port_expression (IEEE 1800-2023 23.2.2.1).
+  UHDM::any* compilePortExpression(DesignComponent* component,
+                                   const FileContent* fC,
+                                   NodeId Port_expression,
+                                   CompileDesign* compileDesign,
+                                   UHDM::any* pexpr,
+                                   ValuedComponentI* instance);
+
   UHDM::any* compileSelectExpression(
       DesignComponent* component, const FileContent* fC, NodeId Bit_select,
       std::string_view name, CompileDesign* compileDesign, Reduce reduce,

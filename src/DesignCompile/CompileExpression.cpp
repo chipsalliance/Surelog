@@ -7839,4 +7839,51 @@ UHDM::any *CompileHelper::foldTypeEquality(DesignComponent *component,
   return c;
 }
 
+UHDM::any *CompileHelper::compilePortExpression(DesignComponent *component,
+                                                const FileContent *fC,
+                                                NodeId Port_expression,
+                                                CompileDesign *compileDesign,
+                                                UHDM::any *pexpr,
+                                                ValuedComponentI *instance) {
+  // `.y(out[3:0])` / `.bus({hi, lo[1:0]})` (IEEE 1800-2023 23.2.2.1): each
+  // port_reference is a name with an optional constant select.  Compiling the
+  // Port_expression as one expression kept only the first name, so
+  // `.y(out[3:0])` connected all of `out` and `.bus({hi, lo})` only `hi`.
+  UHDM::Serializer &s = compileDesign->getSerializer();
+  std::vector<any *> refs;
+  for (NodeId pref = fC->Child(Port_expression); pref;
+       pref = fC->Sibling(pref)) {
+    if (fC->Type(pref) != VObjectType::paPort_reference) continue;
+    NodeId nameId = fC->Child(pref);
+    NodeId sel = fC->Sibling(nameId);
+    NodeId selItem = sel ? fC->Child(sel) : InvalidNodeId;
+    const bool hasSelect =
+        selItem && (fC->Child(selItem) || fC->Sibling(selItem));
+    any *e = nullptr;
+    if (hasSelect) {
+      e = compileSelectExpression(component, fC, selItem, fC->SymName(nameId),
+                                  compileDesign, Reduce::No, pexpr, instance,
+                                  false);
+    }
+    if (e == nullptr) {
+      e = compileExpression(component, fC, pref, compileDesign, Reduce::No,
+                            pexpr, instance, false);
+    }
+    if (e) refs.push_back(e);
+  }
+  if (refs.empty()) return nullptr;
+  if (refs.size() == 1) return refs[0];
+  operation *op = s.MakeOperation();
+  op->VpiOpType(vpiConcatOp);
+  fC->populateCoreMembers(Port_expression, Port_expression, op);
+  op->VpiParent(pexpr);
+  VectorOfany *ops = s.MakeAnyVec();
+  op->Operands(ops);
+  for (any *r : refs) {
+    r->VpiParent(op);
+    ops->push_back(r);
+  }
+  return op;
+}
+
 }  // namespace SURELOG
