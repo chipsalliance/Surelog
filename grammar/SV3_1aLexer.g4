@@ -526,6 +526,13 @@ ENDTASK: 'endtask';
 
 PLUSPLUS: '++';
 
+// IEEE 1800-2023 11.4.13 tolerance ranges [c +/- t] / [c +%- p].  `+` can
+// never be followed by a binary `/` or `%`, so no legal 2017 token stream
+// contains these.
+PLUS_SLASH_MINUS: '+/-';
+
+PLUS_PERCENT_MINUS: '+%-';
+
 PLUS: '+';
 
 MINUSMINUS: '--';

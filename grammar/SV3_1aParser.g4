@@ -1007,9 +1007,13 @@ struct_union_member
 
 data_type_or_void: data_type | VOID;
 
-struct_union: struct_keyword | union_keyword tagged_keyword?;
+struct_union: struct_keyword | union_keyword (tagged_keyword | soft_keyword)?;
 
 tagged_keyword: TAGGED;
+
+// IEEE 1800-2023 7.3.1: `union soft` -- members may differ in width and are
+// right-justified.
+soft_keyword: SOFT;
 
 type_reference
   : TYPE OPEN_PARENS (expression | data_type) CLOSE_PARENS
@@ -3535,7 +3539,14 @@ expression
 value_range
   : expression
   | OPEN_BRACKET expression COLON expression CLOSE_BRACKET
+  | OPEN_BRACKET expression (abs_tolerance | rel_tolerance) expression CLOSE_BRACKET
   ;
+
+// IEEE 1800-2023 11.4.13: [A +/- B] is [A-B : A+B], [A +%- B] is
+// [A - A*B/100.0 : A + A*B/100.0].
+abs_tolerance: PLUS_SLASH_MINUS;
+
+rel_tolerance: PLUS_PERCENT_MINUS;
 
 mintypmax_expression
   : expression (COLON expression COLON expression)?
