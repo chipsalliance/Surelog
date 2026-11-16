@@ -1789,6 +1789,11 @@ UHDM::typespec* CompileHelper::compileTypespec(
       VectorOftypespec_member* members = s.MakeTypespec_memberVec();
 
       NodeId struct_or_union_member = fC->Sibling(type);
+      // `union soft` (IEEE 1800-2023 7.3.1) is a PACKED union whose members
+      // may differ in width, each right-justified; `packed` is implied.
+      const NodeId soft = fC->Sibling(struct_or_union);
+      if (soft && fC->Type(soft) == VObjectType::paSoft_keyword)
+        isPacked = true;
       // `struct packed signed { ... }` (LRM 7.2.1): the signing keyword
       // follows `packed` and was never recorded, so a packed signed struct
       // read into a wider signed context zero-extended (sv-tests

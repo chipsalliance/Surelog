@@ -1965,9 +1965,68 @@ UHDM::any *CompileHelper::compileExpression(
       list_op->Operands(operands);
       NodeId lexpr = child;
       NodeId rexpr = fC->Sibling(lexpr);
-      if (expr *op = any_cast<expr *>(
-              compileExpression(component, fC, lexpr, compileDesign, reduce,
-                                list_op, instance, muteErrors))) {
+      if (rexpr && (fC->Type(rexpr) == VObjectType::paAbs_tolerance ||
+                    fC->Type(rexpr) == VObjectType::paRel_tolerance)) {
+        // IEEE 1800-2023 11.4.13 tolerance range: [A +/- B] is [A-B : A+B]
+        // and [A +%- B] is [A - A*B/100.0 : A + A*B/100.0].  Emit the two
+        // bounds of the equivalent range, so a consumer sees the same
+        // two-operand vpiListOp as for [lo : hi].
+        const bool relative = fC->Type(rexpr) == VObjectType::paRel_tolerance;
+        const NodeId tol = fC->Sibling(rexpr);
+        auto compileOperand = [&](NodeId id, any *p) -> expr * {
+          return any_cast<expr *>(compileExpression(component, fC, id,
+                                                    compileDesign, reduce, p,
+                                                    instance, muteErrors));
+        };
+        auto makeBound = [&](int32_t opType) -> expr * {
+          operation *bound = s.MakeOperation();
+          fC->populateCoreMembers(lexpr, tol, bound);
+          bound->VpiOpType(opType);
+          bound->VpiParent(list_op);
+          VectorOfany *bops = s.MakeAnyVec();
+          bound->Operands(bops);
+          expr *center = compileOperand(lexpr, bound);
+          expr *delta = nullptr;
+          if (relative) {
+            // A*B/100.0
+            operation *mul = s.MakeOperation();
+            fC->populateCoreMembers(lexpr, tol, mul);
+            mul->VpiOpType(vpiMultOp);
+            VectorOfany *mops = s.MakeAnyVec();
+            mul->Operands(mops);
+            if (expr *a = compileOperand(lexpr, mul)) mops->push_back(a);
+            if (expr *b = compileOperand(tol, mul)) mops->push_back(b);
+            operation *div = s.MakeOperation();
+            fC->populateCoreMembers(lexpr, tol, div);
+            div->VpiOpType(vpiDivOp);
+            div->VpiParent(bound);
+            VectorOfany *dops = s.MakeAnyVec();
+            div->Operands(dops);
+            mul->VpiParent(div);
+            dops->push_back(mul);
+            constant *hundred = s.MakeConstant();
+            fC->populateCoreMembers(tol, tol, hundred);
+            hundred->VpiValue("REAL:100.0");
+            hundred->VpiDecompile("100.0");
+            hundred->VpiConstType(vpiRealConst);
+            hundred->VpiSize(64);
+            hundred->VpiParent(div);
+            dops->push_back(hundred);
+            delta = div;
+          } else {
+            delta = compileOperand(tol, bound);
+          }
+          if (center == nullptr || delta == nullptr) return nullptr;
+          bops->push_back(center);
+          bops->push_back(delta);
+          return bound;
+        };
+        if (expr *lo = makeBound(vpiSubOp)) operands->push_back(lo);
+        if (expr *hi = makeBound(vpiAddOp)) operands->push_back(hi);
+        rexpr = InvalidNodeId;
+      } else if (expr *op = any_cast<expr *>(compileExpression(
+                     component, fC, lexpr, compileDesign, reduce, list_op,
+                     instance, muteErrors))) {
         operands->push_back(op);
       }
       if (rexpr) {
