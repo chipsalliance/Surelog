@@ -1653,6 +1653,13 @@ UHDM::typespec* CompileHelper::compileTypespec(
       std::string packageName = typeName;
       typeName += "::";
       NodeId symb_id = fC->Sibling(type);
+      // `$unit::word_t` (IEEE 1800-2023 3.12.1) is the compilation-unit type
+      // a bare `word_t` names; there is no package called `$unit`, so the
+      // port came out 1-bit.  Resolve the bare name.
+      if (packageName == "$unit" && symb_id) {
+        return compileTypespec(component, fC, symb_id, compileDesign, reduce,
+                               pstmt, instance, isVariable);
+      }
       const std::string_view name = fC->SymName(symb_id);
       typeName += name;
       Package* pack =
