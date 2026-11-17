@@ -7002,7 +7002,19 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
 
     const std::string_view packagename = fC->SymName(Class_type_name);
     const std::string_view functionname = fC->SymName(Class_scope_name);
-    std::string basename = StrCat(packagename, "::", functionname);
+    // `$unit::name` (IEEE 1800-2023 3.12.1 / 26.5) names the compilation-unit
+    // declaration a bare `name` reaches.  It parses as a class scope, found
+    // no class or package called `$unit`, and fell back to a ref_obj named
+    // `$unit::name` -- for a call, with the arguments dropped.  A reference
+    // without arguments compiles as the bare identifier; a call is looked up
+    // by its bare name.
+    const bool unitScope = packagename == "$unit";
+    if (unitScope && !List_of_arguments) {
+      return compileExpression(component, fC, Class_scope_name, compileDesign,
+                               reduce, pexpr, instance, muteErrors);
+    }
+    std::string basename = unitScope ? std::string(functionname)
+                                     : StrCat(packagename, "::", functionname);
     tf_call *call = nullptr;
     std::pair<task_func *, DesignComponent *> ret =
         getTaskFunc(basename, component, compileDesign, instance, pexpr);
