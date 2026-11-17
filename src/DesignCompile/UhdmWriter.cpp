@@ -692,15 +692,13 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
     } else if (orig_port->isExplicitlyNamed() &&
                (fC->Type(orig_port->getPortExpression()) ==
                 VObjectType::paPort_expression)) {
-      any* exp = m_helper.compileExpression(
-          mod, fC, orig_port->getPortExpression(), m_compileDesign, Reduce::No,
-          dest_port, instance, false);
-      if (exp->UhdmType() == uhdmoperation) {
-        operation* op = (operation*)exp;
-        // We don't compute proper typespec
-        op->Typespec(nullptr);
+      any* exp = m_helper.compilePortExpression(
+          mod, fC, orig_port->getPortExpression(), m_compileDesign, dest_port,
+          instance);
+      if (exp) {
+        exp->VpiParent(dest_port);
+        dest_port->Low_conn(exp);
       }
-      dest_port->Low_conn(exp);
     }
     if (NodeId defId = orig_port->getDefaultValue()) {
       any* exp =

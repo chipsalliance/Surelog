@@ -1764,12 +1764,48 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
   if (module) {
     while (signal) {
       bool found = false;
+      // A non-ANSI port with an explicit name and an internal expression
+      // (IEEE 1800-2023 23.2.2.1), `.y(out[3:0])` / `.bus({hi, lo})`: the
+      // declaration `output [7:0] out;` gives the port its DIRECTION, and
+      // may do so for several ports (`.y(out[3:0]), .z(out[7:4])`) -- the
+      // walk used to stop at the first match, leaving z "of unspecified
+      // type" (CP0340).  Every name the expression references counts, not
+      // only the first.  The width is the expression's, so nothing else is
+      // copied, and the declared name is an internal signal, not a port.
+      bool referenced = false;
+      for (Signal* port : module->getPorts()) {
+        if (!port->isExplicitlyNamed()) continue;
+        if (port->getName() == fC->SymName(signal)) continue;
+        NodeId pexp = port->getPortExpression();
+        bool refs = false;
+        if (fC->Type(pexp) == VObjectType::slStringConst) {
+          refs = fC->SymName(pexp) == fC->SymName(signal);
+        } else if (fC->Type(pexp) == VObjectType::paPort_expression) {
+          for (NodeId ref = fC->Child(pexp); ref && !refs;
+               ref = fC->Sibling(ref)) {
+            if (fC->Type(ref) == VObjectType::paPort_reference &&
+                fC->SymName(fC->Child(ref)) == fC->SymName(signal))
+              refs = true;
+          }
+        }
+        if (refs) {
+          referenced = true;
+          port->setStatic();
+          port->setDirection(dir_type);
+          // An untyped port is looked up as an INTERFACE type name
+          // (CP0317 "Undefined type"); it is a net of the declared kind.
+          if (port->getType() == VObjectType::slNoType)
+            port->setType(signal_type);
+        }
+      }
       for (Signal* port : module->getPorts()) {
         std::string_view port_name = port->getName();
         if (port_name == fC->SymName(signal)) {
           found = true;
         }
-        if (port->isExplicitlyNamed()) {
+        // An explicit port named like the declaration itself,
+        // `.A(A[2:1])` + `input [2:1] A;`, keeps the full match below.
+        if (port->isExplicitlyNamed() && port_name != fC->SymName(signal)) {
           if (fC->Type(port->getPortExpression()) ==
               VObjectType::slStringConst) {
             port_name = fC->SymName(port->getPortExpression());
@@ -1777,10 +1813,21 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
                      VObjectType::paPort_expression) {
             NodeId Port_reference = fC->Child(port->getPortExpression());
             NodeId Actual = fC->Child(Port_reference);
-            port_name = fC->SymName(Actual);
+            // Only a BARE reference, `.X(int_name)`, is the declared signal
+            // itself; a select or a concatenation takes only the direction
+            // (above).
+            NodeId sel = fC->Sibling(Actual);
+            NodeId bit = sel ? fC->Child(sel) : InvalidNodeId;
+            const bool bare =
+                !fC->Sibling(Port_reference) &&
+                (!sel || (fC->Type(sel) == VObjectType::paConstant_select &&
+                          (!bit || (fC->Type(bit) ==
+                                        VObjectType::paConstant_bit_select &&
+                                    !fC->Child(bit) && !fC->Sibling(bit)))));
+            port_name = bare ? fC->SymName(Actual) : std::string_view();
           }
         }
-        if (port_name == fC->SymName(signal)) {
+        if (!port_name.empty() && port_name == fC->SymName(signal)) {
           port->setStatic();
           if (is_signed) port->setSigned();
           NodeId unpacked_dimension = fC->Sibling(signal);
@@ -1819,7 +1866,9 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
         sig->setStatic();
         if (is_var) sig->setVar();
         if (attributes) sig->attributes(attributes);
-        component->getPorts().push_back(sig);
+        // A name only an explicit port's expression references is an
+        // internal signal of the module, not one more port.
+        if (!referenced) component->getPorts().push_back(sig);
         component->getSignals().push_back(sig);
       }
       signal = fC->Sibling(signal);
@@ -1904,7 +1953,13 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
         Port_expression = fC->Sibling(Port_expression);
         NodeId Port_reference = fC->Child(Port_expression);
         NodeId Actual = fC->Child(Port_reference);
-        if (fC->Sibling(Port_reference)) {
+        // A single reference with a SELECT, `.y(out[3:0])`, is an
+        // expression too: storing only the name connected all of `out`.
+        NodeId sel = fC->Sibling(Actual);
+        NodeId selItem = sel ? fC->Child(sel) : InvalidNodeId;
+        const bool hasSelect =
+            selItem && (fC->Child(selItem) || fC->Sibling(selItem));
+        if (fC->Sibling(Port_reference) || hasSelect) {
           Actual = Port_expression;
         }
         Signal* signal = new Signal(fC, explicitName, Actual);
