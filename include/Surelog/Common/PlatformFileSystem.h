@@ -34,6 +34,7 @@
 #include <functional>
 #include <ios>
 #include <istream>
+#include <map>
 #include <memory>
 #include <mutex>
 #include <ostream>
@@ -249,6 +250,17 @@ class PlatformFileSystem /*final*/ : public FileSystem {
 
   std::mutex m_inputStreamsMutex;
   std::mutex m_outputStreamsMutex;
+
+  // Elaboration calls toPathId() over and over with the same few hundred
+  // file names (every expression it folds tags its error location with one),
+  // and normalize() allocates and rebuilds the path each time: about a sixth
+  // of black-parrot bp_multicore_4's elaboration.  Cache the normalized
+  // string per raw path; empty means "not an absolute path".  The PathId
+  // itself is not cached: it belongs to the SymbolTable it was added to, and
+  // there are several.
+  std::mutex m_normalizedPathsMutex;
+  std::map<std::string, std::string, std::less<>> m_normalizedPaths;
+
   InputStreams m_inputStreams;
   OutputStreams m_outputStreams;
 
