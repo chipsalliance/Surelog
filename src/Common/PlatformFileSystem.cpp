@@ -83,10 +83,25 @@ PathId PlatformFileSystem::toPathId(std::string_view path,
                                     SymbolTable *symbolTable) {
   if (path.empty()) return BadPathId;
 
-  std::filesystem::path normpath = normalize(path);
-  if (normpath.empty() || normpath.is_relative()) return BadPathId;
+  // Entries are never erased and std::map nodes do not move, so the view
+  // stays valid after the lock is released.
+  std::string_view normpath;
+  {
+    std::scoped_lock<std::mutex> lock(m_normalizedPathsMutex);
+    auto it = m_normalizedPaths.find(path);
+    if (it == m_normalizedPaths.end()) {
+      const std::filesystem::path norm = normalize(path);
+      it = m_normalizedPaths
+               .emplace(std::string(path), (norm.empty() || norm.is_relative())
+                                               ? std::string()
+                                               : norm.string())
+               .first;
+    }
+    normpath = it->second;
+  }
+  if (normpath.empty()) return BadPathId;
 
-  auto [symbolId, symbol] = symbolTable->add(normpath.string());
+  auto [symbolId, symbol] = symbolTable->add(normpath);
   return PathId(symbolTable, (RawSymbolId)symbolId, symbol);
 }
 
