@@ -11,6 +11,22 @@ This project aims at providing a complete SystemVerilog front-end: a preprocesso
    * Surelog's elaboration trees for [BlackParrot](https://github.com/black-parrot/black-parrot), [Ariane](https://github.com/lowRISC/ariane) cores are equivalent with Verilator's elaboration tree. 
    * [Ibex](https://github.com/lowRISC/ibex) and [Earlgrey](https://github.com/lowRISC/opentitan) completely Synthesizes and runs in Hardware with the Surelog/UHDM/Yosys flow. 
 
+## Supported core IP
+
+The following open-source cores and IP libraries are read by Surelog and
+swept every other day through the Surelog -> UHDM -> Yosys flow of
+[uhdm2rtlil](https://github.com/chipsalliance/uhdm2rtlil): upstream RTL
+imported verbatim, each netlist checked by formal equivalence against
+`read_slang`, by an opt-check for dropped drivers, and by Verilator
+co-simulation against the RTL.  Per-design results, scopes and commits are in
+[uhdm2rtlil's docs/supported_ip.md](https://github.com/chipsalliance/uhdm2rtlil/blob/main/docs/supported_ip.md).
+
+- RISC-V cores: [Ibex](https://github.com/lowRISC/ibex), [rp32](https://github.com/jeras/rp32), [Syntacore SCR1](https://github.com/syntacore/scr1), [VeeR EH1](https://github.com/chipsalliance/Cores-VeeR-EH1), [VeeR EL2](https://github.com/chipsalliance/Cores-VeeR-EL2), [RSD](https://github.com/rsd-devel/rsd), [BlackParrot](https://github.com/black-parrot/black-parrot), [Ariane CVA6](https://github.com/openhwgroup/cva6) (four configurations), [XiangShan core](https://github.com/OpenXiangShan/XiangShan) (Chisel-generated), [CVE2](https://github.com/openhwgroup/cve2), [CV32E40P](https://github.com/openhwfoundation/cv32e40p), [CV32E40X](https://github.com/openhwfoundation/cv32e40x), [CV32E40S](https://github.com/openhwfoundation/cv32e40s), [CV32E41P](https://github.com/openhwfoundation/cv32e41p), [CORE-V MCU](https://github.com/openhwfoundation/core-v-mcu), [CORE-V Wally](https://github.com/openhwgroup/cvw), [OpenC910](https://github.com/XUANTIE-RV/openc910), [OpenE906](https://github.com/XUANTIE-RV/opene906), [BOOM](https://github.com/riscv-boom/riscv-boom), [Rocket Chip](https://github.com/chipsalliance/rocket-chip), [OpenPiton](https://github.com/PrincetonUniversity/openpiton), [biRISC-V](https://github.com/ultraembedded/biriscv), [ZipCPU](https://github.com/ZipCPU/zipcpu), [Hazard3](https://github.com/Wren6991/Hazard3), [SERV](https://github.com/olofk/serv), [VexRiscv](https://github.com/SpinalHDL/VexRiscv), [NaxRiscv](https://github.com/SpinalHDL/NaxRiscv), [LiteX](https://github.com/enjoy-digital/litex)
+- Other CPUs and SoCs: [fx68k](https://github.com/ijor/fx68k) (Motorola 68000), [Caliptra](https://github.com/chipsalliance/caliptra-rtl) and [caliptra-ss](https://github.com/chipsalliance/caliptra-ss), [Pavona](https://github.com/pavona/pavona) (27 IPs + 2 full chips)
+- IP libraries: [OpenTitan](https://github.com/lowRISC/opentitan) (OTBN, the 44 other IP blocks and the Earlgrey chip top), [RgGen](https://github.com/rggen/rggen-sv-rtl), [TNoC](https://github.com/taichi-ishitani/tnoc), [PULP AXI](https://github.com/pulp-platform/axi) and [common_cells](https://github.com/pulp-platform/common_cells), [CVFPU](https://github.com/openhwfoundation/cvfpu), [hdl-util HDMI](https://github.com/hdl-util/hdmi), [verilog-ethernet](https://github.com/alexforencich/verilog-ethernet), [verilog-pcie](https://github.com/alexforencich/verilog-pcie), [XS-Verilog-Library](https://github.com/OpenXiangShan/XS-Verilog-Library)
+- Accelerators: [NVDLA](https://github.com/nvdla/hw) (NVIDIA's deep-learning accelerator, 914 rows), [Gemmini](https://github.com/ucb-bar/gemmini) (the systolic-array GEMM accelerator as a RoCC on Rocket Chip)
+- Conformance: [chipsalliance/sv-tests](https://github.com/chipsalliance/sv-tests), the LRM-chapter corpus — converted into synthesizable device-under-test form under [`test/sv_tests/`](https://github.com/chipsalliance/uhdm2rtlil/tree/main/test/sv_tests)
+
 ## Applications
 
 Linter, Simulator, Synthesis tool, Formal tools can use this front-end. They either can be developed as plugins (linked with) or use this front-end as an intermediate step of their compilation flows using the on-disk serialized models (UHDM).
@@ -281,7 +297,7 @@ target_link_libraries(<your project name> surelog)
 
 ## Sister project:
 * [UHDM](https://github.com/chipsalliance/UHDM/) - Full SystemVerilog (VHDL later) VPI API for interfacing with 3rd party tools
-* [uhdm2rtlil](https://github.com/alainmarcel/uhdm2rtlil) - SystemVerilog frontend for Yosys by the way of Surelog/UHDM/RTLIL
+* [uhdm2rtlil](https://github.com/chipsalliance/uhdm2rtlil) - SystemVerilog frontend for Yosys by the way of Surelog/UHDM/RTLIL
 * [synlig](https://github.com/chipsalliance/synlig) - SystemVerilog frontend for Yosys by the way the Yosys AST 
 
 ## Similar projects:
