@@ -368,17 +368,11 @@ Processing: -cd asicworld code_verilog_tutorial_bus_con.v -writepp -parse -nocac
 [   NOTE] : 0
 Processing: -cd asicworld code_verilog_tutorial_counter_tb.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l code_verilog_tutorial_counter_tb.v.log
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/YosysTestSuite/asicworld/code_verilog_tutorial_counter_tb.v:34:16: Unknown macro "outfile".
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTestSuite/asicworld/code_verilog_tutorial_counter_tb.v:34:14: Syntax error: missing ';' at '(',
- file = $fopen(SURELOG_MACRO_NOT_DEFINED:outfile!!! );
-              ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTestSuite/asicworld/code_verilog_tutorial_counter_tb.v:34:15: Syntax error: mismatched input 'SURELOG_MACRO_NOT_DEFINED:outfile!!!' expecting {'virtual', 'type', 'enum', 'struct', 'union', 'string', 'chandle', 'event', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', DOLLAR_UNIT, 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTestSuite/asicworld/code_verilog_tutorial_counter_tb.v:34:15: Syntax error: no viable alternative at input 'SURELOG_MACRO_NOT_DEFINED:outfile!!!',
  file = $fopen(SURELOG_MACRO_NOT_DEFINED:outfile!!! );
                ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTestSuite/asicworld/code_verilog_tutorial_counter_tb.v:34:53: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at ';',
- file = $fopen(SURELOG_MACRO_NOT_DEFINED:outfile!!! );
-                                                     ^--.
 [  FATAL] : 0
-[ SYNTAX] : 3
+[ SYNTAX] : 1
 [  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
@@ -2239,7 +2233,7 @@ Processing: -cd simple defvalue.sv -writepp -parse -nocache -nobuiltin -nonote -
 [   NOTE] : 0
 Processed 281 tests.
 [  FATAL] : 0
-[ SYNTAX] : 109
+[ SYNTAX] : 107
 [  ERROR] : 7
 [WARNING] : 217
 [   NOTE] : 0

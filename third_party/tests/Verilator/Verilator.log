@@ -1905,10 +1905,7 @@ ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:17:9: No default value
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:39:15: Syntax error: no viable alternative at input '$display(`',
       $display(`"standalone`");
                ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:39:14: Syntax error: mismatched input '(' expecting ';',
-      $display(`"standalone`");
-              ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:39:15: Syntax error: mismatched input '`' expecting {'virtual', 'type', 'enum', 'struct', 'union', 'string', 'chandle', 'event', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', DOLLAR_UNIT, 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:39:15: Syntax error: no viable alternative at input '`',
       $display(`"standalone`");
                ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:39:16: Syntax error: mismatched input '"standalone`"' expecting Simple_identifier,
@@ -1918,7 +1915,7 @@ ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:17:9: No default value
       $display("Line %0d File \"%s\"",49,"${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v");
       ^--.
 [  FATAL] : 0
-[ SYNTAX] : 5
+[ SYNTAX] : 4
 [  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 0
@@ -2033,10 +2030,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_slice_bad.v:38:41: Syntax error: extraneous input '=' expecting {'[', 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    assign active_command3[1:0][2:0][3:0] = (use_AnB) ?  command_A3[1:0][2:0][3:0] : command_B3[1:0][1:0][3:0];
                                          ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_slice_bad.v:38:53: Syntax error: mismatched input '?' expecting ';',
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_slice_bad.v:38:76: Syntax error: mismatched input '[' expecting ''',
    assign active_command3[1:0][2:0][3:0] = (use_AnB) ?  command_A3[1:0][2:0][3:0] : command_B3[1:0][1:0][3:0];
-                                                     ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_slice_bad.v:38:82: Syntax error: extraneous input ':' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
+                                                                            ^--.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_slice_bad.v:38:82: Syntax error: extraneous input ':' expecting {'[', 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    assign active_command3[1:0][2:0][3:0] = (use_AnB) ?  command_A3[1:0][2:0][3:0] : command_B3[1:0][1:0][3:0];
                                                                                   ^--.
 [  FATAL] : 0
@@ -5525,19 +5522,16 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:53:34: Syntax error: missing '=' at '(',
    m_myobjp = new t_extend_class_c();	// Construct contained object
                                   ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:53:35: Syntax error: mismatched input ')' expecting {'virtual', 'type', 'enum', 'struct', 'union', 'string', 'chandle', 'event', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', DOLLAR_UNIT, 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:53:35: Syntax error: mismatched input ')' expecting {''b0', ''b1', ''B0', ''B1', ''0', ''1', '1'b0', '1'b1', '1'bx', '1'bX', '1'B0', '1'B1', '1'Bx', '1'BX', Integral_number, Real_number, String, '(', 'type', 'const', 'local', 'super', '{', 'string', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'signed', 'unsigned', '$', '++', '+', '--', '-', DOLLAR_UNIT, '!', 'tagged', ''', 'null', 'this', DOLLAR_ROOT, 'randomize', 'sample', '&', '|', '~|', '~&', '^~', Escaped_identifier, '~', '^', '~^', Simple_identifier},
    m_myobjp = new t_extend_class_c();	// Construct contained object
                                    ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:53:36: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at ';',
-   m_myobjp = new t_extend_class_c();	// Construct contained object
-                                    ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:48: Unknown macro "systemc_header".
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:50: Unknown macro "systemc_interface".
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:52: Unknown macro "systemc_ctor".
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:54: Unknown macro "systemc_dtor".
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:56: Unknown macro "verilog".
 [  FATAL] : 0
-[ SYNTAX] : 7
+[ SYNTAX] : 6
 [  ERROR] : 10
 [WARNING] : 0
 [   NOTE] : 0
@@ -5770,7 +5764,7 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 [   NOTE] : 0
 Processed 837 tests.
 [  FATAL] : 0
-[ SYNTAX] : 180
+[ SYNTAX] : 178
 [  ERROR] : 154
 [WARNING] : 43
 [   NOTE] : 0
