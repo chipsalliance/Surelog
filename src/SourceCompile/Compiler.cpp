@@ -498,8 +498,16 @@ bool Compiler::createMultiProcessPreProcessor_() {
   // to restore (so under -lowmem the parse trees never live here).  It used
   // to pass -noparse, which the `-o` added to its command line overrode: it
   // parsed anyway, and the parsing children then parsed everything again.
+  //
+  // -nobuiltin is forwarded only when this process has it: it drops the
+  // builtin MACROS (SURELOG, SV_COV_*) as well as the builtin classes, and the
+  // child is the one preprocessing, so an unconditional -nobuiltin took the
+  // other branch of every `ifdef SURELOG under -lowmem / -mp.
+  const std::string_view noBuiltin =
+      m_commandLineParser->parseBuiltIn() ? " " : " -nobuiltin ";
   std::string batchCmd = StrCat(profile, fileUnit, sverilog, synth, noHash,
-                                " -writepp -mt 0 -mp 0 -nobuiltin -parse "
+                                noBuiltin,
+                                " -writepp -mt 0 -mp 0 -parse "
                                 "-nocomp -nostdout -l preprocessing.log -cd ",
                                 workingDir, fileList);
   for (const std::string& wd : fileSystem->getWorkingDirs()) {

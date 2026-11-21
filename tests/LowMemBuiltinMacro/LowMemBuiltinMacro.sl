@@ -1,0 +1,1 @@
+-parse -lowmem -mp 2 dut.sv -d uhdm
