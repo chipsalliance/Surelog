@@ -3318,7 +3318,7 @@ constant_expression
   | constant_expression BITW_OR attribute_instance* constant_expression
   | constant_expression LOGICAL_AND attribute_instance* constant_expression
   | constant_expression LOGICAL_OR attribute_instance* constant_expression
-  | <assoc = right> constant_expression (LOGICAL_AND expression)* conditional_operator
+  | <assoc = right> constant_expression conditional_operator
       attribute_instance* expression COLON constant_expression
   | <assoc = right> constant_expression (IMPLY | EQUIVALENCE) attribute_instance*
       constant_expression
@@ -3527,7 +3527,7 @@ expression
   | expression BITW_OR attribute_instance* expression
   | expression LOGICAL_AND attribute_instance* expression
   | expression LOGICAL_OR attribute_instance* expression
-  | <assoc = right> expression (LOGICAL_AND expression)* QMARK attribute_instance* expression COLON
+  | <assoc = right> expression QMARK attribute_instance* expression COLON
       expression
   | <assoc = right> expression (COND_PRED_OP expression)+ QMARK attribute_instance* expression COLON
       expression
