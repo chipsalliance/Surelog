@@ -32,6 +32,7 @@
 #include <memory>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include "Surelog/Cache/ParseCache.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
@@ -55,6 +56,60 @@
 #include "Surelog/Utils/Timer.h"
 
 namespace SURELOG {
+
+namespace {
+// `if (..) X else Y` -- in if_generate_construct and conditional_statement --
+// is the dangling-else decision `( ELSE ... | {LA(1) != ELSE}? )`.  The LRM
+// binds an `else` to the nearest `if`, so the answer is fixed by the next
+// token, but ANTLR's prediction does not know that: when the `if` is nested
+// in another `if` that has no `else`, both alternatives stay viable through
+// the WHOLE else body (up to 1434 tokens on black-parrot), and the predicate
+// is only evaluated after that lookahead.  Answer these two decisions from
+// LA(1) and leave every other decision to ANTLR.
+class SV3_1aParserATNSimulator : public antlr4::atn::ParserATNSimulator {
+ public:
+  SV3_1aParserATNSimulator(antlr4::Parser* parser,
+                           antlr4::atn::ParserATNSimulator* base,
+                           const antlr4::atn::ParserATNSimulatorOptions& opts)
+      : antlr4::atn::ParserATNSimulator(parser, parser->getATN(),
+                                        base->decisionToDFA,
+                                        base->getSharedContextCache(), opts),
+        m_elseDecisions(elseDecisions(parser->getATN())) {}
+
+  size_t adaptivePredict(antlr4::TokenStream* input, size_t decision,
+                         antlr4::ParserRuleContext* outerContext) override {
+    for (size_t d : m_elseDecisions) {
+      if (d == decision) return input->LA(1) == SV3_1aParser::ELSE ? 1 : 2;
+    }
+    return antlr4::atn::ParserATNSimulator::adaptivePredict(input, decision,
+                                                            outerContext);
+  }
+
+ private:
+  // The two decisions, found in the ATN once: a two-alternative decision in
+  // one of the two rules whose first alternative starts with ELSE.
+  static const std::vector<size_t>& elseDecisions(const antlr4::atn::ATN& atn) {
+    static const std::vector<size_t> decisions = [&atn]() {
+      std::vector<size_t> found;
+      for (size_t d = 0; d < atn.decisionToState.size(); ++d) {
+        const antlr4::atn::DecisionState* ds = atn.decisionToState[d];
+        if (ds->ruleIndex != SV3_1aParser::RuleIf_generate_construct &&
+            ds->ruleIndex != SV3_1aParser::RuleConditional_statement)
+          continue;
+        if (ds->transitions.size() != 2) continue;
+        if (atn.nextTokens(ds->transitions[0]->target)
+                .contains(static_cast<size_t>(SV3_1aParser::ELSE)))
+          found.push_back(d);
+      }
+      return found;
+    }();
+    return decisions;
+  }
+
+  const std::vector<size_t>& m_elseDecisions;
+};
+}  // namespace
+
 ParseFile::ParseFile(PathId fileId, SymbolTable* symbolTable,
                      ErrorContainer* errors)
     : m_fileId(fileId),
@@ -363,6 +418,13 @@ bool ParseFile::parseOneFile_(PathId fileId, uint32_t lineOffset) {
 
   m_antlrParserHandler->m_parser =
       new SV3_1aParser(m_antlrParserHandler->m_tokens, options);
+  {
+    // Replaces (and deletes) the generated simulator; same DFA cache.
+    antlr4::Parser* parser = m_antlrParserHandler->m_parser;
+    parser->setInterpreter(new SV3_1aParserATNSimulator(
+        parser, parser->getInterpreter<antlr4::atn::ParserATNSimulator>(),
+        options));
+  }
 #else
   m_antlrParserHandler->m_parser =
       new SV3_1aParser(m_antlrParserHandler->m_tokens);

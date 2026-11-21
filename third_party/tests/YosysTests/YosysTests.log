@@ -5233,9 +5233,6 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_N_width.v:15:29: Syntax error: no viable alternative at input 'int[',
             assign q[w] = int[w];
                              ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_N_width.v:17:8: Syntax error: rule if_generate_construct failed predicate: _input->LA(1) != ELSE?,
-        else begin
-        ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_N_width.v:18:37: Syntax error: no viable alternative at input 'int[',
             always @(negedge clk) int[w] <= { int[w][depth-2:0], i[w] };
                                      ^--.
@@ -5243,7 +5240,7 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
             assign q[w] = int[w][depth-1];
                              ^--.
 [  FATAL] : 0
-[ SYNTAX] : 7
+[ SYNTAX] : 6
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -5272,12 +5269,12 @@ Processing: -cd architecture/synth_xilinx_srl test21b.v -writepp -parse -nocache
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/test21b.v:11:22: Syntax error: no viable alternative at input 'int;',
         assign q = int;
                       ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/test21b.v:13:4: Syntax error: rule if_generate_construct failed predicate: _input->LA(1) != ELSE?,
-    else begin
-    ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/test21b.v:14:41: Syntax error: no viable alternative at input 'int <=',
         always @(negedge clk) if (e) int <= { int[depth-2:0], ~^i[width-1:0] };
                                          ^--.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/test21b.v:15:22: Syntax error: no viable alternative at input 'int[',
+        assign q = int[depth-1];
+                      ^--.
 [  FATAL] : 0
 [ SYNTAX] : 10
 [  ERROR] : 0
@@ -5344,9 +5341,6 @@ Processing: -cd architecture/synth_xilinx_srl sr_var_length_other_users_port.v -
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/sr_var_length_other_users_port.v:16:29: Syntax error: no viable alternative at input 'int[',
             assign q[w] = int[w];
                              ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/sr_var_length_other_users_port.v:18:8: Syntax error: rule if_generate_construct failed predicate: _input->LA(1) != ELSE?,
-        else begin
-        ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/sr_var_length_other_users_port.v:19:44: Syntax error: no viable alternative at input 'int[',
             always @(negedge clk) if (e) int[w] <= {{ int[w][depth-2:0], i[w] }};
                                             ^--.
@@ -5357,7 +5351,7 @@ Processing: -cd architecture/synth_xilinx_srl sr_var_length_other_users_port.v -
     assign state = int[0];
                       ^--.
 [  FATAL] : 0
-[ SYNTAX] : 8
+[ SYNTAX] : 7
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -5374,6 +5368,9 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:14:70: Syntax error: extraneous input 'else' expecting {';', 'default', '(', 'extern', 'interface', 'virtual', 'class', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'rand', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'modport', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'begin', 'end', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
             always @(negedge clk or posedge r) if (r) int[w] <= 1'b0; else int[w] <= a[w];
                                                                       ^--.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:14:78: Syntax error: no viable alternative at input 'int[',
+            always @(negedge clk or posedge r) if (r) int[w] <= 1'b0; else int[w] <= a[w];
+                                                                              ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:15:29: Syntax error: no viable alternative at input 'int[',
             assign q[w] = int[w];
                              ^--.
@@ -5389,9 +5386,6 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:19:29: Syntax error: no viable alternative at input 'int[',
             assign q[w] = int[w][l];
                              ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:21:4: Syntax error: extraneous input 'end' expecting {';', 'default', '(', 'extern', 'interface', 'virtual', 'class', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'rand', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'modport', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'begin', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'endgenerate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
-    end
-    ^--.
 [  FATAL] : 0
 [ SYNTAX] : 10
 [  ERROR] : 0
@@ -5446,9 +5440,6 @@ Processing: -cd architecture/synth_xilinx_srl sr_var_length_other_users_xor.v -w
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/sr_var_length_other_users_xor.v:16:29: Syntax error: no viable alternative at input 'int[',
             assign q[w] = int[w];
                              ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/sr_var_length_other_users_xor.v:18:8: Syntax error: rule if_generate_construct failed predicate: _input->LA(1) != ELSE?,
-        else begin
-        ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/sr_var_length_other_users_xor.v:19:44: Syntax error: no viable alternative at input 'int[',
             always @(negedge clk) if (e) int[w] <= {{ int[w][depth-2:0], i[w] }};
                                             ^--.
@@ -5459,7 +5450,7 @@ Processing: -cd architecture/synth_xilinx_srl sr_var_length_other_users_xor.v -w
     assign state = {depth{^int[0]}};
                               ^--.
 [  FATAL] : 0
-[ SYNTAX] : 8
+[ SYNTAX] : 7
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -5514,6 +5505,9 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_with_reset.v:14:70: Syntax error: extraneous input 'else' expecting {';', 'default', '(', 'extern', 'interface', 'virtual', 'class', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'rand', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'modport', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'begin', 'end', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
             always @(negedge clk or posedge r) if (r) int[w] <= 1'b0; else int[w] <= i[w];
                                                                       ^--.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_with_reset.v:14:78: Syntax error: no viable alternative at input 'int[',
+            always @(negedge clk or posedge r) if (r) int[w] <= 1'b0; else int[w] <= i[w];
+                                                                              ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_with_reset.v:15:29: Syntax error: no viable alternative at input 'int[',
             assign q[w] = int[w];
                              ^--.
@@ -5529,9 +5523,6 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_with_reset.v:19:29: Syntax error: no viable alternative at input 'int[',
             assign q[w] = int[w][depth-1];
                              ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/neg_clk_no_enable_with_init_with_inferred_with_reset.v:21:4: Syntax error: extraneous input 'end' expecting {';', 'default', '(', 'extern', 'interface', 'virtual', 'class', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'rand', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'modport', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'begin', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'endgenerate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
-    end
-    ^--.
 [  FATAL] : 0
 [ SYNTAX] : 10
 [  ERROR] : 0
@@ -5658,9 +5649,6 @@ Processing: -cd architecture/synth_xilinx_srl test20.v -writepp -parse -nocache 
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/test20.v:12:48: Syntax error: no viable alternative at input 'int[',
                 always @(negedge clk) if (e) int[d][w] <= i[w];
                                                 ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/test20.v:14:12: Syntax error: rule if_generate_construct failed predicate: _input->LA(1) != ELSE?,
-            else begin
-            ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/YosysTests/architecture/synth_xilinx_srl/test20.v:15:48: Syntax error: no viable alternative at input 'int[',
                 always @(negedge clk) if (e) int[d][w] <= int[d-1][w];
                                                 ^--.
@@ -5668,7 +5656,7 @@ Processing: -cd architecture/synth_xilinx_srl test20.v -writepp -parse -nocache 
     assign z = int[depth-1];
                   ^--.
 [  FATAL] : 0
-[ SYNTAX] : 6
+[ SYNTAX] : 5
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -11012,7 +11000,7 @@ Processing: -cd regression/issue_01329 synchronizer.sv -writepp -parse -nocache 
 [   NOTE] : 0
 Processed 1309 tests.
 [  FATAL] : 0
-[ SYNTAX] : 244
+[ SYNTAX] : 240
 [  ERROR] : 40
 [WARNING] : 2370
 [   NOTE] : 0
