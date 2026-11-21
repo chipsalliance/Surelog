@@ -505,11 +505,11 @@ bool Compiler::createMultiProcessPreProcessor_() {
   // other branch of every `ifdef SURELOG under -lowmem / -mp.
   const std::string_view noBuiltin =
       m_commandLineParser->parseBuiltIn() ? " " : " -nobuiltin ";
-  std::string batchCmd = StrCat(profile, fileUnit, sverilog, synth, noHash,
-                                noBuiltin,
-                                " -writepp -mt 0 -mp 0 -parse "
-                                "-nocomp -nostdout -l preprocessing.log -cd ",
-                                workingDir, fileList);
+  std::string batchCmd =
+      StrCat(profile, fileUnit, sverilog, synth, noHash, noBuiltin,
+             " -writepp -mt 0 -mp 0 -parse "
+             "-nocomp -nostdout -l preprocessing.log -cd ",
+             workingDir, fileList);
   for (const std::string& wd : fileSystem->getWorkingDirs()) {
     StrAppend(&batchCmd, " -wd ", wd);
   }
