@@ -29,9 +29,13 @@
 
 #include <cstdint>
 #include <iostream>
+#include <map>
 #include <memory>
+#include <mutex>
+#include <set>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 #include "Surelog/Cache/ParseCache.h"
@@ -66,6 +70,15 @@ namespace {
 // the WHOLE else body (up to 1434 tokens on black-parrot), and the predicate
 // is only evaluated after that lookahead.  Answer these two decisions from
 // LA(1) and leave every other decision to ANTLR.
+//
+// The same holds for the `?` of a conditional operator in `expression` and
+// `constant_expression`.  At each `?` the precedence loop decides whether to
+// continue (the conditional alternative) or to exit, and both stay viable
+// to the end of a right-associative chain `a ? b : c ? d : ...` until the
+// precedence predicate settles it -- so every `?` of a chain scanned the
+// rest of it.  Nothing else in those loops starts with `?`, so with LA(1)
+// == QMARK the answer is the conditional alternative's predicate,
+// precpred(ctx, K).
 class SV3_1aParserATNSimulator : public antlr4::atn::ParserATNSimulator {
  public:
   SV3_1aParserATNSimulator(antlr4::Parser* parser,
@@ -74,12 +87,20 @@ class SV3_1aParserATNSimulator : public antlr4::atn::ParserATNSimulator {
       : antlr4::atn::ParserATNSimulator(parser, parser->getATN(),
                                         base->decisionToDFA,
                                         base->getSharedContextCache(), opts),
-        m_elseDecisions(elseDecisions(parser->getATN())) {}
+        m_elseDecisions(elseDecisions(parser->getATN())),
+        m_conditionalDecisions(conditionalDecisions(parser->getATN())) {}
 
   size_t adaptivePredict(antlr4::TokenStream* input, size_t decision,
                          antlr4::ParserRuleContext* outerContext) override {
     for (size_t d : m_elseDecisions) {
       if (d == decision) return input->LA(1) == SV3_1aParser::ELSE ? 1 : 2;
+    }
+    for (const auto& [d, precedence] : m_conditionalDecisions) {
+      if (d == decision && input->LA(1) == SV3_1aParser::QMARK) {
+        if (!parser->precpred(outerContext, precedence)) return 2;
+        if (!enclosingRuleTakesQmark(outerContext)) return 1;
+        break;
+      }
     }
     return antlr4::atn::ParserATNSimulator::adaptivePredict(input, decision,
                                                             outerContext);
@@ -106,7 +127,132 @@ class SV3_1aParserATNSimulator : public antlr4::atn::ParserATNSimulator {
     return decisions;
   }
 
+  // The precedence-loop decision of `expression` and `constant_expression`
+  // (alt 1 enters the loop, alt 2 exits it), each with the precedence of the
+  // one loop alternative that can start with QMARK.  A rule whose loop has
+  // no such alternative, or more than one, is left to ANTLR.
+  static const std::vector<std::pair<size_t, int>>& conditionalDecisions(
+      const antlr4::atn::ATN& atn) {
+    static const std::vector<std::pair<size_t, int>> decisions = [&atn]() {
+      using antlr4::atn::ATNState;
+      using antlr4::atn::ATNStateType;
+      using antlr4::atn::DecisionState;
+      using antlr4::atn::PrecedencePredicateTransition;
+      using antlr4::atn::StarLoopEntryState;
+      std::vector<std::pair<size_t, int>> found;
+      for (size_t d = 0; d < atn.decisionToState.size(); ++d) {
+        const DecisionState* ds = atn.decisionToState[d];
+        if (ds->ruleIndex != SV3_1aParser::RuleExpression &&
+            ds->ruleIndex != SV3_1aParser::RuleConstant_expression)
+          continue;
+        if (ds->getStateType() != ATNStateType::STAR_LOOP_ENTRY ||
+            !static_cast<const StarLoopEntryState*>(ds)->isPrecedenceDecision ||
+            ds->transitions.size() != 2)
+          continue;
+        const ATNState* block = ds->transitions[0]->target;
+        if (block->getStateType() != ATNStateType::STAR_BLOCK_START) continue;
+        int precedence = -1;
+        int matches = 0;
+        for (const auto& alt : block->transitions) {
+          const ATNState* s = alt->target;
+          if (s->transitions.size() != 1 ||
+              !PrecedencePredicateTransition::is(*s->transitions[0]))
+            continue;
+          const auto* pred = static_cast<const PrecedencePredicateTransition*>(
+              s->transitions[0].get());
+          if (atn.nextTokens(pred->target)
+                  .contains(static_cast<size_t>(SV3_1aParser::QMARK))) {
+            precedence = pred->getPrecedence();
+            ++matches;
+          }
+        }
+        if (matches == 1) found.emplace_back(d, precedence);
+      }
+      return found;
+    }();
+    return decisions;
+  }
+
+  // Whether a rule enclosing this expression can consume the `?` itself, as
+  // in `x matches P ? a : b` (the pattern's expression must END before the
+  // `?`) or the operand after `&&&`.  Walks the invocation stack: at each
+  // level, what can follow the call before the caller's rule ends.  Reaching
+  // the precedence loop of expression / constant_expression does not count:
+  // that `?` is the same conditional operator, an ambiguity ANTLR resolves
+  // to alternative 1 as well.
+  bool enclosingRuleTakesQmark(antlr4::RuleContext* ctx) {
+    const antlr4::atn::ATN& atn = parser->getATN();
+    while (ctx != nullptr && !ctx->isEmpty()) {
+      const antlr4::atn::ATNState* invoking = atn.states[ctx->invokingState];
+      const auto* call = static_cast<const antlr4::atn::RuleTransition*>(
+          invoking->transitions[0].get());
+      const int follow = followFlags(call->followState);
+      if (follow & kTakesQmark) return true;
+      if (!(follow & kMayEnd)) return false;
+      ctx = static_cast<antlr4::RuleContext*>(ctx->parent);
+    }
+    return false;
+  }
+
+  static constexpr int kTakesQmark = 1;
+  static constexpr int kMayEnd = 2;
+
+  // Within the rule of `start`: can a QMARK be matched next (kTakesQmark),
+  // and can the rule end, or reach a conditional precedence loop, without
+  // consuming a token (kMayEnd)?  Cached per state, shared by all parsers.
+  int followFlags(const antlr4::atn::ATNState* start) {
+    using antlr4::atn::ATN;
+    using antlr4::atn::ATNState;
+    using antlr4::atn::ATNStateType;
+    using antlr4::atn::RuleTransition;
+    using antlr4::atn::TransitionType;
+    static std::mutex mutex;
+    static std::map<const ATNState*, int> cache;
+    std::scoped_lock<std::mutex> lock(mutex);
+    if (auto it = cache.find(start); it != cache.end()) return it->second;
+    const ATN& atn = parser->getATN();
+    const size_t qmark = SV3_1aParser::QMARK;
+    int flags = 0;
+    std::vector<const ATNState*> stack{start};
+    std::set<const ATNState*> seen{start};
+    auto push = [&](const ATNState* s) {
+      if (seen.insert(s).second) stack.push_back(s);
+    };
+    while (!stack.empty()) {
+      const ATNState* s = stack.back();
+      stack.pop_back();
+      if (s->getStateType() == ATNStateType::RULE_STOP) {
+        flags |= kMayEnd;
+        continue;
+      }
+      bool loop = false;
+      for (const auto& [d, precedence] : m_conditionalDecisions) {
+        if (atn.decisionToState[d] == s) loop = true;
+      }
+      if (loop) {
+        flags |= kMayEnd;
+        continue;
+      }
+      for (const auto& t : s->transitions) {
+        if (t->getTransitionType() == TransitionType::RULE) {
+          const auto* call = static_cast<const RuleTransition*>(t.get());
+          const antlr4::misc::IntervalSet first = atn.nextTokens(call->target);
+          if (first.contains(qmark)) flags |= kTakesQmark;
+          if (first.contains(antlr4::Token::EPSILON)) push(call->followState);
+        } else if (t->isEpsilon()) {
+          push(t->target);
+        } else if (t->matches(qmark, antlr4::Token::MIN_USER_TOKEN_TYPE,
+                              atn.maxTokenType)) {
+          flags |= kTakesQmark;
+        }
+      }
+    }
+    cache.emplace(start, flags);
+    return flags;
+  }
+
   const std::vector<size_t>& m_elseDecisions;
+  const std::vector<std::pair<size_t, int>>& m_conditionalDecisions;
 };
 }  // namespace
 
