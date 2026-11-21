@@ -430,205 +430,6 @@ bool Compiler::createFileList_() {
   return true;
 }
 
-bool Compiler::createMultiProcessParser_() {
-  uint32_t nbProcesses = m_commandLineParser->getNbMaxProcesses();
-  if (nbProcesses == 0) return true;
-
-  if (!(m_commandLineParser->writePpOutput() ||
-        m_commandLineParser->writePpOutputFileId())) {
-    return true;
-  }
-
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  SymbolTable* symbolTable = getSymbolTable();
-
-  // Create CMakeLists.txt
-  const bool muted = m_commandLineParser->muteStdout();
-  const fs::path outputDir =
-      fileSystem->toPlatformAbsPath(m_commandLineParser->getOutputDirId());
-  const fs::path programPath =
-      fileSystem->toPlatformAbsPath(m_commandLineParser->getProgramId());
-  const std::string_view profile =
-      m_commandLineParser->profile() ? " -profile " : " ";
-  const std::string_view sverilog =
-      m_commandLineParser->fullSVMode() ? " -sverilog " : " ";
-  const std::string_view fileUnit =
-      m_commandLineParser->fileunit() ? " -fileunit " : " ";
-  std::string synth =
-      m_commandLineParser->reportNonSynthesizable() ? " -synth " : " ";
-  synth += m_commandLineParser->reportNonSynthesizableWithFormal() ? " -formal "
-                                                                   : " ";
-  const std::string_view noHash =
-      m_commandLineParser->noCacheHash() ? " -nohash " : " ";
-
-  // Optimize the load balance, try to even out the work in each thread by
-  // the size of the files
-  std::vector<std::vector<CompileSourceFile*>> jobArray(nbProcesses);
-  std::vector<uint64_t> jobSize(nbProcesses, 0);
-  size_t largestJob = 0;
-  for (const auto& compiler : m_compilers) {
-    size_t size = compiler->getJobSize(CompileSourceFile::Action::Parse);
-    if (size > largestJob) {
-      largestJob = size;
-    }
-  }
-
-  uint32_t bigJobThreashold = (largestJob / nbProcesses) * 3;
-  std::vector<CompileSourceFile*> bigJobs;
-  Precompiled* prec = Precompiled::getSingleton();
-
-  const fs::path workingDir = fileSystem->getWorkingDir();
-  for (const auto& compiler : m_compilers) {
-    if (prec->isFilePrecompiled(compiler->getFileId(),
-                                compiler->getSymbolTable())) {
-      continue;
-    }
-    uint32_t size = compiler->getJobSize(CompileSourceFile::Action::Parse);
-    if (size > bigJobThreashold) {
-      bigJobs.push_back(compiler);
-      continue;
-    }
-    uint32_t newJobIndex = 0;
-    uint64_t minJobQueue = ULLONG_MAX;
-    for (size_t ii = 0; ii < nbProcesses; ii++) {
-      if (jobSize[ii] < minJobQueue) {
-        newJobIndex = ii;
-        minJobQueue = jobSize[ii];
-      }
-    }
-    jobSize[newJobIndex] += size;
-    jobArray[newJobIndex].push_back(compiler);
-  }
-
-  std::vector<std::string> batchProcessCommands;
-  std::vector<std::string> targets;
-  int32_t absoluteIndex = 0;
-
-  // Big jobs
-  for (CompileSourceFile* compiler : bigJobs) {
-    absoluteIndex++;
-    std::string targetname =
-        StrCat(absoluteIndex, "_",
-               std::get<1>(fileSystem->getLeaf(compiler->getPpOutputFileId(),
-                                               compiler->getSymbolTable())));
-    std::string_view svFile =
-        m_commandLineParser->isSVFile(compiler->getFileId()) ? " -sv " : " ";
-    std::string batchCmd =
-        StrCat(profile, fileUnit, sverilog, synth, noHash,
-               " -parseonly -nostdout -nobuiltin -mt 0 -mp 0 -l ",
-               targetname + ".log ", svFile,
-               fileSystem->toPath(compiler->getPpOutputFileId()));
-    for (const std::string& wd : fileSystem->getWorkingDirs()) {
-      StrAppend(&batchCmd, " -wd ", wd);
-    }
-
-    if (nbProcesses > 1) {
-      StrAppend(&batchCmd, " -o ", outputDir);
-    }
-
-    targets.emplace_back(std::move(targetname));
-    batchProcessCommands.emplace_back(std::move(batchCmd));
-  }
-
-  // Small jobs batch in clump processes
-  for (size_t i = 0; i < nbProcesses; i++) {
-    std::string fileList;
-    absoluteIndex++;
-    for (const auto compiler : jobArray[i]) {
-      fs::path fileName =
-          fileSystem->toPlatformAbsPath(compiler->getPpOutputFileId());
-      std::string_view svFile =
-          m_commandLineParser->isSVFile(compiler->getFileId()) ? " -sv " : " ";
-      StrAppend(&fileList, svFile, fileName);
-    }
-    if (!fileList.empty()) {
-      std::string targetname =
-          StrCat(std::to_string(absoluteIndex), "_",
-                 std::get<1>(fileSystem->getLeaf(
-                     jobArray[i].back()->getPpOutputFileId(),
-                     jobArray[i].back()->getSymbolTable())));
-
-      std::string batchCmd =
-          StrCat(profile, fileUnit, sverilog, synth, noHash,
-                 " -parseonly -nostdout -nobuiltin -mt 0 -mp 0 -l ",
-                 targetname + ".log ", fileList);
-      for (const std::string& wd : fileSystem->getWorkingDirs()) {
-        StrAppend(&batchCmd, " -wd ", wd);
-      }
-
-      if (nbProcesses > 1) {
-        StrAppend(&batchCmd, " -o ", outputDir);
-      }
-
-      targets.emplace_back(std::move(targetname));
-      batchProcessCommands.emplace_back(std::move(batchCmd));
-    }
-  }
-
-  const PathId dirId = fileSystem->getPpMultiprocessingDir(
-      m_commandLineParser->fileunit(), symbolTable);
-  fileSystem->mkdirs(dirId);
-
-  if (nbProcesses == 1) {
-    // Single child process
-    const PathId fileId =
-        fileSystem->getChild(dirId, "parser_batch.txt", symbolTable);
-    if (!fileSystem->writeLines(fileId, batchProcessCommands)) {
-      std::cerr << "FATAL: Could not create file: " << PathIdPP(fileId)
-                << std::endl;
-      return false;
-    }
-
-    const std::string command =
-        StrCat("cd ", workingDir, "; ", programPath, " -o ", outputDir,
-               " -nostdout -batch ", fileSystem->toPath(fileId));
-    if (!muted) std::cout << "Running: " << command << std::endl << std::flush;
-    int32_t result = system(command.c_str());
-    if (!muted) std::cout << "Surelog parsing status: " << result << std::endl;
-    if (!result) return false;
-  } else {
-    // Multiple child processes managed by cmake
-    const PathId fileId =
-        fileSystem->getChild(dirId, "CMakeLists.txt", symbolTable);
-    std::ostream& ofs = fileSystem->openForWrite(fileId);
-    if (ofs.good()) {
-      ofs << "cmake_minimum_required (VERSION 3.0)" << std::endl;
-      ofs << "# Auto generated by Surelog" << std::endl;
-      ofs << "project(SurelogParsing NONE)" << std::endl << std::endl;
-
-      for (int32_t i = 0, n = targets.size(); i < n; ++i) {
-        ofs << "add_custom_command(OUTPUT " << targets[i] << std::endl;
-        ofs << "  COMMAND " << programPath << batchProcessCommands[i];
-        ofs << std::endl;
-        ofs << "  WORKING_DIRECTORY " << workingDir << std::endl;
-        ofs << ")" << std::endl;
-      }
-      ofs << std::endl;
-
-      ofs << "add_custom_target(Parse ALL DEPENDS" << std::endl;
-      for (const auto& target : targets) {
-        ofs << "  " << target << std::endl;
-      }
-      ofs << ")" << std::endl;
-      ofs << std::flush;
-      fileSystem->close(ofs);
-    } else {
-      std::cerr << "FATAL: Could not create file: " << PathIdPP(fileId)
-                << std::endl;
-      return false;
-    }
-
-    const std::string command =
-        StrCat("cd ", fileSystem->toPath(dirId),
-               "; cmake -G \"Unix Makefiles\" .; make -j ", nbProcesses);
-    if (!muted) std::cout << "Running: " << command << std::endl << std::flush;
-    int32_t result = system(command.c_str());
-    if (!muted) std::cout << "Surelog parsing status: " << result << std::endl;
-    if (!result) return false;
-  }
-  return true;
-}
-
 bool Compiler::createMultiProcessPreProcessor_() {
   uint32_t nbProcesses = m_commandLineParser->getNbMaxProcesses();
   if (nbProcesses == 0) return true;
@@ -693,9 +494,13 @@ bool Compiler::createMultiProcessPreProcessor_() {
     StrAppend(&fileList, " -I", fileSystem->toPath(id));
   }
 
+  // The child preprocesses AND parses, writing both caches for this process
+  // to restore (so under -lowmem the parse trees never live here).  It used
+  // to pass -noparse, which the `-o` added to its command line overrode: it
+  // parsed anyway, and the parsing children then parsed everything again.
   std::string batchCmd = StrCat(profile, fileUnit, sverilog, synth, noHash,
-                                " -writepp -mt 0 -mp 0 -nobuiltin -noparse "
-                                "-nostdout -l preprocessing.log -cd ",
+                                " -writepp -mt 0 -mp 0 -nobuiltin -parse "
+                                "-nocomp -nostdout -l preprocessing.log -cd ",
                                 workingDir, fileList);
   for (const std::string& wd : fileSystem->getWorkingDirs()) {
     StrAppend(&batchCmd, " -wd ", wd);
@@ -1074,7 +879,11 @@ bool Compiler::compile() {
       m_commandLineParser->pythonEvalScript()) {
     parseinit_();
     createFileList_();
-    createMultiProcessParser_();
+    // No separate parsing children: in multi-process mode (-mp N, -lowmem)
+    // the preprocessing child also parses every file into the parse cache
+    // restored below.  The `-parseonly` children that used to follow parsed
+    // the preprocessed OUTPUT files again and cached them under keys this
+    // process never looks up, so their work was always discarded.
     parserInitialized = true;
     if (!compileFileSet_(CompileSourceFile::Parse, true, m_compilers)) {
       return false;  // Small files and large file chunks

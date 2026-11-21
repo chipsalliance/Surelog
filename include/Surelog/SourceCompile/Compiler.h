@@ -109,7 +109,6 @@ class Compiler {
   bool ppinit_();
   bool createFileList_();
   bool createMultiProcessPreProcessor_();
-  bool createMultiProcessParser_();
   bool parseinit_();
   bool pythoninit_();
   bool compileFileSet_(CompileSourceFile::Action action, bool allowMultithread,
