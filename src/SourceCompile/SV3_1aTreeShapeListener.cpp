@@ -1532,8 +1532,8 @@ void SV3_1aTreeShapeListener::exitExpression(
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
                  VObjectType::paBinOp_BitwAnd);
-  } else if (!ctx->LOGICAL_AND().empty()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_AND()[0],
+  } else if (ctx->LOGICAL_AND()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_AND(),
                VObjectType::paBinOp_LogicAnd);
   } else if (ctx->LOGICAL_OR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_OR(),
@@ -1733,8 +1733,8 @@ void SV3_1aTreeShapeListener::exitConstant_expression(
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
                  VObjectType::paBinOp_BitwAnd);
-  } else if (!ctx->LOGICAL_AND().empty()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_AND()[0],
+  } else if (ctx->LOGICAL_AND()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_AND(),
                VObjectType::paBinOp_LogicAnd);
   } else if (ctx->LOGICAL_OR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_OR(),
