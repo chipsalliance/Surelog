@@ -134,7 +134,11 @@ class SV3_1aParserATNSimulator : public antlr4::atn::ParserATNSimulator {
   static const std::vector<std::pair<size_t, int>>& conditionalDecisions(
       const antlr4::atn::ATN& atn) {
     static const std::vector<std::pair<size_t, int>> decisions = [&atn]() {
-      using namespace antlr4::atn;
+      using antlr4::atn::ATNState;
+      using antlr4::atn::ATNStateType;
+      using antlr4::atn::DecisionState;
+      using antlr4::atn::PrecedencePredicateTransition;
+      using antlr4::atn::StarLoopEntryState;
       std::vector<std::pair<size_t, int>> found;
       for (size_t d = 0; d < atn.decisionToState.size(); ++d) {
         const DecisionState* ds = atn.decisionToState[d];
@@ -197,7 +201,11 @@ class SV3_1aParserATNSimulator : public antlr4::atn::ParserATNSimulator {
   // and can the rule end, or reach a conditional precedence loop, without
   // consuming a token (kMayEnd)?  Cached per state, shared by all parsers.
   int followFlags(const antlr4::atn::ATNState* start) {
-    using namespace antlr4::atn;
+    using antlr4::atn::ATN;
+    using antlr4::atn::ATNState;
+    using antlr4::atn::ATNStateType;
+    using antlr4::atn::RuleTransition;
+    using antlr4::atn::TransitionType;
     static std::mutex mutex;
     static std::map<const ATNState*, int> cache;
     std::scoped_lock<std::mutex> lock(mutex);
