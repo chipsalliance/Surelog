@@ -498,6 +498,8 @@ bool ErrorDefinition::init() {
   rec(UHDM_FORCING_UNSIGNED_TYPE, WARNING, UHDM,
       "Critical: Forcing signal to unsigned type due to unsigned port binding "
       "\"%s\"");
+  rec(UHDM_NON_CONSTANT_EXPRESSION, ERROR, UHDM,
+      "Non-constant \"%s\" in a constant expression");
   return true;
 }
 
