@@ -28,6 +28,7 @@
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/ClockingBlock.h"
+#include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileCNodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
@@ -69,6 +70,8 @@
 #include <uhdm/vpi_user.h>
 
 #include <cstdint>
+#include <map>
+#include <set>
 #include <stack>
 #include <string>
 #include <string_view>
@@ -172,6 +175,7 @@ bool CompileModule::compile() {
       if (!collectModuleObjects_(CollectType::DEFINITION)) return false;
       if (!collectModuleObjects_(CollectType::GENERATE_REGIONS)) return false;
       if (!collectModuleObjects_(CollectType::OTHER)) return false;
+      importUnitScopeSignals_();
       if (!checkModule_()) return false;
       break;
     case VObjectType::paLoop_generate_construct:
@@ -194,6 +198,7 @@ bool CompileModule::compile() {
       if (!collectInterfaceObjects_(CollectType::DEFINITION)) return false;
       if (!collectModuleObjects_(CollectType::GENERATE_REGIONS)) return false;
       if (!collectInterfaceObjects_(CollectType::OTHER)) return false;
+      importUnitScopeSignals_();
       if (!checkInterface_()) return false;
       break;
     case VObjectType::paGenerate_interface_conditional_statement:
@@ -237,6 +242,63 @@ bool CompileModule::compile() {
   }
 
   return true;
+}
+
+// A variable declared at file scope belongs to the compilation-unit scope
+// ($unit, LRM 3.12.1) and is visible to every module of the unit.  Surelog
+// compiles such declarations onto the FileContent but never elaborates them,
+// so a reference from a module body used to bind to a fabricated implicit net
+// (and a procedural write to it raised UH0718).  Give every module that
+// references one -- and does not declare the name itself -- the $unit
+// signal as one of its own, so it is elaborated like a module variable.
+void CompileModule::importUnitScopeSignals_() {
+  const FileContent* const fC = m_module->m_fileContents[0];
+  const NodeId modId = m_module->m_nodeIds[0];
+
+  // Candidate $unit signals: the module's own file first, then any other
+  // file of the design (by default every file belongs to one unit).
+  std::map<std::string_view, Signal*> unitSigs;
+  std::set<std::string_view> ambiguous;
+  auto collect = [&](const FileContent* file, bool own) {
+    for (Signal* sig : const_cast<FileContent*>(file)->getSignals()) {
+      const std::string_view name = sig->getName();
+      auto [itr, inserted] = unitSigs.emplace(name, sig);
+      if (!inserted && !own && itr->second != sig &&
+          itr->second->getFileContent() != fC) {
+        ambiguous.insert(name);
+      }
+    }
+  };
+  collect(fC, true);
+  for (const auto& p :
+       m_compileDesign->getCompiler()->getDesign()->getAllFileContents()) {
+    if (p.second != fC) collect(p.second, false);
+  }
+  for (std::string_view name : ambiguous) unitSigs.erase(name);
+  if (unitSigs.empty()) return;
+
+  // Names the module declares itself shadow the $unit ones.
+  for (Signal* sig : m_module->getPorts()) unitSigs.erase(sig->getName());
+  for (Signal* sig : m_module->getSignals()) unitSigs.erase(sig->getName());
+  if (unitSigs.empty()) return;
+
+  // Keep only the names the module body actually references.
+  std::set<std::string_view> referenced;
+  std::stack<NodeId> stack;
+  if (NodeId child = fC->Child(modId)) stack.push(child);
+  while (!stack.empty()) {
+    NodeId id = stack.top();
+    stack.pop();
+    if (fC->Type(id) == VObjectType::slStringConst) {
+      const std::string_view name = fC->SymName(id);
+      if (unitSigs.find(name) != unitSigs.end()) referenced.insert(name);
+    }
+    if (NodeId sibling = fC->Sibling(id)) stack.push(sibling);
+    if (NodeId child = fC->Child(id)) stack.push(child);
+  }
+  for (std::string_view name : referenced) {
+    m_module->getSignals().push_back(unitSigs[name]);
+  }
 }
 
 bool CompileModule::collectUdpObjects_() {

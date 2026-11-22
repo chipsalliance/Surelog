@@ -84,6 +84,7 @@ class CompileModule final {
   enum CollectType { FUNCTION, DEFINITION, GENERATE_REGIONS, OTHER };
   bool collectModuleObjects_(CollectType collectType);
   bool checkModule_();
+  void importUnitScopeSignals_();
   bool collectInterfaceObjects_(CollectType collectType);
   bool checkInterface_();
   bool collectUdpObjects_();
