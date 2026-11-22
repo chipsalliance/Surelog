@@ -337,6 +337,8 @@ bool ErrorDefinition::init() {
       R"(Incompatible types: "%s" is assigned "%exobj")");
   rec(COMP_MULTIPLY_DEFINED_VARIABLE, WARNING, COMP,
       "Multiply defined variable \"%s\"", "%exloc previous definition");
+  rec(COMP_MULTIPLY_DEFINED_SIGNAL, ERROR, COMP,
+      "Multiply defined net or variable \"%s\"", "%exloc previous definition");
   rec(COMP_NO_METHOD_FOR_TYPE, ERROR, COMP,
       "Function \"%exobj\" is not defined for variable %s",
       "%exloc type definition");
