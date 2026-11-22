@@ -270,8 +270,8 @@ void CompileModule::importUnitScopeSignals_() {
     }
   };
   collect(fC, true);
-  for (const auto& p : m_compileDesign->getCompiler()->getDesign()
-                           ->getAllFileContents()) {
+  for (const auto& p :
+       m_compileDesign->getCompiler()->getDesign()->getAllFileContents()) {
     if (p.second != fC) collect(p.second, false);
   }
   for (std::string_view name : ambiguous) unitSigs.erase(name);
