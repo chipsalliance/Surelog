@@ -1164,13 +1164,43 @@ VectorOfany* CompileHelper::compileDataDeclaration(
     const_status = true;
     type = fC->Type(nodeId);
   }
+  // `var [lifetime] variable_impl_declaration` (6.8): the `var` keyword with
+  // an explicit or implicit data type, e.g. `var x;`, `var [7:0] y;`,
+  // `var signed [8:0] z;`, `var logic [9:0] w;`.
+  if (type == VObjectType::paVar_type) {
+    nodeId = fC->Sibling(nodeId);
+    type = fC->Type(nodeId);
+    if (type == VObjectType::paLifetime_Automatic ||
+        type == VObjectType::paLifetime_Static) {
+      automatic_status = (type == VObjectType::paLifetime_Automatic);
+      nodeId = fC->Sibling(nodeId);
+      type = fC->Type(nodeId);
+    }
+  }
   switch (type) {
     case VObjectType::paAssertion_variable_declaration:
+    case VObjectType::paVariable_impl_declaration:
     case VObjectType::paVariable_declaration: {
       NodeId Data_type = fC->Child(nodeId);
+      // A `var` declaration with an IMPLICIT type is a logic variable whose
+      // signing and packed dimensions hang off the Data_type_or_implicit
+      // node; an explicit type is the Data_type below it.
+      NodeId Implicit_type;
+      if (fC->Type(Data_type) == VObjectType::paData_type_or_implicit) {
+        NodeId child = fC->Child(Data_type);
+        if (child && fC->Type(child) == VObjectType::paData_type) {
+          Implicit_type = InvalidNodeId;
+        } else {
+          Implicit_type = Data_type;
+        }
+      }
       // typespec* ts = compileTypespec(component, fC, Data_type,
       // compileDesign);
       NodeId List_of_variable_decl_assignments = fC->Sibling(Data_type);
+      if (!Implicit_type &&
+          fC->Type(Data_type) == VObjectType::paData_type_or_implicit) {
+        Data_type = fC->Child(Data_type);
+      }
       if (fC->Type(List_of_variable_decl_assignments) ==
           VObjectType::paPacked_dimension) {
         List_of_variable_decl_assignments =
@@ -1202,9 +1232,27 @@ VectorOfany* CompileHelper::compileDataDeclaration(
         }
         NodeId Expression = tmp;
 
-        variables* var =
-            (variables*)compileVariable(component, fC, Data_type, compileDesign,
-                                        Reduce::No, pstmt, instance, false);
+        variables* var = nullptr;
+        if (Implicit_type) {
+          logic_var* lvar = s.MakeLogic_var();
+          if (typespec* ts =
+                  compileTypespec(component, fC, Implicit_type, compileDesign,
+                                  Reduce::No, pstmt, instance, true)) {
+            ref_typespec* rt = s.MakeRef_typespec();
+            rt->VpiParent(lvar);
+            rt->Actual_typespec(ts);
+            fC->populateCoreMembers(Implicit_type, Implicit_type, rt);
+            lvar->Typespec(rt);
+            if (ts->UhdmType() == uhdmlogic_typespec &&
+                static_cast<logic_typespec*>(ts)->VpiSigned())
+              lvar->VpiSigned(true);
+          }
+          var = lvar;
+        } else {
+          var = (variables*)compileVariable(component, fC, Data_type,
+                                            compileDesign, Reduce::No, pstmt,
+                                            instance, false);
+        }
 
         if (var) {
           fC->populateCoreMembers(Var, Var, var);
