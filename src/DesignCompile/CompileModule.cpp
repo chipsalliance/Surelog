@@ -176,6 +176,7 @@ bool CompileModule::compile() {
       if (!collectModuleObjects_(CollectType::GENERATE_REGIONS)) return false;
       if (!collectModuleObjects_(CollectType::OTHER)) return false;
       importUnitScopeSignals_();
+      checkDuplicateSignals_();
       if (!checkModule_()) return false;
       break;
     case VObjectType::paLoop_generate_construct:
@@ -199,6 +200,7 @@ bool CompileModule::compile() {
       if (!collectModuleObjects_(CollectType::GENERATE_REGIONS)) return false;
       if (!collectInterfaceObjects_(CollectType::OTHER)) return false;
       importUnitScopeSignals_();
+      checkDuplicateSignals_();
       if (!checkInterface_()) return false;
       break;
     case VObjectType::paGenerate_interface_conditional_statement:
@@ -298,6 +300,69 @@ void CompileModule::importUnitScopeSignals_() {
   }
   for (std::string_view name : referenced) {
     m_module->getSignals().push_back(unitSigs[name]);
+    m_unitSignals.insert(unitSigs[name]);
+  }
+}
+
+// Two declarations of one name in the same module scope are illegal
+// (LRM 3.13): `reg [7:0] value, value;`, `wire w; logic w;`.  They were
+// accepted silently and the second one shadowed the first.  A port and the
+// ONE net/variable declaration that completes it (`output q; reg q;`) are
+// separate lists (m_ports / getSignals) and are not compared here.  A PORT
+// redeclared in the body (an ANSI `output [3:0] foo` followed by `reg [3:0]
+// foo;`) is illegal as well but common in older RTL and accepted by other
+// tools, so port names are left alone.
+void CompileModule::checkDuplicateSignals_() {
+  // An escaped identifier is spelled with or without its `\` and trailing
+  // blank depending on where it was recorded (`input \ip[9] ; wire \ip[9] ;`
+  // in a Vivado netlist).
+  auto norm = [](std::string_view n) {
+    if (!n.empty() && n.front() == '\\') n.remove_prefix(1);
+    while (!n.empty() && n.back() == ' ') n.remove_suffix(1);
+    return n;
+  };
+  std::set<std::string_view> portNames;
+  for (Signal* port : m_module->getPorts())
+    portNames.insert(norm(port->getName()));
+  // Only declarations written in THIS module's body: a wildcard-imported
+  // package variable shadowed by a local one (`import p::*; string m;`) is
+  // legal, and lands in the same list.
+  const FileContent* modFC = m_module->m_fileContents[0];
+  const NodeId modId = m_module->m_nodeIds[0];
+  auto inModule = [&](Signal* sig) {
+    const FileContent* f = sig->getFileContent();
+    if (f != modFC) return false;
+    uint32_t l = f->Line(sig->getNodeId());
+    return l >= modFC->Line(modId) && l <= modFC->EndLine(modId);
+  };
+  std::map<std::string_view, Signal*> seen;
+  for (Signal* sig : m_module->getSignals()) {
+    if (m_unitSignals.count(sig)) continue;
+    if (!inModule(sig)) continue;
+    if (portNames.count(norm(sig->getName()))) continue;
+    const FileContent* fC = sig->getFileContent();
+    if (fC->Type(sig->getNodeId()) != VObjectType::slStringConst) continue;
+    auto [itr, inserted] = seen.emplace(norm(sig->getName()), sig);
+    if (inserted) continue;
+    Signal* prev = itr->second;
+    const FileContent* pfC = prev->getFileContent();
+    // One declaration registered twice (UVM's package globals reach a
+    // module's list once per compile pass) is not a redefinition.
+    if (pfC == fC && prev->getNodeId() == sig->getNodeId()) continue;
+    // A direction declaration and the net/variable declaration completing
+    // it (`input \ip[0] ; wire \ip[0] ;` behind an explicit port expression
+    // `.ip({\ip[1] , \ip[0] })`, where `\ip[0]` is not a port name).
+    if (prev->getDirection() != VObjectType::slNoType ||
+        sig->getDirection() != VObjectType::slNoType)
+      continue;
+    Location loc1(fC->getFileId(sig->getNodeId()), fC->Line(sig->getNodeId()),
+                  fC->Column(sig->getNodeId()),
+                  m_symbols->registerSymbol(sig->getName()));
+    Location loc2(pfC->getFileId(prev->getNodeId()),
+                  pfC->Line(prev->getNodeId()), pfC->Column(prev->getNodeId()),
+                  m_symbols->registerSymbol(prev->getName()));
+    Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_SIGNAL, loc1, loc2);
+    m_errors->addError(err);
   }
 }
 

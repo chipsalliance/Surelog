@@ -85,6 +85,9 @@ class CompileModule final {
   bool collectModuleObjects_(CollectType collectType);
   bool checkModule_();
   void importUnitScopeSignals_();
+  void checkDuplicateSignals_();
+  // $unit signals importUnitScopeSignals_ added to the module.
+  std::set<Signal*> m_unitSignals;
   bool collectInterfaceObjects_(CollectType collectType);
   bool checkInterface_();
   bool collectUdpObjects_();

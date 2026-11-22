@@ -191,9 +191,21 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_flag_errorlimit_bad.v -l t_flag_errorlimit_bad.v.log
+[ERR:CP0346] ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:9:8: Multiply defined net or variable "u1",
+             ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:8:8: previous definition.
+[ERR:CP0346] ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:10:8: Multiply defined net or variable "u1",
+             ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:8:8: previous definition.
+[ERR:CP0346] ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:11:8: Multiply defined net or variable "u1",
+             ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:8:8: previous definition.
+[ERR:CP0346] ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:12:8: Multiply defined net or variable "u1",
+             ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:8:8: previous definition.
+[ERR:CP0346] ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:13:8: Multiply defined net or variable "u1",
+             ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:8:8: previous definition.
+[ERR:CP0346] ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:14:8: Multiply defined net or variable "u1",
+             ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_errorlimit_bad.v:8:8: previous definition.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 6
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_math_div0.v -l t_math_div0.v.log
@@ -5762,6 +5774,6 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 Processed 837 tests.
 [  FATAL] : 0
 [ SYNTAX] : 178
-[  ERROR] : 151
+[  ERROR] : 157
 [WARNING] : 43
 [   NOTE] : 0
