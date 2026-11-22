@@ -2543,8 +2543,11 @@ bool CompileHelper::compileDataDeclaration(
       NodeId data_decl = id;
       NodeId var_decl = fC->Child(data_decl);
       VObjectType type = fC->Type(data_decl);
+      // Module, program and compilation-unit ($unit) variables are static
+      // (LRM 6.21).
       bool is_static = (valuedcomponenti_cast<ModuleDefinition*>(component) ||
-                        valuedcomponenti_cast<Program*>(component));
+                        valuedcomponenti_cast<Program*>(component) ||
+                        valuedcomponenti_cast<FileContent*>(component));
       if (fC->Type(var_decl) == VObjectType::paLifetime_Automatic) {
         is_static = false;
         data_decl = fC->Sibling(var_decl);
