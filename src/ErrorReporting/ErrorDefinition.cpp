@@ -431,6 +431,8 @@ bool ErrorDefinition::init() {
       "%exloc interface definition for \"%exobj\"");
   rec(ELAB_UNKNOWN_PARAMETER_OVERRIDE, ERROR, ELAB,
       "Unknown parameter override \"%s\"");
+  rec(ELAB_LOCALPARAM_OVERRIDE, ERROR, ELAB,
+      "Cannot override localparam \"%s\"");
   rec(ELAB_UNKNOWN_PARAMETER_COMMAND, ERROR, ELAB,
       "Unknown parameter in command line override \"%s\"");
   rec(ELAB_EXPRESSION_LOOP, ERROR, ELAB, "Expression loop in instance \"%s\"");

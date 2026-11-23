@@ -82,6 +82,26 @@
 #include <vector>
 
 namespace SURELOG {
+
+// Is this parameter declared with the `localparam` keyword?
+static bool isLocalParamDecl(const Parameter* p) {
+  const FileContent* fC = p->getFileContent();
+  if (fC == nullptr) return false;
+  for (NodeId n = p->getNodeId(); n; n = fC->Parent(n)) {
+    switch (fC->Type(n)) {
+      case VObjectType::paLocal_parameter_declaration:
+        return true;
+      case VObjectType::paParameter_declaration:
+      case VObjectType::paParameter_port_list:
+      case VObjectType::paModule_item:
+      case VObjectType::paModule_declaration:
+        return false;
+      default:
+        break;
+    }
+  }
+  return false;
+}
 DesignElaboration::DesignElaboration(CompileDesign* compileDesign)
     : TestbenchElaboration(compileDesign) {
   m_moduleDefFactory = nullptr;
@@ -860,6 +880,25 @@ void DesignElaboration::elaborateInstance_(
     DefParam* defparam =
         design->getDefParam(StrCat(parent->getFullPathName(), ".", name));
     if (defparam) {
+      // `defparam i_a.A = 10;` on a localparam is illegal like a named
+      // override (see isLocalParamDecl).
+      if (DesignComponent* def = parent->getDefinition()) {
+        Parameter* p = def->getParameter(name);
+        if (p && isLocalParamDecl(p)) {
+          if (const FileContent* dfC = defparam->getLocation()) {
+            SymbolTable* st = m_compileDesign->getCompiler()
+                                  ->getErrorContainer()
+                                  ->getSymbolTable();
+            NodeId dn = defparam->getNodeId();
+            Location loc(dfC->getFileId(dn), dfC->Line(dn), dfC->Column(dn),
+                         st->registerSymbol(name));
+            Error err(ErrorDefinition::ELAB_LOCALPARAM_OVERRIDE, loc);
+            m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+          }
+          defparam->setUsed();
+          continue;
+        }
+      }
       Value* value = defparam->getValue();
       if (value) {
         parent->setValue(name, value, m_exprBuilder);
@@ -2160,6 +2199,21 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                          parentFile->Column(paramAssign),
                          st->registerSymbol(name));
             Error err(ErrorDefinition::ELAB_UNKNOWN_PARAMETER_OVERRIDE, loc);
+            errors->addError(err);
+            continue;
+          }
+          // A localparam cannot be overridden (LRM 6.20.4): `#(.A(10))` on a
+          // module whose A is declared `localparam` -- in the body or in the
+          // parameter port list (`#(parameter A = 1, localparam C = 3, D = 4)`
+          // makes D local too).  A body `parameter` of a module with a port
+          // list is ALSO local by the LRM but is overridden in practice, so
+          // only the explicit keyword is reported.
+          if (isLocalParamDecl(p)) {
+            Location loc(parentFile->getFileId(paramAssign),
+                         parentFile->Line(paramAssign),
+                         parentFile->Column(paramAssign),
+                         st->registerSymbol(name));
+            Error err(ErrorDefinition::ELAB_LOCALPARAM_OVERRIDE, loc);
             errors->addError(err);
             continue;
           }
