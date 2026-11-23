@@ -339,6 +339,9 @@ bool ErrorDefinition::init() {
       "Multiply defined variable \"%s\"", "%exloc previous definition");
   rec(COMP_MULTIPLY_DEFINED_SIGNAL, ERROR, COMP,
       "Multiply defined net or variable \"%s\"", "%exloc previous definition");
+  rec(COMP_INCONSISTENT_PORT_DECLARATION, ERROR, COMP,
+      "Port \"%s\" declared inconsistently as a net or variable",
+      "%exloc port declaration");
   rec(COMP_NO_METHOD_FOR_TYPE, ERROR, COMP,
       "Function \"%exobj\" is not defined for variable %s",
       "%exloc type definition");

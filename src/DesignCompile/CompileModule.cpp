@@ -42,6 +42,8 @@
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/Expression/ExprBuilder.h"
+#include "Surelog/Expression/Value.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
@@ -49,6 +51,7 @@
 #include "Surelog/Utils/StringUtils.h"
 
 // UHDM
+#include <uhdm/ExprEval.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/always.h>
 #include <uhdm/assignment.h>
@@ -177,6 +180,7 @@ bool CompileModule::compile() {
       if (!collectModuleObjects_(CollectType::OTHER)) return false;
       importUnitScopeSignals_();
       checkDuplicateSignals_();
+      checkPortNetConsistency_();
       if (!checkModule_()) return false;
       break;
     case VObjectType::paLoop_generate_construct:
@@ -362,6 +366,151 @@ void CompileModule::checkDuplicateSignals_() {
                   pfC->Line(prev->getNodeId()), pfC->Column(prev->getNodeId()),
                   m_symbols->registerSymbol(prev->getName()));
     Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_SIGNAL, loc1, loc2);
+    m_errors->addError(err);
+  }
+}
+
+// A non-ANSI port declared with a range or a type, and declared again as a
+// net or variable, must be declared consistently (LRM 23.2.2.1):
+//   output [15:0] x;  shortint x;    // a range with an atom type
+//   output [3:0]  x;  real x;        // a range with a non-integral type
+//   output [7:0]  x;  reg [3:0] x;   // two different ranges
+// Ranges are compared by VALUE (`[W-1:0]` and `[7:0]` agree when W is 8),
+// and only when both fold to constants.
+void CompileModule::checkPortNetConsistency_() {
+  const FileContent* modFC = m_module->m_fileContents[0];
+  std::map<std::string_view, Signal*> body;
+  for (Signal* s : m_module->getSignals()) {
+    if (m_unitSignals.count(s)) continue;
+    if (s->getDirection() != VObjectType::slNoType) continue;
+    if (s->getFileContent() != modFC) continue;
+    body.emplace(s->getName(), s);
+  }
+  // [msb, lsb] of a Packed_dimension `[a:b]`, when both fold.
+  auto bounds = [&](const FileContent* fC, NodeId pd, int64_t& msb,
+                    int64_t& lsb) -> bool {
+    NodeId range = fC->Child(pd);
+    if (!range || fC->Type(range) != VObjectType::paConstant_range)
+      return false;
+    NodeId l = fC->Child(range);
+    NodeId r = l ? fC->Sibling(l) : InvalidNodeId;
+    if (!l || !r || fC->Sibling(pd)) return false;  // one dimension only
+    // The legacy Value engine: unlike compileExpression it creates no UHDM
+    // object, so the check leaves the design's object statistics alone.
+    auto fold = [&](NodeId n, int64_t& v) {
+      ExprBuilder eb;
+      eb.seterrorReporting(m_errors, m_symbols);
+      eb.setDesign(m_compileDesign->getCompiler()->getDesign());
+      Value* val = eb.evalExpr(fC, n, m_module, true);
+      bool ok = val && val->isValid();
+      if (ok) v = val->getValueL();
+      if (val) eb.deleteValue(val);
+      return ok;
+    };
+    return fold(l, msb) && fold(r, lsb);
+  };
+  for (Signal* port : m_module->getPorts()) {
+    NodeId pd = port->getPackedDimension();
+    if (!pd) continue;
+    auto itr = body.find(port->getName());
+    if (itr == body.end() || itr->second == port) continue;
+    Signal* sig = itr->second;
+    const FileContent* pfC = port->getFileContent();
+    const FileContent* fC = sig->getFileContent();
+    bool bad = false;
+    if (NodeId sd = sig->getPackedDimension()) {
+      // Identical source text agrees without folding anything: folding
+      // allocates UHDM objects, which would show in every design's object
+      // statistics for the common `output [7:0] q; reg [7:0] q;`.
+      auto text = [](const FileContent* f, NodeId n) {
+        std::string t;
+        std::stack<NodeId> st;
+        st.push(n);
+        while (!st.empty()) {
+          NodeId c = st.top();
+          st.pop();
+          const std::string_view sym = f->SymName(c);
+          t.append(sym).append("|").append(std::to_string((int)f->Type(c)));
+          if (NodeId sib = f->Sibling(c); sib && c != n) st.push(sib);
+          if (NodeId ch = f->Child(c)) st.push(ch);
+        }
+        return t;
+      };
+      int64_t pm = 0, pl = 0, sm = 0, sl = 0;
+      if (text(pfC, pd) != text(fC, sd) && bounds(pfC, pd, pm, pl) &&
+          bounds(fC, sd, sm, sl))
+        bad = (pm != sm) || (pl != sl);
+    } else {
+      // Without a range of its own, only a declaration that takes the
+      // port's range may complete it: an implicit / net-type / reg / logic /
+      // bit declaration.  An atom (`shortint`), `real`, `string` or user
+      // type (typedef, enum, struct) brings its own shape.
+      switch (sig->getType()) {
+        case VObjectType::paIntVec_TypeReg:
+        case VObjectType::paIntVec_TypeLogic:
+        case VObjectType::paIntVec_TypeBit:
+          // A VARIABLE without a range is 1 bit wide, not the port's range:
+          // `output [7:0] x; reg x;`.
+          bad = true;
+          break;
+        case VObjectType::slNoType:
+        case VObjectType::paData_type_or_implicit:
+        case VObjectType::paImplicit_data_type:
+        case VObjectType::paNetType_Wire:
+        case VObjectType::paNetType_Tri:
+        case VObjectType::paNetType_Tri0:
+        case VObjectType::paNetType_Tri1:
+        case VObjectType::paNetType_TriAnd:
+        case VObjectType::paNetType_TriOr:
+        case VObjectType::paNetType_TriReg:
+        case VObjectType::paNetType_Wand:
+        case VObjectType::paNetType_Wor:
+        case VObjectType::paNetType_Uwire:
+        case VObjectType::paNetType_Supply0:
+        case VObjectType::paNetType_Supply1:
+          break;
+        default:
+          bad = true;
+          break;
+      }
+      // A user type (`T x;` with T a typedef, enum or struct) is not
+      // recorded on the Signal at all: read it off the declaration.
+      if (!bad) {
+        NodeId n = sig->getNodeId();
+        while (n && fC->Type(n) != VObjectType::paVariable_declaration &&
+               fC->Type(n) != VObjectType::paData_declaration &&
+               fC->Type(n) != VObjectType::paInterface_port_declaration &&
+               fC->Type(n) != VObjectType::paModule_item)
+          n = fC->Parent(n);
+        // `T x;` with T a type parses as an interface port declaration
+        // (T could name an interface); with a direction and a range already
+        // declared for x it is inconsistent whichever T is.
+        if (n && fC->Type(n) == VObjectType::paInterface_port_declaration)
+          bad = true;
+        if (n && fC->Type(n) == VObjectType::paData_declaration)
+          n = fC->Child(n);
+        if (n && fC->Type(n) == VObjectType::paVariable_declaration) {
+          NodeId dt = fC->Child(n);
+          if (dt && fC->Type(dt) == VObjectType::paData_type) {
+            NodeId t = fC->Child(dt);
+            VObjectType tt = t ? fC->Type(t) : VObjectType::slNoType;
+            if (tt == VObjectType::slStringConst ||
+                tt == VObjectType::paStruct_union ||
+                tt == VObjectType::paClass_scope ||
+                tt == VObjectType::paPs_or_hierarchical_identifier)
+              bad = true;
+          }
+        }
+      }
+    }
+    if (!bad) continue;
+    Location loc1(fC->getFileId(sig->getNodeId()), fC->Line(sig->getNodeId()),
+                  fC->Column(sig->getNodeId()),
+                  m_symbols->registerSymbol(sig->getName()));
+    Location loc2(pfC->getFileId(port->getNodeId()),
+                  pfC->Line(port->getNodeId()), pfC->Column(port->getNodeId()),
+                  m_symbols->registerSymbol(port->getName()));
+    Error err(ErrorDefinition::COMP_INCONSISTENT_PORT_DECLARATION, loc1, loc2);
     m_errors->addError(err);
   }
 }

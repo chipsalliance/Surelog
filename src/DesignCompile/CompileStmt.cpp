@@ -57,6 +57,7 @@
 // UHDM
 #include <uhdm/BaseClass.h>
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
 #include <uhdm/expr.h>
 #include <uhdm/sv_vpi_user.h>
 #include <uhdm/uhdm.h>
@@ -66,6 +67,7 @@
 #include <cstdint>
 #include <functional>
 #include <map>
+#include <set>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -1708,6 +1710,20 @@ n<> u<141> t<Tf_port_declaration> p<142> c<137> l<28>
 n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
   */
   std::map<std::string, io_decl*, std::less<>> ioMap;
+  // Ports already completed by a body declaration (`input x; reg x;`).
+  std::set<std::string, std::less<>> completedIos;
+  // Ports declared WITH a data type (`input integer x;`): complete already,
+  // they take no further declaration.  And variables declared so far, for a
+  // port declared after its variable (`integer x; input integer x;`).
+  std::set<std::string, std::less<>> typedIos;
+  std::set<std::string, std::less<>> declaredVars;
+  auto redefined = [&](NodeId nameId) {
+    const std::string_view nm = fC->SymName(nameId);
+    Location loc(fC->getFileId(nameId), fC->Line(nameId), fC->Column(nameId),
+                 m_symbols->registerSymbol(nm));
+    Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_SIGNAL, loc);
+    m_errors->addError(err);
+  };
 
   while (tf_item_decl) {
     if (fC->Type(tf_item_decl) == VObjectType::paTf_item_declaration) {
@@ -1769,6 +1785,9 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
                               Reduce::No, parent, nullptr, size, false);
           }
           const std::string_view name = fC->SymName(nameId);
+          if (declaredVars.count(name)) redefined(nameId);
+          if (fC->Type(Data_type) == VObjectType::paData_type)
+            typedIos.emplace(name);
           io_decl* decl = s.MakeIo_decl();
           ios->push_back(decl);
           decl->VpiParent(parent);
@@ -1876,7 +1895,11 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
                 var->VpiParent(parent);
                 vars->push_back(var);
               }
+              declaredVars.emplace(name);
+            } else if (typedIos.count(name)) {
+              redefined(nameId);
             } else if (ts != nullptr) {
+              checkTfPortCompletion(fC, nameId, itr->second, ts, completedIos);
               if (itr->second->Typespec() == nullptr) {
                 ref_typespec* tsRef = s.MakeRef_typespec();
                 tsRef->VpiParent(itr->second);
@@ -1892,6 +1915,65 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
     tf_item_decl = fC->Sibling(tf_item_decl);
   }
   return results;
+}
+
+// A non-ANSI task / function port (`input [15:0] x;`) completed by a body
+// declaration of the same name (`shortint x;`): like a module port (see
+// CompileModule::checkPortNetConsistency_), a second completion is a
+// redefinition and the completion must agree with the port's range.  Both
+// were accepted silently -- the body declaration simply replaced the port's
+// type, and a second one replaced the first.
+void CompileHelper::checkTfPortCompletion(
+    const FileContent* fC, NodeId nameId, io_decl* decl, typespec* ts,
+    std::set<std::string, std::less<>>& completed) {
+  const std::string_view name = fC->SymName(nameId);
+  Location loc(fC->getFileId(nameId), fC->Line(nameId), fC->Column(nameId),
+               m_symbols->registerSymbol(name));
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  Location loc2(fileSystem->toPathId(decl->VpiFile(), m_symbols),
+                decl->VpiLineNo(), decl->VpiColumnNo(),
+                m_symbols->registerSymbol(name));
+  if (!completed.emplace(name).second) {
+    Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_SIGNAL, loc, loc2);
+    m_errors->addError(err);
+    return;
+  }
+  const typespec* portTs =
+      decl->Typespec() ? decl->Typespec()->Actual_typespec() : nullptr;
+  const logic_typespec* plt = any_cast<const logic_typespec*>(portTs);
+  if (plt == nullptr || plt->Ranges() == nullptr || plt->Ranges()->empty())
+    return;  // the port has no range of its own: anything completes it
+  bool bad = false;
+  if (const logic_typespec* blt = any_cast<const logic_typespec*>(ts)) {
+    if (blt->Ranges() == nullptr || blt->Ranges()->empty()) {
+      bad = true;  // `input [7:0] x; reg x;`: a 1-bit variable
+    } else if (blt->Ranges()->size() == plt->Ranges()->size()) {
+      for (size_t i = 0; i < plt->Ranges()->size() && !bad; i++) {
+        const range* a = plt->Ranges()->at(i);
+        const range* b = blt->Ranges()->at(i);
+        auto cst = [](const expr* e, int64_t& v) {
+          const constant* c = any_cast<const constant*>(e);
+          if (c == nullptr) return false;
+          UHDM::ExprEval eval;
+          bool invalid = false;
+          v = eval.get_value(invalid, c);
+          return !invalid;
+        };
+        int64_t al = 0, ar = 0, bl = 0, br = 0;
+        if (cst(a->Left_expr(), al) && cst(a->Right_expr(), ar) &&
+            cst(b->Left_expr(), bl) && cst(b->Right_expr(), br))
+          bad = (al != bl) || (ar != br);
+      }
+    }
+  } else {
+    // An atom (`shortint`), real, string, enum, struct or typedef type
+    // brings its own shape, which a port range cannot be reconciled with.
+    bad = true;
+  }
+  if (bad) {
+    Error err(ErrorDefinition::COMP_INCONSISTENT_PORT_DECLARATION, loc, loc2);
+    m_errors->addError(err);
+  }
 }
 
 void CompileHelper::prependTfLocalInits(UHDM::task_func* tf,
