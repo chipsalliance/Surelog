@@ -505,6 +505,9 @@ bool ErrorDefinition::init() {
       "\"%s\"");
   rec(UHDM_NON_CONSTANT_EXPRESSION, ERROR, UHDM,
       "Non-constant \"%s\" in a constant expression");
+  rec(UHDM_INVALID_ENUM_BASE_TYPE, ERROR, UHDM,
+      "Invalid enum base type \"%s\": not an integral type with at most "
+      "one packed dimension");
   return true;
 }
 
