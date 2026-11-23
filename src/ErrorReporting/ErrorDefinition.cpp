@@ -508,6 +508,8 @@ bool ErrorDefinition::init() {
   rec(UHDM_INVALID_ENUM_BASE_TYPE, ERROR, UHDM,
       "Invalid enum base type \"%s\": not an integral type with at most "
       "one packed dimension");
+  rec(UHDM_ILLEGAL_UNPACKED_ARRAY_ASSIGN, ERROR, UHDM,
+      "Unpacked array \"%s\" assigned a value of a different shape");
   return true;
 }
 
