@@ -86,6 +86,7 @@ class CompileModule final {
   bool checkModule_();
   void importUnitScopeSignals_();
   void checkDuplicateSignals_();
+  void checkPortNetConsistency_();
   // $unit signals importUnitScopeSignals_ added to the module.
   std::set<Signal*> m_unitSignals;
   bool collectInterfaceObjects_(CollectType collectType);

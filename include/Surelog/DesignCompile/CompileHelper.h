@@ -33,6 +33,7 @@
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <cstdint>
+#include <set>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -367,6 +368,10 @@ class CompileHelper final {
                                bool muteErrors = false);
 
   static int64_t parseEnumRangeBound(std::string_view tok);
+
+  void checkTfPortCompletion(const FileContent* fC, NodeId nameId,
+                             UHDM::io_decl* decl, UHDM::typespec* ts,
+                             std::set<std::string, std::less<>>& completed);
   UHDM::any* compileSelectOnExpression(
       DesignComponent* component, const FileContent* fC,
       NodeId Range_expression, UHDM::expr* base, CompileDesign* compileDesign,
