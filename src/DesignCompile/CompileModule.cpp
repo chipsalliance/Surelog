@@ -316,6 +316,18 @@ void CompileModule::importUnitScopeSignals_() {
 // redeclared in the body (an ANSI `output [3:0] foo` followed by `reg [3:0]
 // foo;`) is illegal as well but common in older RTL and accepted by other
 // tools, so port names are left alone.
+void CompileModule::checkSpecparamUse_(const FileContent* fC, NodeId expr) {
+  if (m_specparams.empty() || !expr) return;
+  for (NodeId n : fC->sl_collect_all(expr, VObjectType::slStringConst)) {
+    const std::string_view nm = fC->SymName(n);
+    if (m_specparams.find(nm) == m_specparams.end()) continue;
+    Location loc(fC->getFileId(n), fC->Line(n), fC->Column(n),
+                 m_symbols->registerSymbol(nm));
+    Error err(ErrorDefinition::COMP_SPECPARAM_IN_CONSTANT_EXPR, loc);
+    m_errors->addError(err);
+  }
+}
+
 void CompileModule::checkDuplicateSignals_() {
   // An escaped identifier is spelled with or without its `\` and trailing
   // blank depending on where it was recorded (`input \ip[9] ; wire \ip[9] ;`
@@ -1023,6 +1035,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         }
         case VObjectType::paParameter_declaration: {
           if (collectType != CollectType::DEFINITION) break;
+          checkSpecparamUse_(fC, id);
 
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
@@ -1051,6 +1064,12 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
                  fC->Type(list) != VObjectType::paList_of_specparam_assignments)
             list = fC->Sibling(list);
           if (list) {
+            for (NodeId a = fC->Child(list); a; a = fC->Sibling(a)) {
+              if (fC->Type(a) != VObjectType::paSpecparam_assignment) continue;
+              if (NodeId nm = fC->Child(a))
+                if (fC->Type(nm) == VObjectType::slStringConst)
+                  m_specparams.emplace(fC->SymName(nm));
+            }
             m_helper.compileParameterDeclaration(
                 m_module, fC, list, m_compileDesign,
                 m_instance != nullptr ? Reduce::Yes : Reduce::No, true,
@@ -1060,6 +1079,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         }
         case VObjectType::paLocal_parameter_declaration: {
           if (collectType != CollectType::DEFINITION) break;
+          checkSpecparamUse_(fC, id);
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
                   VObjectType::paList_of_type_assignments ||
@@ -1276,6 +1296,19 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::paConditional_generate_construct:
         case VObjectType::paGenerate_module_conditional_statement:
         case VObjectType::paGenerate_module_loop_statement: {
+          // The CONDITION of a generate `if` is a constant expression; its
+          // body may use a specparam (a delay), so only the condition.
+          if (collectType == CollectType::DEFINITION &&
+              type == VObjectType::paConditional_generate_construct) {
+            NodeId ifc = fC->Child(id);
+            if (fC->Type(ifc) == VObjectType::paIf_generate_construct) {
+              for (NodeId c = fC->Child(ifc); c; c = fC->Sibling(c)) {
+                if (fC->Type(c) != VObjectType::paConstant_expression) continue;
+                checkSpecparamUse_(fC, c);
+                break;
+              }
+            }
+          }
           if (collectType != CollectType::OTHER) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
