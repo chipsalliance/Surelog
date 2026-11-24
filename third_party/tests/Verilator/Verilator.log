@@ -5296,9 +5296,12 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns -elabuhdm t_trace_complex.v -l t_trace_complex.v.log
+[ERR:UH0739] ${SURELOG_DIR}/third_party/tests/Verilator/t_trace_complex.v:80:19: Value assigned to enum "enumed_t" is not of that enum type (missing a cast?).
+[ERR:UH0739] ${SURELOG_DIR}/third_party/tests/Verilator/t_trace_complex.v:81:20: Value assigned to enum "enumed_t" is not of that enum type (missing a cast?).
+[ERR:UH0739] ${SURELOG_DIR}/third_party/tests/Verilator/t_trace_complex.v:82:18: Value assigned to enum "enumb_t" is not of that enum type (missing a cast?).
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_unopt_converge_initial.v -l t_unopt_converge_initial.v.log
@@ -5777,6 +5780,6 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 Processed 837 tests.
 [  FATAL] : 0
 [ SYNTAX] : 178
-[  ERROR] : 160
+[  ERROR] : 163
 [WARNING] : 43
 [   NOTE] : 0
