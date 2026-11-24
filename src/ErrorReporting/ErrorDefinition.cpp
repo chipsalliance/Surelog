@@ -521,6 +521,8 @@ bool ErrorDefinition::init() {
       "Value \"%s\" with unknown (x/z) bits used as a size or range bound");
   rec(UHDM_TF_ARG_COUNT, ERROR, UHDM,
       "Wrong number of arguments in call to %s");
+  rec(UHDM_PATTERN_ELEMENT_COUNT, ERROR, UHDM,
+      "Assignment pattern with the wrong number of elements: %s");
   return true;
 }
 
