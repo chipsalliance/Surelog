@@ -3254,9 +3254,13 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_func_bad.v -l t_func_bad.v.log
+[ERR:UH0741] ${SURELOG_DIR}/third_party/tests/Verilator/t_func_bad.v:8:11: Wrong number of arguments in call to add (expected 2, got 1).
+[ERR:UH0741] ${SURELOG_DIR}/third_party/tests/Verilator/t_func_bad.v:9:11: Wrong number of arguments in call to add (expected 2, got 3).
+[ERR:UH0741] ${SURELOG_DIR}/third_party/tests/Verilator/t_func_bad.v:10:7: Wrong number of arguments in call to x (expected 1, got 0).
+[ERR:UH0741] ${SURELOG_DIR}/third_party/tests/Verilator/t_func_bad.v:15:7: Wrong number of arguments in call to f (expected 2, got 3).
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 4
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_attr_parenstar.v -l t_attr_parenstar.v.log
@@ -5780,6 +5784,6 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 Processed 837 tests.
 [  FATAL] : 0
 [ SYNTAX] : 178
-[  ERROR] : 163
+[  ERROR] : 167
 [WARNING] : 43
 [   NOTE] : 0

@@ -517,6 +517,10 @@ bool ErrorDefinition::init() {
   rec(UHDM_ENUM_ASSIGN_INCOMPATIBLE, ERROR, UHDM,
       "Value assigned to enum \"%s\" is not of that enum type (missing a "
       "cast?)");
+  rec(UHDM_UNKNOWN_BITS_VALUE, ERROR, UHDM,
+      "Value \"%s\" with unknown (x/z) bits used as a size or range bound");
+  rec(UHDM_TF_ARG_COUNT, ERROR, UHDM,
+      "Wrong number of arguments in call to %s");
   return true;
 }
 
