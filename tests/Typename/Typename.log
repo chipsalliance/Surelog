@@ -404,6 +404,7 @@ ref_typespec                                          18
 sys_func_call                                          8
 task                                                  18
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/Typename/dut.sv:6:51: Use of undeclared identifier "a".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Typename/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Typename/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Typename/slpp_all/surelog.uhdm ...
@@ -1255,9 +1256,13 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/Typename/dut.sv:6:51: Use of undeclared identifier, a
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/Typename/builtin.sv | ${SURELOG_DIR}/build/regression/Typename/roundtrip/builtin_000.sv | 0 | 0 |

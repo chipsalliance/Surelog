@@ -127,6 +127,10 @@ module_inst                                            2
 ref_obj                                               10
 task                                                   2
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/PpLppdr/dut.sv:11:45: Use of undeclared identifier "DDR_CMN_OFFSET".
+[ERR:UH0737] ${SURELOG_DIR}/tests/PpLppdr/dut.sv:12:49: Use of undeclared identifier "en".
+[ERR:UH0738] ${SURELOG_DIR}/tests/PpLppdr/dut.sv:11:36: Undefined task or function "csr_read".
+[ERR:UH0738] ${SURELOG_DIR}/tests/PpLppdr/dut.sv:13:36: Undefined task or function "csr_write".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PpLppdr/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PpLppdr/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PpLppdr/slpp_all/surelog.uhdm ...
@@ -350,9 +354,16 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 4
 [WARNING] : 1
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/PpLppdr/dut.sv:11:45: Use of undeclared identifier, DDR_CMN_OFFSET
+[LINT]: ${SURELOG_DIR}/tests/PpLppdr/dut.sv:12:49: Use of undeclared identifier, en
+[LINT]: ${SURELOG_DIR}/tests/PpLppdr/dut.sv:11:36: Undefined task or function, csr_read
+[LINT]: ${SURELOG_DIR}/tests/PpLppdr/dut.sv:13:36: Undefined task or function, csr_write
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/PpLppdr/dut.sv | ${SURELOG_DIR}/build/regression/PpLppdr/roundtrip/dut_000.sv | 11 | 25 |

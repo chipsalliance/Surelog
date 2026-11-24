@@ -25,6 +25,8 @@ logic_net                                              4
 module_inst                                            3
 ref_obj                                                8
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/PPComment/dut.sv:5:17: Use of undeclared identifier "b".
+[ERR:UH0737] ${SURELOG_DIR}/tests/PPComment/dut.sv:6:17: Use of undeclared identifier "d".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PPComment/slpp_unit/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PPComment/slpp_unit/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PPComment/slpp_unit/surelog.uhdm ...
@@ -158,9 +160,14 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 1
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/PPComment/dut.sv:5:17: Use of undeclared identifier, b
+[LINT]: ${SURELOG_DIR}/tests/PPComment/dut.sv:6:17: Use of undeclared identifier, d
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/PPComment/dut.sv | ${SURELOG_DIR}/build/regression/PPComment/roundtrip/dut_000.sv | 7 | 12 |

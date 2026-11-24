@@ -5456,9 +5456,12 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:UH0725] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_notfound_bad.v:18:7: Unresolved hierarchical reference "sub.subsubz.inss".
 [ERR:UH0725] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_notfound_bad.v:20:11: Unresolved hierarchical reference "sub.nofuncs".
 [ERR:UH0718] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_notfound_bad.v:17:7: Illegal lhs of type wire "nf".
+[ERR:UH0737] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_notfound_bad.v:17:7: Use of undeclared identifier "nf".
+[ERR:UH0738] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_notfound_bad.v:19:11: Undefined task or function "nofunc".
+[ERR:UH0738] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_notfound_bad.v:21:7: Undefined task or function "notask".
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 6
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_flag_f.v -l t_flag_f.v.log
@@ -5774,6 +5777,6 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 Processed 837 tests.
 [  FATAL] : 0
 [ SYNTAX] : 178
-[  ERROR] : 157
+[  ERROR] : 160
 [WARNING] : 43
 [   NOTE] : 0

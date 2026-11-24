@@ -428,6 +428,8 @@ ref_typespec                                          24
 task                                                  18
 === UHDM Object Stats End ===
 [ERR:UH0718] ${SURELOG_DIR}/tests/CastPartSelect/dut.sv:6:9: Illegal lhs of type wire "csr_pipe_flush".
+[ERR:UH0737] ${SURELOG_DIR}/tests/CastPartSelect/dut.sv:5:39: Use of undeclared identifier "CSR_MSTATUS".
+[ERR:UH0737] ${SURELOG_DIR}/tests/CastPartSelect/dut.sv:6:9: Use of undeclared identifier "csr_pipe_flush".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastPartSelect/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CastPartSelect/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CastPartSelect/slpp_all/surelog.uhdm ...
@@ -1456,12 +1458,14 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 3
 [WARNING] : 1
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
 [LINT]: ${SURELOG_DIR}/tests/CastPartSelect/dut.sv:6:9: Illegal wire LHS, csr_pipe_flush
+[LINT]: ${SURELOG_DIR}/tests/CastPartSelect/dut.sv:5:39: Use of undeclared identifier, CSR_MSTATUS
+[LINT]: ${SURELOG_DIR}/tests/CastPartSelect/dut.sv:6:9: Use of undeclared identifier, csr_pipe_flush
 ============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================

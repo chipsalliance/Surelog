@@ -18,6 +18,7 @@ module_inst                                            3
 operation                                              1
 ref_obj                                                5
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/UnitConcat/top.sv:6:20: Use of undeclared identifier "irq".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnitConcat/slpp_unit/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnitConcat/slpp_unit/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnitConcat/slpp_unit/surelog.uhdm ...
@@ -128,9 +129,13 @@ design: (work@dut)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/UnitConcat/top.sv:6:20: Use of undeclared identifier, irq
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/UnitConcat/top.sv | ${SURELOG_DIR}/build/regression/UnitConcat/roundtrip/top_000.sv | 2 | 8 |

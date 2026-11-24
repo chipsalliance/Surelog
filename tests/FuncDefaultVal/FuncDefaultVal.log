@@ -243,6 +243,12 @@ string_typespec                                        2
 string_var                                             2
 var_select                                             2
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:6:44: Use of undeclared identifier "opcode".
+[ERR:UH0737] ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:6:52: Use of undeclared identifier "pc".
+[ERR:UH0737] ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:7:8: Use of undeclared identifier "regn".
+[ERR:UH0737] ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:7:31: Use of undeclared identifier "regv".
+[ERR:UH0738] ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:6:37: Undefined task or function "dasm32".
+[ERR:UH0738] ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:6:63: Undefined task or function "dasm16".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncDefaultVal/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncDefaultVal/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncDefaultVal/slpp_all/surelog.uhdm ...
@@ -823,9 +829,18 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 6
 [WARNING] : 1
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:6:44: Use of undeclared identifier, opcode
+[LINT]: ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:6:52: Use of undeclared identifier, pc
+[LINT]: ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:7:8: Use of undeclared identifier, regn
+[LINT]: ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:7:31: Use of undeclared identifier, regv
+[LINT]: ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:6:37: Undefined task or function, dasm32
+[LINT]: ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv:6:63: Undefined task or function, dasm16
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv | ${SURELOG_DIR}/build/regression/FuncDefaultVal/roundtrip/dut_000.sv | 4 | 10 |

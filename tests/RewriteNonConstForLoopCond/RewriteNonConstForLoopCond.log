@@ -186,6 +186,7 @@ operation                                             10
 ref_obj                                               12
 ref_typespec                                           4
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/RewriteNonConstForLoopCond/dut.sv:11:16: Use of undeclared identifier "cond".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/RewriteNonConstForLoopCond/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/RewriteNonConstForLoopCond/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/RewriteNonConstForLoopCond/slpp_all/surelog.uhdm ...
@@ -573,9 +574,13 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/RewriteNonConstForLoopCond/dut.sv:11:16: Use of undeclared identifier, cond
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/RewriteNonConstForLoopCond/dut.sv | ${SURELOG_DIR}/build/regression/RewriteNonConstForLoopCond/roundtrip/dut_000.sv | 1 | 20 |

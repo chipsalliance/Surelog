@@ -371,6 +371,9 @@ ref_obj                                                4
 ref_typespec                                           5
 sys_func_call                                          2
 === UHDM Object Stats End ===
+[ERR:UH0738] ${SURELOG_DIR}/tests/BadLabel/dut.sv:43:6: Undefined task or function "print".
+[ERR:UH0738] ${SURELOG_DIR}/tests/BadLabel/dut.sv:47:6: Undefined task or function "print".
+[ERR:UH0738] ${SURELOG_DIR}/tests/BadLabel/dut.sv:51:5: Undefined task or function "print".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BadLabel/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BadLabel/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BadLabel/slpp_all/surelog.uhdm ...
@@ -845,11 +848,14 @@ design: (work@test)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 9
+[  ERROR] : 12
 [WARNING] : 9
 [   NOTE] : 7
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/BadLabel/dut.sv:43:6: Undefined task or function, print
+[LINT]: ${SURELOG_DIR}/tests/BadLabel/dut.sv:47:6: Undefined task or function, print
+[LINT]: ${SURELOG_DIR}/tests/BadLabel/dut.sv:51:5: Undefined task or function, print
 [LINT]: ${SURELOG_DIR}/tests/BadLabel/dut.sv:4:1: Non synthesizable construct, work@c
 [LINT]: ${SURELOG_DIR}/tests/BadLabel/dut.sv:63:17: Non synthesizable construct, name1
 [LINT]: ${SURELOG_DIR}/tests/BadLabel/dut.sv:42:4: Non synthesizable construct, n1

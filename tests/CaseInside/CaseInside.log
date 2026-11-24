@@ -500,6 +500,8 @@ task                                                  18
 [ERR:UH0725] ${SURELOG_DIR}/tests/CaseInside/top.sv:15:27: Unresolved hierarchical reference "dmi_req_i.addr".
 [ERR:UH0718] ${SURELOG_DIR}/tests/CaseInside/top.sv:19:11: Illegal lhs of type wire "resp_queue_data".
 [ERR:UH0718] ${SURELOG_DIR}/tests/CaseInside/top.sv:23:27: Illegal lhs of type wire "resp_queue_data".
+[ERR:UH0737] ${SURELOG_DIR}/tests/CaseInside/top.sv:19:11: Use of undeclared identifier "resp_queue_data".
+[ERR:UH0737] ${SURELOG_DIR}/tests/CaseInside/top.sv:23:45: Use of undeclared identifier "dmcontrol_q".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CaseInside/slpp_unit/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CaseInside/slpp_unit/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CaseInside/slpp_unit/surelog.uhdm ...
@@ -1638,13 +1640,15 @@ design: (work@dm_csrs)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 5
 [WARNING] : 2
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
 [LINT]: ${SURELOG_DIR}/tests/CaseInside/top.sv:19:11: Illegal wire LHS, resp_queue_data
 [LINT]: ${SURELOG_DIR}/tests/CaseInside/top.sv:23:27: Illegal wire LHS, resp_queue_data
+[LINT]: ${SURELOG_DIR}/tests/CaseInside/top.sv:19:11: Use of undeclared identifier, resp_queue_data
+[LINT]: ${SURELOG_DIR}/tests/CaseInside/top.sv:23:45: Use of undeclared identifier, dmcontrol_q
 ============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================

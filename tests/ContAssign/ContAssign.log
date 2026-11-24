@@ -420,6 +420,9 @@ ref_typespec                                          27
 task                                                  18
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/ContAssign/dut.sv:11:14: Use of undeclared identifier "b".
+[ERR:UH0737] ${SURELOG_DIR}/tests/ContAssign/dut.sv:5:16: Use of undeclared identifier "clkcnt".
+[ERR:UH0737] ${SURELOG_DIR}/tests/ContAssign/dut.sv:7:33: Use of undeclared identifier "debug_req_ready".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ContAssign/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ContAssign/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ContAssign/slpp_all/surelog.uhdm ...
@@ -1415,11 +1418,14 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 1
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/ContAssign/dut.sv:11:14: Use of undeclared identifier, b
+[LINT]: ${SURELOG_DIR}/tests/ContAssign/dut.sv:5:16: Use of undeclared identifier, clkcnt
+[LINT]: ${SURELOG_DIR}/tests/ContAssign/dut.sv:7:33: Use of undeclared identifier, debug_req_ready
 [LINT]: ${SURELOG_DIR}/tests/ContAssign/dut.sv:3:8: Unsupported typespec, intf
 [LINT]:   \_ ${SURELOG_DIR}/tests/ContAssign/dut.sv:3:13:
 ============================== End Linting Results ==============================

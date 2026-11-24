@@ -334,6 +334,8 @@ type_parameter                                         1
 typespec_member                                       18
 unsupported_typespec                                   4
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv:22:18: Use of undeclared identifier "i".
+[ERR:UH0737] ${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv:23:21: Use of undeclared identifier "SERVING".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathPackedVar/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/HierPathPackedVar/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/HierPathPackedVar/slpp_all/surelog.uhdm ...
@@ -1442,11 +1444,13 @@ design: (work@axi_adapter_arbiter)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 2
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv:22:18: Use of undeclared identifier, i
+[LINT]: ${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv:23:21: Use of undeclared identifier, SERVING
 [LINT]: ${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv:4:5: Unsupported typespec, ariane_axi::ad_req_t
 [LINT]:   \_ ${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv:4:26:
 [LINT]: ${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv:5:5: Unsupported typespec, ariane_pkg::amo_t
