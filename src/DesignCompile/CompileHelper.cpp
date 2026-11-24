@@ -3973,7 +3973,8 @@ bool CompileHelper::compileParameterDeclaration(
     // Regular param
     NodeId Data_type_or_implicit;
     NodeId List_of_param_assignments;
-    if (fC->Type(nodeId) == VObjectType::paList_of_param_assignments) {
+    if (fC->Type(nodeId) == VObjectType::paList_of_param_assignments ||
+        fC->Type(nodeId) == VObjectType::paList_of_specparam_assignments) {
       List_of_param_assignments = nodeId;
     } else {
       Data_type_or_implicit = fC->Child(nodeId);
@@ -4808,7 +4809,14 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       call->VpiParent(pexpr);
     }
     if (call == nullptr) {
-      if (LetStmt* stmt = component->getLetStmt(name)) {
+      LetStmt* letStmt = component->getLetStmt(name);
+      // A `let` imported from a package (`import pkg::*;`, LRM 11.12).
+      if (letStmt == nullptr) {
+        for (Package* pack : component->getAccessPackages()) {
+          if ((letStmt = pack->getLetStmt(name)) != nullptr) break;
+        }
+      }
+      if (LetStmt* stmt = letStmt) {
         if (compileDesign->getCompiler()
                 ->getCommandLineParser()
                 ->getLetExprSubstitution()) {

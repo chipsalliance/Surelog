@@ -90,6 +90,7 @@ static bool isLocalParamDecl(const Parameter* p) {
   for (NodeId n = p->getNodeId(); n; n = fC->Parent(n)) {
     switch (fC->Type(n)) {
       case VObjectType::paLocal_parameter_declaration:
+      case VObjectType::paSpecparam_declaration:
         return true;
       case VObjectType::paParameter_declaration:
       case VObjectType::paParameter_port_list:

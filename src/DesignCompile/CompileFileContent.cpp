@@ -63,6 +63,7 @@ bool CompileFileContent::collectObjects_() {
       VObjectType::paPRIMITIVE,
       VObjectType::paPackage_declaration,
       VObjectType::paFunction_declaration,
+      VObjectType::paTask_declaration,
       VObjectType::paInterface_class_declaration};
 
   FileContent* fC = m_fileContent;
@@ -96,6 +97,37 @@ bool CompileFileContent::collectObjects_() {
                                    Reduce::No, nullptr, true);
           m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
                                    Reduce::No, nullptr, true);
+        }
+        break;
+      }
+      case VObjectType::paDpi_import_export: {
+        // `import "DPI-C" function ...` at file scope: a $unit declaration
+        // every module may call by its bare name.
+        if (m_declOnly == false) {
+          NodeId StringLiteral = fC->Sibling(fC->Child(id));
+          NodeId Prototype = fC->Sibling(StringLiteral);
+          if (fC->Type(Prototype) == VObjectType::paContext_keyword ||
+              fC->Type(Prototype) == VObjectType::paPure_keyword)
+            Prototype = fC->Sibling(Prototype);
+          if (fC->Type(Prototype) == VObjectType::paTask_prototype) {
+            m_fileContent->insertTask(m_helper.compileTaskPrototype(
+                m_fileContent, fC, id, m_compileDesign));
+          } else if (fC->Type(Prototype) ==
+                     VObjectType::paFunction_prototype) {
+            m_fileContent->insertFunction(m_helper.compileFunctionPrototype(
+                m_fileContent, fC, id, m_compileDesign));
+          }
+        }
+        break;
+      }
+      case VObjectType::paTask_declaration: {
+        // A compilation-unit ($unit) task, reachable by its bare name from
+        // every module (LRM 3.12.1).  Placeholder first, then definition.
+        if (m_declOnly == false) {
+          m_helper.compileTask(m_fileContent, fC, id, m_compileDesign,
+                               Reduce::No, nullptr, false);
+          m_helper.compileTask(m_fileContent, fC, id, m_compileDesign,
+                               Reduce::No, nullptr, false);
         }
         break;
       }

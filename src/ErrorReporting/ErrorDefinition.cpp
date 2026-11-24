@@ -510,6 +510,10 @@ bool ErrorDefinition::init() {
       "one packed dimension");
   rec(UHDM_ILLEGAL_UNPACKED_ARRAY_ASSIGN, ERROR, UHDM,
       "Unpacked array \"%s\" assigned a value of a different shape");
+  rec(UHDM_UNDECLARED_IDENTIFIER, ERROR, UHDM,
+      "Use of undeclared identifier \"%s\"");
+  rec(UHDM_UNDEFINED_TASK_FUNC, ERROR, UHDM,
+      "Undefined task or function \"%s\"");
   return true;
 }
 
