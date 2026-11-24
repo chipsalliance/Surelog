@@ -514,6 +514,9 @@ bool ErrorDefinition::init() {
       "Use of undeclared identifier \"%s\"");
   rec(UHDM_UNDEFINED_TASK_FUNC, ERROR, UHDM,
       "Undefined task or function \"%s\"");
+  rec(UHDM_ENUM_ASSIGN_INCOMPATIBLE, ERROR, UHDM,
+      "Value assigned to enum \"%s\" is not of that enum type (missing a "
+      "cast?)");
   return true;
 }
 
