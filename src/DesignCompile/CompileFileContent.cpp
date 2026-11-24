@@ -112,8 +112,7 @@ bool CompileFileContent::collectObjects_() {
           if (fC->Type(Prototype) == VObjectType::paTask_prototype) {
             m_fileContent->insertTask(m_helper.compileTaskPrototype(
                 m_fileContent, fC, id, m_compileDesign));
-          } else if (fC->Type(Prototype) ==
-                     VObjectType::paFunction_prototype) {
+          } else if (fC->Type(Prototype) == VObjectType::paFunction_prototype) {
             m_fileContent->insertFunction(m_helper.compileFunctionPrototype(
                 m_fileContent, fC, id, m_compileDesign));
           }
