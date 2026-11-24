@@ -342,6 +342,8 @@ bool ErrorDefinition::init() {
   rec(COMP_INCONSISTENT_PORT_DECLARATION, ERROR, COMP,
       "Port \"%s\" declared inconsistently as a net or variable",
       "%exloc port declaration");
+  rec(COMP_SPECPARAM_IN_CONSTANT_EXPR, ERROR, COMP,
+      "Specparam \"%s\" used in a parameter value or generate condition");
   rec(COMP_NO_METHOD_FOR_TYPE, ERROR, COMP,
       "Function \"%exobj\" is not defined for variable %s",
       "%exloc type definition");
