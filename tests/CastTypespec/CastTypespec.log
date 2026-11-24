@@ -809,6 +809,10 @@ typespec_member                                        8
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:38:20: Unresolved hierarchical reference "dmcontrol_q.resumereq".
 [ERR:UH0718] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:38:7: Illegal lhs of type wire "resumereq_o".
+[ERR:UH0737] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:18:35: Use of undeclared identifier "WordSize".
+[ERR:UH0737] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:37:9: Use of undeclared identifier "selected_hart".
+[ERR:UH0737] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:37:41: Use of undeclared identifier "NrHarts".
+[ERR:UH0737] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:38:7: Use of undeclared identifier "resumereq_o".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastTypespec/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CastTypespec/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CastTypespec/slpp_all/surelog.uhdm ...
@@ -3235,10 +3239,14 @@ design: (work@tlul_adapter_host)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
+[  ERROR] : 6
 [WARNING] : 3
 [   NOTE] : 7
 
 ============================== Begin Linting Results ==============================
 [LINT]: ${SURELOG_DIR}/tests/CastTypespec/dut.sv:38:7: Illegal wire LHS, resumereq_o
+[LINT]: ${SURELOG_DIR}/tests/CastTypespec/dut.sv:18:35: Use of undeclared identifier, WordSize
+[LINT]: ${SURELOG_DIR}/tests/CastTypespec/dut.sv:37:9: Use of undeclared identifier, selected_hart
+[LINT]: ${SURELOG_DIR}/tests/CastTypespec/dut.sv:37:41: Use of undeclared identifier, NrHarts
+[LINT]: ${SURELOG_DIR}/tests/CastTypespec/dut.sv:38:7: Use of undeclared identifier, resumereq_o
 ============================== End Linting Results ==============================

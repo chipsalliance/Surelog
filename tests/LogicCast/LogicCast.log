@@ -393,6 +393,8 @@ ref_typespec                                          22
 task                                                  18
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/LogicCast/dut.sv:3:3: Unresolved hierarchical reference "dmstatus.allnonexistent".
+[ERR:UH0737] ${SURELOG_DIR}/tests/LogicCast/dut.sv:3:40: Use of undeclared identifier "hartsel_o".
+[ERR:UH0737] ${SURELOG_DIR}/tests/LogicCast/dut.sv:3:54: Use of undeclared identifier "NrHarts".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LogicCast/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LogicCast/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/LogicCast/slpp_all/surelog.uhdm ...
@@ -1306,9 +1308,14 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 3
 [WARNING] : 1
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/LogicCast/dut.sv:3:40: Use of undeclared identifier, hartsel_o
+[LINT]: ${SURELOG_DIR}/tests/LogicCast/dut.sv:3:54: Use of undeclared identifier, NrHarts
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/LogicCast/builtin.sv | ${SURELOG_DIR}/build/regression/LogicCast/roundtrip/builtin_000.sv | 0 | 0 |

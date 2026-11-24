@@ -124,6 +124,9 @@ ref_obj                                               14
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/AssumeProp/dut.sv:4:51: Unresolved hierarchical reference "slv_req_i.aw_valid".
+[ERR:UH0737] ${SURELOG_DIR}/tests/AssumeProp/dut.sv:7:35: Use of undeclared identifier "slv_aw_select_i".
+[ERR:UH0737] ${SURELOG_DIR}/tests/AssumeProp/dut.sv:7:52: Use of undeclared identifier "NoMstPorts".
+[ERR:UH0737] ${SURELOG_DIR}/tests/AssumeProp/dut.sv:4:43: Use of undeclared identifier "clk_i".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AssumeProp/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/AssumeProp/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/AssumeProp/slpp_all/surelog.uhdm ...
@@ -364,11 +367,14 @@ design: (work@dut)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 4
 [WARNING] : 1
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/AssumeProp/dut.sv:7:35: Use of undeclared identifier, slv_aw_select_i
+[LINT]: ${SURELOG_DIR}/tests/AssumeProp/dut.sv:7:52: Use of undeclared identifier, NoMstPorts
+[LINT]: ${SURELOG_DIR}/tests/AssumeProp/dut.sv:4:43: Use of undeclared identifier, clk_i
 [LINT]: ${SURELOG_DIR}/tests/AssumeProp/dut.sv:4:33: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/AssumeProp/dut.sv:4:33: Non synthesizable construct,
 ============================== End Linting Results ==============================

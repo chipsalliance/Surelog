@@ -93,6 +93,9 @@ struct_typespec                                        9
 sys_func_call                                         29
 typespec_member                                       32
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/BitsOp/dut.sv:119:9: Use of undeclared identifier "shift_dr".
+[ERR:UH0737] ${SURELOG_DIR}/tests/BitsOp/dut.sv:120:11: Use of undeclared identifier "dmi_access".
+[ERR:UH0737] ${SURELOG_DIR}/tests/BitsOp/dut.sv:121:17: Use of undeclared identifier "dmi_tdi".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitsOp/slpp_unit/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BitsOp/slpp_unit/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BitsOp/slpp_unit/surelog.uhdm ...
@@ -4610,6 +4613,12 @@ design: (work@dut)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 6
 [   NOTE] : 7
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/BitsOp/dut.sv:119:9: Use of undeclared identifier, shift_dr
+[LINT]: ${SURELOG_DIR}/tests/BitsOp/dut.sv:120:11: Use of undeclared identifier, dmi_access
+[LINT]: ${SURELOG_DIR}/tests/BitsOp/dut.sv:121:17: Use of undeclared identifier, dmi_tdi
+============================== End Linting Results ==============================

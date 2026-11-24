@@ -1042,6 +1042,22 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           }
           break;
         }
+        case VObjectType::paSpecparam_declaration: {
+          // `specparam d = 1;` (LRM 6.20.5), in the module or a specify
+          // block: a constant like a localparam, which nothing may override.
+          if (collectType != CollectType::DEFINITION) break;
+          NodeId list = fC->Child(id);
+          while (list &&
+                 fC->Type(list) != VObjectType::paList_of_specparam_assignments)
+            list = fC->Sibling(list);
+          if (list) {
+            m_helper.compileParameterDeclaration(
+                m_module, fC, list, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, true,
+                m_instance, false, false);
+          }
+          break;
+        }
         case VObjectType::paLocal_parameter_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           NodeId list_of_type_assignments = fC->Child(id);
@@ -1693,6 +1709,22 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                 m_module, fC, id, m_compileDesign,
                 m_instance != nullptr ? Reduce::Yes : Reduce::No, false,
                 m_instance, ParameterPortListId, false);
+          }
+          break;
+        }
+        case VObjectType::paSpecparam_declaration: {
+          // `specparam d = 1;` (LRM 6.20.5), in the module or a specify
+          // block: a constant like a localparam, which nothing may override.
+          if (collectType != CollectType::DEFINITION) break;
+          NodeId list = fC->Child(id);
+          while (list &&
+                 fC->Type(list) != VObjectType::paList_of_specparam_assignments)
+            list = fC->Sibling(list);
+          if (list) {
+            m_helper.compileParameterDeclaration(
+                m_module, fC, list, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, true,
+                m_instance, false, false);
           }
           break;
         }

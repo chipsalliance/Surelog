@@ -2067,6 +2067,10 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
            VObjectType::paAttribute_instance) {
       tf_data_type_or_implicit = fC->Sibling(tf_data_type_or_implicit);
     }
+    // `var int x` (LRM 13.3): the `var` keyword precedes the data type.
+    if (fC->Type(tf_data_type_or_implicit) == VObjectType::paVar_type) {
+      tf_data_type_or_implicit = fC->Sibling(tf_data_type_or_implicit);
+    }
     NodeId tf_data_type = fC->Child(tf_data_type_or_implicit);
     VObjectType tf_port_direction_type = fC->Type(tf_data_type_or_implicit);
     if (tf_port_direction_type != VObjectType::paData_type_or_implicit)
@@ -2079,14 +2083,16 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
         tf_port_direction_type == VObjectType::paTfPortDir_Out ||
         tf_port_direction_type == VObjectType::paTfPortDir_Inout) {
       tf_data_type = fC->Sibling(tf_data_type_or_implicit);
+      // `input var int x`: the `var` keyword follows the direction.
+      if (fC->Type(tf_data_type) == VObjectType::paVar_type)
+        tf_data_type = fC->Sibling(tf_data_type);
       tf_param_name = fC->Sibling(tf_data_type);
     }
     fC->populateCoreMembers(tf_param_name, tf_param_name, decl);
     NodeId type = fC->Child(tf_data_type);
     if (fC->Type(type) == VObjectType::paVIRTUAL) type = fC->Sibling(type);
 
-    NodeId unpackedDimension =
-        fC->Sibling(fC->Sibling(tf_data_type_or_implicit));
+    NodeId unpackedDimension = fC->Sibling(tf_param_name);
     if (unpackedDimension &&
         (fC->Type(unpackedDimension) != VObjectType::paVariable_dimension))
       unpackedDimension = fC->Sibling(unpackedDimension);

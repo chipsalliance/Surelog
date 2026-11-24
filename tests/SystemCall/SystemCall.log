@@ -116,6 +116,8 @@ ref_typespec                                           2
 seq_formal_decl                                        1
 sys_func_call                                          4
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/SystemCall/dut.sv:4:18: Use of undeclared identifier "x".
+[ERR:UH0737] ${SURELOG_DIR}/tests/SystemCall/dut.sv:4:32: Use of undeclared identifier "clock".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SystemCall/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/SystemCall/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/SystemCall/slpp_all/surelog.uhdm ...
@@ -324,11 +326,13 @@ design: (work@m2)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 1
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/SystemCall/dut.sv:4:18: Use of undeclared identifier, x
+[LINT]: ${SURELOG_DIR}/tests/SystemCall/dut.sv:4:32: Use of undeclared identifier, clock
 [LINT]: ${SURELOG_DIR}/tests/SystemCall/dut.sv:3:13: Non synthesizable construct, $past
 [LINT]: ${SURELOG_DIR}/tests/SystemCall/dut.sv:4:12: Non synthesizable construct, $past
 [LINT]: ${SURELOG_DIR}/tests/SystemCall/dut.sv:3:13: Non synthesizable construct, $past

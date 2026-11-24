@@ -1412,6 +1412,16 @@ unsupported_typespec                                   7
 [ERR:UH0718] ${SURELOG_DIR}/tests/Bindings/dut.sv:75:11: Illegal lhs of type wire "data_r".
 [ERR:UH0718] ${SURELOG_DIR}/tests/Bindings/dut.sv:77:11: Illegal lhs of type wire "data_r".
 [ERR:UH0731] ${SURELOG_DIR}/tests/Bindings/dut.sv:96:33: Required positive value (>=1), "-1" given.
+[ERR:UH0737] ${SURELOG_DIR}/tests/Bindings/dut.sv:72:21: Use of undeclared identifier "clk_i".
+[ERR:UH0737] ${SURELOG_DIR}/tests/Bindings/dut.sv:74:13: Use of undeclared identifier "reset_i".
+[ERR:UH0737] ${SURELOG_DIR}/tests/Bindings/dut.sv:75:11: Use of undeclared identifier "data_r".
+[ERR:UH0737] ${SURELOG_DIR}/tests/Bindings/dut.sv:77:21: Use of undeclared identifier "data_i".
+[ERR:UH0737] ${SURELOG_DIR}/tests/Bindings/dut.sv:60:36: Use of undeclared identifier "entropy_i".
+[ERR:UH0737] ${SURELOG_DIR}/tests/Bindings/dut.sv:60:72: Use of undeclared identifier "coeffs".
+[ERR:UH0737] ${SURELOG_DIR}/tests/Bindings/dut.sv:60:83: Use of undeclared identifier "lfsr_q".
+[ERR:UH0737] ${SURELOG_DIR}/tests/Bindings/dut.sv:97:8: Use of undeclared identifier "GEN".
+[ERR:UH0737] ${SURELOG_DIR}/tests/Bindings/dut.sv:96:45: Use of undeclared identifier "fill".
+[ERR:UH0737] ${SURELOG_DIR}/tests/Bindings/dut.sv:96:53: Use of undeclared identifier "j".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Bindings/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Bindings/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Bindings/slpp_all/surelog.uhdm ...
@@ -5724,7 +5734,7 @@ design: (work@dut1)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 13
 [WARNING] : 6
 [   NOTE] : 10
 
@@ -5734,4 +5744,14 @@ design: (work@dut1)
 [LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:75:11: Illegal wire LHS, data_r
 [LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:77:11: Illegal wire LHS, data_r
 [LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:96:33: Non positive (<1) value, -1
+[LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:72:21: Use of undeclared identifier, clk_i
+[LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:74:13: Use of undeclared identifier, reset_i
+[LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:75:11: Use of undeclared identifier, data_r
+[LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:77:21: Use of undeclared identifier, data_i
+[LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:60:36: Use of undeclared identifier, entropy_i
+[LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:60:72: Use of undeclared identifier, coeffs
+[LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:60:83: Use of undeclared identifier, lfsr_q
+[LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:97:8: Use of undeclared identifier, GEN
+[LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:96:45: Use of undeclared identifier, fill
+[LINT]: ${SURELOG_DIR}/tests/Bindings/dut.sv:96:53: Use of undeclared identifier, j
 ============================== End Linting Results ==============================

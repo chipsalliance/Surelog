@@ -91,14 +91,26 @@ unsupported_typespec                                  11
 var_select                                             2
 wait_stmt                                              1
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:98:52: Use of undeclared identifier "REQ_WRITE".
+[ERR:UH0737] ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:105:52: Use of undeclared identifier "REQ_READ".
+[ERR:UH0737] ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:496:19: Use of undeclared identifier "VERBOSITY_ERROR".
+[ERR:UH0737] ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:269:21: Use of undeclared identifier "VERBOSITY_INFO".
+[ERR:UH0738] ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:496:13: Undefined task or function "print".
+[ERR:UH0738] ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:269:7: Undefined task or function "set_verbosity".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AVLMM/slpp_unit/surelog.uhdm ...
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 4
+[  ERROR] : 10
 [WARNING] : 4
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:98:52: Use of undeclared identifier, REQ_WRITE
+[LINT]: ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:105:52: Use of undeclared identifier, REQ_READ
+[LINT]: ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:496:19: Use of undeclared identifier, VERBOSITY_ERROR
+[LINT]: ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:269:21: Use of undeclared identifier, VERBOSITY_INFO
+[LINT]: ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:496:13: Undefined task or function, print
+[LINT]: ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:269:7: Undefined task or function, set_verbosity
 [LINT]: ${SURELOG_DIR}/third_party/tests/AVLMM/tb.sv:20:7: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:301:24: Non synthesizable construct, $urandom_range
 [LINT]: ${SURELOG_DIR}/third_party/tests/AVLMM/test_program.sv:302:24: Non synthesizable construct, $urandom_range

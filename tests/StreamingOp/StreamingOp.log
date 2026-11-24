@@ -128,6 +128,8 @@ module_inst                                            3
 operation                                             12
 ref_obj                                               14
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/StreamingOp/dut.sv:2:22: Use of undeclared identifier "x".
+[ERR:UH0737] ${SURELOG_DIR}/tests/StreamingOp/dut.sv:4:30: Use of undeclared identifier "v".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StreamingOp/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/StreamingOp/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/StreamingOp/slpp_all/surelog.uhdm ...
@@ -408,9 +410,14 @@ design: (work@dut)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 1
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/StreamingOp/dut.sv:2:22: Use of undeclared identifier, x
+[LINT]: ${SURELOG_DIR}/tests/StreamingOp/dut.sv:4:30: Use of undeclared identifier, v
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/StreamingOp/dut.sv | ${SURELOG_DIR}/build/regression/StreamingOp/roundtrip/dut_000.sv | 3 | 5 |

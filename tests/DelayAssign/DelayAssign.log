@@ -968,7 +968,7 @@ there are 5 more instances of this message.
 always                                                 1
 assignment                                             5
 begin                                                  3
-bit_typespec                                           6
+bit_typespec                                          10
 bit_var                                                3
 class_defn                                             8
 class_typespec                                         4
@@ -981,11 +981,11 @@ enum_typespec                                          1
 enum_var                                               1
 event_control                                          1
 func_call                                              1
-function                                               9
+function                                              10
 if_else                                                1
-int_typespec                                          17
-int_var                                                8
-io_decl                                               11
+int_typespec                                          23
+int_var                                                9
+io_decl                                               20
 logic_net                                             40
 logic_typespec                                        45
 logic_var                                              1
@@ -996,7 +996,7 @@ part_select                                            3
 port                                                  24
 range                                                 31
 ref_obj                                               56
-ref_typespec                                          72
+ref_typespec                                          82
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -1004,7 +1004,7 @@ task                                                   9
 always                                                 2
 assignment                                            10
 begin                                                  6
-bit_typespec                                           6
+bit_typespec                                          10
 bit_var                                                3
 class_defn                                             8
 class_typespec                                         4
@@ -1017,11 +1017,11 @@ enum_typespec                                          2
 enum_var                                               1
 event_control                                          2
 func_call                                              2
-function                                              18
+function                                              19
 if_else                                                2
-int_typespec                                          17
-int_var                                                8
-io_decl                                               22
+int_typespec                                          23
+int_var                                                9
+io_decl                                               31
 logic_net                                             40
 logic_typespec                                        45
 logic_var                                              1
@@ -1032,7 +1032,7 @@ part_select                                            6
 port                                                  36
 range                                                 31
 ref_obj                                               99
-ref_typespec                                          89
+ref_typespec                                          99
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DelayAssign/slpp_all/surelog.uhdm ...
@@ -2228,6 +2228,8 @@ design: (work@SimDTM)
                   |vpiActual:
                   \_logic_net: (work@SimDTM.__debug_resp_bits_data), line:39:20, endln:39:42
                 |vpiName:debug_tick
+                |vpiFunction:
+                \_function: (debug_tick), line:2:1, endln:14:3
               |vpiLhs:
               \_ref_obj: (work@SimDTM.__exit), line:66:7, endln:66:13
                 |vpiParent:
@@ -2441,6 +2443,144 @@ design: (work@SimDTM)
       |vpiFullName:work@SimDTM.exit
       |vpiActual:
       \_logic_net: (work@SimDTM.exit), line:31:17, endln:31:21
+|vpiTaskFunc:
+\_function: (debug_tick), line:2:1, endln:14:3
+  |vpiParent:
+  \_design: (work@SimDTM)
+  |vpiName:debug_tick
+  |vpiAccessType:4
+  |vpiVisibility:1
+  |vpiDPICStr:2
+  |vpiReturn:
+  \_int_var: (debug_tick), line:2:25, endln:2:28
+    |vpiParent:
+    \_function: (debug_tick), line:2:1, endln:14:3
+    |vpiTypespec:
+    \_ref_typespec: (debug_tick)
+      |vpiParent:
+      \_int_var: (debug_tick), line:2:25, endln:2:28
+      |vpiFullName:debug_tick
+      |vpiActual:
+      \_int_typespec: , line:2:25, endln:2:28
+    |vpiFullName:debug_tick
+    |vpiSigned:1
+  |vpiIODecl:
+  \_io_decl: (debug_req_valid), line:4:18, endln:4:33
+    |vpiParent:
+    \_function: (debug_tick), line:2:1, endln:14:3
+    |vpiDirection:2
+    |vpiName:debug_req_valid
+    |vpiTypedef:
+    \_ref_typespec: (debug_tick.debug_req_valid)
+      |vpiParent:
+      \_io_decl: (debug_req_valid), line:4:18, endln:4:33
+      |vpiFullName:debug_tick.debug_req_valid
+      |vpiActual:
+      \_bit_typespec: , line:4:10, endln:4:13
+  |vpiIODecl:
+  \_io_decl: (debug_req_ready), line:5:18, endln:5:33
+    |vpiParent:
+    \_function: (debug_tick), line:2:1, endln:14:3
+    |vpiDirection:1
+    |vpiName:debug_req_ready
+    |vpiTypedef:
+    \_ref_typespec: (debug_tick.debug_req_ready)
+      |vpiParent:
+      \_io_decl: (debug_req_ready), line:5:18, endln:5:33
+      |vpiFullName:debug_tick.debug_req_ready
+      |vpiActual:
+      \_bit_typespec: , line:5:10, endln:5:13
+  |vpiIODecl:
+  \_io_decl: (debug_req_bits_addr), line:6:18, endln:6:37
+    |vpiParent:
+    \_function: (debug_tick), line:2:1, endln:14:3
+    |vpiDirection:2
+    |vpiName:debug_req_bits_addr
+    |vpiTypedef:
+    \_ref_typespec: (debug_tick.debug_req_bits_addr)
+      |vpiParent:
+      \_io_decl: (debug_req_bits_addr), line:6:18, endln:6:37
+      |vpiFullName:debug_tick.debug_req_bits_addr
+      |vpiActual:
+      \_int_typespec: , line:6:10, endln:6:13
+  |vpiIODecl:
+  \_io_decl: (debug_req_bits_op), line:7:18, endln:7:35
+    |vpiParent:
+    \_function: (debug_tick), line:2:1, endln:14:3
+    |vpiDirection:2
+    |vpiName:debug_req_bits_op
+    |vpiTypedef:
+    \_ref_typespec: (debug_tick.debug_req_bits_op)
+      |vpiParent:
+      \_io_decl: (debug_req_bits_op), line:7:18, endln:7:35
+      |vpiFullName:debug_tick.debug_req_bits_op
+      |vpiActual:
+      \_int_typespec: , line:7:10, endln:7:13
+  |vpiIODecl:
+  \_io_decl: (debug_req_bits_data), line:8:18, endln:8:37
+    |vpiParent:
+    \_function: (debug_tick), line:2:1, endln:14:3
+    |vpiDirection:2
+    |vpiName:debug_req_bits_data
+    |vpiTypedef:
+    \_ref_typespec: (debug_tick.debug_req_bits_data)
+      |vpiParent:
+      \_io_decl: (debug_req_bits_data), line:8:18, endln:8:37
+      |vpiFullName:debug_tick.debug_req_bits_data
+      |vpiActual:
+      \_int_typespec: , line:8:10, endln:8:13
+  |vpiIODecl:
+  \_io_decl: (debug_resp_valid), line:10:21, endln:10:37
+    |vpiParent:
+    \_function: (debug_tick), line:2:1, endln:14:3
+    |vpiDirection:1
+    |vpiName:debug_resp_valid
+    |vpiTypedef:
+    \_ref_typespec: (debug_tick.debug_resp_valid)
+      |vpiParent:
+      \_io_decl: (debug_resp_valid), line:10:21, endln:10:37
+      |vpiFullName:debug_tick.debug_resp_valid
+      |vpiActual:
+      \_bit_typespec: , line:10:10, endln:10:13
+  |vpiIODecl:
+  \_io_decl: (debug_resp_ready), line:11:21, endln:11:37
+    |vpiParent:
+    \_function: (debug_tick), line:2:1, endln:14:3
+    |vpiDirection:2
+    |vpiName:debug_resp_ready
+    |vpiTypedef:
+    \_ref_typespec: (debug_tick.debug_resp_ready)
+      |vpiParent:
+      \_io_decl: (debug_resp_ready), line:11:21, endln:11:37
+      |vpiFullName:debug_tick.debug_resp_ready
+      |vpiActual:
+      \_bit_typespec: , line:11:10, endln:11:13
+  |vpiIODecl:
+  \_io_decl: (debug_resp_bits_resp), line:12:21, endln:12:41
+    |vpiParent:
+    \_function: (debug_tick), line:2:1, endln:14:3
+    |vpiDirection:1
+    |vpiName:debug_resp_bits_resp
+    |vpiTypedef:
+    \_ref_typespec: (debug_tick.debug_resp_bits_resp)
+      |vpiParent:
+      \_io_decl: (debug_resp_bits_resp), line:12:21, endln:12:41
+      |vpiFullName:debug_tick.debug_resp_bits_resp
+      |vpiActual:
+      \_int_typespec: , line:12:10, endln:12:13
+  |vpiIODecl:
+  \_io_decl: (debug_resp_bits_data), line:13:21, endln:13:41
+    |vpiParent:
+    \_function: (debug_tick), line:2:1, endln:14:3
+    |vpiDirection:1
+    |vpiName:debug_resp_bits_data
+    |vpiTypedef:
+    \_ref_typespec: (debug_tick.debug_resp_bits_data)
+      |vpiParent:
+      \_io_decl: (debug_resp_bits_data), line:13:21, endln:13:41
+      |vpiFullName:debug_tick.debug_resp_bits_data
+      |vpiActual:
+      \_int_typespec: , line:13:10, endln:13:13
 |uhdmtopModules:
 \_module_inst: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiParent:
@@ -3252,6 +3392,8 @@ design: (work@SimDTM)
                   |vpiActual:
                   \_logic_net: (work@SimDTM.__debug_resp_bits_data), line:39:20, endln:39:42
                 |vpiName:debug_tick
+                |vpiFunction:
+                \_function: (debug_tick), line:2:1, endln:14:3
               |vpiLhs:
               \_ref_obj: (work@SimDTM.__exit), line:66:7, endln:66:13
                 |vpiParent:
@@ -3511,6 +3653,22 @@ design: (work@SimDTM)
       |vpiActual:
       \_logic_net: (work@SimDTM.exit), line:31:17, endln:31:21
 \_weaklyReferenced:
+\_int_typespec: , line:2:25, endln:2:28
+  |vpiSigned:1
+\_bit_typespec: , line:4:10, endln:4:13
+\_bit_typespec: , line:5:10, endln:5:13
+\_int_typespec: , line:6:10, endln:6:13
+  |vpiSigned:1
+\_int_typespec: , line:7:10, endln:7:13
+  |vpiSigned:1
+\_int_typespec: , line:8:10, endln:8:13
+  |vpiSigned:1
+\_bit_typespec: , line:10:10, endln:10:13
+\_bit_typespec: , line:11:10, endln:11:13
+\_int_typespec: , line:12:10, endln:12:13
+  |vpiSigned:1
+\_int_typespec: , line:13:10, endln:13:13
+  |vpiSigned:1
 \_function: (work@mailbox::new), line:3:5, endln:4:16
   |vpiParent:
   \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/DelayAssign/builtin.sv, line:1:3, endln:27:11

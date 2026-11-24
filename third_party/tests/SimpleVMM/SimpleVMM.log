@@ -98,70 +98,72 @@
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-array_typespec                                        92
-array_var                                             92
-assignment                                           934
-begin                                               1034
-bit_select                                            98
-bit_typespec                                         214
-bit_var                                              137
-break_stmt                                            18
+array_typespec                                        98
+array_var                                             98
+assignment                                          1141
+begin                                               1297
+bit_select                                           123
+bit_typespec                                         224
+bit_var                                              143
+break_stmt                                            27
 byte_typespec                                          1
 byte_var                                               1
-case_item                                             42
-case_stmt                                              9
+case_item                                             51
+case_stmt                                             12
 class_defn                                            56
-class_typespec                                       587
-class_var                                            333
-constant                                            3353
-continue_stmt                                         12
+class_typespec                                       630
+class_var                                            356
+constant                                            4164
+continue_stmt                                         22
+delay_control                                          3
 design                                                 1
-disable_fork                                           6
-do_while                                             170
+disable_fork                                           7
+do_while                                             214
 enum_const                                           148
 enum_typespec                                         26
 enum_var                                               6
-event_control                                          7
-event_stmt                                            35
+event_control                                         21
+event_stmt                                            39
 event_typespec                                        16
 extends                                                9
-for_stmt                                              23
-foreach_stmt                                          90
-forever_stmt                                           7
-fork_stmt                                             13
-func_call                                             45
-function                                             723
-hier_path                                           1070
-if_else                                               87
-if_stmt                                              650
+for_stmt                                              28
+foreach_stmt                                          97
+forever_stmt                                           8
+fork_stmt                                             18
+func_call                                             51
+function                                             727
+hier_path                                           1333
+if_else                                              115
+if_stmt                                              836
 include_file_info                                     28
-int_typespec                                         555
-int_var                                              289
+int_typespec                                         596
+int_var                                              311
 integer_typespec                                       1
 integer_var                                            1
-io_decl                                              911
-logic_typespec                                        26
+io_decl                                              971
+logic_typespec                                        27
 logic_var                                              7
-method_func_call                                     982
+method_func_call                                    1362
 module_inst                                           10
 named_event                                           16
-operation                                            861
+operation                                           1075
 package                                                2
 part_select                                           14
-range                                                184
-ref_obj                                             3972
-ref_typespec                                        2208
-ref_var                                              176
-return_stmt                                          278
-string_typespec                                      568
-string_var                                           250
-sys_func_call                                        272
-task                                                  83
-time_typespec                                          9
-time_var                                               7
-unsupported_typespec                                 129
-var_select                                           214
-while_stmt                                            13
+range                                                198
+ref_obj                                             4920
+ref_typespec                                        2358
+ref_var                                              192
+return_stmt                                          300
+string_typespec                                      592
+string_var                                           267
+sys_func_call                                        315
+task                                                 149
+time_typespec                                         10
+time_var                                               8
+unsupported_typespec                                 144
+var_select                                           295
+wait_stmt                                              4
+while_stmt                                            31
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SimpleVMM/slpp_unit/surelog.uhdm ...
 [  FATAL] : 0
@@ -456,6 +458,10 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_log.sv:1585:9: Non synthesizable construct, reset
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_log.sv:1586:27: Non synthesizable construct, for_each
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_log.sv:1586:63: Non synthesizable construct, for_each
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_log.sv:1611:17: Non synthesizable construct, create_watchpoint
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_log.sv:1612:9: Non synthesizable construct, add_watchpoint
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_log.sv:1613:9: Non synthesizable construct, wait_for_watchpoint
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_log.sv:1614:9: Non synthesizable construct, remove_watchpoint
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:432:14: Non synthesizable construct, start_msg
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:433:19: Non synthesizable construct, text
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:434:13: Non synthesizable construct, end_msg
@@ -468,6 +474,9 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_log.sv:1679:55: Non synthesizable construct, for_each
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_log.sv:1687:19: Non synthesizable construct, $write
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_log.sv:1691:17: Non synthesizable construct, watchpoint_ids
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:432:14: Non synthesizable construct, start_msg
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:433:19: Non synthesizable construct, text
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:434:13: Non synthesizable construct, end_msg
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:442:14: Non synthesizable construct, start_msg
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, text
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, end_msg
@@ -524,6 +533,21 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:197:10: Non synthesizable construct, $sformat
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:198:21: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:199:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:214:10: Non synthesizable construct, $write
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:221:10: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:222:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:223:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:237:18: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:240:13: Non synthesizable construct, $write
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:254:10: Non synthesizable construct, $write
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:261:10: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:262:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:263:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:277:13: Non synthesizable construct, $write
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:291:10: Non synthesizable construct, $write
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:298:10: Non synthesizable construct, $sformat
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:300:21: Non synthesizable construct, this
@@ -677,6 +701,17 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:327:14: Non synthesizable construct, check_grab_owners
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:328:14: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:329:14: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:343:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:347:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:348:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:351:16: Non synthesizable construct, check_all_grab_owners
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:354:21: Non synthesizable construct, check_grab_owners
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:355:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:356:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:359:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:360:15: Non synthesizable construct, grab
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:376:21: Non synthesizable construct, this
@@ -688,6 +723,15 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:405:4: Non synthesizable construct, $sformat
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:415:13: Non synthesizable construct, is_grabbed
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:421:7: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:439:8: Non synthesizable construct, get
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:433:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:434:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:447:9: Non synthesizable construct, block_producer
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:449:9: Non synthesizable construct, sneak
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:451:9: Non synthesizable construct, block_producer
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:459:8: Non synthesizable construct, put
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:472:4: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:472:9: Non synthesizable construct, diff_time
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
@@ -747,6 +791,17 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:683:15: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:688:15: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:689:10: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:721:9: Non synthesizable construct, block_consumer
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:722:9: Non synthesizable construct, XgetX
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:730:9: Non synthesizable construct, block_consumer
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:732:15: Non synthesizable construct, index
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:744:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:748:32: Non synthesizable construct, level
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:749:23: Non synthesizable construct, psdisplay
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:747:10: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:750:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:751:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:755:9: Non synthesizable construct, unblock_producer
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:763:13: Non synthesizable construct, size
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:763:33: Non synthesizable construct, is_locked
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:765:15: Non synthesizable construct, index
@@ -756,6 +811,19 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:775:10: Non synthesizable construct, $sformat
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:778:21: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:779:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:791:18: Non synthesizable construct, remove
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:793:16: Non synthesizable construct, size
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:802:22: Non synthesizable construct, index
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:810:14: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:819:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:820:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:825:32: Non synthesizable construct, level
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:826:23: Non synthesizable construct, psdisplay
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:824:10: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:827:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:828:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:833:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:834:10: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:433:19: Non synthesizable construct, this
@@ -780,6 +848,11 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:918:7: Non synthesizable construct, $sformat
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:919:18: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:920:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:938:24: Non synthesizable construct, level
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:939:23: Non synthesizable construct, psdisplay
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:937:7: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:940:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:941:12: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:952:4: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:975:9: Non synthesizable construct, $fclose
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:976:14: Non synthesizable construct, this
@@ -791,9 +864,70 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1001:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1026:4: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1026:9: Non synthesizable construct, time_delay
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1031:13: Non synthesizable construct, check_grab_owners
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1037:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1043:11: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1044:11: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1052:11: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1053:11: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1057:18: Non synthesizable construct, $fopen
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1063:11: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1064:11: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1070:6: Non synthesizable construct, $fclose
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1073:11: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1074:11: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1080:9: Non synthesizable construct, lock
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1099:20: Non synthesizable construct, load
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1109:10: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1112:29: Non synthesizable construct, size
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1114:29: Non synthesizable construct, copy
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1114:15: Non synthesizable construct, sneak
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1123:28: Non synthesizable construct, size
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1126:28: Non synthesizable construct, copy
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1126:14: Non synthesizable construct, sneak
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1135:20: Non synthesizable construct, load
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1144:10: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1148:27: Non synthesizable construct, size
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1150:27: Non synthesizable construct, copy
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1150:13: Non synthesizable construct, sneak
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1159:10: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1161:29: Non synthesizable construct, size
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1162:16: Non synthesizable construct, unput
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:433:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:434:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1173:4: Non synthesizable construct, $fclose
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1174:9: Non synthesizable construct, unlock
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1175:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1176:9: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1190:10: Non synthesizable construct, $sformat
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1192:21: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1193:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1202:35: Non synthesizable construct, is_locked
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1204:18: Non synthesizable construct, check_grab_owners
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1208:24: Non synthesizable construct, check_grab_owners
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1209:22: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1213:40: Non synthesizable construct, is_locked
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1205:8: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1228:16: Non synthesizable construct, size
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1228:36: Non synthesizable construct, is_locked
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1234:13: Non synthesizable construct, level
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1237:12: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:1240:13: Non synthesizable construct, level
@@ -902,6 +1036,8 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:445:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_consensus.sv:236:13: Non synthesizable construct, kill_voter
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_consensus.sv:258:4: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_consensus.sv:263:4: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_consensus.sv:280:19: Non synthesizable construct, is_reached
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_consensus.sv:280:40: Non synthesizable construct, is_forced
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_consensus.sv:278:4: Non synthesizable construct, $sformat
@@ -988,7 +1124,30 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_consensus.sv:605:4: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_consensus.sv:627:4: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_subenv.sv:36:4: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:433:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:434:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:433:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:434:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:76:4: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:84:37: Non synthesizable construct, pre_test
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:86:34: Non synthesizable construct, cleanup
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:90:9: Non synthesizable construct, report
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:96:60: Non synthesizable construct, name
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:96:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:97:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:103:9: Non synthesizable construct, hw_reset
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:118:12: Non synthesizable construct, cfg_dut
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:125:12: Non synthesizable construct, save_rng_state
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:154:9: Non synthesizable construct, this
@@ -1002,6 +1161,86 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:173:9: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:175:18: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:176:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:186:18: Non synthesizable construct, get_bit
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:187:17: Non synthesizable construct, get_help
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:191:32: Non synthesizable construct, build
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:197:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:199:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:200:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:202:9: Non synthesizable construct, power_on_reset
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:211:36: Non synthesizable construct, reset_dut
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:217:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:219:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:220:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:222:9: Non synthesizable construct, power_up
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:227:34: Non synthesizable construct, cfg_dut
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:233:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:235:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:236:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:240:12: Non synthesizable construct, restore_rng_state
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:243:14: Non synthesizable construct, save_rng_state
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:248:32: Non synthesizable construct, start
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:254:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:256:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:257:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:263:39: Non synthesizable construct, wait_for_end
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:269:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:271:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:272:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:278:31: Non synthesizable construct, stop
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:284:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:286:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:287:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:297:9: Non synthesizable construct, reset_env
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:300:34: Non synthesizable construct, cleanup
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:305:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:307:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:308:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:311:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:312:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:313:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:314:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:315:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:316:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:320:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:321:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:322:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:323:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:326:7: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:339:9: Non synthesizable construct, reset_env
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:341:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:343:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:344:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:347:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:348:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:349:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:350:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:351:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:352:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:353:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:354:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:361:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:362:9: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:368:18: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:369:12: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:377:18: Non synthesizable construct, this
@@ -1041,6 +1280,29 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:305:15: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:306:15: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:307:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:316:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:317:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:325:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:326:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:333:12: Non synthesizable construct, check_all_threads_stopped
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:340:24: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:341:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:344:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:345:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:346:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:347:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:362:9: Non synthesizable construct, wait_if_stopped
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:363:16: Non synthesizable construct, level
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:370:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:371:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:375:22: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:376:16: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:379:13: Non synthesizable construct, peek
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:381:13: Non synthesizable construct, wait_if_stopped
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:384:8: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:385:8: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:433:19: Non synthesizable construct, this
@@ -1079,6 +1341,10 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:49:4: Non synthesizable construct, $sformat
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:51:4: Non synthesizable construct, $sformat
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:56:7: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:70:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:71:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:78:4: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:67:1: Non synthesizable construct, vmm_broadcast::broadcast_mode
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:91:9: Non synthesizable construct, this
@@ -1095,11 +1361,32 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:139:7: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:145:7: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:150:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:157:9: Non synthesizable construct, bcast_on_off
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:170:10: Non synthesizable construct, start_xactor
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:175:10: Non synthesizable construct, stop_xactor
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:180:10: Non synthesizable construct, reset_xactor
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:182:9: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:184:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:191:13: Non synthesizable construct, main
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:192:12: Non synthesizable construct, broadcast
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:193:12: Non synthesizable construct, sink_if_outs
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:190:4: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:210:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:211:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:215:12: Non synthesizable construct, wait_if_stopped
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:256:12: Non synthesizable construct, wait_if_stopped
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:257:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:258:12: Non synthesizable construct, wait_if_stopped
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:280:44: Non synthesizable construct, copy
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:284:22: Non synthesizable construct, add_to_output
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:285:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:320:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:333:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:336:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:339:19: Non synthesizable construct, level
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:340:18: Non synthesizable construct, notify
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:48:22: Non synthesizable construct, psdisplay
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:49:4: Non synthesizable construct, $sformat
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:54:7: Non synthesizable construct, $sformat
@@ -1114,12 +1401,60 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:91:18: Non synthesizable construct, notify
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:92:10: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:83:4: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:104:10: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:105:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:106:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:115:7: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:117:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:118:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:122:7: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:134:48: Non synthesizable construct, size
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:157:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:158:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:164:54: Non synthesizable construct, size
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:166:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:167:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:176:7: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:178:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:179:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:184:30: Non synthesizable construct, level
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:185:15: Non synthesizable construct, level
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:187:24: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:188:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:192:12: Non synthesizable construct, get_object
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:195:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:196:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:198:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:199:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:212:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:213:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:218:25: Non synthesizable construct, level
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:220:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:221:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:226:11: Non synthesizable construct, get
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:231:10: Non synthesizable construct, start_xactor
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:233:4: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:238:10: Non synthesizable construct, stop_xactor
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:243:10: Non synthesizable construct, reset_xactor
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:245:9: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:247:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:261:13: Non synthesizable construct, main
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:262:12: Non synthesizable construct, schedule_cycle
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:260:4: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:290:13: Non synthesizable construct, wait_if_stopped
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:296:18: Non synthesizable construct, push_back
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:297:17: Non synthesizable construct, push_back
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:300:16: Non synthesizable construct, size
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:301:17: Non synthesizable construct, schedule
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:584:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:585:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:312:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:47:35: Non synthesizable construct, get_context_gen
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:48:23: Non synthesizable construct, get_vmm_log
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:442:13: Non synthesizable construct, start_msg
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:155: Non synthesizable construct, scenario_name
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:18: Non synthesizable construct, text
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:12: Non synthesizable construct, end_msg
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:65:13: Non synthesizable construct, get_context_gen
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:432:17: Non synthesizable construct, start_msg
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:433:18: Non synthesizable construct, log
@@ -1141,6 +1476,9 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:18: Non synthesizable construct, text
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:12: Non synthesizable construct, end_msg
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:121:16: Non synthesizable construct, get_channel
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:130:27: Non synthesizable construct, try_grab
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:131:53: Non synthesizable construct, ungrab
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:132:25: Non synthesizable construct, notify
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:144:23: Non synthesizable construct, get_vmm_log
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:442:13: Non synthesizable construct, start_msg
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:123: Non synthesizable construct, scenario_name
@@ -1300,6 +1638,30 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:433:19: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:434:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:787:15: Non synthesizable construct, main
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:786:5: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:797:14: Non synthesizable construct, wait_if_stopped
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:819:14: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:821:24: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:694:9: Non synthesizable construct, pre_scenario_randomize
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:837:26: Non synthesizable construct, randomize
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:844:14: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:846:22: Non synthesizable construct, execute
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:850:10: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:851:10: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:852:10: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:853:10: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_ms_scenario_gen.sv:782:1: Non synthesizable construct, vmm_ms_scenario_gen::main
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_action.sv:61:4: Non synthesizable construct, $sformat
@@ -1336,6 +1698,44 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:133:10: Non synthesizable construct, xactor_status
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:163:14: Non synthesizable construct, main
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:164:13: Non synthesizable construct, execute_actions
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:165:13: Non synthesizable construct, execute_interruptions
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:162:4: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:176:12: Non synthesizable construct, wait_if_stopped_or_empty
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:177:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:181:12: Non synthesizable construct, wait_if_interrupted
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:183:12: Non synthesizable construct, execute_action
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:192:12: Non synthesizable construct, wait_if_stopped_or_empty
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:193:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:197:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:198:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:200:7: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:203:12: Non synthesizable construct, execute_action
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:208:10: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:217:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:218:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:231:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:232:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:244:21: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:245:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:256:18: Non synthesizable construct, active_slot
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:260:77: Non synthesizable construct, get_name
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:260:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:261:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:265:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:118: Non synthesizable construct, get_name
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:453:19: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:454:13: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:275:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:279:15: Non synthesizable construct, start
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:280:11: Non synthesizable construct, execute
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:281:15: Non synthesizable construct, complete
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:287:15: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:295:77: Non synthesizable construct, get_name
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:295:18: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:296:12: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:299:15: Non synthesizable construct, remove
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:78: Non synthesizable construct, get_name
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:93: Non synthesizable construct, get_instance
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:19: Non synthesizable construct, this
@@ -1357,6 +1757,7 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_manager.sv:102:20: Non synthesizable construct, size
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_manager.sv:102:11: Non synthesizable construct, new
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:62:9: Non synthesizable construct, this
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:77:6: Non synthesizable construct, run
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:442:13: Non synthesizable construct, start_msg
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:443:18: Non synthesizable construct, text
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:12: Non synthesizable construct, end_msg
@@ -1367,6 +1768,24 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:444:12: Non synthesizable construct, end_msg
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:99:13: Non synthesizable construct, len
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:99:41: Non synthesizable construct, len
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:108:17: Non synthesizable construct, num
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:109:22: Non synthesizable construct, first
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:113:18: Non synthesizable construct, exists
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:115:7: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:118:18: Non synthesizable construct, get_bit
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:123:25: Non synthesizable construct, get_string
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:133:25: Non synthesizable construct, get_name
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:136:25: Non synthesizable construct, num
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:137:25: Non synthesizable construct, first
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:144:14: Non synthesizable construct, push_back
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:145:14: Non synthesizable construct, push_back
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:151:21: Non synthesizable construct, exists
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:155:10: Non synthesizable construct, $sformat
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:156:14: Non synthesizable construct, push_back
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:613:13: Non synthesizable construct, start_msg
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:614:18: Non synthesizable construct, text
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm.sv:615:12: Non synthesizable construct, end_msg
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:164:8: Non synthesizable construct, run
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:172:8: Non synthesizable construct, push_back
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:173:8: Non synthesizable construct, push_back
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_test.sv:188:48: Non synthesizable construct, len
@@ -1382,8 +1801,13 @@ while_stmt                                            13
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:94:20: Unsupported typespec, sync_e
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_notify.sv:546:33: Unsupported typespec, reset_e
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_channel.sv:909:10: Unsupported typespec, vmm_channel::active_status_e
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_subenv.sv:68:24: Unsupported typespec, vmm_env::restart_e
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_subenv.sv:106:27: Unsupported typespec, vmm_env::restart_e
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:94:25: Unsupported typespec, restart_e
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_env.sv:405:24: Unsupported typespec, vmm_env::restart_e
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:200:40: Unsupported typespec, vmm_xactor::reset_e
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_xactor.sv:584:43: Unsupported typespec, vmm_xactor::reset_e
+[LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:67:36: Unsupported typespec, bcast_mode_e
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:179:43: Unsupported typespec, vmm_xactor::reset_e
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_broadcast.sv:183:13: Unsupported typespec, out_chans
 [LINT]: ${SURELOG_DIR}/third_party/UVM/vmm-1.1.1a/sv/std_lib/vmm_scheduler.sv:242:43: Unsupported typespec, vmm_xactor::reset_e

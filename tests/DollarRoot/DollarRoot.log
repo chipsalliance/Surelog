@@ -6880,6 +6880,12 @@ wait_stmt                                              2
 [ERR:UH0725] ${SURELOG_DIR}/tests/DollarRoot/dut.sv:463:32: Unresolved hierarchical reference "$root.tb.dut.slave_1.get_command_data".
 [ERR:UH0725] ${SURELOG_DIR}/tests/DollarRoot/dut.sv:464:32: Unresolved hierarchical reference "$root.tb.dut.slave_1.get_command_byte_enable".
 [ERR:UH0725] ${SURELOG_DIR}/tests/DollarRoot/dut.sv:802:13: Unresolved hierarchical reference "$root.tb.dut.master_02.signal_write_response_complete".
+[ERR:UH0737] ${SURELOG_DIR}/tests/DollarRoot/dut.sv:233:52: Use of undeclared identifier "REQ_WRITE".
+[ERR:UH0737] ${SURELOG_DIR}/tests/DollarRoot/dut.sv:240:52: Use of undeclared identifier "REQ_READ".
+[ERR:UH0737] ${SURELOG_DIR}/tests/DollarRoot/dut.sv:752:19: Use of undeclared identifier "VERBOSITY_ERROR".
+[ERR:UH0737] ${SURELOG_DIR}/tests/DollarRoot/dut.sv:525:21: Use of undeclared identifier "VERBOSITY_INFO".
+[ERR:UH0738] ${SURELOG_DIR}/tests/DollarRoot/dut.sv:752:13: Undefined task or function "print".
+[ERR:UH0738] ${SURELOG_DIR}/tests/DollarRoot/dut.sv:525:7: Undefined task or function "set_verbosity".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DollarRoot/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DollarRoot/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DollarRoot/slpp_all/surelog.uhdm ...
@@ -28608,11 +28614,17 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 28
+[  ERROR] : 34
 [WARNING] : 3
 [   NOTE] : 8
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/DollarRoot/dut.sv:233:52: Use of undeclared identifier, REQ_WRITE
+[LINT]: ${SURELOG_DIR}/tests/DollarRoot/dut.sv:240:52: Use of undeclared identifier, REQ_READ
+[LINT]: ${SURELOG_DIR}/tests/DollarRoot/dut.sv:752:19: Use of undeclared identifier, VERBOSITY_ERROR
+[LINT]: ${SURELOG_DIR}/tests/DollarRoot/dut.sv:525:21: Use of undeclared identifier, VERBOSITY_INFO
+[LINT]: ${SURELOG_DIR}/tests/DollarRoot/dut.sv:752:13: Undefined task or function, print
+[LINT]: ${SURELOG_DIR}/tests/DollarRoot/dut.sv:525:7: Undefined task or function, set_verbosity
 [LINT]: ${SURELOG_DIR}/tests/DollarRoot/dut.sv:557:24: Non synthesizable construct, $urandom_range
 [LINT]: ${SURELOG_DIR}/tests/DollarRoot/dut.sv:558:24: Non synthesizable construct, $urandom_range
 [LINT]: ${SURELOG_DIR}/tests/DollarRoot/dut.sv:586:36: Non synthesizable construct, $urandom_range

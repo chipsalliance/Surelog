@@ -203,6 +203,7 @@ struct_typespec                                        8
 tagged_pattern                                        20
 typespec_member                                       16
 === UHDM Object Stats End ===
+[ERR:UH0737] ${SURELOG_DIR}/tests/OpTypespec/dut.sv:2:16: Use of undeclared identifier "Width".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OpTypespec/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/OpTypespec/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/OpTypespec/slpp_all/surelog.uhdm ...
@@ -1043,9 +1044,13 @@ design: (work@dut)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 2
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/OpTypespec/dut.sv:2:16: Use of undeclared identifier, Width
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/OpTypespec/dut.sv | ${SURELOG_DIR}/build/regression/OpTypespec/roundtrip/dut_000.sv | 8 | 21 |

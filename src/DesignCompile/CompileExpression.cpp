@@ -2152,6 +2152,16 @@ UHDM::any *CompileHelper::compileExpression(
     case VObjectType::paConstant_mintypmax_expression:
     case VObjectType::paMintypmax_expression: {
       NodeId Expression = child;
+      // A specparam's value (`specparam d = 1;`) is a mintypmax expression;
+      // with a single expression it IS that expression (LRM A.8.3).
+      if (!fC->Sibling(child) &&
+          fC->Type(fC->Parent(parent)) == VObjectType::paSpecparam_assignment) {
+        if (m_checkForLoops) {
+          m_stackLevel--;
+        }
+        return compileExpression(component, fC, child, compileDesign, reduce,
+                                 pexpr, instance, muteErrors);
+      }
       operation *op = s.MakeOperation();
       op->VpiOpType(vpiMinTypMaxOp);
       op->VpiParent(pexpr);
