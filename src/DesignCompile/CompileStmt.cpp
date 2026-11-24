@@ -1785,9 +1785,13 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
                               Reduce::No, parent, nullptr, size, false);
           }
           const std::string_view name = fC->SymName(nameId);
-          if (declaredVars.count(name)) redefined(nameId);
-          if (fC->Type(Data_type) == VObjectType::paData_type)
-            typedIos.emplace(name);
+          // A variable declared before its port is a redefinition only when
+          // the port carries a data type of its own (`integer x;` then
+          // `input integer x;`); an untyped `input x;` is completed by it.
+          const bool typedPort =
+              fC->Type(Data_type) == VObjectType::paData_type;
+          if (typedPort && declaredVars.count(name)) redefined(nameId);
+          if (typedPort) typedIos.emplace(name);
           io_decl* decl = s.MakeIo_decl();
           ios->push_back(decl);
           decl->VpiParent(parent);
@@ -1796,13 +1800,30 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           decl->VpiName(name);
           ioMap.emplace(name, decl);
           fC->populateCoreMembers(nameId, nameId, decl);
-          if (ts != nullptr) {
+          // `reg [7:0] a; input a;`: the variable declared BEFORE an untyped
+          // port completes it, exactly as one declared after it does -- the
+          // port takes its type, and the variable is no longer a separate
+          // local (references must bind to the port).  It is dropped from
+          // the list, not erased: its tree may still be referenced.
+          typespec* completingTs = nullptr;
+          if (!typedPort && declaredVars.count(name)) {
+            for (auto vit = vars->begin(); vit != vars->end(); ++vit) {
+              if ((*vit)->VpiName() != name) continue;
+              if ((*vit)->Typespec())
+                completingTs = (*vit)->Typespec()->Actual_typespec();
+              vars->erase(vit);
+              break;
+            }
+            completedIos.emplace(name);
+          }
+          typespec* const declTs = completingTs ? completingTs : ts;
+          if (declTs != nullptr) {
             if (decl->Typespec() == nullptr) {
               ref_typespec* tsRef = s.MakeRef_typespec();
               tsRef->VpiParent(decl);
               decl->Typespec(tsRef);
             }
-            decl->Typespec()->Actual_typespec(ts);
+            decl->Typespec()->Actual_typespec(declTs);
           }
           decl->Ranges(ranges);
           if (fC->Type(Variable_dimension) ==
@@ -2316,8 +2337,21 @@ bool CompileHelper::compileTask(DesignComponent* component,
         compileTfPortList(component, task, fC, Tf_port_list, compileDesign));
   } else if (fC->Type(Tf_port_list) == VObjectType::paTf_item_declaration) {
     NodeId Block_item_declaration = fC->Child(Tf_port_list);
-    if (fC->Type(Block_item_declaration) !=
-        VObjectType::paBlock_item_declaration) {
+    // A non-ANSI port may come AFTER a variable declaration
+    // (`integer x; input integer x;`): scan the whole leading run of
+    // declarations together whenever it holds a port, so a variable declared
+    // before its port is seen (and a redefinition reported) -- starting at
+    // the first PORT skipped it.
+    bool portInRun = fC->Type(Block_item_declaration) !=
+                     VObjectType::paBlock_item_declaration;
+    for (NodeId item = Tf_port_list;
+         !portInRun && item &&
+         fC->Type(item) == VObjectType::paTf_item_declaration;
+         item = fC->Sibling(item)) {
+      portInRun =
+          fC->Type(fC->Child(item)) == VObjectType::paTf_port_declaration;
+    }
+    if (portInRun) {
       compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign,
                         &tf_inits);
       while (fC->Type(Tf_port_list) == VObjectType::paTf_item_declaration) {

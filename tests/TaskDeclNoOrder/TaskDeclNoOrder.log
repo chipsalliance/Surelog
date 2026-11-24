@@ -230,16 +230,18 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             7
 begin                                                  1
-constant                                              26
+constant                                              35
+delay_control                                          1
 design                                                 1
+func_call                                              1
 int_typespec                                           1
 integer_typespec                                       5
 integer_var                                            1
 io_decl                                                4
-logic_typespec                                         7
+logic_typespec                                        12
 logic_var                                              6
 module_inst                                            2
-range                                                 11
+range                                                 15
 ref_typespec                                          11
 task                                                   1
 === UHDM Object Stats End ===
@@ -247,19 +249,22 @@ task                                                   1
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                            11
 begin                                                  2
-constant                                              30
+constant                                              39
+delay_control                                          2
 design                                                 1
+func_call                                              2
 int_typespec                                           1
 integer_typespec                                       5
 integer_var                                            2
 io_decl                                                8
-logic_typespec                                         7
-logic_var                                             21
+logic_typespec                                        12
+logic_var                                             16
 module_inst                                            2
-range                                                 11
-ref_typespec                                          31
+range                                                 15
+ref_typespec                                          26
 task                                                   2
 === UHDM Object Stats End ===
+[ERR:UH0738] ${SURELOG_DIR}/tests/TaskDeclNoOrder/dut.sv:17:9: Undefined task or function "set_ibias_en".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TaskDeclNoOrder/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TaskDeclNoOrder/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TaskDeclNoOrder/slpp_all/surelog.uhdm ...
@@ -283,7 +288,7 @@ design: (work@dut)
     |vpiVariables:
     \_logic_var: (work@dut.set_pll_fast_run.band_vco1_val), line:4:24, endln:4:37
       |vpiParent:
-      \_assignment: , line:4:24, endln:4:42
+      \_task: (work@dut.set_pll_fast_run), line:3:1, endln:21:8
       |vpiTypespec:
       \_ref_typespec: (work@dut.set_pll_fast_run.band_vco1_val)
         |vpiParent:
@@ -296,7 +301,7 @@ design: (work@dut)
     |vpiVariables:
     \_logic_var: (work@dut.set_pll_fast_run.fine_vco1_val), line:5:24, endln:5:37
       |vpiParent:
-      \_assignment: , line:5:24, endln:5:42
+      \_task: (work@dut.set_pll_fast_run), line:3:1, endln:21:8
       |vpiTypespec:
       \_ref_typespec: (work@dut.set_pll_fast_run.fine_vco1_val)
         |vpiParent:
@@ -309,7 +314,7 @@ design: (work@dut)
     |vpiVariables:
     \_logic_var: (work@dut.set_pll_fast_run.band_vco2_val), line:6:24, endln:6:37
       |vpiParent:
-      \_assignment: , line:6:24, endln:6:42
+      \_task: (work@dut.set_pll_fast_run), line:3:1, endln:21:8
       |vpiTypespec:
       \_ref_typespec: (work@dut.set_pll_fast_run.band_vco2_val)
         |vpiParent:
@@ -322,7 +327,7 @@ design: (work@dut)
     |vpiVariables:
     \_logic_var: (work@dut.set_pll_fast_run.fine_vco2_val), line:7:24, endln:7:37
       |vpiParent:
-      \_assignment: , line:7:24, endln:7:42
+      \_task: (work@dut.set_pll_fast_run), line:3:1, endln:21:8
       |vpiTypespec:
       \_ref_typespec: (work@dut.set_pll_fast_run.fine_vco2_val)
         |vpiParent:
@@ -335,7 +340,7 @@ design: (work@dut)
     |vpiVariables:
     \_logic_var: (work@dut.set_pll_fast_run.pll_core_ready), line:8:11, endln:8:25
       |vpiParent:
-      \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+      \_task: (work@dut.set_pll_fast_run), line:3:1, endln:21:8
       |vpiTypespec:
       \_ref_typespec: (work@dut.set_pll_fast_run.pll_core_ready)
         |vpiParent:
@@ -430,24 +435,14 @@ design: (work@dut)
         |vpiActual:
         \_int_typespec: , line:12:12, endln:12:15
     |vpiStmt:
-    \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+    \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
       |vpiParent:
       \_task: (work@dut.set_pll_fast_run), line:3:1, endln:21:8
       |vpiFullName:work@dut.set_pll_fast_run
-      |vpiVariables:
-      \_logic_var: (work@dut.set_pll_fast_run.band_vco1_val), line:4:24, endln:4:37
-      |vpiVariables:
-      \_logic_var: (work@dut.set_pll_fast_run.fine_vco1_val), line:5:24, endln:5:37
-      |vpiVariables:
-      \_logic_var: (work@dut.set_pll_fast_run.band_vco2_val), line:6:24, endln:6:37
-      |vpiVariables:
-      \_logic_var: (work@dut.set_pll_fast_run.fine_vco2_val), line:7:24, endln:7:37
-      |vpiVariables:
-      \_logic_var: (work@dut.set_pll_fast_run.pll_core_ready), line:8:11, endln:8:25
       |vpiStmt:
       \_assignment: , line:4:24, endln:4:42
         |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -461,7 +456,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:5:24, endln:5:42
         |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -475,7 +470,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:6:24, endln:6:42
         |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -489,7 +484,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:7:24, endln:7:42
         |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -500,6 +495,24 @@ design: (work@dut)
           |vpiConstType:5
         |vpiLhs:
         \_logic_var: (work@dut.set_pll_fast_run.fine_vco2_val), line:7:24, endln:7:37
+      |vpiStmt:
+      \_func_call: (set_ibias_en), line:17:9, endln:17:27
+        |vpiParent:
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
+        |vpiArgument:
+        \_constant: , line:17:22, endln:17:26
+          |vpiParent:
+          \_func_call: (set_ibias_en), line:17:9, endln:17:27
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiName:set_ibias_en
+      |vpiStmt:
+      \_delay_control: , line:18:9, endln:18:14
+        |vpiParent:
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
+        |#10
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/TaskDeclNoOrder/dut.sv, line:1:1, endln:24:10
 |uhdmtopModules:
@@ -665,80 +678,14 @@ design: (work@dut)
         |vpiActual:
         \_int_typespec: , line:12:12, endln:12:15
     |vpiStmt:
-    \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+    \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
       |vpiParent:
       \_task: (work@dut.set_pll_fast_run), line:3:1, endln:21:8
       |vpiFullName:work@dut.set_pll_fast_run
-      |vpiVariables:
-      \_logic_var: (work@dut.set_pll_fast_run.band_vco1_val), line:4:24, endln:4:37
-        |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
-        |vpiTypespec:
-        \_ref_typespec: (work@dut.set_pll_fast_run.band_vco1_val)
-          |vpiParent:
-          \_logic_var: (work@dut.set_pll_fast_run.band_vco1_val), line:4:24, endln:4:37
-          |vpiFullName:work@dut.set_pll_fast_run.band_vco1_val
-          |vpiActual:
-          \_logic_typespec: , line:4:12, endln:4:23
-        |vpiName:band_vco1_val
-        |vpiFullName:work@dut.set_pll_fast_run.band_vco1_val
-      |vpiVariables:
-      \_logic_var: (work@dut.set_pll_fast_run.fine_vco1_val), line:5:24, endln:5:37
-        |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
-        |vpiTypespec:
-        \_ref_typespec: (work@dut.set_pll_fast_run.fine_vco1_val)
-          |vpiParent:
-          \_logic_var: (work@dut.set_pll_fast_run.fine_vco1_val), line:5:24, endln:5:37
-          |vpiFullName:work@dut.set_pll_fast_run.fine_vco1_val
-          |vpiActual:
-          \_logic_typespec: , line:5:12, endln:5:23
-        |vpiName:fine_vco1_val
-        |vpiFullName:work@dut.set_pll_fast_run.fine_vco1_val
-      |vpiVariables:
-      \_logic_var: (work@dut.set_pll_fast_run.band_vco2_val), line:6:24, endln:6:37
-        |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
-        |vpiTypespec:
-        \_ref_typespec: (work@dut.set_pll_fast_run.band_vco2_val)
-          |vpiParent:
-          \_logic_var: (work@dut.set_pll_fast_run.band_vco2_val), line:6:24, endln:6:37
-          |vpiFullName:work@dut.set_pll_fast_run.band_vco2_val
-          |vpiActual:
-          \_logic_typespec: , line:6:12, endln:6:23
-        |vpiName:band_vco2_val
-        |vpiFullName:work@dut.set_pll_fast_run.band_vco2_val
-      |vpiVariables:
-      \_logic_var: (work@dut.set_pll_fast_run.fine_vco2_val), line:7:24, endln:7:37
-        |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
-        |vpiTypespec:
-        \_ref_typespec: (work@dut.set_pll_fast_run.fine_vco2_val)
-          |vpiParent:
-          \_logic_var: (work@dut.set_pll_fast_run.fine_vco2_val), line:7:24, endln:7:37
-          |vpiFullName:work@dut.set_pll_fast_run.fine_vco2_val
-          |vpiActual:
-          \_logic_typespec: , line:7:12, endln:7:23
-        |vpiName:fine_vco2_val
-        |vpiFullName:work@dut.set_pll_fast_run.fine_vco2_val
-      |vpiVariables:
-      \_logic_var: (work@dut.set_pll_fast_run.pll_core_ready), line:8:11, endln:8:25
-        |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
-        |vpiTypespec:
-        \_ref_typespec: (work@dut.set_pll_fast_run.pll_core_ready)
-          |vpiParent:
-          \_logic_var: (work@dut.set_pll_fast_run.pll_core_ready), line:8:11, endln:8:25
-          |vpiFullName:work@dut.set_pll_fast_run.pll_core_ready
-          |vpiActual:
-          \_logic_typespec: , line:8:5, endln:8:10
-        |vpiName:pll_core_ready
-        |vpiFullName:work@dut.set_pll_fast_run.pll_core_ready
-        |vpiAutomatic:1
       |vpiStmt:
       \_assignment: , line:4:24, endln:4:42
         |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -765,7 +712,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:5:24, endln:5:42
         |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -792,7 +739,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:6:24, endln:6:42
         |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -819,7 +766,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:7:24, endln:7:42
         |vpiParent:
-        \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -843,6 +790,18 @@ design: (work@dut)
             \_logic_typespec: , line:7:12, endln:7:23
           |vpiName:fine_vco2_val
           |vpiFullName:work@dut.set_pll_fast_run.fine_vco2_val
+      |vpiStmt:
+      \_func_call: (set_ibias_en), line:17:9, endln:17:27
+        |vpiParent:
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
+        |vpiArgument:
+        \_constant: , line:17:22, endln:17:26
+        |vpiName:set_ibias_en
+      |vpiStmt:
+      \_delay_control: , line:18:9, endln:18:14
+        |vpiParent:
+        \_begin: (work@dut.set_pll_fast_run), line:15:5, endln:20:8
+        |#10
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/TaskDeclNoOrder/dut.sv, line:1:1, endln:24:10
   |vpiTopModule:1
@@ -966,10 +925,16 @@ design: (work@dut)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 5
 
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/TaskDeclNoOrder/dut.sv:17:9: Undefined task or function, set_ibias_en
+[LINT]: ${SURELOG_DIR}/tests/TaskDeclNoOrder/dut.sv:18:9: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/tests/TaskDeclNoOrder/dut.sv:18:9: Non synthesizable construct,
+============================== End Linting Results ==============================
+
 ============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/TaskDeclNoOrder/dut.sv | ${SURELOG_DIR}/build/regression/TaskDeclNoOrder/roundtrip/dut_000.sv | 14 | 24 |
+[roundtrip]: ${SURELOG_DIR}/tests/TaskDeclNoOrder/dut.sv | ${SURELOG_DIR}/build/regression/TaskDeclNoOrder/roundtrip/dut_000.sv | 11 | 24 |
 ============================== End RoundTrip Results ==============================

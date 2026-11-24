@@ -4434,9 +4434,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_enum_overlap_bad.v -l t_enum_overlap_bad.v.log
+[ERR:UH0743] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum_overlap_bad.v:11:11: Enum constants with the same value: e1b and e1.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_select_plus.v -l t_select_plus.v.log
@@ -5784,6 +5785,6 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 Processed 837 tests.
 [  FATAL] : 0
 [ SYNTAX] : 178
-[  ERROR] : 167
+[  ERROR] : 168
 [WARNING] : 43
 [   NOTE] : 0

@@ -523,6 +523,8 @@ bool ErrorDefinition::init() {
       "Wrong number of arguments in call to %s");
   rec(UHDM_PATTERN_ELEMENT_COUNT, ERROR, UHDM,
       "Assignment pattern with the wrong number of elements: %s");
+  rec(UHDM_ENUM_DUPLICATE_VALUE, ERROR, UHDM,
+      "Enum constants with the same value: %s");
   return true;
 }
 
