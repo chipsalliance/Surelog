@@ -91,6 +91,8 @@ class CompileModule final {
   // other general constant expression (only in specify blocks and delays).
   void checkSpecparamUse_(const FileContent* fC, NodeId expr);
   std::set<std::string, std::less<>> m_specparams;
+  // LRM 27.4: nested generate loops cannot share a genvar.
+  void checkGenvarLoops_();
   // $unit signals importUnitScopeSignals_ added to the module.
   std::set<Signal*> m_unitSignals;
   bool collectInterfaceObjects_(CollectType collectType);
