@@ -527,6 +527,9 @@ bool ErrorDefinition::init() {
       "Assignment pattern with the wrong number of elements: %s");
   rec(UHDM_ENUM_DUPLICATE_VALUE, ERROR, UHDM,
       "Enum constants with the same value: %s");
+  rec(UHDM_SCOPE_NAME_CLASH, ERROR, UHDM,
+      "Generate block \"%s\" has the name of another declaration in its "
+      "scope");
   return true;
 }
 
