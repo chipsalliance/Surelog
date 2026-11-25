@@ -87,12 +87,44 @@ namespace SURELOG {
 static bool isLocalParamDecl(const Parameter* p) {
   const FileContent* fC = p->getFileContent();
   if (fC == nullptr) return false;
+  bool parameterKeyword = false;
   for (NodeId n = p->getNodeId(); n; n = fC->Parent(n)) {
     switch (fC->Type(n)) {
       case VObjectType::paLocal_parameter_declaration:
       case VObjectType::paSpecparam_declaration:
         return true;
       case VObjectType::paParameter_declaration:
+        // Keep walking: a `parameter` inside a generate block is local too.
+        parameterKeyword = true;
+        break;
+      case VObjectType::paParameter_port_declaration: {
+        if (parameterKeyword) return false;
+        // `#(localparam C = 3, real D = 4)`: a declaration without a keyword
+        // takes the one of the declaration before it (LRM 6.20.1).
+        NodeId list = fC->Parent(n);
+        bool local = false;
+        for (NodeId d = fC->Child(list); d && d != n; d = fC->Sibling(d)) {
+          if (fC->Type(d) != VObjectType::paParameter_port_declaration)
+            continue;
+          VObjectType kw = fC->Type(fC->Child(d));
+          if (kw == VObjectType::paLocal_parameter_declaration)
+            local = true;
+          else if (kw == VObjectType::paParameter_declaration)
+            local = false;
+        }
+        return local;
+      }
+      // A parameter declared in a generate block is a localparam (LRM
+      // 6.20.1): `defparam loop[0].A = 10;` cannot change it.
+      case VObjectType::paGenerate_begin_end_block:
+      case VObjectType::paLoop_generate_construct:
+      case VObjectType::paIf_generate_construct:
+      case VObjectType::paCase_generate_construct:
+      case VObjectType::paGenerate_module_block:
+      case VObjectType::paGenerate_module_named_block:
+      case VObjectType::paGenerate_interface_block:
+      case VObjectType::paGenerate_interface_named_block:
+        return parameterKeyword;
       case VObjectType::paParameter_port_list:
       case VObjectType::paModule_item:
       case VObjectType::paModule_declaration:
@@ -2616,6 +2648,18 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             Error err(ErrorDefinition::ELAB_TOP_PARAMETER_NO_DEFAULT, loc);
             m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
           }
+        } else if (exprId == InvalidNodeId &&
+                   (design->getDefParam(StrCat(instance->getFullPathName(), ".",
+                                               name)) == nullptr)) {
+          // `module a #(parameter A); ... a i_a();` -- an instance has to
+          // supply a value for a parameter declared without a default.
+          Location loc(
+              param.fC->getFileId(ident), param.fC->Line(ident),
+              param.fC->Column(ident),
+              m_compileDesign->getCompiler()->getSymbolTable()->registerSymbol(
+                  name));
+          Error err(ErrorDefinition::ELAB_PARAMETER_NO_VALUE, loc);
+          m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
         }
         // `localparam type ST = type(s)` (IEEE 1800-2023 6.23) parses as an
         // expression wrapping a Type_reference; it names a type, not a

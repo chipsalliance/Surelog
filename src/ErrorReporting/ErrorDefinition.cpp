@@ -344,6 +344,8 @@ bool ErrorDefinition::init() {
       "%exloc port declaration");
   rec(COMP_SPECPARAM_IN_CONSTANT_EXPR, ERROR, COMP,
       "Specparam \"%s\" used in a parameter value or generate condition");
+  rec(COMP_GENVAR_NESTED_REUSE, ERROR, COMP,
+      "Genvar \"%s\" is already the index of an enclosing generate loop");
   rec(COMP_NO_METHOD_FOR_TYPE, ERROR, COMP,
       "Function \"%exobj\" is not defined for variable %s",
       "%exloc type definition");
@@ -447,6 +449,8 @@ bool ErrorDefinition::init() {
   rec(ELAB_UNKNOWN_PORT, ERROR, ELAB, "Unknown port \"%s\"");
   rec(ELAB_TOP_PARAMETER_NO_DEFAULT, ERROR, ELAB,
       "Top-level parameter with no default value \"%s\"");
+  rec(ELAB_PARAMETER_NO_VALUE, ERROR, ELAB,
+      "Parameter \"%s\" has no default value and is not overridden");
   rec(ELAB_SYSTEM_FATAL, FATAL, ELAB, "Fatal elaboration %s");
   rec(ELAB_SYSTEM_ERROR, ERROR, ELAB, "Elaboration error %s");
   rec(ELAB_SYSTEM_WARNING, WARNING, ELAB, "Elaboration warning %s");
@@ -532,6 +536,11 @@ bool ErrorDefinition::init() {
       "scope");
   rec(UHDM_EMPTY_CONCATENATION, ERROR, UHDM,
       "Concatenation of nothing but zero-width replications");
+  rec(UHDM_PACKED_MEMBER_NOT_INTEGRAL, ERROR, UHDM,
+      "Member \"%s\" of a packed structure or union is not of integral "
+      "type");
+  rec(UHDM_RECURSIVE_TYPE, ERROR, UHDM,
+      "Type \"%s\" recursively depends on its own definition");
   return true;
 }
 

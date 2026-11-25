@@ -181,6 +181,7 @@ bool CompileModule::compile() {
       importUnitScopeSignals_();
       checkDuplicateSignals_();
       checkPortNetConsistency_();
+      checkGenvarLoops_();
       if (!checkModule_()) return false;
       break;
     case VObjectType::paLoop_generate_construct:
@@ -205,6 +206,7 @@ bool CompileModule::compile() {
       if (!collectInterfaceObjects_(CollectType::OTHER)) return false;
       importUnitScopeSignals_();
       checkDuplicateSignals_();
+      checkGenvarLoops_();
       if (!checkInterface_()) return false;
       break;
     case VObjectType::paGenerate_interface_conditional_statement:
@@ -324,6 +326,65 @@ void CompileModule::checkSpecparamUse_(const FileContent* fC, NodeId expr) {
     Location loc(fC->getFileId(n), fC->Line(n), fC->Column(n),
                  m_symbols->registerSymbol(nm));
     Error err(ErrorDefinition::COMP_SPECPARAM_IN_CONSTANT_EXPR, loc);
+    m_errors->addError(err);
+  }
+}
+
+// LRM 27.4: a genvar cannot be the index of two nested loop generate
+// constructs -- an inner `for (i = ...)` inside an outer loop over `i` used
+// to elaborate silently, the inner loop rewriting the outer one's index.  An
+// inner loop that declares its own genvar (inline, or `genvar i;` in the
+// outer loop's scope) is legal.  The parse tree keeps no node for the inline
+// `genvar` keyword, but Genvar_initialization then starts before its
+// identifier.  (A non-genvar index -- `integer i; for (i = 0; ...)` -- is
+// illegal too but common in real RTL and accepted by other tools, so it is
+// not reported.)
+void CompileModule::checkGenvarLoops_() {
+  if (m_module->m_fileContents.empty()) return;
+  const FileContent* fC = m_module->m_fileContents[0];
+  NodeId modId = m_module->m_nodeIds[0];
+  std::vector<NodeId> loops =
+      fC->sl_collect_all(modId, VObjectType::paLoop_generate_construct);
+  if (loops.empty()) return;
+  // Genvar declarations of `name` in the subtree `root`.
+  auto declaresGenvar = [fC](NodeId root, std::string_view name) {
+    for (NodeId d : fC->sl_collect_all(root, VObjectType::paGenvar_declaration))
+      for (NodeId id : fC->sl_collect_all(d, VObjectType::slStringConst))
+        if (fC->SymName(id) == name) return true;
+    return false;
+  };
+  // The index of a loop, and whether the loop declares it inline.
+  auto loopIndex = [fC](NodeId loop, NodeId& id, bool& inlineDecl) {
+    NodeId init = fC->Child(loop);
+    if (fC->Type(init) != VObjectType::paGenvar_initialization &&
+        fC->Type(init) != VObjectType::paGenvar_decl_assignment)
+      return false;
+    id = fC->Child(init);
+    if (fC->Type(id) != VObjectType::slStringConst) return false;
+    inlineDecl =
+        fC->Line(init) != fC->Line(id) || fC->Column(init) != fC->Column(id);
+    return true;
+  };
+  for (NodeId loop : loops) {
+    NodeId id;
+    bool inlineDecl = false;
+    if (!loopIndex(loop, id, inlineDecl) || inlineDecl) continue;
+    const std::string_view name = fC->SymName(id);
+    ErrorDefinition::ErrorType errType = ErrorDefinition::NO_ERROR_MESSAGE;
+    for (NodeId p = fC->Parent(loop); p && p != modId; p = fC->Parent(p)) {
+      if (fC->Type(p) != VObjectType::paLoop_generate_construct) continue;
+      NodeId pid;
+      bool pinline = false;
+      if (loopIndex(p, pid, pinline) && fC->SymName(pid) == name &&
+          !declaresGenvar(p, name)) {
+        errType = ErrorDefinition::COMP_GENVAR_NESTED_REUSE;
+        break;
+      }
+    }
+    if (errType == ErrorDefinition::NO_ERROR_MESSAGE) continue;
+    Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
+                 m_symbols->registerSymbol(name));
+    Error err(errType, loc);
     m_errors->addError(err);
   }
 }
