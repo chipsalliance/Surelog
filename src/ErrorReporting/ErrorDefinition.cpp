@@ -530,6 +530,8 @@ bool ErrorDefinition::init() {
   rec(UHDM_SCOPE_NAME_CLASH, ERROR, UHDM,
       "Generate block \"%s\" has the name of another declaration in its "
       "scope");
+  rec(UHDM_EMPTY_CONCATENATION, ERROR, UHDM,
+      "Concatenation of nothing but zero-width replications");
   return true;
 }
 
