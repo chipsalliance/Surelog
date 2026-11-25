@@ -80,6 +80,8 @@ module_inst                                            4
 range                                                  2
 ref_typespec                                           4
 === UHDM Object Stats End ===
+[ERR:UH0721] ${SURELOG_DIR}/tests/EnumVarNoTypedef/dut.sv:4:4: Enum const size does not match base type size "Global",
+             ${SURELOG_DIR}/tests/EnumVarNoTypedef/dut.sv:3:7: base type.
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EnumVarNoTypedef/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/EnumVarNoTypedef/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/EnumVarNoTypedef/slpp_all/surelog.uhdm ...
@@ -208,9 +210,16 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/EnumVarNoTypedef/dut.sv:4:4: Enum const size mismatch, Global
+[LINT]:   \_ ${SURELOG_DIR}/tests/EnumVarNoTypedef/dut.sv:3:7:
+[LINT]: ${SURELOG_DIR}/tests/EnumVarNoTypedef/dut.sv:4:4: Enum const size mismatch, Global
+[LINT]:   \_ ${SURELOG_DIR}/tests/EnumVarNoTypedef/dut.sv:3:7:
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/EnumVarNoTypedef/dut.sv | ${SURELOG_DIR}/build/regression/EnumVarNoTypedef/roundtrip/dut_000.sv | 3 | 7 |
