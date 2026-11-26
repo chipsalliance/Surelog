@@ -487,6 +487,8 @@ bool ErrorDefinition::init() {
       "Top-level parameter with no default value \"%s\"");
   rec(ELAB_PARAMETER_NO_VALUE, ERROR, ELAB,
       "Parameter \"%s\" has no default value and is not overridden");
+  rec(ELAB_UNRESOLVED_DEFPARAM, ERROR, ELAB,
+      "Defparam target \"%s\" is not a parameter");
   rec(ELAB_SYSTEM_FATAL, FATAL, ELAB, "Fatal elaboration %s");
   rec(ELAB_SYSTEM_ERROR, ERROR, ELAB, "Elaboration error %s");
   rec(ELAB_SYSTEM_WARNING, WARNING, ELAB, "Elaboration warning %s");
@@ -595,6 +597,9 @@ bool ErrorDefinition::init() {
   rec(UHDM_INCOMPATIBLE_CLASS_HANDLE, ERROR, UHDM,
       "Class handle \"%s\" is not assignment compatible with the value");
   rec(UHDM_ILLEGAL_CLASS_NEW, ERROR, UHDM, "Illegal constructor call: %s");
+  rec(UHDM_NON_CONSTANT_PROC_CONT_SELECT, ERROR, UHDM,
+      "Select of \"%s\" with a non-constant index in a procedural "
+      "continuous assignment target");
   return true;
 }
 

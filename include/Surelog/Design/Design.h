@@ -143,6 +143,7 @@ class Design final {
 
   std::map<std::string, DefParam*>& getDefParams() { return m_defParams; }
 
+  bool isSimpleDefParamPath(DefParam* def) const;
   void checkDefParamUsage(DefParam* parent = nullptr);
 
   ModuleInstance* findInstance(const std::vector<std::string>& path,
