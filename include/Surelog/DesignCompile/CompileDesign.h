@@ -86,6 +86,8 @@ class CompileDesign {
     m_pendingClassCalls.emplace_back(std::move(p));
   }
   void bindPendingClassMethodCalls();
+  // LRM 26.3 / 26.6 package import and export rules, on the parse trees.
+  void checkPackageImportsExports_();
 
  private:
   template <class ObjectType, class ObjectMapType, typename FunctorType>

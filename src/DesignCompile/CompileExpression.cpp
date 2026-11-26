@@ -7172,6 +7172,21 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
       }
       result = call;
     } else {
+      // `P::f(args)` where package P declares no task or function `f` (LRM
+      // 26.3): the fallback below compiles the bare `P::f` and drops the
+      // arguments, so a call to a missing member or to a variable read as
+      // a value.
+      if (pack != nullptr && !unitScope && !muteErrors && List_of_arguments &&
+          fC->Type(List_of_arguments) == VObjectType::paList_of_arguments) {
+        ErrorContainer *errors =
+            compileDesign->getCompiler()->getErrorContainer();
+        SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
+        Location loc(fC->getFileId(Class_scope_name),
+                     fC->Line(Class_scope_name), fC->Column(Class_scope_name),
+                     symbols->registerSymbol(basename));
+        Error err(ErrorDefinition::COMP_UNDEFINED_USER_FUNCTION, loc);
+        errors->addError(err);
+      }
       result = compileExpression(component, fC, name, compileDesign, reduce,
                                  pexpr, instance, muteErrors);
     }
