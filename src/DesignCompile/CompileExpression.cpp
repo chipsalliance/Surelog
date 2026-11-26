@@ -2212,6 +2212,14 @@ UHDM::any *CompileHelper::compileExpression(
       sys->VpiName("new");
       sys->VpiParent(pexpr);
       NodeId argListNode = child;
+      // `C::new`: the class scope names the class to construct; it is not
+      // a constructor argument.
+      if (fC->Type(child) == VObjectType::paClass_scope) {
+        if (UHDM::ref_obj *prefix =
+                classNewPrefix(fC, child, sys, compileDesign))
+          sys->Prefix(prefix);
+        argListNode = fC->Sibling(child);
+      }
       UHDM::VectorOfany *arguments =
           compileTfCallArguments(component, fC, argListNode, compileDesign,
                                  reduce, sys, instance, muteErrors);

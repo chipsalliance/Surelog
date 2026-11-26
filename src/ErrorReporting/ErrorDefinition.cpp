@@ -592,6 +592,10 @@ bool ErrorDefinition::init() {
       "Void function \"%s\" cannot be used as a value");
   rec(UHDM_EVENT_AS_VALUE, ERROR, UHDM,
       "Event \"%s\" cannot be used as a value");
+  rec(UHDM_INCOMPATIBLE_CLASS_HANDLE, ERROR, UHDM,
+      "Class handle \"%s\" is not assignment compatible with the value");
+  rec(UHDM_ILLEGAL_CLASS_NEW, ERROR, UHDM,
+      "Illegal constructor call: %s");
   return true;
 }
 

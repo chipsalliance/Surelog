@@ -4940,6 +4940,21 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
   return call;
 }
 
+UHDM::ref_obj* CompileHelper::classNewPrefix(const FileContent* fC,
+                                             NodeId classScope,
+                                             UHDM::any* parent,
+                                             CompileDesign* compileDesign) {
+  NodeId classType = fC->Child(classScope);
+  NodeId name = classType ? fC->Child(classType) : InvalidNodeId;
+  if (!name) return nullptr;
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::ref_obj* ref = s.MakeRef_obj();
+  ref->VpiName(fC->SymName(name));
+  ref->VpiParent(parent);
+  fC->populateCoreMembers(classType, classType, ref);
+  return ref;
+}
+
 VectorOfany* CompileHelper::compileTfCallArguments(
     DesignComponent* component, const FileContent* fC, NodeId Arg_list_node,
     CompileDesign* compileDesign, Reduce reduce, UHDM::any* call,
@@ -5198,6 +5213,14 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     method_func_call* fcall = s.MakeMethod_func_call();
     fcall->VpiName("new");
     fcall->VpiParent(assign);
+    // `C::new`: the class scope names the class to construct; it is not a
+    // constructor argument.
+    if (fC->Type(List_of_arguments) == VObjectType::paClass_scope) {
+      if (ref_obj* prefix =
+              classNewPrefix(fC, List_of_arguments, fcall, compileDesign))
+        fcall->Prefix(prefix);
+      List_of_arguments = fC->Sibling(List_of_arguments);
+    }
     fC->populateCoreMembers(Hierarchical_identifier, Hierarchical_identifier,
                             fcall);
     if (List_of_arguments) {
