@@ -600,6 +600,13 @@ bool ErrorDefinition::init() {
   rec(UHDM_NON_CONSTANT_PROC_CONT_SELECT, ERROR, UHDM,
       "Select of \"%s\" with a non-constant index in a procedural "
       "continuous assignment target");
+  rec(UHDM_VARIABLE_MULTIPLE_DRIVERS, ERROR, UHDM,
+      "Variable \"%s\" is driven by a continuous assignment and another "
+      "driver");
+  rec(UHDM_TOO_MANY_INDICES, ERROR, UHDM,
+      "\"%s\" is indexed with more indices than it has dimensions");
+  rec(UHDM_PATTERN_TO_SCALAR, ERROR, UHDM,
+      "Assignment pattern for scalar \"%s\"");
   return true;
 }
 

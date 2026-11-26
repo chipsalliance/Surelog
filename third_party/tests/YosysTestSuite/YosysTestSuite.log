@@ -2200,9 +2200,10 @@ Processing: -cd svinterfaces svinterface_at_top.sv -writepp -parse -nocache -nob
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd various reg_wire_error.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l reg_wire_error.sv.log
+[ERR:UH0759] ${SURELOG_DIR}/third_party/tests/YosysTestSuite/various/reg_wire_error.sv:35:8: Variable "l_reg" is driven by a continuous assignment and another driver.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd various elab_sys_tasks.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l elab_sys_tasks.sv.log
@@ -2234,6 +2235,6 @@ Processing: -cd simple defvalue.sv -writepp -parse -nocache -nobuiltin -nonote -
 Processed 281 tests.
 [  FATAL] : 0
 [ SYNTAX] : 107
-[  ERROR] : 7
+[  ERROR] : 8
 [WARNING] : 217
 [   NOTE] : 0
