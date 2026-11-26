@@ -179,6 +179,7 @@ struct_typespec                                        9
 tagged_pattern                                         8
 typespec_member                                       18
 === UHDM Object Stats End ===
+[ERR:UH0748] ${SURELOG_DIR}/tests/TaggedParam/dut.sv:12:62: "fpnew_pkg::RV64D_Xsflt" names no member of its package.
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TaggedParam/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TaggedParam/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TaggedParam/slpp_all/surelog.uhdm ...
@@ -741,9 +742,13 @@ design: (work@fpu_wrap)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 3
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/TaggedParam/dut.sv:12:62: Package has no member of that name, fpnew_pkg::RV64D_Xsflt
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/TaggedParam/dut.sv | ${SURELOG_DIR}/build/regression/TaggedParam/roundtrip/dut_000.sv | 7 | 27 |
