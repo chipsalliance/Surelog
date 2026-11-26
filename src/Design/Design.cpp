@@ -45,6 +45,7 @@
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Expression/Value.h"
+#include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
@@ -399,6 +400,30 @@ void Design::addDefParam_(std::vector<std::string>& path, const FileContent* fC,
   }
 }
 
+bool Design::isSimpleDefParamPath(DefParam* def) const {
+  const FileContent* fC = def->getLocation();
+  NodeId id = def->getNodeId();
+  if (fC == nullptr || !id) return false;
+  // A plain identifier is the defparam's own first child (its sibling is the
+  // value); a hierarchical one lists its components under the node.
+  const bool hier = fC->Type(id) == VObjectType::paHierarchical_identifier;
+  NodeId var = hier ? fC->Child(id) : id;
+  if (!var || fC->Type(var) != VObjectType::slStringConst) return false;
+  bool first = true;
+  for (; var; var = hier ? fC->Sibling(var) : NodeId()) {
+    if (fC->Type(var) != VObjectType::slStringConst) return false;
+    if (first) {
+      first = false;
+      // Rooted at a top module: an absolute path.
+      const std::string root =
+          StrCat(fC->getLibrary()->getName(), "@", fC->SymName(var));
+      for (const ModuleInstance* top : m_topLevelModuleInstances)
+        if (top->getFullPathName() == root) return false;
+    }
+  }
+  return true;
+}
+
 void Design::checkDefParamUsage(DefParam* parent) {
   if (parent == nullptr) {
     // Start by all the top defs of the trie
@@ -423,7 +448,14 @@ void Design::checkDefParamUsage(DefParam* parent) {
           parent->getLocation()->Line(parent->getNodeId()),
           parent->getLocation()->Column(parent->getNodeId()),
           m_errors->getSymbolTable()->registerSymbol(parent->getFullName()));
-      Error err(ErrorDefinition::ELAB_UNMATCHED_DEFPARAM, loc);
+      // A simple path (`defparam foo = 3;`, `defparam i_a.Z = 1;`) that is
+      // not rooted at a top-level module names no parameter: an error.  A
+      // path with selects or one starting at another top module may just
+      // be one Surelog does not resolve; that stays a warning.
+      Error err(isSimpleDefParamPath(parent)
+                    ? ErrorDefinition::ELAB_UNRESOLVED_DEFPARAM
+                    : ErrorDefinition::ELAB_UNMATCHED_DEFPARAM,
+                loc);
       m_errors->addError(err);
     }
     for (const auto& param : parent->getChildren()) {

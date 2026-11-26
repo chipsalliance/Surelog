@@ -1053,7 +1053,7 @@ AST_DEBUG_END
 [WRN:EL0500] ${SURELOG_DIR}/tests/UnitDefParam/small.v:7:3: Cannot find a module definition for "work@defparam_example.U3.B1[1]::M1".
 [WRN:EL0500] ${SURELOG_DIR}/tests/UnitDefParam/small.v:7:3: Cannot find a module definition for "work@defparam_example.U3.B1[2]::M1".
 [WRN:EL0500] ${SURELOG_DIR}/tests/UnitDefParam/small.v:23:3: Cannot find a module definition for "work@defparam_example::NO_DEF".
-[WRN:EL0515] ${SURELOG_DIR}/tests/UnitDefParam/small.v:25:12: Defparam does not match any design object: "work@defparam_example.NO_MATCH.SIZE1".
+[ERR:EL0555] ${SURELOG_DIR}/tests/UnitDefParam/small.v:25:12: Defparam target "work@defparam_example.NO_MATCH.SIZE1" is not a parameter.
 [WRN:EL0515] ${SURELOG_DIR}/tests/UnitDefParam/small.v:26:12: Defparam does not match any design object: "work@defparam_example.NO_MATCH.SIZE2".
 [NTE:EL0508] Nb Top level modules: 3.
 [NTE:EL0509] Max instance depth: 6.
@@ -4129,6 +4129,6 @@ design: (work@top_def)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
-[WARNING] : 63
+[  ERROR] : 1
+[WARNING] : 62
 [   NOTE] : 8
