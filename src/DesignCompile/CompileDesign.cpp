@@ -71,6 +71,7 @@
 #include <uhdm/vpi_user.h>
 #include <uhdm/vpi_visitor.h>
 
+#include <algorithm>
 #include <climits>
 #include <cstdint>
 #include <iostream>
@@ -588,6 +589,15 @@ void collectScope(ScopeInfo& scope) {
       }
     }
     for (NodeId c = fC->Child(id); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+  // The walk is depth-first from the back: restore source order.
+  for (auto& [name, occs] : scope.occurrences) {
+    std::sort(occs.begin(), occs.end(),
+              [fC](const Occurrence& a, const Occurrence& b) {
+                if (fC->Line(a.node) != fC->Line(b.node))
+                  return fC->Line(a.node) < fC->Line(b.node);
+                return fC->Column(a.node) < fC->Column(b.node);
+              });
   }
 }
 
