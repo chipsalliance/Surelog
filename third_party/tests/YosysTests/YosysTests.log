@@ -3492,9 +3492,11 @@ Processing: -cd backends/write_firrtl_error top.v -writepp -parse -nocache -nobu
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd backends/write_firrtl_error top2.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top2.v.log
+[ERR:UH0751] ${SURELOG_DIR}/third_party/tests/YosysTests/backends/write_firrtl_error/top2.v:6:18: Variable "q_a" connected to an inout terminal; only nets are allowed.
+[ERR:UH0751] ${SURELOG_DIR}/third_party/tests/YosysTests/backends/write_firrtl_error/top2.v:6:23: Variable "q_b" connected to an inout terminal; only nets are allowed.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd backends/write_firrtl_error top1.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top1.v.log
@@ -11003,6 +11005,6 @@ Processing: -cd regression/issue_01329 synchronizer.sv -writepp -parse -nocache 
 Processed 1309 tests.
 [  FATAL] : 0
 [ SYNTAX] : 240
-[  ERROR] : 42
+[  ERROR] : 44
 [WARNING] : 2370
 [   NOTE] : 0

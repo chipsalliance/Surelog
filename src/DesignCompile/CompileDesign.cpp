@@ -775,6 +775,827 @@ void CompileDesign::checkPackageImportsExports_() {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Enum declaration rules (IEEE 1800-2023 6.19), checked on the parse tree:
+// the compiled enum_const keeps only a folded value, which has already lost
+// its x/z bits and been truncated to the base type.  Only LITERAL values are
+// judged; a value built from parameters is left to the elaborated model.
+namespace {
+struct EnumBase {
+  bool known = false;    // width/signedness known
+  bool twoState = true;  // no base type means int
+  bool isSigned = true;
+  uint64_t width = 32;
+};
+
+bool literalHasXZ(std::string_view text) {
+  const size_t tick = text.find('\'');
+  if (tick == std::string_view::npos) return false;
+  const std::string_view digits = text.substr(tick + 1);
+  return std::any_of(digits.begin(), digits.end(), [](char c) {
+    return c == 'x' || c == 'X' || c == 'z' || c == 'Z' || c == '?';
+  });
+}
+
+// True when the subtree spells an x/z bit.
+bool hasXZ(const FileContent* fC, NodeId id) {
+  std::vector<NodeId> stack{id};
+  while (!stack.empty()) {
+    NodeId n = stack.back();
+    stack.pop_back();
+    switch (fC->Type(n)) {
+      case VObjectType::paNumber_1Tickbx:
+      case VObjectType::paNumber_1TickbX:
+      case VObjectType::paNumber_1TickBx:
+      case VObjectType::paNumber_1TickBX:
+        return true;
+      case VObjectType::slIntConst:
+        if (literalHasXZ(fC->SymName(n))) return true;
+        break;
+      default:
+        break;
+    }
+    for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+  return false;
+}
+
+// A non-constant system function (`$time`) in the subtree.
+NodeId nonConstantSysCall(const FileContent* fC, NodeId id) {
+  std::vector<NodeId> stack{id};
+  while (!stack.empty()) {
+    NodeId n = stack.back();
+    stack.pop_back();
+    if (fC->Type(n) == VObjectType::paSystem_task_names) {
+      if (NodeId nm = fC->Child(n)) {
+        const std::string_view name = fC->SymName(nm);
+        if (name == "$time" || name == "$stime" || name == "$realtime" ||
+            name == "$random" || name == "$urandom" || name == "$urandom_range")
+          return n;
+      }
+    }
+    for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+  return InvalidNodeId;
+}
+
+// The value of an UNSIZED integer literal (`100`, `'d7`, `'h3f`), optionally
+// negated, spelled as the whole of a constant expression.
+bool unsizedLiteralValue(const FileContent* fC, NodeId expr, bool& negative,
+                         uint64_t& value) {
+  negative = false;
+  NodeId n = expr;
+  if (fC->Type(n) == VObjectType::paConstant_expression) {
+    NodeId c = fC->Child(n);
+    if (fC->Type(c) == VObjectType::paUnary_Minus) {
+      negative = true;
+      c = fC->Sibling(c);
+      if (fC->Sibling(c)) return false;
+    } else if (fC->Sibling(c)) {
+      return false;
+    }
+    n = c;
+  }
+  while (fC->Type(n) == VObjectType::paConstant_primary ||
+         fC->Type(n) == VObjectType::paPrimary_literal ||
+         fC->Type(n) == VObjectType::paConstant_expression) {
+    NodeId c = fC->Child(n);
+    if (!c || fC->Sibling(c)) return false;
+    n = c;
+  }
+  if (fC->Type(n) != VObjectType::slIntConst) return false;
+  std::string text;
+  for (char ch : fC->SymName(n))
+    if (ch != '_') text.push_back(ch);
+  int base = 10;
+  const size_t tick = text.find('\'');
+  if (tick != std::string::npos) {
+    if (tick != 0) return false;  // sized: the size rule owns it
+    size_t i = 1;
+    if (i < text.size() && (text[i] == 's' || text[i] == 'S')) i++;
+    if (i >= text.size()) return false;
+    switch (text[i]) {
+      case 'd':
+      case 'D':
+        base = 10;
+        break;
+      case 'h':
+      case 'H':
+        base = 16;
+        break;
+      case 'o':
+      case 'O':
+        base = 8;
+        break;
+      case 'b':
+      case 'B':
+        base = 2;
+        break;
+      default:
+        return false;
+    }
+    text = text.substr(i + 1);
+  }
+  if (text.empty() || text.size() > 18) return false;
+  char* end = nullptr;
+  value = std::strtoull(text.c_str(), &end, base);
+  return end && *end == '\0';
+}
+
+bool literalInt(const FileContent* fC, NodeId expr, int64_t& v,
+                bool* based = nullptr) {
+  bool neg = false;
+  uint64_t u = 0;
+  if (!unsizedLiteralValue(fC, expr, neg, u)) return false;
+  if (based) {
+    *based = false;
+    for (NodeId n = expr; n; n = fC->Child(n)) {
+      if (fC->Type(n) == VObjectType::slIntConst) {
+        *based = fC->SymName(n).find('\'') != std::string_view::npos;
+        break;
+      }
+      if (fC->Type(n) == VObjectType::paUnary_Minus) n = fC->Sibling(n);
+    }
+  }
+  v = neg ? -static_cast<int64_t>(u) : static_cast<int64_t>(u);
+  return true;
+}
+
+// The NAME of a typedef declared anywhere in the file whose data type is an
+// integer atom (`typedef int T;`); a name also declared otherwise is unknown.
+bool typedefIsIntegerAtom(const FileContent* fC, std::string_view name) {
+  bool atom = false;
+  std::vector<NodeId> stack{fC->getRootNode()};
+  while (!stack.empty()) {
+    NodeId n = stack.back();
+    stack.pop_back();
+    if (fC->Type(n) == VObjectType::paType_declaration) {
+      NodeId dt = fC->Child(n);
+      if (fC->Type(dt) == VObjectType::paData_type) {
+        NodeId nm = fC->Sibling(dt);
+        if (nm && fC->Type(nm) == VObjectType::slStringConst &&
+            fC->SymName(nm) == name) {
+          const VObjectType bt = fC->Type(fC->Child(dt));
+          if (bt == VObjectType::paIntegerAtomType_Int ||
+              bt == VObjectType::paIntegerAtomType_Integer ||
+              bt == VObjectType::paIntegerAtomType_Byte ||
+              bt == VObjectType::paIntegerAtomType_Shortint ||
+              bt == VObjectType::paIntegerAtomType_LongInt ||
+              bt == VObjectType::paIntegerAtomType_Time) {
+            if (fC->Sibling(fC->Child(dt))) return false;
+            atom = true;
+          } else {
+            return false;
+          }
+        }
+      }
+    }
+    for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+  return atom;
+}
+}  // namespace
+
+void CompileDesign::checkEnumDeclarations_() {
+  Design* design = m_compiler->getDesign();
+  ErrorContainer* errors = m_compiler->getErrorContainer();
+  SymbolTable* symbols = m_compiler->getSymbolTable();
+  auto report = [&](ErrorDefinition::ErrorType type, const FileContent* fC,
+                    NodeId id, std::string_view text) {
+    Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
+                 symbols->registerSymbol(text));
+    Error err(type, loc);
+    errors->addError(err);
+  };
+  for (const auto& [fileId, fC] : design->getAllFileContents()) {
+    if (fC == nullptr || fC->getSize() == 0) continue;
+    std::vector<NodeId> stack{fC->getRootNode()};
+    while (!stack.empty()) {
+      NodeId id = stack.back();
+      stack.pop_back();
+      for (NodeId c = fC->Child(id); c; c = fC->Sibling(c)) stack.push_back(c);
+      if (fC->Type(id) != VObjectType::paData_type) continue;
+      NodeId first = fC->Child(id);
+      if (fC->Type(first) != VObjectType::paEnum_base_type &&
+          fC->Type(first) != VObjectType::paEnum_name_declaration)
+        continue;
+
+      EnumBase base;
+      base.known = true;  // no base type: int
+      NodeId member = first;
+      if (fC->Type(first) == VObjectType::paEnum_base_type) {
+        member = fC->Sibling(first);
+        base = EnumBase();
+        NodeId bt = fC->Child(first);
+        NodeId dim = fC->Sibling(bt);
+        bool explicitSign = false, signedKw = false;
+        if (dim && (fC->Type(dim) == VObjectType::paSigning_Signed ||
+                    fC->Type(dim) == VObjectType::paSigning_Unsigned)) {
+          explicitSign = true;
+          signedKw = fC->Type(dim) == VObjectType::paSigning_Signed;
+          dim = fC->Sibling(dim);
+        }
+        switch (fC->Type(bt)) {
+          case VObjectType::paIntegerAtomType_Int:
+            base = {true, true, true, 32};
+            break;
+          case VObjectType::paIntegerAtomType_Integer:
+            base = {true, false, true, 32};
+            break;
+          case VObjectType::paIntegerAtomType_Shortint:
+            base = {true, true, true, 16};
+            break;
+          case VObjectType::paIntegerAtomType_Byte:
+            base = {true, true, true, 8};
+            break;
+          case VObjectType::paIntegerAtomType_LongInt:
+            base = {true, true, true, 64};
+            break;
+          case VObjectType::paIntegerAtomType_Time:
+            base = {true, false, false, 64};
+            break;
+          case VObjectType::paIntVec_TypeBit:
+          case VObjectType::paIntVec_TypeLogic:
+          case VObjectType::paIntVec_TypeReg: {
+            base.twoState = fC->Type(bt) == VObjectType::paIntVec_TypeBit;
+            base.isSigned = false;
+            base.width = 1;
+            base.known = true;
+            if (dim && fC->Type(dim) == VObjectType::paPacked_dimension) {
+              base.known = false;
+              NodeId range = fC->Child(dim);
+              if (fC->Type(range) == VObjectType::paConstant_range) {
+                NodeId l = fC->Child(range);
+                NodeId r = l ? fC->Sibling(l) : InvalidNodeId;
+                int64_t lv = 0, rv = 0;
+                if (l && r && literalInt(fC, l, lv) && literalInt(fC, r, rv)) {
+                  base.width = static_cast<uint64_t>(std::llabs(lv - rv)) + 1;
+                  base.known = base.width <= 63;
+                }
+              }
+            }
+            break;
+          }
+          case VObjectType::slStringConst: {
+            base.known = false;
+            base.twoState = false;  // unknown: never judge x/z
+            const std::string_view tname = fC->SymName(bt);
+            // `typedef enum T {...} T;`: the enum is its own base type.
+            NodeId decl = fC->Parent(id);
+            if (decl && fC->Type(decl) == VObjectType::paType_declaration) {
+              NodeId nm = fC->Sibling(id);
+              if (nm && fC->Type(nm) == VObjectType::slStringConst &&
+                  fC->SymName(nm) == tname) {
+                report(ErrorDefinition::COMP_ENUM_INVALID_BASE_TYPE, fC, bt,
+                       tname);
+                continue;
+              }
+            }
+            // LRM 6.19: a type_identifier naming an integer ATOM type takes
+            // no packed dimension.
+            if (dim && fC->Type(dim) == VObjectType::paPacked_dimension &&
+                typedefIsIntegerAtom(fC, tname)) {
+              report(ErrorDefinition::COMP_ENUM_INVALID_BASE_TYPE, fC, bt,
+                     tname);
+              continue;
+            }
+            break;
+          }
+          default:
+            base.known = false;
+            base.twoState = false;
+            break;
+        }
+        if (explicitSign) base.isSigned = signedKw;
+      }
+
+      int64_t maxV = 0, minV = 0;
+      if (base.known) {
+        if (base.isSigned) {
+          maxV = base.width >= 64 ? INT64_MAX
+                                  : (int64_t(1) << (base.width - 1)) - 1;
+          minV =
+              base.width >= 64 ? INT64_MIN : -(int64_t(1) << (base.width - 1));
+        } else {
+          maxV = base.width >= 63 ? INT64_MAX : (int64_t(1) << base.width) - 1;
+          minV = 0;
+        }
+      }
+      int64_t curMax = maxV;  // a based literal widens it to the bit width
+      bool nextKnown = true;  // the implicit next value is known
+      int64_t next = 0;
+      bool afterXZ = false;
+      for (; member && fC->Type(member) == VObjectType::paEnum_name_declaration;
+           member = fC->Sibling(member)) {
+        NodeId nameId = fC->Child(member);
+        const std::string_view name = fC->SymName(nameId);
+        NodeId valueId = fC->Sibling(nameId);
+        std::vector<int64_t> bounds;
+        while (valueId && fC->Type(valueId) == VObjectType::slIntConst) {
+          int64_t b = 0;
+          std::string_view t = fC->SymName(valueId);
+          b = std::strtoll(std::string(t).c_str(), nullptr, 10);
+          bounds.push_back(b);
+          valueId = fC->Sibling(valueId);
+        }
+        uint64_t count = 1;
+        if (bounds.size() == 1) count = bounds[0] > 0 ? bounds[0] : 1;
+        if (bounds.size() == 2)
+          count = static_cast<uint64_t>(std::llabs(bounds[0] - bounds[1])) + 1;
+
+        if (valueId) {
+          afterXZ = false;
+          if (nonConstantSysCall(fC, valueId)) {
+            report(ErrorDefinition::COMP_ENUM_VALUE_NOT_CONSTANT, fC, nameId,
+                   name);
+            nextKnown = false;
+            continue;
+          }
+          if (hasXZ(fC, valueId)) {
+            if (base.known && base.twoState) {
+              report(ErrorDefinition::COMP_ENUM_XZ_IN_TWO_STATE, fC, nameId,
+                     name);
+            }
+            afterXZ = true;
+            nextKnown = false;
+            continue;
+          }
+          int64_t v = 0;
+          bool based = false;
+          nextKnown = literalInt(fC, valueId, v, &based);
+          if (!nextKnown) continue;
+          next = v;
+          // A based literal is a bit pattern: `'hFFFF_FFFF` fits an int.
+          const int64_t hi = (based && base.isSigned && base.width < 63)
+                                 ? (int64_t(1) << base.width) - 1
+                                 : maxV;
+          curMax = hi;
+          if (base.known && (v < minV || v > hi)) {
+            report(ErrorDefinition::COMP_ENUM_VALUE_OUT_OF_RANGE, fC, nameId,
+                   name);
+            nextKnown = false;
+            continue;
+          }
+        } else if (afterXZ) {
+          report(ErrorDefinition::COMP_ENUM_UNASSIGNED_AFTER_XZ, fC, nameId,
+                 name);
+          afterXZ = false;
+          continue;
+        } else if (nextKnown && base.known && next > curMax) {
+          // The implicit increment overflowed the base type.
+          report(ErrorDefinition::COMP_ENUM_VALUE_OUT_OF_RANGE, fC, nameId,
+                 name);
+          nextKnown = false;
+          continue;
+        }
+        if (!nextKnown) continue;
+        const int64_t last = next + static_cast<int64_t>(count) - 1;
+        if (base.known && last > curMax) {
+          report(ErrorDefinition::COMP_ENUM_VALUE_OUT_OF_RANGE, fC, nameId,
+                 name);
+          nextKnown = false;
+          continue;
+        }
+        next = last + 1;
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Structural rules the parser accepts but the LRM forbids, checked on the
+// parse trees: a module
+// instantiated in a program (24.3; the parser reads it as a checker
+// instance), a zero replication outside a concatenation (11.4.12.1), and a
+// default value on an inout ANSI port (23.2.2.4).
+namespace {
+// Skips the single-child wrapper nodes above an operand.
+NodeId operandParent(const FileContent* fC, NodeId id) {
+  NodeId p = fC->Parent(id);
+  while (p) {
+    const VObjectType t = fC->Type(p);
+    if (t != VObjectType::paPrimary && t != VObjectType::paConstant_primary &&
+        t != VObjectType::paExpression &&
+        t != VObjectType::paConstant_expression)
+      break;
+    if (fC->Child(p) != id || fC->Sibling(id)) break;
+    id = p;
+    p = fC->Parent(p);
+  }
+  return p;
+}
+
+bool isZeroLiteral(const FileContent* fC, NodeId expr) {
+  NodeId n = expr;
+  while (n && (fC->Type(n) == VObjectType::paConstant_expression ||
+               fC->Type(n) == VObjectType::paExpression ||
+               fC->Type(n) == VObjectType::paConstant_primary ||
+               fC->Type(n) == VObjectType::paPrimary ||
+               fC->Type(n) == VObjectType::paPrimary_literal)) {
+    NodeId c = fC->Child(n);
+    if (!c || fC->Sibling(c)) return false;
+    n = c;
+  }
+  if (!n || fC->Type(n) != VObjectType::slIntConst) return false;
+  const std::string_view text = fC->SymName(n);
+  const size_t tick = text.find('\'');
+  std::string_view digits =
+      tick == std::string_view::npos ? text : text.substr(tick + 2);
+  if (digits.empty()) return false;
+  return std::all_of(digits.begin(), digits.end(),
+                     [](char c) { return c == '0' || c == '_'; });
+}
+
+std::string_view declarationName(const FileContent* fC, NodeId decl) {
+  NodeId header = fC->Child(decl);
+  for (NodeId c = header ? fC->Child(header) : InvalidNodeId; c;
+       c = fC->Sibling(c)) {
+    if (fC->Type(c) == VObjectType::slStringConst) return fC->SymName(c);
+  }
+  return {};
+}
+}  // namespace
+
+void CompileDesign::checkStructuralRules_() {
+  Design* design = m_compiler->getDesign();
+  ErrorContainer* errors = m_compiler->getErrorContainer();
+  SymbolTable* symbols = m_compiler->getSymbolTable();
+  auto report = [&](ErrorDefinition::ErrorType type, const FileContent* fC,
+                    NodeId id, std::string_view text) {
+    Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
+                 symbols->registerSymbol(text));
+    Error err(type, loc);
+    errors->addError(err);
+  };
+  std::set<std::string, std::less<>> designUnits, checkers;
+  for (const auto& [fileId, fC] : design->getAllFileContents()) {
+    if (fC == nullptr || fC->getSize() == 0) continue;
+    std::vector<NodeId> stack{fC->getRootNode()};
+    while (!stack.empty()) {
+      NodeId id = stack.back();
+      stack.pop_back();
+      const VObjectType t = fC->Type(id);
+      if (t == VObjectType::paModule_declaration ||
+          t == VObjectType::paInterface_declaration ||
+          t == VObjectType::paProgram_declaration) {
+        designUnits.emplace(declarationName(fC, id));
+      } else if (t == VObjectType::paChecker_declaration) {
+        for (NodeId c = fC->Child(id); c; c = fC->Sibling(c))
+          if (fC->Type(c) == VObjectType::slStringConst) {
+            checkers.emplace(fC->SymName(c));
+            break;
+          }
+      }
+      for (NodeId c = fC->Child(id); c; c = fC->Sibling(c)) stack.push_back(c);
+    }
+  }
+  for (const auto& [fileId, fC] : design->getAllFileContents()) {
+    if (fC == nullptr || fC->getSize() == 0) continue;
+    // (node, inside a program)
+    std::vector<std::pair<NodeId, bool>> stack{{fC->getRootNode(), false}};
+    while (!stack.empty()) {
+      auto [id, inProgram] = stack.back();
+      stack.pop_back();
+      const VObjectType t = fC->Type(id);
+      if (t == VObjectType::paProgram_declaration) {
+        inProgram = true;
+      } else if (t == VObjectType::paModule_declaration ||
+                 t == VObjectType::paInterface_declaration) {
+        inProgram = false;
+      } else if (t == VObjectType::paChecker_instantiation && inProgram) {
+        NodeId ps = fC->Child(id);
+        NodeId nm = ps ? fC->Child(ps) : InvalidNodeId;
+        if (nm && fC->Type(nm) == VObjectType::slStringConst &&
+            !fC->Sibling(nm)) {
+          const std::string_view name = fC->SymName(nm);
+          if (designUnits.count(name) && !checkers.count(name))
+            report(ErrorDefinition::COMP_INSTANCE_IN_PROGRAM, fC, nm, name);
+        }
+      } else if (t == VObjectType::paMultiple_concatenation ||
+                 t == VObjectType::paConstant_multiple_concatenation) {
+        if (isZeroLiteral(fC, fC->Child(id))) {
+          NodeId p = operandParent(fC, id);
+          // A concatenation of nothing but zero replications is the
+          // empty-concatenation rule's (UH0745) to report.
+          const bool inConcat =
+              p && (fC->Type(p) == VObjectType::paConcatenation ||
+                    fC->Type(p) == VObjectType::paConstant_concatenation);
+          if (!inConcat)
+            report(ErrorDefinition::COMP_ZERO_REPLICATION, fC, id, "0");
+        }
+      } else if (t == VObjectType::paList_of_port_declarations) {
+        bool inout = false;
+        for (NodeId port = fC->Child(id); port; port = fC->Sibling(port)) {
+          if (fC->Type(port) != VObjectType::paAnsi_port_declaration) continue;
+          NodeId header = fC->Child(port);
+          NodeId name = header;
+          if (header && fC->Type(header) == VObjectType::slStringConst) {
+            // bare name: inherits the previous direction
+          } else if (header &&
+                     (fC->Type(header) == VObjectType::paNet_port_header ||
+                      fC->Type(header) ==
+                          VObjectType::paVariable_port_header)) {
+            NodeId dir = fC->Child(header);
+            if (dir && (fC->Type(dir) == VObjectType::paPortDir_Inp ||
+                        fC->Type(dir) == VObjectType::paPortDir_Out ||
+                        fC->Type(dir) == VObjectType::paPortDir_Inout ||
+                        fC->Type(dir) == VObjectType::paPortDir_Ref))
+              inout = fC->Type(dir) == VObjectType::paPortDir_Inout;
+          } else {
+            inout = false;  // interface port
+            continue;
+          }
+          if (fC->Type(header) != VObjectType::slStringConst)
+            name = fC->Sibling(header);
+          if (!name || fC->Type(name) != VObjectType::slStringConst) continue;
+          NodeId after = fC->Sibling(name);
+          while (after &&
+                 (fC->Type(after) == VObjectType::paUnpacked_dimension ||
+                  fC->Type(after) == VObjectType::paVariable_dimension))
+            after = fC->Sibling(after);
+          if (inout && after &&
+              (fC->Type(after) == VObjectType::paConstant_expression ||
+               fC->Type(after) == VObjectType::paExpression))
+            report(ErrorDefinition::COMP_INOUT_PORT_DEFAULT, fC, name,
+                   fC->SymName(name));
+        }
+      }
+      for (NodeId c = fC->Child(id); c; c = fC->Sibling(c))
+        stack.emplace_back(c, inProgram);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Declaration rules checked on the parse trees: class methods are always
+// automatic (8.6), a net's data type is 4-state integral or an unpacked
+// array / struct of such (6.7.1), an automatic variable cannot appear in a
+// procedural continuous assignment nor be the target of a nonblocking one
+// (6.21), and an attribute value is a constant expression (5.12).
+namespace {
+bool isNetKeyword(VObjectType t) {
+  switch (t) {
+    case VObjectType::paNetType_Supply0:
+    case VObjectType::paNetType_Supply1:
+    case VObjectType::paNetType_Tri:
+    case VObjectType::paNetType_Tri0:
+    case VObjectType::paNetType_Tri1:
+    case VObjectType::paNetType_TriAnd:
+    case VObjectType::paNetType_TriOr:
+    case VObjectType::paNetType_TriReg:
+    case VObjectType::paNetType_Uwire:
+    case VObjectType::paNetType_Wand:
+    case VObjectType::paNetType_Wire:
+    case VObjectType::paNetType_Wor:
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool subtreeHas(const FileContent* fC, NodeId id, VObjectType type) {
+  std::vector<NodeId> stack{id};
+  while (!stack.empty()) {
+    NodeId n = stack.back();
+    stack.pop_back();
+    if (fC->Type(n) == type) return true;
+    for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+  return false;
+}
+
+// The first identifier of the subtree that is in `names`.
+NodeId findName(const FileContent* fC, NodeId id,
+                const std::set<std::string, std::less<>>& names) {
+  std::vector<NodeId> stack{id};
+  while (!stack.empty()) {
+    NodeId n = stack.back();
+    stack.pop_back();
+    if (fC->Type(n) == VObjectType::slStringConst &&
+        names.count(fC->SymName(n)))
+      return n;
+    for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+  return InvalidNodeId;
+}
+
+// Names a task / function body declares as automatic local variables (every
+// local that is not declared `static`).  Formals are left out: an `assign`
+// to an output formal has a clear meaning and is synthesized.
+void collectAutomaticLocals(const FileContent* fC, NodeId body,
+                            std::set<std::string, std::less<>>& names) {
+  std::vector<NodeId> stack{body};
+  while (!stack.empty()) {
+    NodeId n = stack.back();
+    stack.pop_back();
+    const VObjectType t = fC->Type(n);
+    if (t == VObjectType::paData_declaration &&
+        fC->Type(fC->Child(n)) == VObjectType::paLifetime_Static)
+      continue;
+    if (t == VObjectType::paTf_port_list ||
+        t == VObjectType::paTf_port_declaration)
+      continue;
+    if (t == VObjectType::paVariable_decl_assignment) {
+      NodeId c = fC->Child(n);
+      if (c && fC->Type(c) == VObjectType::slStringConst)
+        names.emplace(fC->SymName(c));
+    }
+    for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+}
+}  // namespace
+
+void CompileDesign::checkDeclarationRules_() {
+  Design* design = m_compiler->getDesign();
+  ErrorContainer* errors = m_compiler->getErrorContainer();
+  SymbolTable* symbols = m_compiler->getSymbolTable();
+  auto report = [&](ErrorDefinition::ErrorType type, const FileContent* fC,
+                    NodeId id, std::string_view text) {
+    Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
+                 symbols->registerSymbol(text));
+    Error err(type, loc);
+    errors->addError(err);
+  };
+  using Names = std::set<std::string, std::less<>>;
+  Names classes;
+  for (const auto& [fileId, fC] : design->getAllFileContents()) {
+    if (fC == nullptr || fC->getSize() == 0) continue;
+    std::vector<NodeId> stack{fC->getRootNode()};
+    while (!stack.empty()) {
+      NodeId id = stack.back();
+      stack.pop_back();
+      if (fC->Type(id) == VObjectType::paClass_declaration) {
+        for (NodeId c = fC->Child(id); c; c = fC->Sibling(c))
+          if (fC->Type(c) == VObjectType::slStringConst) {
+            classes.emplace(fC->SymName(c));
+            break;
+          }
+      }
+      for (NodeId c = fC->Child(id); c; c = fC->Sibling(c)) stack.push_back(c);
+    }
+  }
+  for (const auto& [fileId, fC] : design->getAllFileContents()) {
+    if (fC == nullptr || fC->getSize() == 0) continue;
+    std::vector<NodeId> stack{fC->getRootNode()};
+    while (!stack.empty()) {
+      NodeId id = stack.back();
+      stack.pop_back();
+      for (NodeId c = fC->Child(id); c; c = fC->Sibling(c)) stack.push_back(c);
+      const VObjectType t = fC->Type(id);
+      if (t == VObjectType::paClass_method) {
+        NodeId decl = fC->Child(id);
+        while (decl && fC->Type(decl) != VObjectType::paTask_declaration &&
+               fC->Type(decl) != VObjectType::paFunction_declaration)
+          decl = fC->Sibling(decl);
+        if (decl && fC->Type(fC->Child(decl)) == VObjectType::paLifetime_Static)
+          report(ErrorDefinition::COMP_STATIC_CLASS_METHOD, fC, fC->Child(decl),
+                 "static");
+      } else if (t == VObjectType::paNet_declaration &&
+                 isNetKeyword(fC->Type(fC->Child(id)))) {
+        // Without a net keyword, `T x [$];` is a variable of a user type
+        // that the grammar reads as a user-defined nettype declaration.
+        bool bad = false;
+        std::string_view what;
+        for (NodeId c = fC->Child(id); c && !bad; c = fC->Sibling(c)) {
+          if (fC->Type(c) == VObjectType::paData_type_or_implicit ||
+              fC->Type(c) == VObjectType::paData_type) {
+            NodeId dt =
+                fC->Type(c) == VObjectType::paData_type ? c : fC->Child(c);
+            if (dt && fC->Type(dt) == VObjectType::paData_type) {
+              NodeId k = fC->Child(dt);
+              const VObjectType kt = fC->Type(k);
+              if (kt == VObjectType::paString_type ||
+                  kt == VObjectType::paChandle_type ||
+                  kt == VObjectType::paEvent_type) {
+                bad = true;
+                what = kt == VObjectType::paString_type    ? "string"
+                       : kt == VObjectType::paChandle_type ? "chandle"
+                                                           : "event";
+              } else if (kt == VObjectType::slStringConst && !fC->Sibling(k) &&
+                         classes.count(fC->SymName(k))) {
+                bad = true;
+                what = fC->SymName(k);
+              }
+            }
+          } else if (fC->Type(c) ==
+                     VObjectType::paList_of_net_decl_assignments) {
+            for (NodeId a = fC->Child(c); a && !bad; a = fC->Sibling(a)) {
+              for (NodeId d = fC->Child(a); d; d = fC->Sibling(d)) {
+                const VObjectType dt = fC->Type(d);
+                if ((dt == VObjectType::paUnpacked_dimension &&
+                     subtreeHas(fC, d, VObjectType::paDollar_keyword)) ||
+                    dt == VObjectType::paUnsized_dimension ||
+                    dt == VObjectType::paAssociative_dimension ||
+                    dt == VObjectType::paQueue_dimension) {
+                  bad = true;
+                  what = fC->SymName(fC->Child(a));
+                  break;
+                }
+              }
+            }
+          }
+        }
+        if (bad) report(ErrorDefinition::COMP_INVALID_NET_TYPE, fC, id, what);
+      } else if (t == VObjectType::paTask_declaration ||
+                 t == VObjectType::paFunction_declaration) {
+        NodeId first = fC->Child(id);
+        const bool inClass =
+            fC->Type(fC->Parent(id)) == VObjectType::paClass_method;
+        const bool automatic =
+            fC->Type(first) == VObjectType::paLifetime_Automatic ||
+            (inClass && fC->Type(first) != VObjectType::paLifetime_Static);
+        if (!automatic) continue;
+        Names locals;
+        collectAutomaticLocals(fC, id, locals);
+        if (locals.empty()) continue;
+        std::vector<NodeId> st{id};
+        while (!st.empty()) {
+          NodeId n = st.back();
+          st.pop_back();
+          const VObjectType nt = fC->Type(n);
+          if (nt == VObjectType::paProcedural_continuous_assignment) {
+            // Only a local that DRIVES the assignment outlives its call; a
+            // local target behaves as a blocking write and is synthesized.
+            NodeId target = fC->Child(n);
+            while (target &&
+                   fC->Type(target) != VObjectType::paVariable_assignment &&
+                   fC->Type(target) != VObjectType::paNet_assignment)
+              target = fC->Sibling(target);
+            NodeId rhs = InvalidNodeId;
+            if (target) {
+              NodeId lv = fC->Child(target);
+              rhs = lv ? fC->Sibling(lv) : InvalidNodeId;
+            }
+            if (NodeId hit = rhs ? findName(fC, rhs, locals) : InvalidNodeId)
+              report(ErrorDefinition::COMP_AUTOMATIC_VAR_MISUSE, fC, hit,
+                     fC->SymName(hit));
+            continue;
+          }
+          if (nt == VObjectType::paNonblocking_assignment) {
+            NodeId lv = fC->Child(n);
+            NodeId ps = lv ? fC->Child(lv) : InvalidNodeId;
+            NodeId nm = ps ? fC->Child(ps) : InvalidNodeId;
+            if (nm && fC->Type(nm) == VObjectType::slStringConst &&
+                !fC->Sibling(nm) && locals.count(fC->SymName(nm)))
+              report(ErrorDefinition::COMP_AUTOMATIC_VAR_MISUSE, fC, nm,
+                     fC->SymName(nm));
+            continue;
+          }
+          // A nested task / function has its own locals.
+          if (n != id && (nt == VObjectType::paTask_declaration ||
+                          nt == VObjectType::paFunction_declaration))
+            continue;
+          for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) st.push_back(c);
+        }
+      } else if (t == VObjectType::paModule_declaration) {
+        // Attribute values naming a variable or net of the module.
+        Names params, signals;
+        std::vector<NodeId> attrs;
+        std::vector<NodeId> st{id};
+        while (!st.empty()) {
+          NodeId n = st.back();
+          st.pop_back();
+          const VObjectType nt = fC->Type(n);
+          if (nt == VObjectType::paParam_assignment ||
+              nt == VObjectType::paVariable_decl_assignment ||
+              nt == VObjectType::paNet_decl_assignment) {
+            NodeId nm = fC->Child(n);
+            if (nm && fC->Type(nm) == VObjectType::slStringConst)
+              (nt == VObjectType::paParam_assignment ? params : signals)
+                  .emplace(fC->SymName(nm));
+          } else if (nt == VObjectType::paGenvar_declaration ||
+                     nt == VObjectType::paType_declaration) {
+            std::vector<NodeId> s2{n};
+            while (!s2.empty()) {
+              NodeId m = s2.back();
+              s2.pop_back();
+              if (fC->Type(m) == VObjectType::slStringConst)
+                params.emplace(fC->SymName(m));
+              for (NodeId c = fC->Child(m); c; c = fC->Sibling(c))
+                s2.push_back(c);
+            }
+          } else if (nt == VObjectType::paAttr_spec) {
+            attrs.push_back(n);
+          }
+          if (n != id && (nt == VObjectType::paModule_declaration ||
+                          nt == VObjectType::paTask_declaration ||
+                          nt == VObjectType::paFunction_declaration))
+            continue;
+          for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) st.push_back(c);
+        }
+        for (const std::string& p : params) signals.erase(p);
+        for (NodeId a : attrs) {
+          NodeId value = fC->Sibling(fC->Child(a));
+          if (!value) continue;
+          if (NodeId hit = findName(fC, value, signals))
+            report(ErrorDefinition::COMP_NON_CONSTANT_ATTRIBUTE, fC, hit,
+                   fC->SymName(hit));
+        }
+      }
+    }
+  }
+}
+
 bool CompileDesign::compilation_() {
   Design* design = m_compiler->getDesign();
 
@@ -870,6 +1691,9 @@ bool CompileDesign::compilation_() {
       m_compiler->getDesign()->getClassDefinitions(), maxThreadCount);
   bindPendingClassMethodCalls();
   checkPackageImportsExports_();
+  checkEnumDeclarations_();
+  checkStructuralRules_();
+  checkDeclarationRules_();
   design->clearContainers();
   collectObjects_(all_files, design, true);
 

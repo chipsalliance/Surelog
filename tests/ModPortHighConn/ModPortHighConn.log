@@ -40,6 +40,8 @@ ref_module                                             2
 ref_obj                                               10
 ref_typespec                                          22
 === UHDM Object Stats End ===
+[ERR:UH0752] ${SURELOG_DIR}/tests/ModPortHighConn/dut.sv:9:32: "port1" is not assignable.
+[ERR:UH0752] ${SURELOG_DIR}/tests/ModPortHighConn/dut.sv:10:23: "port0" is not assignable.
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortHighConn/slpp_unit/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ModPortHighConn/slpp_unit/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ModPortHighConn/slpp_unit/surelog.uhdm ...
@@ -839,6 +841,11 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 2
 [   NOTE] : 11
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/ModPortHighConn/dut.sv:9:32: Expression is not assignable, port1
+[LINT]: ${SURELOG_DIR}/tests/ModPortHighConn/dut.sv:10:23: Expression is not assignable, port0
+============================== End Linting Results ==============================
