@@ -727,9 +727,10 @@ void CompileDesign::checkPackageImportsExports_() {
       for (const Occurrence& o : occs) {
         if (o.ref) {
           if (firstRef == nullptr) firstRef = &o;
-          // Only the wildcard imports ABOVE a reference compete for it
-          // (LRM 26.3, the `import p2::*` after `x = f()` example).
-          if (ambiguousRef == nullptr) {
+          // Only the wildcard imports ABOVE the first reference compete for
+          // it (LRM 26.3, the `import p2::*` after `x = f()` example); that
+          // reference imports the name for the rest of the scope.
+          if (firstRef == &o) {
             uint32_t n = 0;
             for (const ImportItem* w : providers)
               if (before(fC, w->node, o.node)) n++;
