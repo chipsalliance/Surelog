@@ -35,6 +35,14 @@ range                                                  3
 ref_obj                                               27
 ref_typespec                                           2
 === UHDM Object Stats End ===
+[ERR:UH0759] ${SURELOG_DIR}/tests/BinarySize/dut.sv:4:10: Variable "first" is driven by a continuous assignment and another driver.
+[ERR:UH0759] ${SURELOG_DIR}/tests/BinarySize/dut.sv:5:10: Variable "first" is driven by a continuous assignment and another driver.
+[ERR:UH0759] ${SURELOG_DIR}/tests/BinarySize/dut.sv:6:10: Variable "first" is driven by a continuous assignment and another driver.
+[ERR:UH0759] ${SURELOG_DIR}/tests/BinarySize/dut.sv:7:10: Variable "first" is driven by a continuous assignment and another driver.
+[ERR:UH0759] ${SURELOG_DIR}/tests/BinarySize/dut.sv:8:10: Variable "first" is driven by a continuous assignment and another driver.
+[ERR:UH0759] ${SURELOG_DIR}/tests/BinarySize/dut.sv:9:10: Variable "first" is driven by a continuous assignment and another driver.
+[ERR:UH0759] ${SURELOG_DIR}/tests/BinarySize/dut.sv:10:10: Variable "first" is driven by a continuous assignment and another driver.
+[ERR:UH0759] ${SURELOG_DIR}/tests/BinarySize/dut.sv:11:10: Variable "first" is driven by a continuous assignment and another driver.
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BinarySize/slpp_unit/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BinarySize/slpp_unit/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BinarySize/slpp_unit/surelog.uhdm ...
@@ -578,9 +586,20 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 8
 [WARNING] : 1
 [   NOTE] : 5
+
+============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/BinarySize/dut.sv:4:10: Variable driven by a continuous assignment has another driver, first
+[LINT]: ${SURELOG_DIR}/tests/BinarySize/dut.sv:5:10: Variable driven by a continuous assignment has another driver, first
+[LINT]: ${SURELOG_DIR}/tests/BinarySize/dut.sv:6:10: Variable driven by a continuous assignment has another driver, first
+[LINT]: ${SURELOG_DIR}/tests/BinarySize/dut.sv:7:10: Variable driven by a continuous assignment has another driver, first
+[LINT]: ${SURELOG_DIR}/tests/BinarySize/dut.sv:8:10: Variable driven by a continuous assignment has another driver, first
+[LINT]: ${SURELOG_DIR}/tests/BinarySize/dut.sv:9:10: Variable driven by a continuous assignment has another driver, first
+[LINT]: ${SURELOG_DIR}/tests/BinarySize/dut.sv:10:10: Variable driven by a continuous assignment has another driver, first
+[LINT]: ${SURELOG_DIR}/tests/BinarySize/dut.sv:11:10: Variable driven by a continuous assignment has another driver, first
+============================== End Linting Results ==============================
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/BinarySize/dut.sv | ${SURELOG_DIR}/build/regression/BinarySize/roundtrip/dut_000.sv | 1 | 13 |

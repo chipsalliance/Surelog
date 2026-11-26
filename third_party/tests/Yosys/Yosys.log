@@ -1761,9 +1761,10 @@ Processing: -cd svinterfaces +incdir+. -parse -nocache -nobuiltin -nonote -noinf
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd various +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns reg_wire_error.sv -l reg_wire_error.sv.log
+[ERR:UH0759] ${SURELOG_DIR}/third_party/tests/Yosys/various/reg_wire_error.sv:35:8: Variable "l_reg" is driven by a continuous assignment and another driver.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd various +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns elab_sys_tasks.sv -l elab_sys_tasks.sv.log
@@ -1795,6 +1796,6 @@ Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 Processed 253 tests.
 [  FATAL] : 0
 [ SYNTAX] : 14
-[  ERROR] : 3
+[  ERROR] : 4
 [WARNING] : 230
 [   NOTE] : 0

@@ -589,6 +589,7 @@ ref_obj                                               80
 ref_typespec                                          21
 sys_func_call                                          2
 === UHDM Object Stats End ===
+[ERR:UH0759] ${SURELOG_DIR}/tests/MultContAssign/dut.sv:10:9: Variable "v" is driven by a continuous assignment and another driver.
 [ERR:UH0737] ${SURELOG_DIR}/tests/MultContAssign/dut.sv:6:41: Use of undeclared identifier "pu".
 [ERR:UH0737] ${SURELOG_DIR}/tests/MultContAssign/dut.sv:7:42: Use of undeclared identifier "pd".
 [ERR:UH0737] ${SURELOG_DIR}/tests/MultContAssign/dut.sv:21:24: Use of undeclared identifier "sel".
@@ -2129,11 +2130,12 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 7
+[  ERROR] : 8
 [WARNING] : 3
 [   NOTE] : 8
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/MultContAssign/dut.sv:10:9: Variable driven by a continuous assignment has another driver, v
 [LINT]: ${SURELOG_DIR}/tests/MultContAssign/dut.sv:6:41: Use of undeclared identifier, pu
 [LINT]: ${SURELOG_DIR}/tests/MultContAssign/dut.sv:7:42: Use of undeclared identifier, pd
 [LINT]: ${SURELOG_DIR}/tests/MultContAssign/dut.sv:21:24: Use of undeclared identifier, sel

@@ -17821,16 +17821,18 @@ unsupported_typespec                                 167
 var_select                                         18159
 === UHDM Object Stats End ===
 [WRN:UH0732] ${SURELOG_DIR}/third_party/tests/AzadiRTL/div_sqrt_top_mvp.sv:159:28: Critical: Signed vs Unsigned port connection "Exp_in_DI".
+[ERR:UH0759] ${SURELOG_DIR}/third_party/tests/AzadiRTL/brq_idu_decoder.sv:202:10: Variable "fp_dst_fmt_o" is driven by a continuous assignment and another driver.
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AzadiRTL/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/AzadiRTL/slpp_all/checker/surelog.chk.html ...
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 7
 [   NOTE] : 7378
 
 ============================== Begin Linting Results ==============================
 [LINT]: ${SURELOG_DIR}/third_party/tests/AzadiRTL/div_sqrt_top_mvp.sv:159:28: Signed vs Unsigned port connection, Exp_in_DI
+[LINT]: ${SURELOG_DIR}/third_party/tests/AzadiRTL/brq_idu_decoder.sv:202:10: Variable driven by a continuous assignment has another driver, fp_dst_fmt_o
 [LINT]: ${SURELOG_DIR}/third_party/tests/AzadiRTL/dm_sba.sv:166:41: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/third_party/tests/AzadiRTL/sky130_sram_4kbyte_1rw1r_32x1024_8.v:57:5: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/third_party/tests/AzadiRTL/sky130_sram_4kbyte_1rw1r_32x1024_8.v:75:5: Non synthesizable construct,
