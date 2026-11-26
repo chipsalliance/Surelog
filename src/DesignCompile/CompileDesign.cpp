@@ -71,10 +71,12 @@
 #include <uhdm/vpi_user.h>
 #include <uhdm/vpi_visitor.h>
 
+#include <algorithm>
 #include <climits>
 #include <cstdint>
 #include <iostream>
 #include <map>
+#include <set>
 #include <string>
 #include <string_view>
 #include <thread>
@@ -359,6 +361,420 @@ bool CompileDesign::elaborate() {
   return (elaboration_());
 }
 
+// ---------------------------------------------------------------------------
+// Package import / export rules (IEEE 1800-2023 26.3 and 26.6), checked on
+// the parse trees of the whole design: Surelog implements an import by
+// copying the package's content into the importing scope, and an export by
+// copying everything imported, so none of these rules survive into the
+// compiled model.
+namespace {
+using NameSet = std::set<std::string, std::less<>>;
+
+struct ImportItem {
+  std::string pkg;   // empty for `export *::*`
+  std::string name;  // empty for a wildcard
+  NodeId node;
+};
+
+struct Occurrence {
+  NodeId node;
+  bool ref = false;      // an unqualified use of the name
+  bool topDecl = false;  // declared directly in the scope
+};
+
+struct ScopeInfo {
+  const FileContent* fC = nullptr;
+  NodeId root;
+  bool isPackage = false;
+  std::string name;
+  NameSet declared;   // declared directly in the scope (packages only)
+  NameSet mentioned;  // every identifier of the body
+  std::vector<ImportItem> imports;
+  std::vector<ImportItem> exports;
+  std::map<std::string, std::vector<Occurrence>, std::less<>> occurrences;
+};
+
+bool isScopeRoot(VObjectType t) {
+  return t == VObjectType::paPackage_declaration ||
+         t == VObjectType::paModule_declaration ||
+         t == VObjectType::paInterface_declaration ||
+         t == VObjectType::paProgram_declaration;
+}
+
+// A node between a declaration and its scope that opens a nested scope.
+bool isNestedScope(VObjectType t) {
+  switch (t) {
+    case VObjectType::paFunction_declaration:
+    case VObjectType::paTask_declaration:
+    case VObjectType::paFunction_body_declaration:
+    case VObjectType::paTask_body_declaration:
+    case VObjectType::paClass_declaration:
+    case VObjectType::paInterface_class_declaration:
+    case VObjectType::paClass_constructor_declaration:
+    case VObjectType::paCovergroup_declaration:
+    case VObjectType::paProperty_declaration:
+    case VObjectType::paSequence_declaration:
+    case VObjectType::paLet_declaration:
+    case VObjectType::paChecker_declaration:
+    case VObjectType::paClocking_declaration:
+    case VObjectType::paSeq_block:
+    case VObjectType::paPar_block:
+    case VObjectType::paStatement:
+    case VObjectType::paGenerate_region:
+    case VObjectType::paGenerate_begin_end_block:
+    case VObjectType::paGenerate_module_block:
+    case VObjectType::paGenerate_module_named_block:
+    case VObjectType::paGenerate_interface_block:
+    case VObjectType::paGenerate_interface_named_block:
+    case VObjectType::paLoop_generate_construct:
+    case VObjectType::paIf_generate_construct:
+    case VObjectType::paCase_generate_construct:
+    case VObjectType::paDpi_import_export:
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool atScopeTop(const FileContent* fC, NodeId id, NodeId root) {
+  for (NodeId p = fC->Parent(id); p && p != root; p = fC->Parent(p)) {
+    if (isNestedScope(fC->Type(p))) return false;
+  }
+  return true;
+}
+
+// `id` is a StringConst: does it name a declaration of its parent?
+bool isDeclarationName(const FileContent* fC, NodeId id) {
+  const NodeId parent = fC->Parent(id);
+  const VObjectType pt = fC->Type(parent);
+  const bool first = fC->Child(parent) == id;
+  switch (pt) {
+    case VObjectType::paVariable_decl_assignment:
+    case VObjectType::paNet_decl_assignment:
+    case VObjectType::paParam_assignment:
+    case VObjectType::paSpecparam_assignment:
+    case VObjectType::paEnum_name_declaration:
+      return first;
+    case VObjectType::paType_declaration:
+      return true;
+    case VObjectType::paList_of_type_assignments:
+      return true;
+    case VObjectType::paInterface_identifier:
+      return fC->Type(fC->Parent(parent)) ==
+             VObjectType::paList_of_interface_identifiers;
+    default:
+      return false;
+  }
+}
+
+// A declaration a package makes that is not a data object.
+bool isPackageItemName(const FileContent* fC, NodeId id) {
+  const NodeId parent = fC->Parent(id);
+  switch (fC->Type(parent)) {
+    case VObjectType::paFunction_body_declaration:
+    case VObjectType::paTask_body_declaration:
+    case VObjectType::paFunction_prototype:
+    case VObjectType::paTask_prototype: {
+      // The first StringConst child; a return type is a Function_data_type.
+      for (NodeId c = fC->Child(parent); c; c = fC->Sibling(c)) {
+        if (fC->Type(c) == VObjectType::slStringConst) return c == id;
+      }
+      return false;
+    }
+    case VObjectType::paClass_declaration:
+    case VObjectType::paInterface_class_declaration:
+    case VObjectType::paCovergroup_declaration:
+    case VObjectType::paProperty_declaration:
+    case VObjectType::paSequence_declaration:
+    case VObjectType::paLet_declaration:
+    case VObjectType::paNet_type_declaration: {
+      for (NodeId c = fC->Child(parent); c; c = fC->Sibling(c)) {
+        if (fC->Type(c) == VObjectType::slStringConst) return c == id;
+      }
+      return false;
+    }
+    default:
+      return false;
+  }
+}
+
+// `id` is a StringConst: is it an unqualified USE of a name?
+bool isReferenceName(const FileContent* fC, NodeId id) {
+  const NodeId parent = fC->Parent(id);
+  if (fC->Child(parent) != id) return false;
+  switch (fC->Type(parent)) {
+    case VObjectType::paPrimary_literal:
+    case VObjectType::paPs_or_hierarchical_identifier:
+    case VObjectType::paHierarchical_identifier:
+    case VObjectType::paSubroutine_call:
+    case VObjectType::paComplex_func_call:
+    case VObjectType::paData_type:
+    case VObjectType::paNet_declaration:
+    case VObjectType::paInterface_port_declaration:
+      return true;
+    default:
+      return false;
+  }
+}
+
+ImportItem importItem(const FileContent* fC, NodeId item) {
+  ImportItem res;
+  res.node = item;
+  NodeId c = fC->Child(item);
+  if (c && fC->Type(c) == VObjectType::slStringConst) {
+    res.pkg = fC->SymName(c);
+    NodeId n = fC->Sibling(c);
+    if (n && fC->Type(n) == VObjectType::slStringConst)
+      res.name = fC->SymName(n);
+  }
+  return res;
+}
+
+void collectScope(ScopeInfo& scope) {
+  const FileContent* fC = scope.fC;
+  // The scope's own name.
+  NodeId nameNode;
+  if (scope.isPackage) {
+    for (NodeId c = fC->Child(scope.root); c; c = fC->Sibling(c)) {
+      if (fC->Type(c) == VObjectType::slStringConst) {
+        nameNode = c;
+        break;
+      }
+    }
+    if (nameNode) scope.name = fC->SymName(nameNode);
+  }
+  std::vector<NodeId> stack;
+  for (NodeId c = fC->Child(scope.root); c; c = fC->Sibling(c))
+    stack.push_back(c);
+  while (!stack.empty()) {
+    NodeId id = stack.back();
+    stack.pop_back();
+    const VObjectType t = fC->Type(id);
+    if (isScopeRoot(t)) continue;
+    if (t == VObjectType::paPackage_export_declaration) {
+      NodeId item = fC->Child(id);
+      if (!item) scope.exports.push_back({"", "", id});
+      for (; item; item = fC->Sibling(item)) {
+        if (fC->Type(item) == VObjectType::paPackage_import_item)
+          scope.exports.push_back(importItem(fC, item));
+      }
+      continue;
+    }
+    if (t == VObjectType::paPackage_import_item) {
+      if (atScopeTop(fC, id, scope.root))
+        scope.imports.push_back(importItem(fC, id));
+      continue;
+    }
+    if (t == VObjectType::slStringConst && id != nameNode) {
+      const std::string name(fC->SymName(id));
+      scope.mentioned.insert(name);
+      Occurrence occ;
+      occ.node = id;
+      occ.ref = isReferenceName(fC, id);
+      const bool top = atScopeTop(fC, id, scope.root);
+      occ.topDecl = top && isDeclarationName(fC, id);
+      scope.occurrences[name].push_back(occ);
+      if (scope.isPackage) {
+        if (occ.topDecl) {
+          scope.declared.insert(name);
+        } else if (isPackageItemName(fC, id)) {
+          // The name is a child of the construct it declares.
+          NodeId decl = fC->Parent(id);
+          const NodeId up = fC->Parent(decl);
+          if (up && (fC->Type(up) == VObjectType::paFunction_declaration ||
+                     fC->Type(up) == VObjectType::paTask_declaration))
+            decl = up;
+          if (atScopeTop(fC, decl, scope.root)) scope.declared.insert(name);
+        }
+      }
+    }
+    for (NodeId c = fC->Child(id); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+  // The walk is depth-first from the back: restore source order.
+  for (auto& [name, occs] : scope.occurrences) {
+    std::sort(occs.begin(), occs.end(),
+              [fC](const Occurrence& a, const Occurrence& b) {
+                if (fC->Line(a.node) != fC->Line(b.node))
+                  return fC->Line(a.node) < fC->Line(b.node);
+                return fC->Column(a.node) < fC->Column(b.node);
+              });
+  }
+}
+
+bool before(const FileContent* fC, NodeId a, NodeId b) {
+  if (fC->Line(a) != fC->Line(b)) return fC->Line(a) < fC->Line(b);
+  return fC->Column(a) < fC->Column(b);
+}
+}  // namespace
+
+void CompileDesign::checkPackageImportsExports_() {
+  Design* design = m_compiler->getDesign();
+  ErrorContainer* errors = m_compiler->getErrorContainer();
+  SymbolTable* symbols = m_compiler->getSymbolTable();
+  auto report = [&](ErrorDefinition::ErrorType type, const FileContent* fC,
+                    NodeId id, std::string_view text) {
+    Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
+                 symbols->registerSymbol(text));
+    Error err(type, loc);
+    errors->addError(err);
+  };
+
+  std::vector<ScopeInfo> scopes;
+  // Wildcard imports made at file level ($unit), per file.
+  std::map<const FileContent*, std::vector<ImportItem>> unitImports;
+  for (const auto& [fileId, fC] : design->getAllFileContents()) {
+    if (fC == nullptr || fC->getSize() == 0) continue;
+    std::vector<NodeId> stack{fC->getRootNode()};
+    while (!stack.empty()) {
+      NodeId id = stack.back();
+      stack.pop_back();
+      const VObjectType t = fC->Type(id);
+      if (isScopeRoot(t)) {
+        ScopeInfo scope;
+        scope.fC = fC;
+        scope.root = id;
+        scope.isPackage = t == VObjectType::paPackage_declaration;
+        collectScope(scope);
+        scopes.push_back(std::move(scope));
+        continue;
+      }
+      if (t == VObjectType::paPackage_import_item) {
+        unitImports[fC].push_back(importItem(fC, id));
+        continue;
+      }
+      for (NodeId c = fC->Child(id); c; c = fC->Sibling(c)) stack.push_back(c);
+    }
+  }
+
+  std::map<std::string, std::vector<const ScopeInfo*>, std::less<>> packages;
+  for (const ScopeInfo& s : scopes) {
+    if (s.isPackage && !s.name.empty()) packages[s.name].push_back(&s);
+  }
+  // Whether `import pkg::name` can find `name`: declared in, mentioned by
+  // (a referenced wildcard import), explicitly imported by, or exported by
+  // the package.  Deliberately generous; only a name the package never
+  // spells is rejected.
+  auto provides = [&](std::string_view pkg, std::string_view name) {
+    auto it = packages.find(pkg);
+    if (it == packages.end()) return true;  // unknown package: not ours
+    for (const ScopeInfo* p : it->second) {
+      if (p->mentioned.count(name)) return true;
+      for (const ImportItem& i : p->imports)
+        if (i.name == name) return true;
+      for (const ImportItem& e : p->exports)
+        if (e.name == name) return true;
+    }
+    return false;
+  };
+  auto declares = [&](std::string_view pkg, std::string_view name) {
+    auto it = packages.find(pkg);
+    if (it == packages.end()) return false;
+    return std::any_of(
+        it->second.begin(), it->second.end(),
+        [name](const ScopeInfo* p) { return p->declared.count(name) != 0; });
+  };
+
+  for (const ScopeInfo& s : scopes) {
+    const FileContent* fC = s.fC;
+    // `import P::x` / `export P::x`: P must make `x` available.
+    for (const ImportItem& i : s.imports) {
+      if (i.name.empty() || i.pkg.empty()) continue;
+      if (!provides(i.pkg, i.name))
+        report(ErrorDefinition::COMP_PACKAGE_MEMBER_NOT_VISIBLE, fC, i.node,
+               StrCat(i.pkg, "::", i.name));
+    }
+    for (const ImportItem& e : s.exports) {
+      if (e.name.empty() || e.pkg.empty()) continue;
+      if (!provides(e.pkg, e.name)) {
+        report(ErrorDefinition::COMP_PACKAGE_MEMBER_NOT_VISIBLE, fC, e.node,
+               StrCat(e.pkg, "::", e.name));
+        continue;
+      }
+      bool imported = false;
+      for (const ImportItem& i : s.imports) {
+        if (i.pkg == e.pkg && (i.name.empty() || i.name == e.name))
+          imported = true;
+      }
+      if (!imported) {
+        report(ErrorDefinition::COMP_EXPORT_NOT_IMPORTED, fC, e.node,
+               StrCat(e.pkg, "::", e.name));
+      } else if (s.declared.count(e.name)) {
+        report(ErrorDefinition::COMP_EXPORT_CONFLICTS_WITH_DECLARATION, fC,
+               e.node, StrCat(e.pkg, "::", e.name));
+      }
+    }
+
+    // Wildcard imports in effect in this scope.
+    std::vector<ImportItem> wildcards;
+    auto unit = unitImports.find(fC);
+    if (unit != unitImports.end()) {
+      for (const ImportItem& i : unit->second)
+        if (i.name.empty() && before(fC, i.node, s.root))
+          wildcards.push_back(i);
+    }
+    for (const ImportItem& i : s.imports)
+      if (i.name.empty()) wildcards.push_back(i);
+    if (wildcards.empty()) continue;
+    NameSet explicitImports;
+    for (const ImportItem& i : s.imports)
+      if (!i.name.empty()) explicitImports.insert(i.name);
+
+    for (const auto& [name, occs] : s.occurrences) {
+      if (explicitImports.count(name)) continue;
+      // The packages a wildcard import makes `name` visible from.
+      std::vector<const ImportItem*> providers;
+      NameSet seen;
+      for (const ImportItem& w : wildcards) {
+        if (declares(w.pkg, name) && seen.insert(w.pkg).second)
+          providers.push_back(&w);
+      }
+      if (providers.empty()) continue;
+      bool allRefs = true;
+      const Occurrence* firstRef = nullptr;
+      const Occurrence* ambiguousRef = nullptr;
+      const Occurrence* topDecl = nullptr;
+      bool otherDecl = false;
+      for (const Occurrence& o : occs) {
+        if (o.ref) {
+          if (firstRef == nullptr) firstRef = &o;
+          // Only the wildcard imports ABOVE the first reference compete for
+          // it (LRM 26.3, the `import p2::*` after `x = f()` example); that
+          // reference imports the name for the rest of the scope.
+          if (firstRef == &o) {
+            uint32_t n = 0;
+            for (const ImportItem* w : providers)
+              if (before(fC, w->node, o.node)) n++;
+            if (n > 1) ambiguousRef = &o;
+          }
+        } else {
+          allRefs = false;
+          if (o.topDecl) {
+            if (topDecl == nullptr) topDecl = &o;
+          } else {
+            otherDecl = true;
+          }
+        }
+      }
+      if (firstRef == nullptr) continue;
+      // LRM 26.3: a name two wildcard imports make visible may not be used
+      // unless the scope declares it.
+      if (allRefs && ambiguousRef != nullptr) {
+        report(ErrorDefinition::COMP_AMBIGUOUS_WILDCARD_IMPORT, fC,
+               ambiguousRef->node, name);
+        continue;
+      }
+      // LRM 26.3: once a wildcard-imported name is used, the scope may not
+      // declare it.
+      if (topDecl != nullptr && !otherDecl &&
+          before(fC, firstRef->node, topDecl->node) &&
+          before(fC, providers.front()->node, firstRef->node)) {
+        report(ErrorDefinition::COMP_WILDCARD_IMPORT_REDECLARED, fC,
+               topDecl->node, name);
+      }
+    }
+  }
+}
+
 bool CompileDesign::compilation_() {
   Design* design = m_compiler->getDesign();
 
@@ -453,6 +869,7 @@ bool CompileDesign::compilation_() {
              FunctorCompileClass>(
       m_compiler->getDesign()->getClassDefinitions(), maxThreadCount);
   bindPendingClassMethodCalls();
+  checkPackageImportsExports_();
   design->clearContainers();
   collectObjects_(all_files, design, true);
 

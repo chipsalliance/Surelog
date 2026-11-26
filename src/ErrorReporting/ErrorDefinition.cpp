@@ -346,6 +346,16 @@ bool ErrorDefinition::init() {
       "Specparam \"%s\" used in a parameter value or generate condition");
   rec(COMP_GENVAR_NESTED_REUSE, ERROR, COMP,
       "Genvar \"%s\" is already the index of an enclosing generate loop");
+  rec(COMP_PACKAGE_MEMBER_NOT_VISIBLE, ERROR, COMP,
+      "\"%s\" is neither declared in nor exported by its package");
+  rec(COMP_EXPORT_NOT_IMPORTED, ERROR, COMP,
+      "Export of \"%s\", which this package does not import");
+  rec(COMP_EXPORT_CONFLICTS_WITH_DECLARATION, ERROR, COMP,
+      "Export of \"%s\" conflicts with a declaration of this package");
+  rec(COMP_AMBIGUOUS_WILDCARD_IMPORT, ERROR, COMP,
+      "\"%s\" is made visible by more than one wildcard import");
+  rec(COMP_WILDCARD_IMPORT_REDECLARED, ERROR, COMP,
+      "\"%s\" is declared after its wildcard-imported use");
   rec(COMP_NO_METHOD_FOR_TYPE, ERROR, COMP,
       "Function \"%exobj\" is not defined for variable %s",
       "%exloc type definition");
@@ -541,6 +551,12 @@ bool ErrorDefinition::init() {
       "type");
   rec(UHDM_RECURSIVE_TYPE, ERROR, UHDM,
       "Type \"%s\" recursively depends on its own definition");
+  rec(UHDM_NO_PACKAGE_MEMBER, ERROR, UHDM,
+      "\"%s\" names no member of its package");
+  rec(UHDM_TASK_CALLED_AS_FUNCTION, ERROR, UHDM,
+      "Task \"%s\" called as a function");
+  rec(UHDM_IMPORTED_NAME_IN_HIER_PATH, ERROR, UHDM,
+      "\"%s\" reaches a name the instance only imports from a package");
   return true;
 }
 
