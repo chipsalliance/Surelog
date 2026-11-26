@@ -669,9 +669,9 @@ void CompileDesign::checkPackageImportsExports_() {
   auto declares = [&](std::string_view pkg, std::string_view name) {
     auto it = packages.find(pkg);
     if (it == packages.end()) return false;
-    for (const ScopeInfo* p : it->second)
-      if (p->declared.count(name)) return true;
-    return false;
+    return std::any_of(
+        it->second.begin(), it->second.end(),
+        [name](const ScopeInfo* p) { return p->declared.count(name) != 0; });
   };
 
   for (const ScopeInfo& s : scopes) {
