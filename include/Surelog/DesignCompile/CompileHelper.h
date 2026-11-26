@@ -194,6 +194,11 @@ class CompileHelper final {
                            NodeId Tf_call_stmt, CompileDesign* compileDesign,
                            UHDM::any* pexpr);
 
+  // The class a `C::new` constructs, as a ref_obj naming it.
+  UHDM::ref_obj* classNewPrefix(const FileContent* fC, NodeId classScope,
+                                UHDM::any* parent,
+                                CompileDesign* compileDesign);
+
   UHDM::VectorOfany* compileTfCallArguments(
       DesignComponent* component, const FileContent* fC, NodeId Arg_list_node,
       CompileDesign* compileDesign, Reduce reduce, UHDM::any* call,
