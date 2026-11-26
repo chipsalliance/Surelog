@@ -88,6 +88,8 @@ class CompileDesign {
   void bindPendingClassMethodCalls();
   // LRM 26.3 / 26.6 package import and export rules, on the parse trees.
   void checkPackageImportsExports_();
+  void checkEnumDeclarations_();
+  void checkStructuralRules_();
 
  private:
   template <class ObjectType, class ObjectMapType, typename FunctorType>

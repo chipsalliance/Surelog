@@ -356,6 +356,25 @@ bool ErrorDefinition::init() {
       "\"%s\" is made visible by more than one wildcard import");
   rec(COMP_WILDCARD_IMPORT_REDECLARED, ERROR, COMP,
       "\"%s\" is declared after its wildcard-imported use");
+  rec(COMP_ENUM_XZ_IN_TWO_STATE, ERROR, COMP,
+      "Enum member \"%s\" has an x/z value but the base type is 2-state");
+  rec(COMP_ENUM_UNASSIGNED_AFTER_XZ, ERROR, COMP,
+      "Enum member \"%s\" follows a member with an x/z value and has no "
+      "value");
+  rec(COMP_ENUM_VALUE_OUT_OF_RANGE, ERROR, COMP,
+      "Enum member \"%s\" value does not fit the enum base type");
+  rec(COMP_ENUM_INVALID_BASE_TYPE, ERROR, COMP,
+      "Invalid enum base type \"%s\"");
+  rec(COMP_ENUM_VALUE_NOT_CONSTANT, ERROR, COMP,
+      "Enum member \"%s\" value is not a constant expression");
+  rec(COMP_NESTED_GENERATE_REGION, ERROR, COMP,
+      "A \"%s\" region cannot be nested in another generate region");
+  rec(COMP_INSTANCE_IN_PROGRAM, ERROR, COMP,
+      "\"%s\" cannot be instantiated in a program");
+  rec(COMP_ZERO_REPLICATION, ERROR, COMP,
+      "A replication count of %s is only allowed inside a concatenation");
+  rec(COMP_INOUT_PORT_DEFAULT, ERROR, COMP,
+      "Inout port \"%s\" cannot have a default value");
   rec(COMP_NO_METHOD_FOR_TYPE, ERROR, COMP,
       "Function \"%exobj\" is not defined for variable %s",
       "%exloc type definition");
@@ -557,6 +576,9 @@ bool ErrorDefinition::init() {
       "Task \"%s\" called as a function");
   rec(UHDM_IMPORTED_NAME_IN_HIER_PATH, ERROR, UHDM,
       "\"%s\" reaches a name the instance only imports from a package");
+  rec(UHDM_VARIABLE_ON_INOUT, ERROR, UHDM,
+      "Variable \"%s\" connected to an inout terminal; only nets are allowed");
+  rec(UHDM_NOT_ASSIGNABLE, ERROR, UHDM, "\"%s\" is not assignable");
   return true;
 }
 
