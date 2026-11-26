@@ -80,7 +80,6 @@
 #include <string>
 #include <string_view>
 #include <thread>
-#include <tuple>
 #include <vector>
 
 #ifdef USETBB
@@ -1165,7 +1164,7 @@ void CompileDesign::checkEnumDeclarations_() {
 
 // ---------------------------------------------------------------------------
 // Structural rules the parser accepts but the LRM forbids, checked on the
-// parse trees: a `generate` region nested in another (27.3), a module
+// parse trees: a module
 // instantiated in a program (24.3; the parser reads it as a checker
 // instance), a zero replication outside a concatenation (11.4.12.1), and a
 // default value on an inout ANSI port (23.2.2.4).
@@ -1252,19 +1251,13 @@ void CompileDesign::checkStructuralRules_() {
   }
   for (const auto& [fileId, fC] : design->getAllFileContents()) {
     if (fC == nullptr || fC->getSize() == 0) continue;
-    // (node, inside a generate region, inside a program)
-    std::vector<std::tuple<NodeId, bool, bool>> stack{
-        {fC->getRootNode(), false, false}};
+    // (node, inside a program)
+    std::vector<std::pair<NodeId, bool>> stack{{fC->getRootNode(), false}};
     while (!stack.empty()) {
-      auto [id, inGenRegion, inProgram] = stack.back();
+      auto [id, inProgram] = stack.back();
       stack.pop_back();
       const VObjectType t = fC->Type(id);
-      if (t == VObjectType::paGenerate_region) {
-        if (inGenRegion)
-          report(ErrorDefinition::COMP_NESTED_GENERATE_REGION, fC, id,
-                 "generate");
-        inGenRegion = true;
-      } else if (t == VObjectType::paProgram_declaration) {
+      if (t == VObjectType::paProgram_declaration) {
         inProgram = true;
       } else if (t == VObjectType::paModule_declaration ||
                  t == VObjectType::paInterface_declaration) {
@@ -1328,7 +1321,277 @@ void CompileDesign::checkStructuralRules_() {
         }
       }
       for (NodeId c = fC->Child(id); c; c = fC->Sibling(c))
-        stack.emplace_back(c, inGenRegion, inProgram);
+        stack.emplace_back(c, inProgram);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Declaration rules checked on the parse trees: class methods are always
+// automatic (8.6), a net's data type is 4-state integral or an unpacked
+// array / struct of such (6.7.1), an automatic variable cannot appear in a
+// procedural continuous assignment nor be the target of a nonblocking one
+// (6.21), and an attribute value is a constant expression (5.12).
+namespace {
+bool isNetKeyword(VObjectType t) {
+  switch (t) {
+    case VObjectType::paNetType_Supply0:
+    case VObjectType::paNetType_Supply1:
+    case VObjectType::paNetType_Tri:
+    case VObjectType::paNetType_Tri0:
+    case VObjectType::paNetType_Tri1:
+    case VObjectType::paNetType_TriAnd:
+    case VObjectType::paNetType_TriOr:
+    case VObjectType::paNetType_TriReg:
+    case VObjectType::paNetType_Uwire:
+    case VObjectType::paNetType_Wand:
+    case VObjectType::paNetType_Wire:
+    case VObjectType::paNetType_Wor:
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool subtreeHas(const FileContent* fC, NodeId id, VObjectType type) {
+  std::vector<NodeId> stack{id};
+  while (!stack.empty()) {
+    NodeId n = stack.back();
+    stack.pop_back();
+    if (fC->Type(n) == type) return true;
+    for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+  return false;
+}
+
+// The first identifier of the subtree that is in `names`.
+NodeId findName(const FileContent* fC, NodeId id,
+                const std::set<std::string, std::less<>>& names) {
+  std::vector<NodeId> stack{id};
+  while (!stack.empty()) {
+    NodeId n = stack.back();
+    stack.pop_back();
+    if (fC->Type(n) == VObjectType::slStringConst &&
+        names.count(fC->SymName(n)))
+      return n;
+    for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+  return InvalidNodeId;
+}
+
+// Names a task / function body declares as automatic local variables (every
+// local that is not declared `static`).  Formals are left out: an `assign`
+// to an output formal has a clear meaning and is synthesized.
+void collectAutomaticLocals(const FileContent* fC, NodeId body,
+                            std::set<std::string, std::less<>>& names) {
+  std::vector<NodeId> stack{body};
+  while (!stack.empty()) {
+    NodeId n = stack.back();
+    stack.pop_back();
+    const VObjectType t = fC->Type(n);
+    if (t == VObjectType::paData_declaration &&
+        fC->Type(fC->Child(n)) == VObjectType::paLifetime_Static)
+      continue;
+    if (t == VObjectType::paTf_port_list ||
+        t == VObjectType::paTf_port_declaration)
+      continue;
+    if (t == VObjectType::paVariable_decl_assignment) {
+      NodeId c = fC->Child(n);
+      if (c && fC->Type(c) == VObjectType::slStringConst)
+        names.emplace(fC->SymName(c));
+    }
+    for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+}
+}  // namespace
+
+void CompileDesign::checkDeclarationRules_() {
+  Design* design = m_compiler->getDesign();
+  ErrorContainer* errors = m_compiler->getErrorContainer();
+  SymbolTable* symbols = m_compiler->getSymbolTable();
+  auto report = [&](ErrorDefinition::ErrorType type, const FileContent* fC,
+                    NodeId id, std::string_view text) {
+    Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
+                 symbols->registerSymbol(text));
+    Error err(type, loc);
+    errors->addError(err);
+  };
+  using Names = std::set<std::string, std::less<>>;
+  Names classes;
+  for (const auto& [fileId, fC] : design->getAllFileContents()) {
+    if (fC == nullptr || fC->getSize() == 0) continue;
+    std::vector<NodeId> stack{fC->getRootNode()};
+    while (!stack.empty()) {
+      NodeId id = stack.back();
+      stack.pop_back();
+      if (fC->Type(id) == VObjectType::paClass_declaration) {
+        for (NodeId c = fC->Child(id); c; c = fC->Sibling(c))
+          if (fC->Type(c) == VObjectType::slStringConst) {
+            classes.emplace(fC->SymName(c));
+            break;
+          }
+      }
+      for (NodeId c = fC->Child(id); c; c = fC->Sibling(c)) stack.push_back(c);
+    }
+  }
+  for (const auto& [fileId, fC] : design->getAllFileContents()) {
+    if (fC == nullptr || fC->getSize() == 0) continue;
+    std::vector<NodeId> stack{fC->getRootNode()};
+    while (!stack.empty()) {
+      NodeId id = stack.back();
+      stack.pop_back();
+      for (NodeId c = fC->Child(id); c; c = fC->Sibling(c)) stack.push_back(c);
+      const VObjectType t = fC->Type(id);
+      if (t == VObjectType::paClass_method) {
+        NodeId decl = fC->Child(id);
+        while (decl && fC->Type(decl) != VObjectType::paTask_declaration &&
+               fC->Type(decl) != VObjectType::paFunction_declaration)
+          decl = fC->Sibling(decl);
+        if (decl && fC->Type(fC->Child(decl)) == VObjectType::paLifetime_Static)
+          report(ErrorDefinition::COMP_STATIC_CLASS_METHOD, fC, fC->Child(decl),
+                 "static");
+      } else if (t == VObjectType::paNet_declaration &&
+                 isNetKeyword(fC->Type(fC->Child(id)))) {
+        // Without a net keyword, `T x [$];` is a variable of a user type
+        // that the grammar reads as a user-defined nettype declaration.
+        bool bad = false;
+        std::string_view what;
+        for (NodeId c = fC->Child(id); c && !bad; c = fC->Sibling(c)) {
+          if (fC->Type(c) == VObjectType::paData_type_or_implicit ||
+              fC->Type(c) == VObjectType::paData_type) {
+            NodeId dt =
+                fC->Type(c) == VObjectType::paData_type ? c : fC->Child(c);
+            if (dt && fC->Type(dt) == VObjectType::paData_type) {
+              NodeId k = fC->Child(dt);
+              const VObjectType kt = fC->Type(k);
+              if (kt == VObjectType::paString_type ||
+                  kt == VObjectType::paChandle_type ||
+                  kt == VObjectType::paEvent_type) {
+                bad = true;
+                what = kt == VObjectType::paString_type    ? "string"
+                       : kt == VObjectType::paChandle_type ? "chandle"
+                                                           : "event";
+              } else if (kt == VObjectType::slStringConst && !fC->Sibling(k) &&
+                         classes.count(fC->SymName(k))) {
+                bad = true;
+                what = fC->SymName(k);
+              }
+            }
+          } else if (fC->Type(c) ==
+                     VObjectType::paList_of_net_decl_assignments) {
+            for (NodeId a = fC->Child(c); a && !bad; a = fC->Sibling(a)) {
+              for (NodeId d = fC->Child(a); d; d = fC->Sibling(d)) {
+                const VObjectType dt = fC->Type(d);
+                if ((dt == VObjectType::paUnpacked_dimension &&
+                     subtreeHas(fC, d, VObjectType::paDollar_keyword)) ||
+                    dt == VObjectType::paUnsized_dimension ||
+                    dt == VObjectType::paAssociative_dimension ||
+                    dt == VObjectType::paQueue_dimension) {
+                  bad = true;
+                  what = fC->SymName(fC->Child(a));
+                  break;
+                }
+              }
+            }
+          }
+        }
+        if (bad) report(ErrorDefinition::COMP_INVALID_NET_TYPE, fC, id, what);
+      } else if (t == VObjectType::paTask_declaration ||
+                 t == VObjectType::paFunction_declaration) {
+        NodeId first = fC->Child(id);
+        const bool inClass =
+            fC->Type(fC->Parent(id)) == VObjectType::paClass_method;
+        const bool automatic =
+            fC->Type(first) == VObjectType::paLifetime_Automatic ||
+            (inClass && fC->Type(first) != VObjectType::paLifetime_Static);
+        if (!automatic) continue;
+        Names locals;
+        collectAutomaticLocals(fC, id, locals);
+        if (locals.empty()) continue;
+        std::vector<NodeId> st{id};
+        while (!st.empty()) {
+          NodeId n = st.back();
+          st.pop_back();
+          const VObjectType nt = fC->Type(n);
+          if (nt == VObjectType::paProcedural_continuous_assignment) {
+            // Only a local that DRIVES the assignment outlives its call; a
+            // local target behaves as a blocking write and is synthesized.
+            NodeId target = fC->Child(n);
+            while (target &&
+                   fC->Type(target) != VObjectType::paVariable_assignment &&
+                   fC->Type(target) != VObjectType::paNet_assignment)
+              target = fC->Sibling(target);
+            NodeId rhs = InvalidNodeId;
+            if (target) {
+              NodeId lv = fC->Child(target);
+              rhs = lv ? fC->Sibling(lv) : InvalidNodeId;
+            }
+            if (NodeId hit = rhs ? findName(fC, rhs, locals) : InvalidNodeId)
+              report(ErrorDefinition::COMP_AUTOMATIC_VAR_MISUSE, fC, hit,
+                     fC->SymName(hit));
+            continue;
+          }
+          if (nt == VObjectType::paNonblocking_assignment) {
+            NodeId lv = fC->Child(n);
+            NodeId ps = lv ? fC->Child(lv) : InvalidNodeId;
+            NodeId nm = ps ? fC->Child(ps) : InvalidNodeId;
+            if (nm && fC->Type(nm) == VObjectType::slStringConst &&
+                !fC->Sibling(nm) && locals.count(fC->SymName(nm)))
+              report(ErrorDefinition::COMP_AUTOMATIC_VAR_MISUSE, fC, nm,
+                     fC->SymName(nm));
+            continue;
+          }
+          // A nested task / function has its own locals.
+          if (n != id && (nt == VObjectType::paTask_declaration ||
+                          nt == VObjectType::paFunction_declaration))
+            continue;
+          for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) st.push_back(c);
+        }
+      } else if (t == VObjectType::paModule_declaration) {
+        // Attribute values naming a variable or net of the module.
+        Names params, signals;
+        std::vector<NodeId> attrs;
+        std::vector<NodeId> st{id};
+        while (!st.empty()) {
+          NodeId n = st.back();
+          st.pop_back();
+          const VObjectType nt = fC->Type(n);
+          if (nt == VObjectType::paParam_assignment ||
+              nt == VObjectType::paVariable_decl_assignment ||
+              nt == VObjectType::paNet_decl_assignment) {
+            NodeId nm = fC->Child(n);
+            if (nm && fC->Type(nm) == VObjectType::slStringConst)
+              (nt == VObjectType::paParam_assignment ? params : signals)
+                  .emplace(fC->SymName(nm));
+          } else if (nt == VObjectType::paGenvar_declaration ||
+                     nt == VObjectType::paType_declaration) {
+            std::vector<NodeId> s2{n};
+            while (!s2.empty()) {
+              NodeId m = s2.back();
+              s2.pop_back();
+              if (fC->Type(m) == VObjectType::slStringConst)
+                params.emplace(fC->SymName(m));
+              for (NodeId c = fC->Child(m); c; c = fC->Sibling(c))
+                s2.push_back(c);
+            }
+          } else if (nt == VObjectType::paAttr_spec) {
+            attrs.push_back(n);
+          }
+          if (n != id && (nt == VObjectType::paModule_declaration ||
+                          nt == VObjectType::paTask_declaration ||
+                          nt == VObjectType::paFunction_declaration))
+            continue;
+          for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) st.push_back(c);
+        }
+        for (const std::string& p : params) signals.erase(p);
+        for (NodeId a : attrs) {
+          NodeId value = fC->Sibling(fC->Child(a));
+          if (!value) continue;
+          if (NodeId hit = findName(fC, value, signals))
+            report(ErrorDefinition::COMP_NON_CONSTANT_ATTRIBUTE, fC, hit,
+                   fC->SymName(hit));
+        }
+      }
     }
   }
 }
@@ -1430,6 +1693,7 @@ bool CompileDesign::compilation_() {
   checkPackageImportsExports_();
   checkEnumDeclarations_();
   checkStructuralRules_();
+  checkDeclarationRules_();
   design->clearContainers();
   collectObjects_(all_files, design, true);
 

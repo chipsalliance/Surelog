@@ -90,6 +90,7 @@ class CompileDesign {
   void checkPackageImportsExports_();
   void checkEnumDeclarations_();
   void checkStructuralRules_();
+  void checkDeclarationRules_();
 
  private:
   template <class ObjectType, class ObjectMapType, typename FunctorType>

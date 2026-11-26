@@ -367,14 +367,21 @@ bool ErrorDefinition::init() {
       "Invalid enum base type \"%s\"");
   rec(COMP_ENUM_VALUE_NOT_CONSTANT, ERROR, COMP,
       "Enum member \"%s\" value is not a constant expression");
-  rec(COMP_NESTED_GENERATE_REGION, ERROR, COMP,
-      "A \"%s\" region cannot be nested in another generate region");
   rec(COMP_INSTANCE_IN_PROGRAM, ERROR, COMP,
       "\"%s\" cannot be instantiated in a program");
   rec(COMP_ZERO_REPLICATION, ERROR, COMP,
       "A replication count of %s is only allowed inside a concatenation");
   rec(COMP_INOUT_PORT_DEFAULT, ERROR, COMP,
       "Inout port \"%s\" cannot have a default value");
+  rec(COMP_STATIC_CLASS_METHOD, ERROR, COMP,
+      "Class methods cannot have %s lifetime");
+  rec(COMP_INVALID_NET_TYPE, ERROR, COMP,
+      "\"%s\" is not a valid data type for a net");
+  rec(COMP_AUTOMATIC_VAR_MISUSE, ERROR, COMP,
+      "Automatic variable \"%s\" cannot be used in a procedural continuous "
+      "or nonblocking assignment");
+  rec(COMP_NON_CONSTANT_ATTRIBUTE, ERROR, COMP,
+      "Attribute value references non-constant \"%s\"");
   rec(COMP_NO_METHOD_FOR_TYPE, ERROR, COMP,
       "Function \"%exobj\" is not defined for variable %s",
       "%exloc type definition");
@@ -579,6 +586,12 @@ bool ErrorDefinition::init() {
   rec(UHDM_VARIABLE_ON_INOUT, ERROR, UHDM,
       "Variable \"%s\" connected to an inout terminal; only nets are allowed");
   rec(UHDM_NOT_ASSIGNABLE, ERROR, UHDM, "\"%s\" is not assignable");
+  rec(UHDM_INVALID_OPERAND_TYPE, ERROR, UHDM,
+      "Operand of type %s is not allowed for this operator");
+  rec(UHDM_VOID_FUNCTION_VALUE, ERROR, UHDM,
+      "Void function \"%s\" cannot be used as a value");
+  rec(UHDM_EVENT_AS_VALUE, ERROR, UHDM,
+      "Event \"%s\" cannot be used as a value");
   return true;
 }
 
