@@ -609,6 +609,7 @@ bool ErrorDefinition::init() {
       "\"%s\" is indexed with more indices than it has dimensions");
   rec(UHDM_PATTERN_TO_SCALAR, ERROR, UHDM,
       "Assignment pattern for scalar \"%s\"");
+  rec(UHDM_UNDEFINED_TYPE, ERROR, UHDM, "Undefined type \"%s\"");
   return true;
 }
 
