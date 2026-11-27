@@ -4978,6 +4978,25 @@ VectorOfany* CompileHelper::compileTfCallArguments(
   VectorOfany* arguments = s.MakeAnyVec();
   std::map<std::string, any*, std::less<>> args;
   std::vector<any*> argOrder;
+  // The grammar records an Argument node only for a slot that FOLLOWS a
+  // comma, or for a non-empty first slot: an empty FIRST argument
+  // (`f( , b)`, `f(,)`) leaves no node, and the list then starts at that
+  // first comma rather than at its first Argument.  Restore the slot so the
+  // remaining arguments keep their positions (LRM 13.5.3).
+  if (fC->Type(argumentNode) == VObjectType::paArgument &&
+      (fC->Line(argumentNode) != fC->Line(Arg_list_node) ||
+       fC->Column(argumentNode) != fC->Column(Arg_list_node))) {
+    constant* c = s.MakeConstant();
+    c->VpiValue("INT:0");
+    c->VpiDecompile("0");
+    c->VpiSize(64);
+    c->VpiConstType(vpiIntConst);
+    fC->populateCoreMembers(Arg_list_node, Arg_list_node, c);
+    c->VpiEndLineNo(c->VpiLineNo());
+    c->VpiEndColumnNo(c->VpiColumnNo());
+    c->VpiParent(call);
+    arguments->push_back(c);
+  }
   while (argumentNode) {
     NodeId argument = argumentNode;
     if (fC->Type(argument) == VObjectType::paArgument) {
