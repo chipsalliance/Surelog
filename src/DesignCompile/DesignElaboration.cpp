@@ -2491,7 +2491,7 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
           continue;
         }
         NodeId pos_data_type = parentFile->Child(expr);
-        if (isTypeParam && index < moduleParams.size() &&
+        if (isTypeParam &&
             parentFile->Type(pos_data_type) == VObjectType::paData_type) {
           // A POSITIONAL data-type actual (`cdc_2phase #(logic [31:0]) i_cdc`)
           // binds the type parameter at this position exactly as the named
@@ -2501,7 +2501,11 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
           // kept the parameter's DEFAULT type and every port declared over it
           // was elaborated at the default width.  A VALUE actual for a type
           // parameter (`Interface #(1)`, invalid) keeps the value path.
-          const std::string_view pname = moduleParams[index];
+          // A type parameter declared without the `parameter` keyword
+          // (`#(type T = int)`) is a Type_assignment, which moduleParams does
+          // not collect: past its end, name the position from `p`.
+          const std::string_view pname =
+              index < moduleParams.size() ? moduleParams[index] : p->getName();
           overridenParams.insert(pname);
           NodeId data_type = pos_data_type;
           NodeId type = parentFile->Child(data_type);
@@ -2526,8 +2530,14 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
         static constexpr std::string_view kOutOfRangeParamIndex =
             "OUT_OF_RANGE_PARAM_INDEX";
         std::string_view name = kOutOfRangeParamIndex;
+        // moduleParams collects Param_assignments only, so it is short of
+        // a type parameter declared without the `parameter` keyword
+        // (`#(type T = int)`): past its end, name the position from `p`.
         if (index < moduleParams.size()) {
           name = moduleParams[index];
+          overridenParams.insert(name);
+        } else if (p != nullptr) {
+          name = p->getName();
           overridenParams.insert(name);
         } else {
           if (parentFile->Type(expr) != VObjectType::paDelay2) {
