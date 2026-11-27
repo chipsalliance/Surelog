@@ -84,6 +84,29 @@
 namespace SURELOG {
 
 // Is this parameter declared with the `localparam` keyword?
+// A parameter-override actual that is a VALUE written with literals only
+// (`.T(10)`, `#(3)`): a Param_expression over a Mintypmax_expression that
+// names nothing.  A name may be a type (`.T(my_t)`), so any identifier keeps
+// the actual out of this test.
+static bool isLiteralValueActual(const FileContent* fC, NodeId expr) {
+  if (!expr || fC->Type(expr) != VObjectType::paParam_expression) return false;
+  NodeId mtm = fC->Child(expr);
+  if (!mtm || fC->Type(mtm) != VObjectType::paMintypmax_expression)
+    return false;
+  std::vector<NodeId> stack{mtm};
+  while (!stack.empty()) {
+    NodeId n = stack.back();
+    stack.pop_back();
+    const VObjectType t = fC->Type(n);
+    if (t == VObjectType::slStringConst || t == VObjectType::paData_type ||
+        t == VObjectType::paSystem_task_names ||
+        t == VObjectType::paDollar_keyword)
+      return false;
+    for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) stack.push_back(c);
+  }
+  return true;
+}
+
 static bool isLocalParamDecl(const Parameter* p) {
   const FileContent* fC = p->getFileContent();
   if (fC == nullptr) return false;
@@ -2260,6 +2283,17 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
           errors->addError(err);
           continue;
         }
+        // LRM 6.20.3: a type parameter takes a data type, never a value.
+        if (module) {
+          if (Parameter* p = module->getParameter(name);
+              p && p->isTypeParam() && isLiteralValueActual(parentFile, expr)) {
+            Location loc(parentFile->getFileId(expr), parentFile->Line(expr),
+                         parentFile->Column(expr), st->registerSymbol(name));
+            Error err(ErrorDefinition::ELAB_TYPE_PARAM_VALUE_OVERRIDE, loc);
+            errors->addError(err);
+            continue;
+          }
+        }
         m_helper.checkForLoops(true);
         UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
             parentDefinition, parentFile, expr, m_compileDesign, Reduce::Yes,
@@ -2444,6 +2478,17 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
         if (index < params.size()) {
           p = params.at(index);
           isTypeParam = p->isTypeParam();
+        }
+        // `moduleParams` lists value parameters only; `p` is the
+        // parameter at this position, type parameters included.
+        if (isTypeParam && isLiteralValueActual(parentFile, expr)) {
+          Location loc(parentFile->getFileId(expr), parentFile->Line(expr),
+                       parentFile->Column(expr),
+                       st->registerSymbol(p->getName()));
+          Error err(ErrorDefinition::ELAB_TYPE_PARAM_VALUE_OVERRIDE, loc);
+          errors->addError(err);
+          index++;
+          continue;
         }
         NodeId pos_data_type = parentFile->Child(expr);
         if (isTypeParam && index < moduleParams.size() &&

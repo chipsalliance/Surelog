@@ -489,6 +489,8 @@ bool ErrorDefinition::init() {
       "Parameter \"%s\" has no default value and is not overridden");
   rec(ELAB_UNRESOLVED_DEFPARAM, ERROR, ELAB,
       "Defparam target \"%s\" is not a parameter");
+  rec(ELAB_TYPE_PARAM_VALUE_OVERRIDE, ERROR, ELAB,
+      "Type parameter \"%s\" overridden with a value, not a data type");
   rec(ELAB_SYSTEM_FATAL, FATAL, ELAB, "Fatal elaboration %s");
   rec(ELAB_SYSTEM_ERROR, ERROR, ELAB, "Elaboration error %s");
   rec(ELAB_SYSTEM_WARNING, WARNING, ELAB, "Elaboration warning %s");
