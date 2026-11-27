@@ -382,6 +382,10 @@ bool ErrorDefinition::init() {
       "or nonblocking assignment");
   rec(COMP_NON_CONSTANT_ATTRIBUTE, ERROR, COMP,
       "Attribute value references non-constant \"%s\"");
+  rec(COMP_PARAMETER_NO_DEFAULT, ERROR, COMP,
+      "Parameter \"%s\" outside a parameter port list has no default value");
+  rec(COMP_LOOP_VAR_NOT_GENVAR, ERROR, COMP,
+      "Generate loop variable \"%s\" is not a genvar");
   rec(COMP_NO_METHOD_FOR_TYPE, ERROR, COMP,
       "Function \"%exobj\" is not defined for variable %s",
       "%exloc type definition");
@@ -613,6 +617,8 @@ bool ErrorDefinition::init() {
   rec(UHDM_ENUM_NAME_REDECLARED, ERROR, UHDM,
       "Enum constant \"%s\" has the name of another declaration in its "
       "scope");
+  rec(UHDM_STREAM_TOO_WIDE, ERROR, UHDM,
+      "Streaming operator source is wider than its target: %s");
   return true;
 }
 

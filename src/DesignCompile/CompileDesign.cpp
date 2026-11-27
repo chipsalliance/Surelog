@@ -1442,6 +1442,90 @@ void CompileDesign::checkDeclarationRules_() {
       stack.pop_back();
       for (NodeId c = fC->Child(id); c; c = fC->Sibling(c)) stack.push_back(c);
       const VObjectType t = fC->Type(id);
+      if (t == VObjectType::paParameter_declaration ||
+          t == VObjectType::paLocal_parameter_declaration) {
+        // Only a parameter of a `#(...)` port list may omit its default
+        // (LRM 6.20.1): `module a; parameter A; ...` is illegal.
+        bool inPortList = false;
+        for (NodeId up = fC->Parent(id); up; up = fC->Parent(up)) {
+          const VObjectType ut = fC->Type(up);
+          if (ut == VObjectType::paParameter_port_list ||
+              ut == VObjectType::paParameter_port_declaration) {
+            inPortList = true;
+            break;
+          }
+          if (ut == VObjectType::paModule_declaration ||
+              ut == VObjectType::paInterface_declaration ||
+              ut == VObjectType::paProgram_declaration ||
+              ut == VObjectType::paClass_declaration ||
+              ut == VObjectType::paPackage_declaration)
+            break;
+        }
+        NodeId list = fC->Child(id);
+        while (list &&
+               fC->Type(list) != VObjectType::paList_of_param_assignments)
+          list = fC->Sibling(list);
+        if (!inPortList && list) {
+          for (NodeId pa = fC->Child(list); pa; pa = fC->Sibling(pa)) {
+            if (fC->Type(pa) != VObjectType::paParam_assignment) continue;
+            NodeId name = fC->Child(pa);
+            NodeId value = fC->Sibling(name);
+            while (value &&
+                   fC->Type(value) == VObjectType::paUnpacked_dimension)
+              value = fC->Sibling(value);
+            if (name && !value)
+              report(ErrorDefinition::COMP_PARAMETER_NO_DEFAULT, fC, name,
+                     fC->SymName(name));
+          }
+        }
+      }
+      if (t == VObjectType::paModule_declaration ||
+          t == VObjectType::paInterface_declaration ||
+          t == VObjectType::paProgram_declaration) {
+        // A generate loop iterates a genvar (LRM 27.4): `integer i;
+        // for (i = 0; ...) begin : g` is illegal.  Genvars are collected over
+        // the whole design element, a permissive superset of their scopes.
+        // Only a name declared as a variable or net is reported: an
+        // UNDECLARED loop index is accepted as an implicit genvar by
+        // Verilator and read_verilog, and real RTL relies on it.
+        Names genvars;
+        Names others;
+        std::vector<NodeId> loops;
+        std::vector<NodeId> st{id};
+        while (!st.empty()) {
+          NodeId n = st.back();
+          st.pop_back();
+          const VObjectType nt = fC->Type(n);
+          if (nt == VObjectType::paGenvar_declaration) {
+            NodeId ids = fC->Child(n);
+            for (NodeId g = ids ? fC->Child(ids) : InvalidNodeId; g;
+                 g = fC->Sibling(g))
+              if (fC->Type(g) == VObjectType::slStringConst)
+                genvars.emplace(fC->SymName(g));
+          } else if (nt == VObjectType::paGenvar_initialization) {
+            loops.push_back(n);
+          } else if (nt == VObjectType::paVariable_decl_assignment ||
+                     nt == VObjectType::paNet_decl_assignment) {
+            NodeId v = fC->Child(n);
+            if (v && fC->Type(v) == VObjectType::slStringConst)
+              others.emplace(fC->SymName(v));
+          }
+          for (NodeId c = fC->Child(n); c; c = fC->Sibling(c)) st.push_back(c);
+        }
+        for (NodeId init : loops) {
+          NodeId name = fC->Child(init);
+          if (!name || fC->Type(name) != VObjectType::slStringConst) continue;
+          // `for (genvar k = 0; ...)`: the keyword puts the initialization
+          // ahead of the name.
+          if (fC->Line(init) != fC->Line(name) ||
+              fC->Column(init) != fC->Column(name))
+            continue;
+          if (genvars.count(fC->SymName(name)) == 0 &&
+              others.count(fC->SymName(name)) != 0)
+            report(ErrorDefinition::COMP_LOOP_VAR_NOT_GENVAR, fC, name,
+                   fC->SymName(name));
+        }
+      }
       if (t == VObjectType::paClass_method) {
         NodeId decl = fC->Child(id);
         while (decl && fC->Type(decl) != VObjectType::paTask_declaration &&

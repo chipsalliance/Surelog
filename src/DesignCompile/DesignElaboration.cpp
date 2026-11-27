@@ -107,6 +107,26 @@ static bool isLiteralValueActual(const FileContent* fC, NodeId expr) {
   return true;
 }
 
+// `module a #(parameter A = 1);`: the module header declares at least one
+// parameter in a `#(...)` list.
+static bool hasParameterPortList(const FileContent* fC, NodeId module) {
+  for (NodeId h = fC->Child(module); h; h = fC->Sibling(h)) {
+    const VObjectType ht = fC->Type(h);
+    if (ht != VObjectType::paModule_ansi_header &&
+        ht != VObjectType::paModule_nonansi_header)
+      continue;
+    for (NodeId l = fC->Child(h); l; l = fC->Sibling(l)) {
+      if (fC->Type(l) != VObjectType::paParameter_port_list) continue;
+      for (NodeId d = fC->Child(l); d; d = fC->Sibling(d))
+        if (fC->Type(d) == VObjectType::paParameter_port_declaration ||
+            fC->Type(d) == VObjectType::paParam_assignment ||
+            fC->Type(d) == VObjectType::paList_of_param_assignments)
+          return true;
+    }
+  }
+  return false;
+}
+
 static bool isLocalParamDecl(const Parameter* p) {
   const FileContent* fC = p->getFileContent();
   if (fC == nullptr) return false;
@@ -149,9 +169,13 @@ static bool isLocalParamDecl(const Parameter* p) {
       case VObjectType::paGenerate_interface_named_block:
         return parameterKeyword;
       case VObjectType::paParameter_port_list:
-      case VObjectType::paModule_item:
-      case VObjectType::paModule_declaration:
         return false;
+      case VObjectType::paModule_item:
+        break;
+      case VObjectType::paModule_declaration:
+        // A `parameter` in the body of a module that has a parameter port list
+        // is a localparam (LRM 6.20.1).
+        return parameterKeyword && hasParameterPortList(fC, n);
       default:
         break;
     }
@@ -2261,9 +2285,8 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
           // A localparam cannot be overridden (LRM 6.20.4): `#(.A(10))` on a
           // module whose A is declared `localparam` -- in the body or in the
           // parameter port list (`#(parameter A = 1, localparam C = 3, D = 4)`
-          // makes D local too).  A body `parameter` of a module with a port
-          // list is ALSO local by the LRM but is overridden in practice, so
-          // only the explicit keyword is reported.
+          // makes D local too), or declared `parameter` in the body of a
+          // module that has a parameter port list (LRM 6.20.1).
           if (isLocalParamDecl(p)) {
             Location loc(parentFile->getFileId(paramAssign),
                          parentFile->Line(paramAssign),
