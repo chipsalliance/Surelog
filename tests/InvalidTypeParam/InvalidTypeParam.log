@@ -65,34 +65,30 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv:5:1: Compile module "work@top".
 [INF:EL0526] Design Elaboration...
 [NTE:EL0503] ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv:5:1: Top level module "work@top".
+[ERR:EL0556] ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv:6:17: Type parameter "P" overridden with a value, not a data type.
+[ERR:EL0554] ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv:2:20: Parameter "P" has no default value and is not overridden.
 [NTE:EL0508] Nb Top level modules: 1.
 [NTE:EL0509] Max instance depth: 1.
 [NTE:EL0510] Nb instances: 1.
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               2
 design                                                 1
-integer_typespec                                       1
-integer_var                                            1
 interface_inst                                         3
 logic_net                                              1
-module_inst                                            3
+logic_var                                              1
+module_inst                                            2
 ref_module                                             1
-ref_typespec                                           1
 type_parameter                                         1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               2
 design                                                 1
-integer_typespec                                       1
-integer_var                                            1
 interface_inst                                         3
 logic_net                                              1
-module_inst                                            3
+logic_var                                              1
+module_inst                                            2
 ref_module                                             1
-ref_typespec                                           1
 type_parameter                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InvalidTypeParam/slpp_all/surelog.uhdm ...
@@ -150,16 +146,9 @@ design: (work@top)
     |vpiName:intf
     |vpiFullName:work@top.intf
     |vpiVariables:
-    \_integer_var: (work@top.intf.x), line:3:7, endln:3:8
+    \_logic_var: (work@top.intf.x), line:3:7, endln:3:8
       |vpiParent:
       \_interface_inst: work@Interface (work@top.intf), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:6:5, endln:6:27
-      |vpiTypespec:
-      \_ref_typespec: (work@top.intf.x)
-        |vpiParent:
-        \_integer_var: (work@top.intf.x), line:3:7, endln:3:8
-        |vpiFullName:work@top.intf.x
-        |vpiActual:
-        \_integer_typespec: , line:3:5, endln:3:6
       |vpiName:x
       |vpiFullName:work@top.intf.x
       |vpiVisibility:1
@@ -170,15 +159,10 @@ design: (work@top)
     |vpiDefLineNo:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:5:1, endln:7:10
-\_weaklyReferenced:
-\_integer_typespec: , line:3:5, endln:3:6
-  |vpiParent:
-  \_integer_var: (work@top.intf.x), line:3:7, endln:3:8
-  |UINT:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 2
 [   NOTE] : 5
 
