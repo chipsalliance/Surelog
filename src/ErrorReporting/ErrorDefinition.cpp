@@ -610,6 +610,9 @@ bool ErrorDefinition::init() {
   rec(UHDM_PATTERN_TO_SCALAR, ERROR, UHDM,
       "Assignment pattern for scalar \"%s\"");
   rec(UHDM_UNDEFINED_TYPE, ERROR, UHDM, "Undefined type \"%s\"");
+  rec(UHDM_ENUM_NAME_REDECLARED, ERROR, UHDM,
+      "Enum constant \"%s\" has the name of another declaration in its "
+      "scope");
   return true;
 }
 
