@@ -138,6 +138,18 @@ bool CompileFileContent::collectObjects_() {
         }
         break;
       }
+      case VObjectType::paNet_declaration: {
+        // `typedef logic [3:0] T; T x;` at file scope parses as a net
+        // declaration of a user type, like `T x;` in a module body.  It is
+        // a compilation-unit ($unit) declaration all the same, which the
+        // modules that reference it import (CompileModule::
+        // importUnitScopeSignals_).
+        if (m_declOnly) {
+          m_helper.compileNetDeclaration(m_fileContent, fC, id, false,
+                                         m_compileDesign, nullptr);
+        }
+        break;
+      }
       case VObjectType::paBind_directive: {
         if (!m_declOnly) {
           m_helper.compileBindStmt(m_fileContent, fC, id, m_compileDesign,

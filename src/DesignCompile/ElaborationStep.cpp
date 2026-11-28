@@ -1517,7 +1517,18 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
         }
       }
       if (def == nullptr) {
-        type = parentComponent->getDataType(interfName);
+        // A compilation-unit ($unit) signal a module imported names its
+        // type in the $unit scope, not in the module's (which may declare a
+        // type of the same name).
+        FileContent* sigFile =
+            const_cast<FileContent*>(signal->getFileContent());
+        for (Signal* unitSig : sigFile->getSignals()) {
+          if (unitSig == signal) {
+            type = sigFile->getDataType(interfName);
+            break;
+          }
+        }
+        if (type == nullptr) type = parentComponent->getDataType(interfName);
         if (type == nullptr) {
           if (!m_compileDesign->getCompiler()
                    ->getCommandLineParser()

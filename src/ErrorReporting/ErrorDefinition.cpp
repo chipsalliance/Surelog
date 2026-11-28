@@ -487,7 +487,7 @@ bool ErrorDefinition::init() {
   rec(ELAB_INVALID_CASE_STMT_VALUE, ERROR, ELAB,
       "Invalid generate case stmt value");
   rec(ELAB_UNKNOWN_PORT, ERROR, ELAB, "Unknown port \"%s\"");
-  rec(ELAB_TOP_PARAMETER_NO_DEFAULT, ERROR, ELAB,
+  rec(ELAB_TOP_PARAMETER_NO_DEFAULT, WARNING, ELAB,
       "Top-level parameter with no default value \"%s\"");
   rec(ELAB_PARAMETER_NO_VALUE, ERROR, ELAB,
       "Parameter \"%s\" has no default value and is not overridden");

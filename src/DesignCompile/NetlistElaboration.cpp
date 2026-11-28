@@ -2207,13 +2207,28 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     isNet = true;
   }
 
+  // A compilation-unit ($unit) signal a module imported
+  // (CompileModule::importUnitScopeSignals_) names its type in the $unit
+  // scope: `typedef logic [3:0] T; T x; module m; typedef byte T; ...`
+  // gives `x` the file-scope `T`, not the module's.
+  // A $unit type cannot depend on the module's parameters, so it is not
+  // looked up through the instance either.
+  DesignComponent* tsComp = comp;
+  ModuleInstance* tsInst = child;
+  for (Signal* unitSig : const_cast<FileContent*>(fC)->getSignals()) {
+    if (unitSig == sig) {
+      tsComp = const_cast<FileContent*>(fC);
+      tsInst = nullptr;
+      break;
+    }
+  }
   NodeId typeSpecId = sig->getTypeSpecId();
   if (typeSpecId) {
     auto itr = tscache.find(typeSpecId);
     if (itr == tscache.end()) {
       m_helper.checkForLoops(true);
-      tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
-                                     reduce, nullptr, child, true);
+      tps = m_helper.compileTypespec(tsComp, fC, typeSpecId, m_compileDesign,
+                                     reduce, nullptr, tsInst, true);
       m_helper.checkForLoops(false);
       tscache.emplace(typeSpecId, tps);
     } else {
@@ -2225,9 +2240,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       auto itr = tscache.find(sig->getInterfaceTypeNameId());
       if (itr == tscache.end()) {
         m_helper.checkForLoops(true);
-        tps = m_helper.compileTypespec(comp, fC, sig->getInterfaceTypeNameId(),
-                                       m_compileDesign, reduce, nullptr, child,
-                                       true);
+        tps = m_helper.compileTypespec(
+            tsComp, fC, sig->getInterfaceTypeNameId(), m_compileDesign, reduce,
+            nullptr, tsInst, true);
         m_helper.checkForLoops(false);
         tscache.emplace(sig->getInterfaceTypeNameId(), tps);
       } else {
